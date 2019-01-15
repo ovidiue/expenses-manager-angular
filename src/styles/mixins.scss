@@ -1,3 +1,9 @@
 @mixin bradius() {
   border-radius: $border-radius;
 }
+
+@mixin titleSetup() {
+  background: $titles-background;
+  padding: $page-title-padding;
+  @include bradius();
+}

@@ -1,0 +1,8 @@
+.page-title {
+  background: $titles-background;
+  @include titleSetup();
+
+  h3 {
+    color: $color-white;
+  }
+}
