@@ -6,6 +6,7 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { RatesComponent } from './rates/rates.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { TagsComponent } from './tags/tags.component';
+import {AppRoutingModule} from './app-routing/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TagsComponent } from './tags/tags.component';
     TagsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
