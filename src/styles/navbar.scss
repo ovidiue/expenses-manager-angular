@@ -1,0 +1,40 @@
+$active-background: orange;
+$active-background-hover: darken($active-background, 20%);
+$hover-background: lighten(gray, 20%);
+$active-color: white;
+$border-radius: 5px;
+$transition: .2s;
+
+.navbar {
+  .navbar-collapse {
+    .navbar-nav {
+      .nav-item {
+        &.active {
+          background: $active-background;
+          border-radius: 5px;
+          transition: $transition;
+
+          &:hover {
+            background: $active-background-hover;
+          }
+
+          a.nav-link {
+            color: $active-color;
+            transition: $transition;
+          }
+        }
+
+        &:hover {
+          background: $hover-background;
+          transition: $transition;
+          @include border-radius();
+
+          a.nav-link {
+            color: $active-color;
+          }
+        }
+      }
+
+    }
+  }
+}
