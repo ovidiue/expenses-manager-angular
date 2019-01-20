@@ -25,4 +25,11 @@ export class CategoryServiceService {
     const url = this.categoriesUrl + '/save';
     return this.http.post(url, category, httpOptions).toPromise().then().catch(err => console.log('err', err));
   }
+
+  deleteCategories(categoryIds: number[]): Promise<number> {
+    const urlSearchParams: URLSearchParams = new URLSearchParams();
+    categoryIds.forEach(id => urlSearchParams.append('', id.toString()));
+    const url = this.categoriesUrl + '/delete';
+    return this.http.post(url, categoryIds).toPromise().then().catch(err => console.log(err));
+  }
 }
