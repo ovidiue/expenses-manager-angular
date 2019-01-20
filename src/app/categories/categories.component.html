@@ -50,7 +50,7 @@
               <td>{{cat.id}}</td>
               <td>{{cat.name}}</td>
               <td>{{cat.description}}</td>
-              <td>{{cat.color}}</td>
+              <td [ngStyle]="{'background':cat.color}">{{cat.color}}</td>
             </tr>
           </ng-template>
         </p-table>
