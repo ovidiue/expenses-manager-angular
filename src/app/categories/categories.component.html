@@ -18,9 +18,12 @@
 
       </div>
       <div class="col">
-        <p-table [value]="categories">
+        <p-table [value]="categories" [paginator]="true" [rows]="10" [(selection)]="selectedCat">
           <ng-template pTemplate="header">
             <tr>
+              <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
               <th>Id</th>
               <th>Name</th>
               <th>Description</th>
@@ -28,7 +31,10 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-cat>
-            <tr>
+            <tr  [pSelectableRow]="cat">
+              <td>
+                <p-tableCheckbox [value]="cat"></p-tableCheckbox>
+              </td>
               <td>{{cat.id}}</td>
               <td>{{cat.name}}</td>
               <td>{{cat.description}}</td>
