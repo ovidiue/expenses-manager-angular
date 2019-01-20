@@ -14,6 +14,7 @@ import {ButtonModule} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
 import {ColorPickerModule, ConfirmDialogModule, MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/primeng';
 import {CategoryDetailComponent} from './category-detail/category-detail.component';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {CategoryDetailComponent} from './category-detail/category-detail.compone
     AppRoutingModule,
     HttpClientModule,
     ColorPickerModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

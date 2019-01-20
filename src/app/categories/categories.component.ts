@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
 import {CategoryServiceService} from '../category-service.service';
-import {ConfirmationService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, MessageService]
 })
 export class CategoriesComponent implements OnInit {
 
@@ -15,7 +15,8 @@ export class CategoriesComponent implements OnInit {
   selectedCat: Category[] = [];
 
   constructor(private categoryService: CategoryServiceService,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -41,6 +42,7 @@ export class CategoriesComponent implements OnInit {
             const index = this.categories.findIndex(cat => cat.id === id);
             this.categories.splice(index, 1);
           });
+          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Succesfully deleted categories...'});
         })
         .catch(err => alert('something went wrong' + err));
       }
