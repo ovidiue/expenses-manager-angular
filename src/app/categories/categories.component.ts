@@ -25,9 +25,5 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  handleClick(){
-    console.log('clicked: ');
-
-  }
 
 }
