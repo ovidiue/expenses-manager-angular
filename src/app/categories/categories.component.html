@@ -3,7 +3,39 @@
     <h3>Categories</h3>
   </div>
 
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"></table>
+  <div class="row">
+    <div class="table-wrapper mt-5 mb-5">
+      <div class="col">
+        <p-button type="button"
+                label="Add Category"
+                class="ui-button-raised float-right mb-1"
+                (click)="handleClick($event)">
+        </p-button>
+      </div>
+      <div class="col">
+        <p-table [value]="categories">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Color</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-cat>
+            <tr>
+              <td>{{cat.id}}</td>
+              <td>{{cat.name}}</td>
+              <td>{{cat.description}}</td>
+              <td>{{cat.color}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+    </div>
+  </div>
+
 
 </div>
 
