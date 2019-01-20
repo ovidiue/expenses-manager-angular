@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
+import {MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,9 @@ import {FormsModule} from '@angular/forms';
     BrowserAnimationsModule,
     TableModule,
     FormsModule,
+    ToolbarModule,
+    ScrollPanelModule,
+    MultiSelectModule,
     ButtonModule,
     AppRoutingModule,
     HttpClientModule
