@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
 import {Location} from '@angular/common';
+import {CategoryServiceService} from '../category-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-category-detail',
@@ -9,9 +11,9 @@ import {Location} from '@angular/common';
 })
 export class CategoryDetailComponent implements OnInit {
   pageTitle: string = this.determineTitle();
-  category: Category;
+  category = new Category();
 
-  constructor(private location: Location) {
+  constructor(private location: Location, private router: Router, private categoryService: CategoryServiceService) {
   }
 
   ngOnInit() {
@@ -23,5 +25,11 @@ export class CategoryDetailComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  onSubmit() {
+    console.log(this.category);
+    this.categoryService.saveCategory(this.category);
+    this.router.navigate(['/categories']);
   }
 }

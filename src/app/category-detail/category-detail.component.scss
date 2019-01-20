@@ -1,3 +1,16 @@
 .form-wrapper {
   margin: 0 20%;
+
+  p-colorPicker {
+    display: block;
+    width: 100%;
+
+    .ui-colorpicker-overlay {
+      width: 100% !important;
+
+      .ui-inputtext.ui-colorpicker-preview {
+        width: 100% !important;
+      }
+    }
+  }
 }

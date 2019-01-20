@@ -20,4 +20,9 @@ export class CategoryServiceService {
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoriesUrl);
   }
+
+  saveCategory(category: Category): Promise<Category> {
+    const url = this.categoriesUrl + '/save';
+    return this.http.post(url, category, httpOptions).toPromise().then().catch(err => console.log('err', err));
+  }
 }
