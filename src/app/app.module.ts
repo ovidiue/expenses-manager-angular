@@ -13,6 +13,7 @@ import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
 import {MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/primeng';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/prime
     ExpensesComponent,
     RatesComponent,
     CategoriesComponent,
-    TagsComponent
+    TagsComponent,
+    CategoryDetailComponent
   ],
   imports: [
     BrowserModule,
