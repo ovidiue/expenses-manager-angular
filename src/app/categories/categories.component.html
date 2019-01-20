@@ -4,10 +4,22 @@
   </div>
 
   <div class="row">
+
+
     <div class="table-wrapper mt-5 mb-5">
       <div class="col">
         <p-toolbar>
           <div class="ui-toolbar-group-right">
+            <p-confirmDialog [style]="{width: '425px'}"
+                             [acceptLabel]="'Delete'"
+                             [rejectLabel]="'Cancel'">
+            </p-confirmDialog>
+            <button type="button"
+                    (click)="confirmDeletion()"
+                    pButton
+                    [disabled]="!selectedCat.length"
+                    class="ui-button-raised ui-button-danger"
+                    label="Delete"></button>
             <button pButton type="button"
                     routerLink="add"
                     label="Add Category"
@@ -31,7 +43,7 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-cat>
-            <tr  [pSelectableRow]="cat">
+            <tr [pSelectableRow]="cat">
               <td>
                 <p-tableCheckbox [value]="cat"></p-tableCheckbox>
               </td>
@@ -49,4 +61,5 @@
 
 
 </div>
+
 

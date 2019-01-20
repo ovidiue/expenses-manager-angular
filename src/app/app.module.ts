@@ -12,8 +12,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
-import {ColorPickerModule, MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/primeng';
-import { CategoryDetailComponent } from './category-detail/category-detail.component';
+import {ColorPickerModule, ConfirmDialogModule, MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/primeng';
+import {CategoryDetailComponent} from './category-detail/category-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
     ButtonModule,
     AppRoutingModule,
     HttpClientModule,
-    ColorPickerModule
+    ColorPickerModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
