@@ -49,4 +49,12 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
+  onEdit(cat: Category): void {
+    console.log('edit', cat);
+  }
+
+  onDelete(cat: Category): void {
+    console.log('delete', cat);
+  }
+
 }

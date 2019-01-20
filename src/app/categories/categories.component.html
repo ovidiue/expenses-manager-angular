@@ -40,6 +40,7 @@
               <th>Name</th>
               <th>Description</th>
               <th>Color</th>
+              <th>Actions</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-cat>
@@ -51,6 +52,20 @@
               <td>{{cat.name}}</td>
               <td>{{cat.description}}</td>
               <td [ngStyle]="{'background':cat.color}">{{cat.color}}</td>
+              <td class="text-center">
+                <button pButton
+                        class="ui-button-info"
+                        type="button"
+                        (click)="onEdit(cat)"
+                        icon="pi pi-pencil"
+                        iconPos="left"></button>
+                <button pButton
+                        class="ui-button-danger"
+                        type="button"
+                        (click)="onDelete(cat)"
+                        icon="pi pi-trash"
+                        iconPos="left"></button>
+              </td>
             </tr>
           </ng-template>
         </p-table>
