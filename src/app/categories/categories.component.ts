@@ -55,6 +55,15 @@ export class CategoriesComponent implements OnInit {
 
   onDelete(cat: Category): void {
     console.log('delete', cat);
+    this.confirmationService.confirm({
+      message: `Are you sure you want to delete ${cat.name} ?`,
+      accept: () => {
+        this.categoryService.deleteCategories([cat.id])
+        .then(resp => {
+          this.categories = this.categories.filter(el => el.id !== cat.id);
+        });
+      }
+    });
   }
 
 }

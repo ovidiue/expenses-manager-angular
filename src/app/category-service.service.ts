@@ -21,15 +21,15 @@ export class CategoryServiceService {
     return this.http.get<Category[]>(this.categoriesUrl);
   }
 
-  saveCategory(category: Category): Promise<Category> {
+  saveCategory(category: Category): Promise<any> {
     const url = this.categoriesUrl + '/save';
-    return this.http.post<Promise<Category>>(url, category, httpOptions).toPromise().then().catch(err => console.log('err', err));
+    return this.http.post(url, category, httpOptions).toPromise().then().catch(err => console.log('err', err));
   }
 
-  deleteCategories(categoryIds: number[]): Promise<number> {
+  deleteCategories(categoryIds: number[]): Promise<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     categoryIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.categoriesUrl + '/delete';
-    return this.http.post<Promise<number>>(url, categoryIds).toPromise().then().catch(err => console.log(err));
+    return this.http.post(url, categoryIds).toPromise().then().catch(err => console.log(err));
   }
 }
