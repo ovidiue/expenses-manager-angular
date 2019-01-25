@@ -10,8 +10,8 @@ import {Location} from '@angular/common';
   styleUrls: ['./tag-detail.component.scss']
 })
 export class TagDetailComponent implements OnInit {
-  pageTitle: string = this.determineTitle();
-  category = new Tag();
+  pageTitle: string;
+  tag = new Tag();
   id: number;
 
   constructor(private location: Location,
@@ -24,7 +24,7 @@ export class TagDetailComponent implements OnInit {
     this.id = <any>this.route.snapshot.paramMap.get('id');
     this.pageTitle = this.determineTitle();
     console.log('id', this.id);
-    this.tagService.getTag(this.id).then(cat => this.category = cat).catch(err => console.error(err));
+    this.tagService.getTag(this.id).then(tag => this.tag = tag).catch(err => console.error(err));
   }
 
   determineTitle(): string {
@@ -40,8 +40,8 @@ export class TagDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.category);
-    this.tagService.saveTag(this.category);
+    console.log(this.tag);
+    this.tagService.saveTag(this.tag);
     this.router.navigate(['/tags']);
   }
 
