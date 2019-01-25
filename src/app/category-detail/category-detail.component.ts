@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
 import {Location} from '@angular/common';
-import {CategoryServiceService} from '../category-service.service';
+import {CategoryService} from '../category-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class CategoryDetailComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
-              private categoryService: CategoryServiceService,
+              private categoryService: CategoryService,
               private route: ActivatedRoute) {
   }
 

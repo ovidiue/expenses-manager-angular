@@ -11,7 +11,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryServiceService {
+export class CategoryService {
   private categoriesUrl = 'http://localhost:8080/categories';
 
   constructor(private http: HttpClient) {

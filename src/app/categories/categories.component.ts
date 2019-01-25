@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
-import {CategoryServiceService} from '../category-service.service';
+import {CategoryService} from '../category-service.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 
 @Component({
@@ -14,7 +14,7 @@ export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
   selectedCat: Category[] = [];
 
-  constructor(private categoryService: CategoryServiceService,
+  constructor(private categoryService: CategoryService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
