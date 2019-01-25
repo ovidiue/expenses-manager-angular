@@ -10,9 +10,20 @@
       <div class="col">
         <p-toolbar>
           <div class="ui-toolbar-group-right">
-            <p-confirmDialog [style]="{width: '425px'}"
+            <p-confirmDialog #cd
+                             [style]="{width: '425px'}"
                              [acceptLabel]="'Delete'"
+                             [acceptButtonStyleClass]="'ui-button-danger'"
+                             [rejectButtonStyleClass]="'ui-button-secondary'"
+                             [rtl]="true"
+                             [header]="'Confirm DELETE'"
                              [rejectLabel]="'Cancel'">
+              <p-footer>
+                <button type="button" [class]="'ui-button-secondary float-left'" pButton icon="pi pi-times"
+                        label="Cancel" (click)="cd.reject()"></button>
+                <button type="button" [class]="'ui-button-danger'" pButton icon="pi pi-check"
+                        label="Delete" (click)="cd.accept()"></button>
+              </p-footer>
             </p-confirmDialog>
             <button type="button"
                     (click)="confirmDeletion()"
