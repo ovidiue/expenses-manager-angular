@@ -5,15 +5,18 @@ import {RatesComponent} from '../rates/rates.component';
 import {CategoriesComponent} from '../categories/categories.component';
 import {TagsComponent} from '../tags/tags.component';
 import {CategoryDetailComponent} from '../category-detail/category-detail.component';
+import {TagDetailComponent} from '../tag-detail/tag-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},
   {path: 'expenses', component: ExpensesComponent},
   {path: 'rates', component: RatesComponent},
   {path: 'categories', component: CategoriesComponent},
-  {path: 'tags', component: TagsComponent},
   {path: 'categories/add', component: CategoryDetailComponent},
-  {path: 'categories/add/:id', component: CategoryDetailComponent}
+  {path: 'categories/add/:id', component: CategoryDetailComponent},
+  {path: 'tags', component: TagsComponent},
+  {path: 'tags/add', component: TagDetailComponent},
+  {path: 'tags/add/:id', component: TagDetailComponent},
 ];
 
 @NgModule({
