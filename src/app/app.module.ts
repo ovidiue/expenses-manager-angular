@@ -15,6 +15,7 @@ import {FormsModule} from '@angular/forms';
 import {ColorPickerModule, ConfirmDialogModule, MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/primeng';
 import {CategoryDetailComponent} from './category-detail/category-detail.component';
 import {ToastModule} from 'primeng/toast';
+import { TagDetailComponent } from './tag-detail/tag-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {ToastModule} from 'primeng/toast';
     RatesComponent,
     CategoriesComponent,
     TagsComponent,
-    CategoryDetailComponent
+    CategoryDetailComponent,
+    TagDetailComponent
   ],
   imports: [
     BrowserModule,
