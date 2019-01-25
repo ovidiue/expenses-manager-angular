@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
 import {Location} from '@angular/common';
 import {CategoryServiceService} from '../category-service.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-category-detail',
@@ -12,15 +12,27 @@ import {Router} from '@angular/router';
 export class CategoryDetailComponent implements OnInit {
   pageTitle: string = this.determineTitle();
   category = new Category();
+  id: number;
 
-  constructor(private location: Location, private router: Router, private categoryService: CategoryServiceService) {
+  constructor(private location: Location,
+              private router: Router,
+              private categoryService: CategoryServiceService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.id = <any>this.route.snapshot.paramMap.get('id');
+    this.pageTitle = this.determineTitle();
+    console.log('id', this.id);
+    this.categoryService.getCategory(this.id).then(cat => this.category = cat).catch(err => console.error(err));
   }
 
   determineTitle(): string {
-    return 'Add Category';
+    if (this.id) {
+      return 'Edit Category';
+    } else {
+      return 'Add Category';
+    }
   }
 
   goBack() {

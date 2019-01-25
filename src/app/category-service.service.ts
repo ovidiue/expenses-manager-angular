@@ -32,4 +32,10 @@ export class CategoryServiceService {
     const url = this.categoriesUrl + '/delete';
     return this.http.post(url, categoryIds).toPromise().then().catch(err => console.log(err));
   }
+
+  getCategory(catId: number): Promise<any> {
+    const url = this.categoriesUrl + '/' + catId;
+    return this.http.get<Category>(url).toPromise();
+  }
+
 }
