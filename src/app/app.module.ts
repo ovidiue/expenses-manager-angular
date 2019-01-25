@@ -12,7 +12,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
-import {ColorPickerModule, ConfirmDialogModule, MultiSelectModule, ScrollPanelModule, ToolbarModule} from 'primeng/primeng';
+import {
+  ColorPickerModule, ConfirmDialogModule, MultiSelectModule, OverlayPanelModule, ProgressSpinnerModule, ScrollPanelModule,
+  ToolbarModule
+} from 'primeng/primeng';
 import {CategoryDetailComponent} from './category-detail/category-detail.component';
 import {ToastModule} from 'primeng/toast';
 import { TagDetailComponent } from './tag-detail/tag-detail.component';
@@ -40,7 +43,9 @@ import { TagDetailComponent } from './tag-detail/tag-detail.component';
     HttpClientModule,
     ColorPickerModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    OverlayPanelModule,
+    ProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

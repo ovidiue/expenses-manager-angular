@@ -13,6 +13,7 @@ export class CategoriesComponent implements OnInit {
 
   categories: Category[] = [];
   selectedCat: Category[] = [];
+  loading = true;
 
   constructor(private categoryService: CategoryService,
               private confirmationService: ConfirmationService,
@@ -23,10 +24,16 @@ export class CategoriesComponent implements OnInit {
     this.getCategories();
   }
 
+
   getCategories(): void {
+    const self = this;
     this.categoryService.getCategories().subscribe(categories => {
       console.log('categories: ', categories);
       this.categories = categories;
+      setTimeout(function () {
+        self.loading = false;
+      }, 1000);
+
     });
   }
 

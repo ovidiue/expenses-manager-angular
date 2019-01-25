@@ -1,3 +1,10 @@
+<div id="overlay" *ngIf="loading===true">
+  <div id="overlayText">
+    Loading...
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</div>
+
 <div class="container">
   <div class="page-title">
     <h3>Categories</h3>
@@ -19,7 +26,8 @@
                              [header]="'Confirm DELETE'"
                              [rejectLabel]="'Cancel'">
               <p-footer>
-                <button type="button" [class]="'ui-button-secondary float-left'" pButton icon="pi pi-times"
+                <button type="button" [class]="'ui-button-secondary float-left'" pButton
+                        icon="pi pi-times"
                         label="Cancel" (click)="cd.reject()"></button>
                 <button type="button" [class]="'ui-button-danger'" pButton icon="pi pi-check"
                         label="Delete" (click)="cd.accept()"></button>
