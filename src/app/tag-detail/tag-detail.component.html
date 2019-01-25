@@ -28,13 +28,16 @@
           </div>
 
           <div class="form-group">
-            <label>Color</label>
+            <label class="block">Color</label>
             <p-colorPicker class="test"
                            [(ngModel)]="tag.color"
+                           [inline]="true"
                            name="color"
                            value="selectedColor">
             </p-colorPicker>
-            <div [ngStyle]="{'background':tag.color, 'width':'100%', 'height':'40px'}"></div>
+            <div class="preview-block"
+                 [ngStyle]="{'background':tag.color}">
+            </div>
           </div>
           <hr>
           <div class="col">
