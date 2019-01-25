@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container fadeIn animated">
   <div class="page-title">
     <h3>Categories</h3>
   </div>
@@ -15,8 +15,9 @@
                              [acceptLabel]="'Delete'"
                              [acceptButtonStyleClass]="'ui-button-danger'"
                              [rejectButtonStyleClass]="'ui-button-secondary'"
-                             [rtl]="true"
                              [header]="'Confirm DELETE'"
+                             [styleClass]="'zoomIn animated'"
+                             [transitionOptions]="'0ms'"
                              [rejectLabel]="'Cancel'">
               <p-footer>
                 <button type="button" [class]="'ui-button-secondary float-left'" pButton icon="pi pi-times"
