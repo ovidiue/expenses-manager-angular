@@ -12,7 +12,8 @@ const routes: Routes = [
   {path: 'rates', component: RatesComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'tags', component: TagsComponent},
-  {path: 'categories/add', component: CategoryDetailComponent}
+  {path: 'categories/add', component: CategoryDetailComponent},
+  {path: 'categories/add/:id', component: CategoryDetailComponent}
 ];
 
 @NgModule({
