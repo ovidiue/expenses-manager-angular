@@ -1,5 +1,3 @@
-import {Tag} from './tag';
-
 export class Expense {
   title: string;
   description: string;

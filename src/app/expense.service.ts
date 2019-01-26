@@ -20,16 +20,16 @@ export class ExpenseService {
     return this.http.get<Expense[]>(this.expensesBaseUrl);
   }
 
-  saveExpense(category: Expense): Promise<any> {
+  saveExpense(expense: Expense): Promise<any> {
     const url = this.expensesBaseUrl + '/save';
-    return this.http.post(url, category, httpOptions).toPromise().then().catch(err => console.log('err', err));
+    return this.http.post(url, expense, httpOptions).toPromise();
   }
 
   deleteExpenses(expenseIds: number[]): Promise<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     expenseIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.expensesBaseUrl + '/delete';
-    return this.http.post(url, expenseIds).toPromise().then().catch(err => console.log(err));
+    return this.http.post(url, expenseIds).toPromise();
   }
 
   getExpense(exId: number): Promise<any> {

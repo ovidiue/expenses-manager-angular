@@ -23,9 +23,9 @@ export class ExpensesComponent implements OnInit {
   }
 
   getExpenses(): void {
-    this.expenseService.getExpenses().subscribe(expenses => {
-      console.log('expenses: ', expenses);
-      this.expenses = expenses;
+    this.expenseService.getExpenses().subscribe(resp => {
+      console.log('expenses: ', resp);
+      this.expenses = resp.data;
     });
   }
 
@@ -37,10 +37,8 @@ export class ExpensesComponent implements OnInit {
         console.log('ids to delete', ids);
         this.expenseService.deleteExpenses(ids)
         .then(resp => {
-          ids.forEach(id => {
-            const index = this.expenses.findIndex(ex => ex.id === id);
-            this.expenses.splice(index, 1);
-          });
+          console.log('resp', resp);
+          this.expenses = this.expenses.filter(ex => ids.indexOf(ex.id) < 0);
           this.messageService.add({severity: 'success', summary: 'Success', detail: 'Succesfully deleted expenses...'});
         })
         .catch(err => alert('something went wrong' + err));
