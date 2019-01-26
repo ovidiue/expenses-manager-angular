@@ -16,6 +16,7 @@ import {ColorPickerModule, ConfirmDialogModule, MultiSelectModule, ScrollPanelMo
 import {CategoryDetailComponent} from './category-detail/category-detail.component';
 import {ToastModule} from 'primeng/toast';
 import { TagDetailComponent } from './tag-detail/tag-detail.component';
+import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TagDetailComponent } from './tag-detail/tag-detail.component';
     CategoriesComponent,
     TagsComponent,
     CategoryDetailComponent,
-    TagDetailComponent
+    TagDetailComponent,
+    ExpenseDetailComponent
   ],
   imports: [
     BrowserModule,

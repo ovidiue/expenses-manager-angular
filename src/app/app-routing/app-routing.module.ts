@@ -6,10 +6,13 @@ import {CategoriesComponent} from '../categories/categories.component';
 import {TagsComponent} from '../tags/tags.component';
 import {CategoryDetailComponent} from '../category-detail/category-detail.component';
 import {TagDetailComponent} from '../tag-detail/tag-detail.component';
+import {ExpenseDetailComponent} from '../expense-detail/expense-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},
   {path: 'expenses', component: ExpensesComponent},
+  {path: 'expenses/add', component: ExpenseDetailComponent},
+  {path: 'expenses/add/:id', component: ExpenseDetailComponent},
   {path: 'rates', component: RatesComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'categories/add', component: CategoryDetailComponent},
