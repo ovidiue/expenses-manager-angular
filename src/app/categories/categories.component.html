@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [@fadeIn]>
   <div class="page-title">
     <h3>Categories</h3>
   </div>
@@ -19,10 +19,13 @@
                              [header]="'Confirm DELETE'"
                              [rejectLabel]="'Cancel'">
               <p-footer>
-                <button type="button" [class]="'ui-button-secondary float-left'" pButton icon="pi pi-times"
-                        label="Cancel" (click)="cd.reject()"></button>
+                <button type="button" [class]="'ui-button-secondary float-left'" pButton
+                        icon="pi pi-times"
+                        label="Cancel" (click)="cd.reject()">
+                </button>
                 <button type="button" [class]="'ui-button-danger'" pButton icon="pi pi-check"
-                        label="Delete" (click)="cd.accept()"></button>
+                        label="Delete" (click)="cd.accept()">
+                </button>
               </p-footer>
             </p-confirmDialog>
             <button type="button"
@@ -30,7 +33,8 @@
                     pButton
                     [disabled]="!selectedCat.length"
                     class="ui-button-raised ui-button-danger"
-                    label="Delete"></button>
+                    label="Delete">
+            </button>
             <button pButton type="button"
                     routerLink="add"
                     label="Add Category"

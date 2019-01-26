@@ -1,12 +1,15 @@
 import {Tag} from './tag';
 
 export class Expense {
-  name: string;
+  title: string;
+  description: string;
+  recurrent: boolean;
   amount: number;
-  dateCreated: Date;
+  createdOn: Date;
   dueDate: Date;
   tags: Tag[];
   id: number;
+  payed: number;
 
   constructor() {
   }
