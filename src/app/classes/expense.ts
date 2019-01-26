@@ -7,7 +7,6 @@ export class Expense {
   amount: number;
   createdOn: Date;
   dueDate: Date;
-  tags: Tag[];
   id: number;
   payed: number;
 
