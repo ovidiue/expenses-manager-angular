@@ -1,17 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {Expense} from '../classes/expense';
 import * as moment from 'moment';
 import {ExpenseService} from '../expense.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {TagService} from '../tag.service';
 import {CategoryService} from '../category-service.service';
+import {MessageService} from 'primeng/api';
+import {Expense} from '../classes/expense';
 
 
 @Component({
   selector: 'app-expense-detail',
   templateUrl: './expense-detail.component.html',
-  styleUrls: ['./expense-detail.component.scss']
+  styleUrls: ['./expense-detail.component.scss'],
+  providers: [MessageService]
 })
 export class ExpenseDetailComponent implements OnInit {
   expense = new Expense();
@@ -23,6 +25,7 @@ export class ExpenseDetailComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
+              private messageService: MessageService,
               private expenseService: ExpenseService,
               private tagService: TagService,
               private categoryService: CategoryService,
@@ -80,8 +83,10 @@ export class ExpenseDetailComponent implements OnInit {
 
   onSubmit() {
     console.log(this.expense);
-    this.expenseService.saveExpense(this.expense);
-    this.router.navigate(['/expenses']);
+    this.expenseService
+    .saveExpense(this.expense)
+    .then(resp => this.router.navigate(['/expenses']))
+    .catch(err => this.messageService.add({severity: 'error', summary: 'Error', detail: 'error: '}));
   }
 
 
