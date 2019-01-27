@@ -36,4 +36,9 @@ export class TagService {
     const url = this.tagsUrl + '/' + catId;
     return this.http.get<Tag>(url).toPromise();
   }
+
+  getTagByName(name: string): Promise<any> {
+    const url = this.tagsUrl + '/name/' + name;
+    return this.http.get<Tag>(url).toPromise();
+  }
 }

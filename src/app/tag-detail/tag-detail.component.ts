@@ -13,6 +13,7 @@ export class TagDetailComponent implements OnInit {
   pageTitle: string;
   tag = new Tag();
   id: number;
+  nameExists = false;
 
   constructor(private location: Location,
               private router: Router,
@@ -24,7 +25,7 @@ export class TagDetailComponent implements OnInit {
     this.id = <any>this.route.snapshot.paramMap.get('id');
     this.pageTitle = this.determineTitle();
     console.log('id', this.id);
-    this.tagService.getTag(this.id).then(tag => this.tag = tag).catch(err => console.error(err));
+    this.getTag();
   }
 
   determineTitle(): string {
@@ -35,14 +36,36 @@ export class TagDetailComponent implements OnInit {
     }
   }
 
+  getTag(): void {
+    if (this.id) {
+      this.tagService.getTag(this.id).then(tag => this.tag = tag).catch(err => console.error(err));
+    }
+  }
+
+  checkName($event): void {
+    console.log('checkcname', $event);
+    const name = $event.target.value;
+    this.tagService.getTagByName(name)
+    .then(resp => {
+      console.log('resp', resp);
+      if (resp) {
+        this.nameExists = true;
+      } else {
+        this.nameExists = false;
+      }
+    });
+  }
+
+
   goBack() {
     this.location.back();
   }
 
   onSubmit() {
     console.log(this.tag);
-    this.tagService.saveTag(this.tag);
-    this.router.navigate(['/tags']);
+    this.tagService.saveTag(this.tag)
+    .then(resp => this.router.navigate(['/tags']))
+    .catch(err => alert(err.toString()));
   }
 
 }
