@@ -38,4 +38,13 @@ export class CategoryService {
     return this.http.get<Category>(url).toPromise();
   }
 
+  getCategoryByName(name: string): Promise<any> {
+    const url = this.categoriesUrl + '/name/' + name;
+    return this.http.get<Category>(url).toPromise();
+  }
+
+  nameExists(name: string): Promise<any> {
+    return this.getCategoryByName(name);
+  }
+
 }

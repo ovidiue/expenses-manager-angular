@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class CategoryDetailComponent implements OnInit {
   pageTitle: string = this.determineTitle();
+  nameExists = false;
   category = new Category();
   id: number;
 
@@ -33,6 +34,20 @@ export class CategoryDetailComponent implements OnInit {
     } else {
       return 'Add Category';
     }
+  }
+
+  checkName($event): void {
+    console.log('checkcname', $event);
+    const name = $event.target.value;
+    this.categoryService.getCategoryByName(name)
+    .then(resp => {
+      console.log('resp', resp);
+      if (resp) {
+        this.nameExists = true;
+      } else {
+        this.nameExists = false;
+      }
+    });
   }
 
   goBack() {
