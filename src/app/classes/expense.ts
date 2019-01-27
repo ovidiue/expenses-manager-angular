@@ -1,3 +1,5 @@
+import {Category} from './category';
+import {Tag} from './tag';
 export class Expense {
   title: string;
   description: string;
@@ -7,6 +9,8 @@ export class Expense {
   dueDate: Date;
   id: number;
   payed: number;
+  category: Category;
+  tags: Tag[];
 
   constructor() {
   }

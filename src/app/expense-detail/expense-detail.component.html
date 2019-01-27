@@ -56,6 +56,50 @@
                         showButtonBar="true">
             </p-calendar>
           </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <p-dropdown id="category"
+                        name="category"
+                        [options]="categories"
+                        [(ngModel)]="expense.category"
+                        [showClear]="true"
+                        [placeholder]="'Select category'"
+                        [style]="{'width':'50%'}">
+              <ng-template let-item pTemplate="selectedItem">
+                <span [ngStyle]="{background: item.color}" class="selected-cat"></span>
+                <span style="font-size:14px;margin-left:10px;margin-top:4px">{{item.label}}</span>
+              </ng-template>
+              <ng-template let-cat pTemplate="item">
+                <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                  <span
+                    [ngStyle]="{background: cat.color, width: '50%', height: '100%', display:'inline-block'}"></span>
+                  <span style="font-size:14px;float:right;margin-top:4px">{{cat.label}}</span>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="form-group">
+            <label for="tags">Tags</label>
+            <p-multiSelect [options]="tags"
+                           name="tags"
+                           id="tags"
+                           [style]="{'width':'50%'}"
+                           [(ngModel)]="expense.tags">
+              <ng-template let-value pTemplate="selectedItems">
+                <div *ngFor="let val of value"
+                     class="ui-multiselected-item-token ui-corner-all inlineb">
+                  <span [ngStyle]="{background:val.color}" class="small-select-tag"></span>
+                  <span>{{val.name}}</span>
+                </div>
+                <span *ngIf="!value || value.length === 0"
+                      class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+              </ng-template>
+              <ng-template let-tag pTemplate="item">
+                <span [ngStyle]="{background:tag.color}" class="select-tag"></span>
+                <div style="font-size:14px;float:right;margin-top:4px">{{tag.label}}</div>
+              </ng-template>
+            </p-multiSelect>
+          </div>
           <hr>
           <div>
             <button type="submit" class="btn btn-primary float-right">Save</button>

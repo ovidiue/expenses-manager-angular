@@ -13,7 +13,7 @@ import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
 import {
-  CalendarModule, CheckboxModule, ColorPickerModule, ConfirmDialogModule, MultiSelectModule, ScrollPanelModule,
+  CalendarModule, CheckboxModule, ColorPickerModule, ConfirmDialogModule, DropdownModule, MultiSelectModule, ScrollPanelModule,
   ToolbarModule
 } from 'primeng/primeng';
 import {CategoryDetailComponent} from './category-detail/category-detail.component';
@@ -47,7 +47,8 @@ import { ExpenseDetailComponent } from './expense-detail/expense-detail.componen
     ConfirmDialogModule,
     ToastModule,
     CheckboxModule,
-    CalendarModule
+    CalendarModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

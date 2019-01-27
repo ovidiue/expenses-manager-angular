@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import {ExpenseService} from '../expense.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
+import {TagService} from '../tag.service';
+import {CategoryService} from '../category-service.service';
 
 
 @Component({
@@ -15,11 +17,15 @@ export class ExpenseDetailComponent implements OnInit {
   expense = new Expense();
   minDate = moment().startOf('day').toDate();
   pageTitle: string = this.determineTitle();
+  tags: any[];
+  categories: any[];
   id: number;
 
   constructor(private location: Location,
               private router: Router,
               private expenseService: ExpenseService,
+              private tagService: TagService,
+              private categoryService: CategoryService,
               private route: ActivatedRoute) {
   }
 
@@ -33,6 +39,31 @@ export class ExpenseDetailComponent implements OnInit {
         this.expense.dueDate = moment(this.expense.dueDate).toDate();
       }
     }).catch(err => console.error(err));
+
+    this.getTags();
+    this.getCategories();
+  }
+
+  getTags(): void {
+    this.tagService.getTags().subscribe(tags => this.tags = tags.map(el => {
+      return {
+        label: el.name,
+        value: {id: el.id, name: el.name, color: el.color},
+        color: el.color
+      };
+    }));
+  }
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe(cats => {
+      this.categories = cats.map(el => {
+        return {
+          label: el.name,
+          value: el,
+          color: el.color
+        };
+      });
+    });
   }
 
   determineTitle(): string {

@@ -25,7 +25,7 @@ export class ExpensesComponent implements OnInit {
   getExpenses(): void {
     this.expenseService.getExpenses().subscribe(resp => {
       console.log('expenses: ', resp);
-      this.expenses = resp.data;
+      this.expenses = resp;
     });
   }
 
