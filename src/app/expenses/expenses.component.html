@@ -45,7 +45,10 @@
 
       </div>
       <div class="col">
-        <p-table [value]="expenses" [paginator]="true" [rows]="10" [(selection)]="selectedExpenses">
+        <p-table [value]="expenses"
+                 [paginator]="true"
+                 [rows]="10"
+                 [(selection)]="selectedExpenses">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
@@ -58,6 +61,8 @@
               <th>Recurrent</th>
               <th>Created on</th>
               <th>Due date</th>
+              <th>Category</th>
+              <th>Tags</th>
               <th>Payed</th>
               <th>Actions</th>
             </tr>
@@ -74,6 +79,22 @@
               <td>{{exp.recurrent}}</td>
               <td>{{exp.createdOn | date}}</td>
               <td>{{exp.dueDate | date}}</td>
+              <td>
+                <span *ngIf="exp.category && exp.category.name"
+                      class="bottom-bradius"
+                      [ngStyle]="{'border-bottom': '8px solid' + exp.category.color}">
+                  {{exp.category.name}}
+                </span>
+              </td>
+              <td>
+                <div *ngIf="exp.tags && exp.tags.length">
+                  <div *ngFor="let tag of exp.tags"
+                       class="bottom-bradius"
+                       [ngStyle]="{'border-bottom': '8px solid' + tag.color}">
+                    {{tag.name}}
+                  </div>
+                </div>
+              </td>
               <td>{{exp.payed}}</td>
 
               <td class="text-center">
