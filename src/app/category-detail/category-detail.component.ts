@@ -28,6 +28,10 @@ export class CategoryDetailComponent implements OnInit {
     this.categoryService.getCategory(this.id).then(cat => this.category = cat).catch(err => console.error(err));
   }
 
+  isEdit(): boolean {
+    return this.id !== null;
+  }
+
   determineTitle(): string {
     if (this.id) {
       return 'Edit Category';
@@ -56,7 +60,10 @@ export class CategoryDetailComponent implements OnInit {
 
   onSubmit() {
     console.log(this.category);
-    this.categoryService.saveCategory(this.category);
-    this.router.navigate(['/categories']);
+    this.isEdit()
+      ? this.categoryService.updateCategory(this.category, this.id)
+    .then(resp => this.router.navigate(['/categories']))
+      : this.categoryService.saveCategory(this.category)
+    .then(resp => this.router.navigate(['/categories']));
   }
 }
