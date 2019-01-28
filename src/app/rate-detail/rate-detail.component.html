@@ -45,6 +45,18 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="expense">Expense</label>
+            <p-dropdown id="expense"
+                        name="expense"
+                        class="block"
+                        [options]="expenses"
+                        [(ngModel)]="rate.expense"
+                        [showClear]="true"
+                        [placeholder]="'Select expense'"
+                        [style]="{'width':'50%'}">
+            </p-dropdown>
+          </div>
+          <div class="form-group">
             <label for="observation">Observation</label>
             <textarea rows="7"
                       class="form-control"

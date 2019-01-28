@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {RateService} from '../rate.service';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
+import {ExpenseService} from '../expense.service';
 
 @Component({
   selector: 'app-rate-detail',
@@ -16,14 +17,18 @@ export class RateDetailComponent implements OnInit {
   id: number;
   nameExists = false;
   maxDate = moment().toDate();
+  expenses: any[];
+  // TODO: on edit, expense doesn't preselect previous value
 
   constructor(private location: Location,
               private router: Router,
               private rateService: RateService,
+              private expenseService: ExpenseService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.getExpenses();
     this.id = <any>this.route.snapshot.paramMap.get('id');
     this.pageTitle = this.determineTitle();
     this.getRate();
@@ -68,4 +73,14 @@ export class RateDetailComponent implements OnInit {
     .catch(err => alert(err.toString()));
   }
 
+  private getExpenses() {
+    this.expenseService.getExpenses().subscribe(expenses => {
+      this.expenses = expenses.map(exp => {
+        return {
+          label: exp.title,
+          value: exp
+        };
+      });
+    });
+  }
 }

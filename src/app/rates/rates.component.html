@@ -62,6 +62,7 @@
               <th>Observation</th>
               <th>Creation Date</th>
               <th>Payed On</th>
+              <th>Expense</th>
               <th>Actions</th>
             </tr>
           </ng-template>
@@ -75,6 +76,9 @@
               <td>{{rate.observation}}</td>
               <td>{{rate.creationDate | date}}</td>
               <td>{{rate.payedOn | date}}</td>
+              <td>
+                <span *ngIf="rate.expense">{{rate.expense.title}}</span>
+              </td>
               <td class="text-center">
                 <button pButton
                         class="ui-button-info"
