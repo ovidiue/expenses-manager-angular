@@ -20,6 +20,7 @@ import {CategoryDetailComponent} from './category-detail/category-detail.compone
 import {ToastModule} from 'primeng/toast';
 import { TagDetailComponent } from './tag-detail/tag-detail.component';
 import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
+import { RateDetailComponent } from './rate-detail/rate-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ExpenseDetailComponent } from './expense-detail/expense-detail.componen
     TagsComponent,
     CategoryDetailComponent,
     TagDetailComponent,
-    ExpenseDetailComponent
+    ExpenseDetailComponent,
+    RateDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import {TagsComponent} from '../tags/tags.component';
 import {CategoryDetailComponent} from '../category-detail/category-detail.component';
 import {TagDetailComponent} from '../tag-detail/tag-detail.component';
 import {ExpenseDetailComponent} from '../expense-detail/expense-detail.component';
+import {RateDetailComponent} from '../rate-detail/rate-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},
@@ -14,6 +15,8 @@ const routes: Routes = [
   {path: 'expenses/add', component: ExpenseDetailComponent},
   {path: 'expenses/add/:id', component: ExpenseDetailComponent},
   {path: 'rates', component: RatesComponent},
+  {path: 'rates/add', component: RateDetailComponent},
+  {path: 'rates/add/:id', component: RateDetailComponent},
   {path: 'categories', component: CategoriesComponent},
   {path: 'categories/add', component: CategoryDetailComponent},
   {path: 'categories/add/:id', component: CategoryDetailComponent},
