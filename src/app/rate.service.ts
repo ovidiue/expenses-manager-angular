@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Rate} from './classes/rate';
 
 const httpOptions = {
@@ -39,5 +39,12 @@ export class RateService {
   getByName(name: string): Promise<any> {
     const url = this.ratesBaseUrl + '/name/' + name;
     return this.http.get<Rate>(url).toPromise();
+  }
+
+  getRatesByExpenseId(id: number): Promise<any> {
+    const url = this.ratesBaseUrl + '/exp';
+    let params: HttpParams = new HttpParams();
+    params = params.append('expId', id.toString());
+    return this.http.get<Rate[]>(url, {params}).toPromise();
   }
 }

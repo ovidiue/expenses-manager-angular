@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
 import {ExpenseService} from '../expense.service';
+import {RateService} from '../rate.service';
 
 @Component({
   selector: 'app-expenses',
@@ -14,6 +15,7 @@ export class ExpensesComponent implements OnInit {
   selectedExpenses: Expense[] = [];
 
   constructor(private expenseService: ExpenseService,
+              private rateService: RateService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
@@ -61,6 +63,11 @@ export class ExpensesComponent implements OnInit {
         });
       }
     });
+  }
+
+  onFetchRates(exp: Expense): void {
+    console.log('exp id', exp.id);
+    this.rateService.getRatesByExpenseId(exp.id).then(rates => console.log(rates));
   }
 
 }

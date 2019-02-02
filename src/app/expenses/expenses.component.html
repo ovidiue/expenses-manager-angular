@@ -4,7 +4,6 @@
   </div>
 
   <div class="row">
-    <p-toast position="top-right"></p-toast>
 
     <div class="table-wrapper mt-5 mb-5">
       <div class="col">
@@ -111,6 +110,13 @@
                         type="button"
                         (click)="onDelete(exp)"
                         icon="pi pi-trash"
+                        iconPos="left">
+                </button>
+                <button pButton
+                        class="ui-button-danger"
+                        type="button"
+                        (click)="onFetchRates(exp)"
+                        icon="pi pi-sitemap"
                         iconPos="left">
                 </button>
               </td>
