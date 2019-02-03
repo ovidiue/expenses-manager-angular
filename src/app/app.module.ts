@@ -30,6 +30,8 @@ import {TagDetailComponent} from './tag-detail/tag-detail.component';
 import {ExpenseDetailComponent} from './expense-detail/expense-detail.component';
 import {RateDetailComponent} from './rate-detail/rate-detail.component';
 import {GlobalMessageComponent} from './global-message/global-message.component';
+import {DialogRatesComponent} from './dialog-rates/dialog-rates.component';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import {GlobalMessageComponent} from './global-message/global-message.component'
     TagDetailComponent,
     ExpenseDetailComponent,
     RateDetailComponent,
-    GlobalMessageComponent
+    GlobalMessageComponent,
+    DialogRatesComponent
   ],
   imports: [
     BrowserModule,
@@ -62,8 +65,10 @@ import {GlobalMessageComponent} from './global-message/global-message.component'
     CalendarModule,
     DropdownModule,
     AccordionModule,
-    TooltipModule
+    TooltipModule,
+    DynamicDialogModule
   ],
+  entryComponents: [DialogRatesComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, DialogService, DynamicDialogConfig, MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
 import {ExpenseService} from '../services/expense.service';
 import {RateService} from '../services/rate.service';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {DialogRatesComponent} from '../dialog-rates/dialog-rates.component';
 
 @Component({
   selector: 'app-expenses',
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService, DialogService, DynamicDialogConfig]
 })
 export class ExpensesComponent implements OnInit {
   expenses: Expense[] = [];
@@ -18,6 +19,7 @@ export class ExpensesComponent implements OnInit {
 
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
+              public dialogService: DialogService,
               private confirmationService: ConfirmationService,
               private globalNotificationService: GlobalNotificationService) {
   }
@@ -63,7 +65,17 @@ export class ExpensesComponent implements OnInit {
   }
 
   onFetchRates(exp: Expense): void {
-    this.rateService.getRatesByExpenseId(exp.id).then(rates => console.log(rates));
+
+    this.rateService.getRatesByExpenseId(exp.id).then(rates => {
+      const ref = this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
+        header: 'Choose a Car',
+        width: '70%',
+        data: {
+          rates: rates
+        }
+      });
+      console.log('ref', rates);
+    });
   }
 
 }
