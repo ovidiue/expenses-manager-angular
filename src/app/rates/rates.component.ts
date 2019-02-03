@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Rate} from '../classes/rate';
 import {RateService} from '../rate.service';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 @Component({
   selector: 'app-rates',
@@ -15,7 +17,7 @@ export class RatesComponent implements OnInit {
 
   constructor(private confirmationService: ConfirmationService,
               private rateService: RateService,
-              private messageService: MessageService) {
+              private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
@@ -31,30 +33,26 @@ export class RatesComponent implements OnInit {
       message: 'Are you sure that you want to delete these rates?',
       accept: () => {
         const ids = this.selectedRates.map(el => el.id);
-        console.log('ids to delete', ids);
         this.rateService.deleteRates(ids)
         .then(() => {
           this.rates = this.rates.filter(rate => ids.indexOf(rate.id) < 0);
-          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Succesfully deleted rates...'});
+          this.globalNotificationService.add(MESSAGES.deletedRates);
         })
-        .catch(err => alert('something went wrong' + err));
+        .catch(err => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
 
-  onEdit(rate: Rate): void {
-    console.log('edit', rate);
-  }
-
   onDelete(rate: Rate): void {
-    console.log('delete', rate);
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${rate.amount} ?`,
       accept: () => {
         this.rateService.deleteRates([rate.id])
         .then(() => {
           this.rates = this.rates.filter(el => el.id !== rate.id);
-        });
+          this.globalNotificationService.add(MESSAGES.deletedRate);
+        })
+        .catch(() => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }

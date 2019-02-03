@@ -1,0 +1,17 @@
+export const MESSAGES = {
+  addCategory       : 'Successfully added category!',
+  addRate           : 'Successfully added rate!',
+  addTag            : 'Successfully added tag!',
+  addExpense        : 'Successfully added expense!',
+  deletedCategories : 'Successfully deleted categories...',
+  deletedCategory   : 'Successfully deleted category...',
+  deletedTags       : 'Successfully deleted tags...',
+  deletedTag        : 'Successfully deleted tag...',
+  deletedRate       : 'Successfully deleted rate...',
+  deletedRates      : 'Successfully deleted rates...',
+  deletedExpense    : 'Successfully deleted expense...',
+  deletedExpenses   : 'Successfully deleted expenses...',
+  error             : 'Something went wrong ... '
+};
+
+

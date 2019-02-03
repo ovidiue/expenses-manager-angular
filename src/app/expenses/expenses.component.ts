@@ -3,6 +3,8 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
 import {ExpenseService} from '../expense.service';
 import {RateService} from '../rate.service';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 @Component({
   selector: 'app-expenses',
@@ -17,7 +19,7 @@ export class ExpensesComponent implements OnInit {
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
               private confirmationService: ConfirmationService,
-              private messageService: MessageService) {
+              private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
@@ -26,7 +28,6 @@ export class ExpensesComponent implements OnInit {
 
   getExpenses(): void {
     this.expenseService.getExpenses().subscribe(resp => {
-      console.log('expenses: ', resp);
       this.expenses = resp;
     });
   }
@@ -38,35 +39,30 @@ export class ExpensesComponent implements OnInit {
         const ids = this.selectedExpenses.map(el => el.id);
         console.log('ids to delete', ids);
         this.expenseService.deleteExpenses(ids)
-        .then(resp => {
-          console.log('resp', resp);
+        .then(() => {
           this.expenses = this.expenses.filter(ex => ids.indexOf(ex.id) < 0);
-          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Succesfully deleted expenses...'});
+          this.globalNotificationService.add(MESSAGES.deletedExpenses);
         })
-        .catch(err => alert('something went wrong' + err));
+        .catch(err => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
 
-  onEdit(ex: Expense): void {
-    console.log('edit', ex);
-  }
-
   onDelete(ex: Expense): void {
-    console.log('delete', ex);
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${ex.title} ?`,
       accept: () => {
         this.expenseService.deleteExpenses([ex.id])
-        .then(resp => {
+        .then(() => {
           this.expenses = this.expenses.filter(el => el.id !== ex.id);
-        });
+          this.globalNotificationService.add(MESSAGES.deletedExpense);
+        })
+        .catch(() => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
 
   onFetchRates(exp: Expense): void {
-    console.log('exp id', exp.id);
     this.rateService.getRatesByExpenseId(exp.id).then(rates => console.log(rates));
   }
 

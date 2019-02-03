@@ -3,6 +3,8 @@ import {Tag} from '../classes/tag';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TagService} from '../tag.service';
 import {Location} from '@angular/common';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 @Component({
   selector: 'app-tag-detail',
@@ -17,6 +19,7 @@ export class TagDetailComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
+              private globalNotificationService: GlobalNotificationService,
               private tagService: TagService,
               private route: ActivatedRoute) {
   }
@@ -62,10 +65,12 @@ export class TagDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.tag);
     this.tagService.saveTag(this.tag)
-    .then(resp => this.router.navigate(['/tags']))
-    .catch(err => alert(err.toString()));
+    .then(() => {
+      this.router.navigate(['/tags']);
+      this.globalNotificationService.add(MESSAGES.addTag);
+    })
+    .catch(err => this.globalNotificationService.add(MESSAGES.error));
   }
 
 }

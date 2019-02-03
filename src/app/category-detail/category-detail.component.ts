@@ -3,6 +3,8 @@ import {Category} from '../classes/category';
 import {Location} from '@angular/common';
 import {CategoryService} from '../category-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 @Component({
   selector: 'app-category-detail',
@@ -18,13 +20,13 @@ export class CategoryDetailComponent implements OnInit {
   constructor(private location: Location,
               private router: Router,
               private categoryService: CategoryService,
+              private globalNotificationService: GlobalNotificationService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.id = <any>this.route.snapshot.paramMap.get('id');
     this.pageTitle = this.determineTitle();
-    console.log('id', this.id);
     this.categoryService.getCategory(this.id).then(cat => this.category = cat).catch(err => console.error(err));
   }
 
@@ -41,11 +43,9 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   checkName($event): void {
-    console.log('checkcname', $event);
     const name = $event.target.value;
     this.categoryService.getCategoryByName(name)
     .then(resp => {
-      console.log('resp', resp);
       if (resp) {
         this.nameExists = true;
       } else {
@@ -59,11 +59,18 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.category);
     this.isEdit()
-      ? this.categoryService.updateCategory(this.category, this.id)
-    .then(resp => this.router.navigate(['/categories']))
-      : this.categoryService.saveCategory(this.category)
-    .then(resp => this.router.navigate(['/categories']));
+      ?
+      this.categoryService.updateCategory(this.category, this.id)
+      .then(() => {
+        this.router.navigate(['/categories']);
+        this.globalNotificationService.add(MESSAGES.addCategory);
+      }).catch(() => this.globalNotificationService.add(MESSAGES.error))
+      :
+      this.categoryService.saveCategory(this.category)
+      .then(() => {
+        this.router.navigate(['/categories']);
+        this.globalNotificationService.add(MESSAGES.addCategory);
+      }).catch(() => this.globalNotificationService.add(MESSAGES.error));
   }
 }

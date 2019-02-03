@@ -5,6 +5,8 @@ import {RateService} from '../rate.service';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
 import {ExpenseService} from '../expense.service';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 @Component({
   selector: 'app-rate-detail',
@@ -23,6 +25,7 @@ export class RateDetailComponent implements OnInit {
   constructor(private location: Location,
               private router: Router,
               private rateService: RateService,
+              private globalNotificationService: GlobalNotificationService,
               private expenseService: ExpenseService,
               private route: ActivatedRoute) {
   }
@@ -47,7 +50,7 @@ export class RateDetailComponent implements OnInit {
       this.rateService.get(this.id).then(rate => {
         this.rate = rate;
         this.rate.payedOn = moment(this.rate.payedOn).toDate();
-      }).catch(err => console.error(err));
+      }).catch(err => this.globalNotificationService.add(MESSAGES.error));
     }
   }
 
@@ -69,8 +72,11 @@ export class RateDetailComponent implements OnInit {
 
   onSubmit() {
     this.rateService.save(this.rate)
-    .then(resp => this.router.navigate(['/rates']))
-    .catch(err => alert(err.toString()));
+    .then(() => {
+      this.router.navigate(['/rates']);
+      this.globalNotificationService.add(MESSAGES.addRate);
+    })
+    .catch(err => this.globalNotificationService.add(MESSAGES.error));
   }
 
   private getExpenses() {

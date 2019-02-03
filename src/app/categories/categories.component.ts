@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
 import {CategoryService} from '../category-service.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 @Component({
   selector: 'app-categories',
@@ -15,8 +17,8 @@ export class CategoriesComponent implements OnInit {
   selectedCat: Category[] = [];
 
   constructor(private categoryService: CategoryService,
-              private confirmationService: ConfirmationService,
-              private messageService: MessageService) {
+              private globalNotificationService: GlobalNotificationService,
+              private confirmationService: ConfirmationService) {
   }
 
   ngOnInit() {
@@ -37,31 +39,27 @@ export class CategoriesComponent implements OnInit {
         const ids = this.selectedCat.map(el => el.id);
         console.log('ids to delete', ids);
         this.categoryService.deleteCategories(ids)
-        .then(resp => {
+        .then(() => {
           ids.forEach(id => {
             const index = this.categories.findIndex(cat => cat.id === id);
             this.categories.splice(index, 1);
           });
-          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Succesfully deleted categories...'});
+          this.globalNotificationService.add(MESSAGES.deletedCategories);
         })
-        .catch(err => alert('something went wrong' + err));
+        .catch(err => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
 
-  onEdit(cat: Category): void {
-    console.log('edit', cat);
-  }
-
   onDelete(cat: Category): void {
-    console.log('delete', cat);
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${cat.name} ?`,
       accept: () => {
         this.categoryService.deleteCategories([cat.id])
-        .then(resp => {
+        .then(() => {
           this.categories = this.categories.filter(el => el.id !== cat.id);
-        });
+          this.globalNotificationService.add(MESSAGES.deletedCategories);
+        }).catch(() => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }

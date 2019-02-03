@@ -7,6 +7,8 @@ import {TagService} from '../tag.service';
 import {CategoryService} from '../category-service.service';
 import {MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class ExpenseDetailComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
-              private messageService: MessageService,
+              private globalNotificationService: GlobalNotificationService,
               private expenseService: ExpenseService,
               private tagService: TagService,
               private categoryService: CategoryService,
@@ -35,7 +37,6 @@ export class ExpenseDetailComponent implements OnInit {
   ngOnInit() {
     this.id = <any>this.route.snapshot.paramMap.get('id');
     this.pageTitle = this.determineTitle();
-    console.log('id', this.id);
     this.expenseService.getExpense(this.id).then(exp => {
       this.expense = exp;
       if (this.expense.dueDate) {
@@ -82,11 +83,13 @@ export class ExpenseDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.expense);
     this.expenseService
     .saveExpense(this.expense)
-    .then(resp => this.router.navigate(['/expenses']))
-    .catch(err => this.messageService.add({severity: 'error', summary: 'Error', detail: 'error: '}));
+    .then(() => {
+      this.router.navigate(['/expenses']);
+      this.globalNotificationService.add(MESSAGES.addExpense);
+    })
+    .catch(err => this.globalNotificationService.add(MESSAGES.error));
   }
 
 

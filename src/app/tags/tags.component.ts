@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Tag} from '../classes/tag';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {TagService} from '../tag.service';
+import {GlobalNotificationService} from '../global-notification.service';
+import {MESSAGES} from '../utils/messages';
 
 @Component({
   selector: 'app-tags',
@@ -15,7 +17,7 @@ export class TagsComponent implements OnInit {
 
   constructor(private tagService: TagService,
               private confirmationService: ConfirmationService,
-              private messageService: MessageService) {
+              private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
@@ -24,7 +26,6 @@ export class TagsComponent implements OnInit {
 
   getTags(): void {
     this.tagService.getTags().subscribe(tags => {
-      console.log('tags: ', tags);
       this.tags = tags;
     });
   }
@@ -41,26 +42,23 @@ export class TagsComponent implements OnInit {
             const index = this.tags.findIndex(tag => tag.id === id);
             this.tags.splice(index, 1);
           });
-          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Succesfully deleted tags...'});
+          this.globalNotificationService.add(MESSAGES.deletedTags);
         })
-        .catch(err => alert('something went wrong' + err));
+        .catch(err => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
 
-  onEdit(tag: Tag): void {
-    console.log('edit', tag);
-  }
-
   onDelete(tag: Tag): void {
-    console.log('delete', tag);
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${tag.name} ?`,
       accept: () => {
         this.tagService.deleteTags([tag.id])
-        .then(resp => {
+        .then(() => {
           this.tags = this.tags.filter(el => el.id !== tag.id);
-        });
+          this.globalNotificationService.add(MESSAGES.deletedTag);
+        })
+        .catch(() => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
