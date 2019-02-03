@@ -18,9 +18,9 @@ import {
   CheckboxModule,
   ColorPickerModule,
   ConfirmDialogModule,
-  DropdownModule,
+  DropdownModule, FieldsetModule, InputTextModule,
   MultiSelectModule,
-  ScrollPanelModule,
+  ScrollPanelModule, SidebarModule,
   ToolbarModule,
   TooltipModule
 } from 'primeng/primeng';
@@ -32,6 +32,7 @@ import {RateDetailComponent} from './rate-detail/rate-detail.component';
 import {GlobalMessageComponent} from './global-message/global-message.component';
 import {DialogRatesComponent} from './dialog-rates/dialog-rates.component';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {SliderModule} from 'primeng/slider';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,11 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
     DropdownModule,
     AccordionModule,
     TooltipModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    FieldsetModule,
+    SidebarModule,
+    InputTextModule,
+    SliderModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

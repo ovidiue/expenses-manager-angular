@@ -6,6 +6,50 @@
   <div class="row">
 
     <div class="table-wrapper mt-5 mb-5">
+      <div class="col mb-3">
+        <p-fieldset legend="Filters" [toggleable]="true">
+          <div class="ui-g">
+            <div class="ui-g-6">
+              <span class="ui-float-label">
+                <input id="title-input" type="text" size="30" pInputText>
+                <label for="title-input">Title contains</label>
+              </span>
+            </div>
+            <div class="ui-g-6">
+              <span class="ui-float-label">
+                <input id="desc-input" type="text" size="30" pInputText>
+                <label for="desc-input">Description contains</label>
+              </span>
+            </div>
+          </div>
+          <div class="ui-g">
+            <div class="ui-g-6">
+              <span class="ui-float-label">
+                <p-calendar selectionMode="range"
+                            [readonlyInput]="true">
+                </p-calendar>
+              <label>Created between</label>
+              </span>
+            </div>
+            <div class="ui-g-6">
+              <span class="ui-float-label">
+                <p-calendar selectionMode="range"
+                            [readonlyInput]="true">
+                </p-calendar>
+                <label>Due Date Between</label>
+              </span>
+            </div>
+          </div>
+          <div class="ui-g">
+            <div class="ui-g11">
+              <p-slider [(ngModel)]="rangeValues"[style]="{width:'100%'}" [range]="true"></p-slider>
+            </div>
+            <div class="ui-g1">
+              <p-checkbox [(ngModel)]="recurrent" binary="true"></p-checkbox>
+            </div>
+          </div>
+        </p-fieldset>
+      </div>
       <div class="col">
         <p-toolbar>
           <div class="ui-toolbar-group-right">
@@ -74,7 +118,11 @@
               <td>{{exp.id}}</td>
               <td>{{exp.title}}</td>
               <td>{{exp.amount}}</td>
-              <td>{{exp.description}}</td>
+              <td (click)="onDescriptionInfo(exp.description)"
+                  pTooltip="Click for more info">{{(exp.description.length > 10) ? (exp.description
+                | slice:0:10)+'...' :
+                exp.description}}
+              </td>
               <td>{{exp.recurrent}}</td>
               <td>{{exp.createdOn | date}}</td>
               <td>{{exp.dueDate | date}}</td>
@@ -125,5 +173,14 @@
       </div>
 
     </div>
+
+    <p-sidebar [(visible)]="selectedDescription.length"
+               position="right"
+               [baseZIndex]="10000">
+      <h1 style="font-weight:normal">Info</h1>
+      <div class="mb-5">{{selectedDescription}}</div>
+      <button pButton type="button" (click)="selectedDescription = ''" label="Close"
+              class="ui-button-secondary"></button>
+    </p-sidebar>
   </div>
 </div>

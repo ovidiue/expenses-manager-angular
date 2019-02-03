@@ -16,6 +16,9 @@ import {DialogRatesComponent} from '../dialog-rates/dialog-rates.component';
 export class ExpensesComponent implements OnInit {
   expenses: Expense[] = [];
   selectedExpenses: Expense[] = [];
+  selectedDescription = '';
+  rangeValues: number[] = [10, 100];
+  recurrent: boolean;
 
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
@@ -26,6 +29,20 @@ export class ExpensesComponent implements OnInit {
 
   ngOnInit() {
     this.getExpenses();
+  }
+
+  /*@HostListener('click') onClick() {
+   const self = this;
+   if (this.selectedDescription.length > 0) {
+   setTimeout(function () {
+   self.selectedDescription = '';
+   }, 500);
+
+   }
+   }*/
+
+  onDescriptionInfo(text: string): void {
+    this.selectedDescription = text;
   }
 
   getExpenses(): void {
