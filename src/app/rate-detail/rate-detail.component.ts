@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Rate} from '../classes/rate';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RateService} from '../rate.service';
+import {RateService} from '../services/rate.service';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
-import {ExpenseService} from '../expense.service';
-import {GlobalNotificationService} from '../global-notification.service';
+import {ExpenseService} from '../services/expense.service';
+import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
 
 @Component({

@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Rate} from '../classes/rate';
-import {RateService} from '../rate.service';
-import {GlobalNotificationService} from '../global-notification.service';
+import {RateService} from '../services/rate.service';
+import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {Expense} from '../classes/expense';
+import {ExpenseService} from '../services/expense.service';
 
 @Component({
   selector: 'app-rates',
@@ -13,19 +15,36 @@ import {MESSAGES} from '../utils/messages';
 })
 export class RatesComponent implements OnInit {
   rates: Rate[];
+  selectedExpense: Expense;
+  expenses: Expense[];
   selectedRates: Rate[] = [];
 
   constructor(private confirmationService: ConfirmationService,
               private rateService: RateService,
+              private expenseService: ExpenseService,
               private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
     this.getRates();
+    this.getExpenses();
+  }
+
+  filterTable($event) {
+    const expense = $event.value;
+    if (expense) {
+      this.rateService.getRatesByExpenseId(expense.id).then(rates => this.rates = rates);
+    } else {
+      this.getRates();
+    }
   }
 
   getRates(): void {
     this.rateService.getRates().then(rates => this.rates = rates);
+  }
+
+  getExpenses(): void {
+    this.expenseService.getExpenses().subscribe(expenses => this.expenses = expenses);
   }
 
   confirmDeletion() {

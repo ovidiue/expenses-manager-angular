@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Tag} from './classes/tag';
+import {Tag} from '../classes/tag';
 import {Observable} from 'rxjs';
 
 const httpOptions = {

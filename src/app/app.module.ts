@@ -13,15 +13,23 @@ import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {FormsModule} from '@angular/forms';
 import {
-  CalendarModule, CheckboxModule, ColorPickerModule, ConfirmDialogModule, DropdownModule, MultiSelectModule, ScrollPanelModule,
-  ToolbarModule
+  AccordionModule,
+  CalendarModule,
+  CheckboxModule,
+  ColorPickerModule,
+  ConfirmDialogModule,
+  DropdownModule,
+  MultiSelectModule,
+  ScrollPanelModule,
+  ToolbarModule,
+  TooltipModule
 } from 'primeng/primeng';
 import {CategoryDetailComponent} from './category-detail/category-detail.component';
 import {ToastModule} from 'primeng/toast';
-import { TagDetailComponent } from './tag-detail/tag-detail.component';
-import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
-import { RateDetailComponent } from './rate-detail/rate-detail.component';
-import { GlobalMessageComponent } from './global-message/global-message.component';
+import {TagDetailComponent} from './tag-detail/tag-detail.component';
+import {ExpenseDetailComponent} from './expense-detail/expense-detail.component';
+import {RateDetailComponent} from './rate-detail/rate-detail.component';
+import {GlobalMessageComponent} from './global-message/global-message.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +60,9 @@ import { GlobalMessageComponent } from './global-message/global-message.componen
     ToastModule,
     CheckboxModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    AccordionModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

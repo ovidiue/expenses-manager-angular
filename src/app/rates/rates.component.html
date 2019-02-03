@@ -4,10 +4,20 @@
   </div>
 
   <div class="row">
-
     <div class="table-wrapper mt-5 mb-5">
       <div class="col">
         <p-toolbar>
+          <div class="ui-toolbar-group-left">
+            <p-dropdown [options]="expenses"
+                        [(ngModel)]="selectedExpense"
+                        pTooltip="Filter by expense"
+                        tooltipPosition="top"
+                        [placeholder]="'Select expense'"
+                        (onChange)="filterTable($event)"
+                        [showClear]="true"
+                        optionLabel="title">
+            </p-dropdown>
+          </div>
           <div class="ui-toolbar-group-right">
             <p-confirmDialog #cd
                              [style]="{width: '425px'}"

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
-import {CategoryService} from '../category-service.service';
+import {CategoryService} from '../services/category-service.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {GlobalNotificationService} from '../global-notification.service';
+import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
 
 @Component({

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
 import {Location} from '@angular/common';
-import {CategoryService} from '../category-service.service';
+import {CategoryService} from '../services/category-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GlobalNotificationService} from '../global-notification.service';
+import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
 
 @Component({

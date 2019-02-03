@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Rate} from './classes/rate';
+import {Rate} from '../classes/rate';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})

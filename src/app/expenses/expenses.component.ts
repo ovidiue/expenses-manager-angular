@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
-import {ExpenseService} from '../expense.service';
-import {RateService} from '../rate.service';
-import {GlobalNotificationService} from '../global-notification.service';
+import {ExpenseService} from '../services/expense.service';
+import {RateService} from '../services/rate.service';
+import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
 
 @Component({
