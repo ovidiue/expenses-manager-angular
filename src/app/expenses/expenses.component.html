@@ -45,6 +45,7 @@
       </div>
       <div class="col">
         <p-table [value]="expenses"
+                 [responsive]="true"
                  [paginator]="true"
                  [rows]="10"
                  [(selection)]="selectedExpenses">
@@ -99,7 +100,7 @@
               <td class="text-center">
                 <button pButton
                         pTooltip="Edit"
-                        class="ui-button-info"
+                        class="ui-button-info ui-button-raised"
                         type="button"
                         routerLink="add/{{exp.id}}"
                         icon="pi pi-pencil"
@@ -107,7 +108,7 @@
                 </button>
                 <button pButton
                         pTooltip="Delete"
-                        class="ui-button-danger"
+                        class="ui-button-danger ui-button-raised"
                         type="button"
                         (click)="onDelete(exp)"
                         icon="pi pi-trash"
@@ -116,7 +117,7 @@
                 <button *ngIf="exp.payed > 0"
                         pTooltip="Display rates"
                         pButton
-                        class="ui-button-secondary"
+                        class="ui-button-secondary ui-button-raised"
                         type="button"
                         (click)="onFetchRates(exp)"
                         icon="pi pi-sitemap"
