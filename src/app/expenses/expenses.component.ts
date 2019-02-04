@@ -68,7 +68,7 @@ export class ExpensesComponent implements OnInit {
 
     this.rateService.getRatesByExpenseId(exp.id).then(rates => {
       const ref = this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
-        header: 'Choose a Car',
+        header: 'Rates',
         width: '70%',
         data: {
           rates: rates
