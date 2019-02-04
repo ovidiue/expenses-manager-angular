@@ -98,6 +98,7 @@
 
               <td class="text-center">
                 <button pButton
+                        pTooltip="Edit"
                         class="ui-button-info"
                         type="button"
                         routerLink="add/{{exp.id}}"
@@ -105,14 +106,17 @@
                         iconPos="left">
                 </button>
                 <button pButton
+                        pTooltip="Delete"
                         class="ui-button-danger"
                         type="button"
                         (click)="onDelete(exp)"
                         icon="pi pi-trash"
                         iconPos="left">
                 </button>
-                <button pButton
-                        class="ui-button-danger"
+                <button *ngIf="exp.payed > 0"
+                        pTooltip="Display rates"
+                        pButton
+                        class="ui-button-secondary"
                         type="button"
                         (click)="onFetchRates(exp)"
                         icon="pi pi-sitemap"
