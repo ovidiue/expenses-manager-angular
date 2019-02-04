@@ -1,6 +1,7 @@
 export const MESSAGES = {
   addCategory       : 'Successfully added category!',
   addRate           : 'Successfully added rate!',
+  updatedRate       : 'Successfully updated rate ',
   addTag            : 'Successfully added tag!',
   addExpense        : 'Successfully added expense!',
   deletedCategories : 'Successfully deleted categories...',

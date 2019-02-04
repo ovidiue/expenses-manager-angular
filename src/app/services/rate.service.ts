@@ -24,6 +24,18 @@ export class RateService {
     return this.http.post(url, rate, httpOptions).toPromise();
   }
 
+  update(rate: Rate, initialExpenseId?: string, initialRateAmount?: string): Promise<any> {
+    const url = this.ratesBaseUrl + '/update';
+    let params: HttpParams = new HttpParams();
+    if (initialExpenseId) {
+      params = params.append('initialExpenseId', initialExpenseId.toString());
+    }
+    if (initialRateAmount) {
+      params = params.append('initialRateAmount', initialRateAmount.toString());
+    }
+    return this.http.put(url, rate, {params}).toPromise();
+  }
+
   deleteRates(rateIds: number[]): Promise<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     rateIds.forEach(id => urlSearchParams.append('', id.toString()));
@@ -33,7 +45,7 @@ export class RateService {
 
   get(rateId: number): Promise<any> {
     const url = this.ratesBaseUrl + '/' + rateId;
-    return this.http.get<Rate>(url).toPromise();
+    return this.http.get(url).toPromise();
   }
 
   getByName(name: string): Promise<any> {

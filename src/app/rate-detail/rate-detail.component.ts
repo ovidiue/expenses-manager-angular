@@ -20,6 +20,8 @@ export class RateDetailComponent implements OnInit {
   nameExists = false;
   maxDate = moment().toDate();
   expenses: any[];
+  initialExpenseId: string = null;
+  initialRateAmount: string = null;
   // TODO: on edit, expense doesn't preselect previous value
 
   constructor(private location: Location,
@@ -50,7 +52,14 @@ export class RateDetailComponent implements OnInit {
       this.rateService.get(this.id).then(rate => {
         this.rate = rate;
         this.rate.payedOn = moment(this.rate.payedOn).toDate();
-      }).catch(err => this.globalNotificationService.add(MESSAGES.error));
+        if (rate.expense && rate.expense.id) {
+          this.initialExpenseId = rate.expense.id;
+        }
+        this.initialRateAmount = rate.amount;
+        console.log('fetched rate', rate);
+        console.log('rateAmount', this.initialRateAmount);
+        console.log('expenseId', this.initialExpenseId);
+      }).catch(err => this.globalNotificationService.add(MESSAGES.error + ' err: ' + err));
     }
   }
 
@@ -71,12 +80,20 @@ export class RateDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.rateService.save(this.rate)
-    .then(() => {
-      this.router.navigate(['/rates']);
-      this.globalNotificationService.add(MESSAGES.addRate);
-    })
-    .catch(err => this.globalNotificationService.add(MESSAGES.error));
+    this.id === null
+      ?
+      this.rateService.save(this.rate)
+      .then(() => {
+        this.router.navigate(['/rates']);
+        this.globalNotificationService.add(MESSAGES.addRate);
+      })
+      .catch(err => this.globalNotificationService.add(MESSAGES.error))
+      :
+      this.rateService.update(this.rate, this.initialExpenseId, this.initialRateAmount)
+      .then(() => {
+        this.router.navigate(['/rates']);
+        this.globalNotificationService.add(MESSAGES.updatedRate + this.rate.amount + '!');
+      }).catch(() => this.globalNotificationService.add(MESSAGES.error));
   }
 
   private getExpenses() {
