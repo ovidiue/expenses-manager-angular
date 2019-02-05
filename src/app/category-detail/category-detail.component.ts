@@ -54,7 +54,8 @@ export class CategoryDetailComponent implements OnInit {
     });
   }
 
-  goBack() {
+  goBack(event: any) {
+    event.preventDefault();
     this.location.back();
   }
 

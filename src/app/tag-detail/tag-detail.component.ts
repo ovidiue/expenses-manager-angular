@@ -60,7 +60,8 @@ export class TagDetailComponent implements OnInit {
   }
 
 
-  goBack() {
+  goBack(event: any) {
+    event.preventDefault();
     this.location.back();
   }
 

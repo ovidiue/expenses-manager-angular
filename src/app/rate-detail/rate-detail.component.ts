@@ -75,7 +75,8 @@ export class RateDetailComponent implements OnInit {
     });
   }
 
-  goBack() {
+  goBack(event: any) {
+    event.preventDefault();
     this.location.back();
   }
 
