@@ -32,6 +32,7 @@ import {RateDetailComponent} from './rate-detail/rate-detail.component';
 import {GlobalMessageComponent} from './global-message/global-message.component';
 import {DialogRatesComponent} from './dialog-rates/dialog-rates.component';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
     DropdownModule,
     AccordionModule,
     TooltipModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    DialogModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

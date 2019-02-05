@@ -17,10 +17,13 @@ export class ExpensesComponent implements OnInit {
   expenses: Expense[] = [];
   selectedExpenses: Expense[] = [];
 
+  displayDelete = false;
+  deletionText = '';
+  selectedForDeletion: Expense;
+
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
               public dialogService: DialogService,
-              private confirmationService: ConfirmationService,
               private globalNotificationService: GlobalNotificationService) {
   }
 
@@ -30,41 +33,64 @@ export class ExpensesComponent implements OnInit {
 
   getExpenses(): void {
     this.expenseService.getExpenses().subscribe(resp => {
-      this.expenses = resp;
+      this.expenses = resp || [];
     });
   }
 
-  confirmDeletion() {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete these expenses?',
-      accept: () => {
-        const ids = this.selectedExpenses.map(el => el.id);
-        console.log('ids to delete', ids);
-        this.expenseService.deleteExpenses(ids)
-        .then(() => {
-          this.expenses = this.expenses.filter(ex => ids.indexOf(ex.id) < 0);
-          this.globalNotificationService.add(MESSAGES.deletedExpenses);
-        })
-        .catch(err => this.globalNotificationService.add(MESSAGES.error));
-      }
-    });
+  decideVisibilityAccordingToPayedField(): boolean {
+    if (this.selectedForDeletion) {
+      console.log('in if');
+      console.log(this.selectedForDeletion.payed);
+      return this.selectedForDeletion.payed > 0;
+    } else {
+      console.log('in else');
+      console.log(this.selectedExpenses.filter(ex => ex.payed > 0).length > 0);
+      return this.selectedExpenses.filter(ex => ex.payed > 0).length > 0;
+    }
   }
 
-  onDelete(ex: Expense): void {
-    this.confirmationService.confirm({
-      message: `Are you sure you want to delete ${ex.title} ?`,
-      accept: () => {
-        this.expenseService.deleteExpenses([ex.id])
-        .then(() => {
-          this.expenses = this.expenses.filter(el => el.id !== ex.id);
-          this.globalNotificationService.add(MESSAGES.deletedExpense);
-        })
-        .catch(() => this.globalNotificationService.add(MESSAGES.error));
-      }
-    });
+  deleteExpense(): void {
+    const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
+    this.expenseService.deleteExpenses(idsToDelete, false)
+    .then(() => {
+      this.resetDeletionVariables();
+      this.getExpenses();
+      this.globalNotificationService.add(MESSAGES.deletedExpense);
+    })
+    .catch(() => this.globalNotificationService.add(MESSAGES.error));
   }
 
-  onFetchRates(exp: Expense): void {
+  resetDeletionVariables(): void {
+    this.displayDelete = false;
+    this.deletionText = '';
+    this.selectedForDeletion = null;
+    this.selectedExpenses = [];
+  }
+
+  displayDeleteMultiple() {
+    this.displayDelete = true;
+    this.deletionText = 'Are you sure you want to delete following expenses:' + this.selectedExpenses.map(ex => ex.title).join(', ') + ' ?';
+  }
+
+  displayDeleteRow(ex: Expense): void {
+    this.displayDelete = true;
+    this.selectedForDeletion = ex;
+    this.deletionText = `Are you sure you want to delete ${this.selectedForDeletion.title} ?`;
+    console.log('sdasdas');
+  }
+
+  deleteExpenseAndRates(): void {
+    const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
+    this.expenseService.deleteExpenses(idsToDelete, true)
+    .then(() => {
+      this.resetDeletionVariables();
+      this.getExpenses();
+      this.globalNotificationService.add(MESSAGES.deletedExpense);
+    })
+    .catch(() => this.globalNotificationService.add(MESSAGES.error));
+  }
+
+  fetchAndDisplayRates(exp: Expense): void {
 
     this.rateService.getRatesByExpenseId(exp.id).then(rates => {
       const ref = this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
@@ -74,7 +100,6 @@ export class ExpensesComponent implements OnInit {
           rates: rates
         }
       });
-      console.log('ref', rates);
     });
   }
 
