@@ -4,7 +4,13 @@
   </div>
 
   <div class="row">
-
+    <p-overlayPanel #op>
+      <p-scrollPanel [style]="{width: '300px', height: '200px'}">
+        <div style="padding:1em;line-height:1.5">
+          {{selectedDescription}}
+        </div>
+      </p-scrollPanel>
+    </p-overlayPanel>
     <div class="table-wrapper mt-5 mb-5">
       <div class="col">
         <p-toolbar>
@@ -90,7 +96,20 @@
               <td>{{exp.id}}</td>
               <td>{{exp.title}}</td>
               <td>{{exp.amount}}</td>
-              <td>{{exp.description}}</td>
+              <td>
+                <div *ngIf="exp.description && exp.description.length > 15; else smallerDesc"
+                     style="cursor:pointer;"
+                     pTooltip="Click for detailed info"
+                     (click)="selectedDescription=exp.description;op.toggle($event)">
+                  {{exp.description.length > 15 ? (exp.description | slice:0:20)+'...' :
+                  exp.description}}
+                </div>
+                <ng-template #smallerDesc>
+                  <div>
+                    {{exp.description}}
+                  </div>
+                </ng-template>
+              </td>
               <td>{{exp.recurrent}}</td>
               <td>{{exp.createdOn | date}}</td>
               <td>{{exp.dueDate | date}}</td>

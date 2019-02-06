@@ -20,6 +20,7 @@ import {
   ConfirmDialogModule,
   DropdownModule,
   MultiSelectModule,
+  OverlayPanelModule,
   ScrollPanelModule,
   ToolbarModule,
   TooltipModule
@@ -68,7 +69,8 @@ import {DialogModule} from 'primeng/dialog';
     AccordionModule,
     TooltipModule,
     DynamicDialogModule,
-    DialogModule
+    DialogModule,
+    OverlayPanelModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

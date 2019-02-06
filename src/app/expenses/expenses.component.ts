@@ -21,6 +21,8 @@ export class ExpensesComponent implements OnInit {
   deletionText = '';
   selectedForDeletion: Expense;
 
+  selectedDescription = '';
+
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
               public dialogService: DialogService,
@@ -39,12 +41,8 @@ export class ExpensesComponent implements OnInit {
 
   decideVisibilityAccordingToPayedField(): boolean {
     if (this.selectedForDeletion) {
-      console.log('in if');
-      console.log(this.selectedForDeletion.payed);
       return this.selectedForDeletion.payed > 0;
     } else {
-      console.log('in else');
-      console.log(this.selectedExpenses.filter(ex => ex.payed > 0).length > 0);
       return this.selectedExpenses.filter(ex => ex.payed > 0).length > 0;
     }
   }
