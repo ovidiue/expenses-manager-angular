@@ -16,6 +16,8 @@ export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
   selectedCat: Category[] = [];
 
+  selectedDescription = '';
+
   constructor(private categoryService: CategoryService,
               private globalNotificationService: GlobalNotificationService,
               private confirmationService: ConfirmationService) {
