@@ -15,6 +15,8 @@ export class TagsComponent implements OnInit {
   tags: Tag[] = [];
   selectedTags: Tag[] = [];
 
+  selectedDescription = '';
+
   constructor(private tagService: TagService,
               private confirmationService: ConfirmationService,
               private globalNotificationService: GlobalNotificationService) {
