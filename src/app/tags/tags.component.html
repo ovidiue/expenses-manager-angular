@@ -79,7 +79,9 @@
                   </div>
                 </ng-template>
               </td>
-              <td [ngStyle]="{'background':tag.color}"></td>
+              <td>
+                <div [ngStyle]="{'background':tag.color}" class="table-cell-color"></div>
+              </td>
               <td class="text-center">
                 <button pButton
                         class="ui-button-info"
