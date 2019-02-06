@@ -15,7 +15,7 @@ import {ExpenseService} from '../services/expense.service';
 })
 export class RatesComponent implements OnInit {
   rates: Rate[];
-  selectedExpense: Expense;
+  selectedExpenses: Expense[] = [];
   expenses: Expense[];
   selectedRates: Rate[] = [];
 
@@ -31,9 +31,10 @@ export class RatesComponent implements OnInit {
   }
 
   filterTable($event) {
-    const expense = $event.value;
-    if (expense) {
-      this.rateService.getRatesByExpenseId(expense.id).then(rates => this.rates = rates);
+    const expenses = $event.value;
+    if (expenses.length) {
+      const ids = expenses.map(ex => ex.id);
+      this.rateService.getRatesByExpenseIds(ids).then(rates => this.rates = rates);
     } else {
       this.getRates();
     }

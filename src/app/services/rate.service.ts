@@ -59,4 +59,11 @@ export class RateService {
     params = params.append('expId', id.toString());
     return this.http.get<Rate[]>(url, {params}).toPromise();
   }
+
+  getRatesByExpenseIds(id: number[]): Promise<any> {
+    const url = this.ratesBaseUrl + '/expenses';
+    let params: HttpParams = new HttpParams();
+    params = params.append('expenseIds', id.toString());
+    return this.http.get<Rate[]>(url, {params}).toPromise();
+  }
 }
