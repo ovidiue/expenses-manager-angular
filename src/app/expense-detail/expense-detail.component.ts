@@ -9,13 +9,15 @@ import {MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {fadeIn} from '../utils/animations/fadeIn';
 
 
 @Component({
   selector: 'app-expense-detail',
   templateUrl: './expense-detail.component.html',
   styleUrls: ['./expense-detail.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
+  animations: [fadeIn]
 })
 export class ExpenseDetailComponent implements OnInit {
   expense = new Expense();

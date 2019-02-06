@@ -5,11 +5,13 @@ import {TagService} from '../services/tag.service';
 import {Location} from '@angular/common';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {fadeIn} from '../utils/animations/fadeIn';
 
 @Component({
   selector: 'app-tag-detail',
   templateUrl: './tag-detail.component.html',
-  styleUrls: ['./tag-detail.component.scss']
+  styleUrls: ['./tag-detail.component.scss'],
+  animations: [fadeIn]
 })
 export class TagDetailComponent implements OnInit {
   pageTitle: string;

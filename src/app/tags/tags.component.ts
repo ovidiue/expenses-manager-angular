@@ -4,12 +4,14 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import {TagService} from '../services/tag.service';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {fadeIn} from '../utils/animations/fadeIn';
 
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
+  animations: [fadeIn]
 })
 export class TagsComponent implements OnInit {
   tags: Tag[] = [];

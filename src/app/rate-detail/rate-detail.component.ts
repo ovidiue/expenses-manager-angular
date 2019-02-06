@@ -7,11 +7,13 @@ import * as moment from 'moment';
 import {ExpenseService} from '../services/expense.service';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {fadeIn} from '../utils/animations/fadeIn';
 
 @Component({
   selector: 'app-rate-detail',
   templateUrl: './rate-detail.component.html',
-  styleUrls: ['./rate-detail.component.scss']
+  styleUrls: ['./rate-detail.component.scss'],
+  animations: [fadeIn]
 })
 export class RateDetailComponent implements OnInit {
   pageTitle: string;

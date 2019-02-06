@@ -5,11 +5,13 @@ import {CategoryService} from '../services/category-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {fadeIn} from '../utils/animations/fadeIn';
 
 @Component({
   selector: 'app-category-detail',
   templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.scss']
+  styleUrls: ['./category-detail.component.scss'],
+  animations: [fadeIn]
 })
 export class CategoryDetailComponent implements OnInit {
   pageTitle: string = this.determineTitle();

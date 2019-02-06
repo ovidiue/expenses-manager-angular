@@ -4,12 +4,14 @@ import {CategoryService} from '../services/category-service.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
+import {fadeIn} from '../utils/animations/fadeIn';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
+  animations: [fadeIn]
 })
 export class CategoriesComponent implements OnInit {
 

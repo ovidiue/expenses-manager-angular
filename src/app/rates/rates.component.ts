@@ -6,12 +6,14 @@ import {GlobalNotificationService} from '../services/global-notification.service
 import {MESSAGES} from '../utils/messages';
 import {Expense} from '../classes/expense';
 import {ExpenseService} from '../services/expense.service';
+import {fadeIn} from '../utils/animations/fadeIn';
 
 @Component({
   selector: 'app-rates',
   templateUrl: './rates.component.html',
   styleUrls: ['./rates.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
+  animations: [fadeIn]
 })
 export class RatesComponent implements OnInit {
   rates: Rate[];
