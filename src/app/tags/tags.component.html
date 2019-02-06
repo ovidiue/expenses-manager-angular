@@ -53,7 +53,6 @@
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th>Id</th>
               <th>Name</th>
               <th>Description</th>
               <th>Color</th>
@@ -65,7 +64,6 @@
               <td>
                 <p-tableCheckbox [value]="tag"></p-tableCheckbox>
               </td>
-              <td>{{tag.id}}</td>
               <td>{{tag.name}}</td>
               <td>
                 <div *ngIf="tag.description && tag.description.length > 15; else smallerDesc"

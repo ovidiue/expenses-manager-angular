@@ -80,7 +80,6 @@
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th>Id</th>
               <th>Amount</th>
               <th>Observation</th>
               <th>Creation Date</th>
@@ -94,7 +93,6 @@
               <td>
                 <p-tableCheckbox [value]="rate"></p-tableCheckbox>
               </td>
-              <td>{{rate.id}}</td>
               <td>{{rate.amount}}</td>
               <td>
                 <div *ngIf="rate.observation && rate.observation.length > 15; else smallerObs"
