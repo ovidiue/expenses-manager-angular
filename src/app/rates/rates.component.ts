@@ -19,6 +19,8 @@ export class RatesComponent implements OnInit {
   expenses: Expense[];
   selectedRates: Rate[] = [];
 
+  selectedObservation = '';
+
   constructor(private confirmationService: ConfirmationService,
               private rateService: RateService,
               private expenseService: ExpenseService,
