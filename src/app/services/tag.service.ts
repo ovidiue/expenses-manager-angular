@@ -22,14 +22,14 @@ export class TagService {
 
   saveTag(tag: Tag): Promise<any> {
     const url = this.tagsUrl + '/save';
-    return this.http.post(url, tag, httpOptions).toPromise().then().catch(err => console.log('err', err));
+    return this.http.post(url, tag, httpOptions).toPromise();
   }
 
-  deleteTags(tagsIds: number[]): Promise<any> {
+  deleteTags(tagsIds: Tag[]): Promise<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     tagsIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.tagsUrl + '/delete';
-    return this.http.post(url, tagsIds).toPromise().then().catch(err => console.log(err));
+    return this.http.post(url, tagsIds).toPromise();
   }
 
   getTag(catId: number): Promise<any> {

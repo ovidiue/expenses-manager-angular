@@ -40,12 +40,9 @@ export class TagsComponent implements OnInit {
       accept: () => {
         const ids = this.selectedTags.map(el => el.id);
         console.log('ids to delete', ids);
-        this.tagService.deleteTags(ids)
-        .then(resp => {
-          ids.forEach(id => {
-            const index = this.tags.findIndex(tag => tag.id === id);
-            this.tags.splice(index, 1);
-          });
+        this.tagService.deleteTags(this.selectedTags)
+        .then(() => {
+          this.getTags();
           this.globalNotificationService.add(MESSAGES.deletedTags);
         })
         .catch(err => this.globalNotificationService.add(MESSAGES.error));
@@ -57,9 +54,9 @@ export class TagsComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${tag.name} ?`,
       accept: () => {
-        this.tagService.deleteTags([tag.id])
+        this.tagService.deleteTags([tag])
         .then(() => {
-          this.tags = this.tags.filter(el => el.id !== tag.id);
+          this.getTags();
           this.globalNotificationService.add(MESSAGES.deletedTag);
         })
         .catch(() => this.globalNotificationService.add(MESSAGES.error));
