@@ -26,10 +26,10 @@
             <button pButton
                     type="button"
                     pTooltip="Clear filters"
-                    *ngIf="selectedExpenses.length"
+                    [hidden]="!selectedExpenses.length"
                     (click)="selectedExpenses=[]"
                     icon="pi pi-times"
-                    class="TEST ui-button-raised ui-button-rounded ui-button-warning">
+                    class="clear-filters ui-button-raised ui-button-rounded ui-button-warning">
             </button>
           </div>
           <div class="ui-toolbar-group-right">
