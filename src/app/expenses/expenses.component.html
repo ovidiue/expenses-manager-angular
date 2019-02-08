@@ -119,12 +119,12 @@
                 </span>
               </td>
               <td>
-                <div *ngIf="exp.tags && exp.tags.length">
-                  <div *ngFor="let tag of exp.tags"
-                       class="bottom-bradius"
-                       [ngStyle]="{'border-bottom': '8px solid' + tag.color}">
+                <div *ngIf="exp.tags && exp.tags.length" style="display: inline-block;">
+                  <span *ngFor="let tag of exp.tags"
+                        class="bottom-bradius"
+                        [ngStyle]="{'border-bottom': '8px solid' + tag.color}">
                     {{tag.name}}
-                  </div>
+                  </span>
                 </div>
               </td>
               <td>{{exp.payed}}</td>
