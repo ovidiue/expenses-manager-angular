@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Category} from '../classes/category';
 
@@ -26,11 +26,11 @@ export class CategoryService {
     return this.http.post(url, category, httpOptions).toPromise();
   }
 
-  deleteCategories(categoryIds: number[]): Promise<any> {
-    const urlSearchParams: URLSearchParams = new URLSearchParams();
-    categoryIds.forEach(id => urlSearchParams.append('', id.toString()));
+  deleteCategories(categoryIds: number[], withExpenses: boolean): Promise<any> {
+    let params: HttpParams = new HttpParams();
+    params = params.append('withExpenses', withExpenses.toString());
     const url = this.categoriesUrl + '/delete';
-    return this.http.post(url, categoryIds).toPromise().then().catch(err => console.log(err));
+    return this.http.post(url, categoryIds, {params}).toPromise();
   }
 
   getCategory(catId: number): Promise<any> {

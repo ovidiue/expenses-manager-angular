@@ -15,28 +15,42 @@
       <div class="col">
         <p-toolbar>
           <div class="ui-toolbar-group-right">
-            <p-confirmDialog #cd
-                             [style]="{width: '425px'}"
-                             [acceptLabel]="'Delete'"
-                             [acceptButtonStyleClass]="'ui-button-danger'"
-                             [rejectButtonStyleClass]="'ui-button-secondary'"
-                             [rtl]="true"
-                             [header]="'Confirm DELETE'"
-                             [rejectLabel]="'Cancel'">
+            <p-dialog [style]="{width: '425px'}"
+                      [rtl]="true"
+                      modal="true"
+                      positionTop="50"
+                      [visible]="displayDeleteModal"
+                      [header]="'Confirm DELETE'">
+              <span>{{deletionText}}</span>
+              <p>This action can not be undone!</p>
               <p-footer>
-                <button type="button" [class]="'ui-button-secondary float-left'" pButton
+                <button type="button"
+                        [class]="'ui-button-secondary float-left ui-button-secondary ui-button-raised'"
+                        pButton
                         icon="pi pi-times"
-                        label="Cancel" (click)="cd.reject()">
+                        label="Cancel"
+                        (click)="resetDeletionVariables()">
                 </button>
-                <button type="button" [class]="'ui-button-danger'" pButton icon="pi pi-check"
-                        label="Delete" (click)="cd.accept()">
+                <button type="button"
+                        [class]="'ui-button-danger ui-button-raised'"
+                        pButton
+                        icon="pi pi-check"
+                        label="Delete"
+                        (click)="deleteCategory(false)">
+                </button>
+                <button type="button"
+                        [class]="'ui-button-danger ui-button-raised'"
+                        pButton
+                        icon="pi pi-check"
+                        label="Delete expenses too"
+                        (click)="deleteCategory(true)">
                 </button>
               </p-footer>
-            </p-confirmDialog>
+            </p-dialog>
             <button type="button"
-                    (click)="confirmDeletion()"
+                    (click)="displayDeleteModal=true"
                     pButton
-                    [disabled]="!selectedCat.length"
+                    [disabled]="!selectedCategories.length"
                     class="ui-button-raised ui-button-danger"
                     label="Delete">
             </button>
@@ -50,7 +64,8 @@
 
       </div>
       <div class="col">
-        <p-table [value]="categories" [paginator]="true" [rows]="10" [(selection)]="selectedCat">
+        <p-table [value]="categories" [paginator]="true" [rows]="10"
+                 [(selection)]="selectedCategories">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
@@ -95,7 +110,7 @@
                 <button pButton
                         class="ui-button-danger"
                         type="button"
-                        (click)="onDelete(cat)"
+                        (click)="selectedForDeletion=cat;displayDeleteModal=true"
                         icon="pi pi-trash"
                         iconPos="left"></button>
               </td>
