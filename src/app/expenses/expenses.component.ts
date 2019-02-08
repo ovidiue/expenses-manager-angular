@@ -7,6 +7,8 @@ import {GlobalNotificationService} from '../services/global-notification.service
 import {MESSAGES} from '../utils/messages';
 import {DialogRatesComponent} from '../dialog-rates/dialog-rates.component';
 import {fadeIn} from '../utils/animations/fadeIn';
+import {CategoryService} from '../services/category-service.service';
+import {TagService} from '../services/tag.service';
 
 @Component({
   selector: 'app-expenses',
@@ -25,14 +27,25 @@ export class ExpensesComponent implements OnInit {
 
   selectedDescription = '';
 
+  amountBetween = [100, 1000];
+  categories = [];
+  tags = [];
+  createdBetween;
+  dueBetween;
+  recurrent;
+
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
+              private categoryService: CategoryService,
+              private tagService: TagService,
               public dialogService: DialogService,
               private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
     this.getExpenses();
+    this.getCategories();
+    this.getTags();
   }
 
   getExpenses(): void {
@@ -40,6 +53,30 @@ export class ExpensesComponent implements OnInit {
       this.expenses = resp || [];
     });
   }
+
+  getTags(): void {
+    this.tagService.getTags().subscribe(tags => this.tags = tags.map(el => {
+      return {
+        label: el.name,
+        value: {id: el.id, name: el.name, color: el.color},
+        color: el.color
+      };
+    }));
+  }
+
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe(cats => {
+      this.categories = cats.map(el => {
+        return {
+          label: el.name,
+          value: el,
+          color: el.color
+        };
+      });
+    });
+  }
+
 
   decideVisibilityAccordingToPayedField(): boolean {
     if (this.selectedForDeletion) {
