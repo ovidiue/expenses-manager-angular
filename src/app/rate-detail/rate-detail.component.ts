@@ -100,7 +100,7 @@ export class RateDetailComponent implements OnInit {
   }
 
   private getExpenses() {
-    this.expenseService.getExpenses().subscribe(expenses => {
+    this.expenseService.getExpenses().then(expenses => {
       this.expenses = expenses.map(exp => {
         return {
           label: exp.title,

@@ -11,7 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   AccordionModule,
   CalendarModule,
@@ -73,7 +73,8 @@ import {SliderModule} from 'primeng/slider';
     DialogModule,
     OverlayPanelModule,
     AccordionModule,
-    SliderModule
+    SliderModule,
+    ReactiveFormsModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

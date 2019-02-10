@@ -49,7 +49,7 @@ export class RatesComponent implements OnInit {
   }
 
   getExpenses(): void {
-    this.expenseService.getExpenses().subscribe(expenses => this.expenses = expenses);
+    this.expenseService.getExpenses().then(expenses => this.expenses = expenses);
   }
 
   confirmDeletion() {

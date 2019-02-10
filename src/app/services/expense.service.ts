@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {Expense} from '../classes/expense';
+import {ExpenseFilter} from '../classes/filters/expense-filter';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -16,8 +16,12 @@ export class ExpenseService {
   constructor(private http: HttpClient) {
   }
 
-  getExpenses(): Observable<Expense[]> {
-    return this.http.get<Expense[]>(this.expensesBaseUrl);
+  getExpenses(expenseFilter?: ExpenseFilter): Promise<any> {
+    let params: HttpParams = new HttpParams();
+    for (const key in expenseFilter) {
+      params = params.append(key, expenseFilter[key]);
+    }
+    return this.http.get<Expense[]>(this.expensesBaseUrl, {params}).toPromise();
   }
 
   saveExpense(expense: Expense): Promise<any> {

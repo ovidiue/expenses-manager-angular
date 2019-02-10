@@ -9,6 +9,9 @@ import {DialogRatesComponent} from '../dialog-rates/dialog-rates.component';
 import {fadeIn} from '../utils/animations/fadeIn';
 import {CategoryService} from '../services/category-service.service';
 import {TagService} from '../services/tag.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {ExpenseFilter} from '../classes/filters/expense-filter';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-expenses',
@@ -27,12 +30,13 @@ export class ExpensesComponent implements OnInit {
 
   selectedDescription = '';
 
-  amountBetween = [100, 1000];
+  amountBetween: number[] = [0, 10000];
   categories = [];
   tags = [];
   createdBetween;
   dueBetween;
-  recurrent;
+
+  filterForm: FormGroup;
 
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
@@ -46,10 +50,44 @@ export class ExpensesComponent implements OnInit {
     this.getExpenses();
     this.getCategories();
     this.getTags();
+    this.instantiateForm();
+    this.onFormChange();
+  }
+
+  clearFormFilters(event: any): void {
+    event.stopPropagation();
+    this.filterForm.reset();
+    // TODO fix form reset
+  }
+
+  onFormChange(): void {
+    const self = this;
+    self.filterForm.valueChanges.subscribe(val => {
+      setTimeout(function () {
+        const expenseFilter = self.mapToExpenseFilter(val);
+        self.expenseService.getExpenses(expenseFilter).then(resp => {
+          console.log('resp: ', resp);
+          self.expenses = resp;
+        });
+      }, 500);
+    });
+  }
+
+  instantiateForm(): void {
+    this.filterForm = new FormGroup({
+      title: new FormControl(''),
+      amount: new FormControl(''),
+      description: new FormControl(''),
+      createdBetween: new FormControl(''),
+      dueBetween: new FormControl(''),
+      recurrent: new FormControl(false),
+      category: new FormControl(''),
+      tags: new FormControl('')
+    });
   }
 
   getExpenses(): void {
-    this.expenseService.getExpenses().subscribe(resp => {
+    this.expenseService.getExpenses().then(resp => {
       this.expenses = resp || [];
     });
   }
@@ -140,4 +178,46 @@ export class ExpensesComponent implements OnInit {
     });
   }
 
+  mapToExpenseFilter(obj: any): ExpenseFilter {
+    const expenseFilter: ExpenseFilter = {};
+
+    if (obj.amount) {
+      obj.amountFrom = obj.amount[0];
+      obj.amountTo = obj.amount[1];
+      delete obj.amount;
+    }
+
+    if (obj.createdBetween) {
+      obj.createdFrom = moment(obj.createdBetween[0]).format('DD-MM-YYYY');
+      obj.createdTo = moment(obj.createdBetween[1]).format('DD-MM-YYYY');
+      delete obj.createdBetween;
+    }
+
+    if (obj.dueBetween) {
+      obj.dueDateFrom = moment(obj.dueBetween[0]).format('DD-MM-YYYY');
+      obj.dueDateTo = moment(obj.dueBetween[1]).format('DD-MM-YYYY');
+      delete obj.dueBetween;
+    }
+
+    if (obj.category) {
+      obj.categoryId = obj.category.id;
+      delete obj.category;
+    }
+
+    if (obj.tags) {
+      obj.tagIds = obj.tags.map(tag => tag.id);
+      delete obj.tags;
+    }
+
+    console.log('in mapToExpenseFilter obj:', obj);
+    for (const key in obj) {
+      if (obj[key] !== null && typeof obj[key] !== 'undefined' && obj[key] !== '') {
+        expenseFilter[key] = obj[key];
+      }
+    }
+
+    return expenseFilter;
+
+  }
 }
+

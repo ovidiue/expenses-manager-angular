@@ -16,19 +16,38 @@
     <div class="table-filters mt-3 col">
       <p-accordion>
         <p-accordionTab header="Filters">
-          <form>
+          <p-header>
+            <div class="ui-g">
+              <div class="ui-md-11">Filters</div>
+              <div class="ui-md-1">
+                <p-button icon="pi pi-times"
+                          [style]="{float:'right'}"
+                          styleClass="ui-button-warning ui-button-raised ui-button-rounded ui-md-1 ui-md-offset-10"
+                          (click)="clearFormFilters($event)">
+                </p-button>
+              </div>
+            </div>
+          </p-header>
+          <form [formGroup]="filterForm"
+                (ngSubmit)="onSubmit(filterForm)">
             <div class="row">
               <div class="col">
                 <div class="form-group">
                   <label for="title">Title</label>
-                  <input type="text" class="form-control" id="title"
+                  <input type="text"
+                         class="form-control"
+                         id="title"
+                         formControlName="title"
                          placeholder="Enter title">
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label for="description">Description</label>
-                  <input type="text" class="form-control" id="description"
+                  <input type="text"
+                         class="form-control"
+                         id="description"
+                         formControlName="description"
                          placeholder="Enter description">
                 </div>
               </div>
@@ -37,15 +56,21 @@
             <div class="row">
               <div class="col">
                 <div class="form-group">
-                  <label for="category" style="display: block;">Category</label>
+                  <label for="category"
+                         style="display: block;">
+                    Category
+                  </label>
                   <p-dropdown id="category"
                               name="category"
                               [options]="categories"
+                              formControlName="category"
                               [showClear]="true"
                               [placeholder]="'Select category'"
                               [style]="{'width':'100%'}">
                     <ng-template let-item pTemplate="selectedItem">
-                      <span [ngStyle]="{background: item.color}" class="selected-cat"></span>
+                      <span [ngStyle]="{background: item.color}"
+                            class="selected-cat">
+                      </span>
                       <span
                         style="font-size:14px;margin-left:10px;margin-top:4px">{{item.label}}</span>
                     </ng-template>
@@ -64,6 +89,7 @@
                   <label style="display: block;" for="tags">Tags</label>
                   <p-multiSelect [options]="tags"
                                  name="tags"
+                                 formControlName="tags"
                                  id="tags"
                                  [style]="{'width':'100%'}">
                     <ng-template let-value pTemplate="selectedItems">
@@ -73,7 +99,7 @@
                         <span>{{val.name}}</span>
                       </div>
                       <span *ngIf="!value || value.length === 0"
-                            class="ui-multiselected-empty-token ui-corner-all">Choose</span>
+                            class="ui-multiselected-empty-token ui-corner-all">Select Tags</span>
                     </ng-template>
                     <ng-template let-tag pTemplate="item">
                       <span [ngStyle]="{background:tag.color}" class="select-tag"></span>
@@ -88,18 +114,31 @@
               <div class="col">
                 <div class="form-group">
                   <label style="display: block;" for="createdDate">Created Between</label>
-                  <p-calendar [style]="{width:'100%'}" [inputStyle]="{width:'100%'}" id="createdDate"
+                  <p-calendar [style]="{width:'100%'}"
+                              [inputStyle]="{width:'100%'}"
+                              id="createdDate"
+                              showButtonBar="true"
+                              [placeholder]="'Select \'to\' and \'from\' dates'"
+                              formControlName="createdBetween"
                               name="createdDate"
-                              [(ngModel)]="createdBetween"
-                              selectionMode="range" [readonlyInput]="true"></p-calendar>
+                              selectionMode="range"
+                              [readonlyInput]="true">
+                  </p-calendar>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label style="display: block;" for="dueDate">Due Between</label>
-                  <p-calendar [style]="{width:'100%'}" [inputStyle]="{width:'100%'}" id="dueDate"
-                              name="dueDate" [(ngModel)]="dueBetween" selectionMode="range"
-                              [readonlyInput]="true"></p-calendar>
+                  <p-calendar [style]="{width:'100%'}"
+                              [inputStyle]="{width:'100%'}"
+                              id="dueDate"
+                              name="dueDate"
+                              formControlName="dueBetween"
+                              selectionMode="range"
+                              [placeholder]="'Select \'to\' and \'from\' dates'"
+                              showButtonBar="true"
+                              [readonlyInput]="true">
+                  </p-calendar>
                 </div>
               </div>
             </div>
@@ -109,15 +148,29 @@
                 <div class="form-group">
                   <label style="display: block;" class="form-check-label"
                          for="recurrent">Recurrent</label>
-                  <p-checkbox name="recurrent" id="recurrent" [(ngModel)]="recurrent"
-                              binary="true"></p-checkbox>
+                  <p-checkbox name="recurrent"
+                              [formControl]="filterForm.controls['recurrent']"
+                              id="recurrent"
+                              binary="true">
+                  </p-checkbox>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
-                  <label for="amount">Amount {{amountBetween[0] + ' - ' + amountBetween[1]}}</label>
-                  <p-slider [(ngModel)]="amountBetween" name="amount" id="amount" [min]="100"
-                            [max]="1000" [range]="true"></p-slider>
+                  <label for="amount" *ngIf="amountBetween.length > 0;else labelSimple">Amount
+                    {{amountBetween[0] + ' - ' + amountBetween[1]}}</label>
+                  <ng-template #labelSimple>
+                    <label for="amount">Amount</label>
+                  </ng-template>
+                  <p-slider formControlName="amount"
+                            name="amount"
+                            id="amount"
+                            [(ngModel)]="amountBetween"
+                            [min]="0"
+                            [step]="100"
+                            [max]="10000"
+                            [range]="true">
+                  </p-slider>
                 </div>
               </div>
             </div>
