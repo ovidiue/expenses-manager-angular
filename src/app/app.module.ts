@@ -35,6 +35,7 @@ import {DialogRatesComponent} from './dialog-rates/dialog-rates.component';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {DialogModule} from 'primeng/dialog';
 import {SliderModule} from 'primeng/slider';
+import {ChipsModule} from 'primeng/chips';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {SliderModule} from 'primeng/slider';
     OverlayPanelModule,
     AccordionModule,
     SliderModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChipsModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

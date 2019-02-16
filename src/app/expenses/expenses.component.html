@@ -28,6 +28,7 @@
               </div>
             </div>
           </p-header>
+          <p-chips [(ngModel)]="beautifiedFilters" [disabled]="true"></p-chips>
           <form [formGroup]="filterForm"
                 (ngSubmit)="onSubmit(filterForm)">
             <div class="row">

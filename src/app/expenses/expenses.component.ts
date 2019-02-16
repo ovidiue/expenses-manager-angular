@@ -31,6 +31,7 @@ export class ExpensesComponent implements OnInit {
   selectedDescription = '';
 
   amountBetween: number[] = [0, 10000];
+  beautifiedFilters: string[] = [];
   categories = [];
   tags = [];
 
@@ -58,9 +59,54 @@ export class ExpensesComponent implements OnInit {
     this.amountBetween = [0, 10000];
   }
 
+  parseFilters(obj: any): string[] {
+    const result = [];
+    if (obj) {
+      for (const key in obj) {
+        if (obj[key] !== '' && obj[key] !== null) {
+          let value = '';
+          console.log('key', key);
+          console.log('val', obj[key]);
+          switch (key) {
+            case 'amount':
+              value = 'Amount between: ' + obj[key][0] + '-' + obj[key][1];
+              break;
+            case 'category':
+              value = 'Category: ' + obj[key].name;
+              break;
+            case 'createdBetween':
+              value = 'Created between: ' + moment(obj[key][0]).format('L') + ' - ' +
+                moment(obj[key][1]).format('L');
+              break;
+            case 'dueBetween':
+              value = 'Due between: ' + moment(obj[key][0]).format('L') + ' - ' +
+                moment(obj[key][1]).format('L');
+              break;
+            case 'title':
+              value = 'Title contains: ' + obj[key];
+              break;
+            case 'description':
+              value = 'Description contains: ' + obj[key];
+              break;
+            case 'recurrent':
+              value = 'Recurrent: ' + obj[key];
+              break;
+            case 'tags':
+              value = 'Tags: ' + obj[key].map(el => el.name).concat();
+              break;
+          }
+          result.push(value);
+        }
+      }
+    }
+    return result;
+  }
+
   onFormChange(): void {
     const self = this;
     self.filterForm.valueChanges.subscribe(val => {
+      console.log('form val', val);
+      this.beautifiedFilters = self.parseFilters(val);
       setTimeout(function () {
         const expenseFilter = self.mapToExpenseFilter(val);
         self.expenseService.getExpenses(expenseFilter).then(resp => {
