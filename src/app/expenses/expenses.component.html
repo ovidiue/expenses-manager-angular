@@ -157,7 +157,7 @@
               </div>
               <div class="col">
                 <div class="form-group">
-                  <label for="amount" *ngIf="amountBetween.length > 0;else labelSimple">Amount
+                  <label for="amount" *ngIf="amountBetween !== null && amountBetween.length > 0;else labelSimple">Amount
                     {{amountBetween[0] + ' - ' + amountBetween[1]}}</label>
                   <ng-template #labelSimple>
                     <label for="amount">Amount</label>

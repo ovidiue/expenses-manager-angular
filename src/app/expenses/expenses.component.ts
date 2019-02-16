@@ -33,8 +33,6 @@ export class ExpensesComponent implements OnInit {
   amountBetween: number[] = [0, 10000];
   categories = [];
   tags = [];
-  createdBetween;
-  dueBetween;
 
   filterForm: FormGroup;
 
@@ -57,7 +55,7 @@ export class ExpensesComponent implements OnInit {
   clearFormFilters(event: any): void {
     event.stopPropagation();
     this.filterForm.reset();
-    // TODO fix form reset
+    this.amountBetween = [0, 10000];
   }
 
   onFormChange(): void {
@@ -66,7 +64,6 @@ export class ExpensesComponent implements OnInit {
       setTimeout(function () {
         const expenseFilter = self.mapToExpenseFilter(val);
         self.expenseService.getExpenses(expenseFilter).then(resp => {
-          console.log('resp: ', resp);
           self.expenses = resp;
         });
       }, 500);
@@ -151,7 +148,6 @@ export class ExpensesComponent implements OnInit {
     this.displayDelete = true;
     this.selectedForDeletion = ex;
     this.deletionText = `Are you sure you want to delete ${this.selectedForDeletion.title} ?`;
-    console.log('sdasdas');
   }
 
   deleteExpenseAndRates(): void {
@@ -209,7 +205,6 @@ export class ExpensesComponent implements OnInit {
       delete obj.tags;
     }
 
-    console.log('in mapToExpenseFilter obj:', obj);
     for (const key in obj) {
       if (obj[key] !== null && typeof obj[key] !== 'undefined' && obj[key] !== '') {
         expenseFilter[key] = obj[key];
