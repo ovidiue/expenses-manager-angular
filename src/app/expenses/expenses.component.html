@@ -17,16 +17,7 @@
       <p-accordion>
         <p-accordionTab header="Filters">
           <p-header>
-            <div class="ui-g">
-              <div class="ui-md-11">Filters</div>
-              <div class="ui-md-1">
-                <p-button icon="pi pi-times"
-                          [style]="{float:'right'}"
-                          styleClass="ui-button-warning ui-button-raised ui-button-rounded ui-md-1 ui-md-offset-10"
-                          (click)="clearFormFilters($event)">
-                </p-button>
-              </div>
-            </div>
+            Filters
           </p-header>
           <p-chips [(ngModel)]="beautifiedFilters" [disabled]="true"></p-chips>
           <form [formGroup]="filterForm"
@@ -158,7 +149,8 @@
               </div>
               <div class="col">
                 <div class="form-group">
-                  <label for="amount" *ngIf="amountBetween !== null && amountBetween.length > 0;else labelSimple">Amount
+                  <label for="amount"
+                         *ngIf="amountBetween !== null && amountBetween.length > 0;else labelSimple">Amount
                     {{amountBetween[0] + ' - ' + amountBetween[1]}}</label>
                   <ng-template #labelSimple>
                     <label for="amount">Amount</label>
@@ -177,6 +169,19 @@
             </div>
 
           </form>
+          <hr>
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-4 ui-md-offset-9">
+              <p-button (click)="clearFormFilters($event)"
+                        label="Clear Filters"
+                        styleClass="ui-button-rounded ui-button-raised ui-button-secondary">
+              </p-button>
+              <p-button label="Search"
+                        (click)="searchValues()"
+                        styleClass="ui-button-rounded ui-button-raised ui-button-success">
+              </p-button>
+            </div>
+          </div>
         </p-accordionTab>
       </p-accordion>
     </div>

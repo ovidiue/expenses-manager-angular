@@ -53,10 +53,10 @@ export class ExpensesComponent implements OnInit {
     this.onFormChange();
   }
 
-  clearFormFilters(event: any): void {
-    event.stopPropagation();
+  clearFormFilters(): void {
     this.filterForm.reset();
     this.amountBetween = [0, 10000];
+    this.searchValues();
   }
 
   parseFilters(obj: any): string[] {
@@ -102,17 +102,18 @@ export class ExpensesComponent implements OnInit {
     return result;
   }
 
+  searchValues(): void {
+    this.beautifiedFilters = this.parseFilters(this.filterForm.value);
+    const expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
+    this.expenseService.getExpenses(expenseFilter).then(resp => {
+      this.expenses = resp;
+    });
+  }
+
   onFormChange(): void {
     const self = this;
     self.filterForm.valueChanges.subscribe(val => {
-      console.log('form val', val);
       this.beautifiedFilters = self.parseFilters(val);
-      setTimeout(function () {
-        const expenseFilter = self.mapToExpenseFilter(val);
-        self.expenseService.getExpenses(expenseFilter).then(resp => {
-          self.expenses = resp;
-        });
-      }, 500);
     });
   }
 
