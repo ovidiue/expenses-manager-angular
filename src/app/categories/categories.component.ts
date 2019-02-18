@@ -67,6 +67,4 @@ export class CategoriesComponent implements OnInit {
       this.loading = false;
     });
   }
-
-
 }
