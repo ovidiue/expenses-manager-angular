@@ -12,6 +12,7 @@ import {TagService} from '../services/tag.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ExpenseFilter} from '../classes/filters/expense-filter';
 import * as moment from 'moment';
+import {TABLE_DEFAULTS} from '../utils/table-options';
 
 @Component({
   selector: 'app-expenses',
@@ -148,8 +149,9 @@ export class ExpensesComponent implements OnInit {
 
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe(cats => {
-      this.categories = cats.map(el => {
+    this.categoryService.getCategories(TABLE_DEFAULTS.maxSize)
+    .then(resp => {
+      this.categories = resp.content.map(el => {
         return {
           label: el.name,
           value: el,

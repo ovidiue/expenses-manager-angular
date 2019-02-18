@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {Category} from '../classes/category';
+import {LazyLoadEvent} from 'primeng/api';
+import mapTableParams from '../utils/MapTableParamsToRest';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -17,8 +18,9 @@ export class CategoryService {
   constructor(private http: HttpClient) {
   }
 
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.categoriesUrl);
+  getCategories(event: LazyLoadEvent): Promise<any> {
+    const params: HttpParams = mapTableParams(event);
+    return this.http.get(this.categoriesUrl, {params}).toPromise();
   }
 
   saveCategory(category: Category): Promise<any> {

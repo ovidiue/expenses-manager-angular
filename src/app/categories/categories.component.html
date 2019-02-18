@@ -65,7 +65,14 @@
 
       </div>
       <div class="col">
-        <p-table [value]="categories" [paginator]="true" [rows]="10"
+        <p-table [value]="categories"
+                 [paginator]="true"
+                 [lazy]="true"
+                 [rows]="10"
+                 (onLazyLoad)="getCategories($event)"
+                 [totalRecords]="totalTableRecords"
+                 [loading]="loading"
+                 [rowsPerPageOptions]="rowsPerPageOptions"
                  [(selection)]="selectedCategories">
           <ng-template pTemplate="header">
             <tr>

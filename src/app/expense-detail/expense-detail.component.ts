@@ -10,6 +10,7 @@ import {Expense} from '../classes/expense';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
 import {fadeIn} from '../utils/animations/fadeIn';
+import {TABLE_DEFAULTS} from '../utils/table-options';
 
 
 @Component({
@@ -61,8 +62,9 @@ export class ExpenseDetailComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe(cats => {
-      this.categories = cats.map(el => {
+    this.categoryService.getCategories(TABLE_DEFAULTS.maxSize)
+    .then(resp => {
+      this.categories = resp.content.map(el => {
         return {
           label: el.name,
           value: el,

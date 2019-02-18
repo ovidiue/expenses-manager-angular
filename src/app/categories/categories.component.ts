@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../classes/category';
 import {CategoryService} from '../services/category-service.service';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {fadeIn} from '../utils/animations/fadeIn';
 import {MESSAGES} from '../utils/messages';
+import {TABLE_DEFAULTS} from '../utils/table-options';
 
 @Component({
   selector: 'app-categories',
@@ -23,12 +24,15 @@ export class CategoriesComponent implements OnInit {
   deletionText = '';
   selectedForDeletion: Category;
 
+  rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
+  totalTableRecords: number;
+  loading = true;
+
   constructor(private categoryService: CategoryService,
               private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
-    this.getCategories();
   }
 
   resetDeletionVariables(): void {
@@ -44,7 +48,7 @@ export class CategoriesComponent implements OnInit {
     console.log('withExpenses', withExpenses);
     this.categoryService.deleteCategories(idsToDelete, withExpenses)
     .then(() => {
-      this.getCategories();
+      this.getCategories(TABLE_DEFAULTS.query);
       this.resetDeletionVariables();
       this.globalNotificationService.add(MESSAGES.deletedCategories);
     })
@@ -54,10 +58,13 @@ export class CategoriesComponent implements OnInit {
     });
   }
 
-  getCategories(): void {
-    this.categoryService.getCategories().subscribe(categories => {
-      console.log('categories: ', categories);
-      this.categories = categories;
+  getCategories(event: LazyLoadEvent): void {
+    this.loading = true;
+    this.categoryService.getCategories(event)
+    .then(resp => {
+      this.totalTableRecords = resp.totalElements;
+      this.categories = resp.content;
+      this.loading = false;
     });
   }
 
