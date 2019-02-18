@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Tag} from '../classes/tag';
-import {Observable} from 'rxjs';
+import {LazyLoadEvent} from 'primeng/api';
+import mapEventToRestParams from '../utils/MapTableParamsToRest';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -16,8 +17,9 @@ export class TagService {
   constructor(private http: HttpClient) {
   }
 
-  getTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(this.tagsUrl);
+  getTags(event: LazyLoadEvent): Promise<any> {
+    const params: HttpParams = mapEventToRestParams(event);
+    return this.http.get(this.tagsUrl, {params}).toPromise();
   }
 
   saveTag(tag: Tag): Promise<any> {

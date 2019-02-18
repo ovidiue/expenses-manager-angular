@@ -47,15 +47,32 @@
 
       </div>
       <div class="col">
-        <p-table [value]="tags" [paginator]="true" [rows]="10" [(selection)]="selectedTags">
+        <p-table [value]="tags"
+                 [paginator]="true"
+                 [lazy]="true"
+                 [rows]="10"
+                 (onLazyLoad)="getTags($event)"
+                 [totalRecords]="totalTableRecords"
+                 [loading]="loading"
+                 [rowsPerPageOptions]="rowsPerPageOptions"
+                 [(selection)]="selectedTags">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Color</th>
+              <th [pSortableColumn]="'name'">
+                Name
+                <p-sortIcon [field]="'name'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'description'">
+                Description
+                <p-sortIcon [field]="'description'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'color'">
+                Color
+                <p-sortIcon [field]="'color'"></p-sortIcon>
+              </th>
               <th>Actions</th>
             </tr>
           </ng-template>
