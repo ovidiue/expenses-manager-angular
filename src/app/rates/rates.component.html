@@ -74,17 +74,40 @@
 
       </div>
       <div class="col">
-        <p-table [value]="rates" [paginator]="true" [rows]="10" [(selection)]="selectedRates">
+        <p-table [value]="rates"
+                 [paginator]="true"
+                 [lazy]="true"
+                 [rows]="10"
+                 (onLazyLoad)="getRates($event)"
+                 [totalRecords]="totalTableRecords"
+                 [loading]="loading"
+                 [rowsPerPageOptions]="rowsPerPageOptions"
+                 [(selection)]="selectedRates">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th>Amount</th>
-              <th>Observation</th>
-              <th>Creation Date</th>
-              <th>Payed On</th>
-              <th>Expense</th>
+              <th [pSortableColumn]="'amount'">
+                Amount
+                <p-sortIcon [field]="'amount'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'observation'">
+                Observation
+                <p-sortIcon [field]="'observation'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'creationDate'">
+                Creation Date
+                <p-sortIcon [field]="'creationDate'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'payedOn'">
+                Payed On
+                <p-sortIcon [field]="'payedOn'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'expense'">
+                Expense
+                <p-sortIcon [field]="'name'"></p-sortIcon>
+              </th>
               <th>Actions</th>
             </tr>
           </ng-template>

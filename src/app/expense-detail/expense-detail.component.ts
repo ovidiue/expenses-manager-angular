@@ -52,7 +52,7 @@ export class ExpenseDetailComponent implements OnInit {
   }
 
   getTags(): void {
-    this.tagService.getTags().subscribe(tags => this.tags = tags.map(el => {
+    this.tagService.getTags(TABLE_DEFAULTS.maxSize).then(resp => this.tags = resp.content.map(el => {
       return {
         label: el.name,
         value: {id: el.id, name: el.name, color: el.color},

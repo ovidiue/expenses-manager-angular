@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 import {Rate} from '../classes/rate';
 import {RateService} from '../services/rate.service';
 import {GlobalNotificationService} from '../services/global-notification.service';
@@ -7,6 +7,7 @@ import {MESSAGES} from '../utils/messages';
 import {Expense} from '../classes/expense';
 import {ExpenseService} from '../services/expense.service';
 import {fadeIn} from '../utils/animations/fadeIn';
+import {TABLE_DEFAULTS} from '../utils/table-options';
 
 @Component({
   selector: 'app-rates',
@@ -21,7 +22,16 @@ export class RatesComponent implements OnInit {
   expenses: Expense[];
   selectedRates: Rate[] = [];
 
+  totalTableRecords: number;
+  loading = true;
+  rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
+
   selectedObservation = '';
+
+  rows: number;
+  first: number;
+  sortField: string;
+  sortOrder: number;
 
   constructor(private confirmationService: ConfirmationService,
               private rateService: RateService,
@@ -30,26 +40,52 @@ export class RatesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRates();
     this.getExpenses();
   }
 
   filterTable($event) {
+    // TODO investigate table 'filters' property to inject the dropdown value
+    // TODO hit expenses endpoint => this should also be paged
+    console.log('event', $event);
     const expenses = $event.value;
     if (expenses.length) {
       const ids = expenses.map(ex => ex.id);
-      this.rateService.getRatesByExpenseIds(ids).then(rates => this.rates = rates);
+      const event = this.getStoredTableParams();
+      console.log('built event', event);
+      this.rateService.getRatesByExpenseIds(ids, event).then(rates => this.rates = rates);
     } else {
-      this.getRates();
+      this.getRates(TABLE_DEFAULTS.query);
     }
   }
 
-  getRates(): void {
-    this.rateService.getRates().then(rates => this.rates = rates);
+  private getStoredTableParams(): LazyLoadEvent {
+    const event: LazyLoadEvent = {
+      rows: this.rows,
+      sortField: this.sortField,
+      sortOrder: this.sortOrder,
+      first: this.first
+    };
+
+    return event;
+  }
+
+  getRates(event: LazyLoadEvent): void {
+    this.rateService
+    .getRates(event)
+    .then(resp => {
+      this.rates = resp.content;
+      this.totalTableRecords = resp.totalElements;
+      this.loading = false;
+      this.rows = event.rows;
+      this.first = event.first;
+      this.sortOrder = event.sortOrder;
+      this.sortField = event.sortField;
+    });
   }
 
   getExpenses(): void {
-    this.expenseService.getExpenses().then(expenses => this.expenses = expenses);
+    this.expenseService.getExpenses()
+    .then(expenses => this.expenses = expenses);
   }
 
   confirmDeletion() {

@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Rate} from '../classes/rate';
+import {LazyLoadEvent} from 'primeng/api';
+import mapTableParams from '../utils/MapTableParamsToRest';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -15,8 +17,9 @@ export class RateService {
   constructor(private http: HttpClient) {
   }
 
-  getRates(): Promise<any> {
-    return this.http.get(this.ratesBaseUrl).toPromise();
+  getRates(event: LazyLoadEvent): Promise<any> {
+    const params: HttpParams = mapTableParams(event);
+    return this.http.get(this.ratesBaseUrl, {params}).toPromise();
   }
 
   save(rate: Rate): Promise<any> {
@@ -60,9 +63,9 @@ export class RateService {
     return this.http.get<Rate[]>(url, {params}).toPromise();
   }
 
-  getRatesByExpenseIds(id: number[]): Promise<any> {
+  getRatesByExpenseIds(id: number[], event: LazyLoadEvent): Promise<any> {
     const url = this.ratesBaseUrl + '/expenses';
-    let params: HttpParams = new HttpParams();
+    let params: HttpParams = mapTableParams(event);
     params = params.append('expenseIds', id.toString());
     return this.http.get<Rate[]>(url, {params}).toPromise();
   }
