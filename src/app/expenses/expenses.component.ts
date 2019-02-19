@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, DialogService, DynamicDialogConfig, MessageService} from 'primeng/api';
+import {ConfirmationService, DialogService, DynamicDialogConfig, LazyLoadEvent, MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
 import {ExpenseService} from '../services/expense.service';
 import {RateService} from '../services/rate.service';
@@ -36,7 +36,14 @@ export class ExpensesComponent implements OnInit {
   categories = [];
   tags = [];
 
+  totalTableRecords: number;
+  loading = true;
+  rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
+
+  lastEvent: LazyLoadEvent;
+
   filterForm: FormGroup;
+  expenseFilter: ExpenseFilter;
 
   constructor(private expenseService: ExpenseService,
               private rateService: RateService,
@@ -47,7 +54,6 @@ export class ExpensesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getExpenses();
     this.getCategories();
     this.getTags();
     this.instantiateForm();
@@ -66,8 +72,6 @@ export class ExpensesComponent implements OnInit {
       for (const key in obj) {
         if (obj[key] !== '' && obj[key] !== null) {
           let value = '';
-          console.log('key', key);
-          console.log('val', obj[key]);
           switch (key) {
             case 'amount':
               value = 'Amount between: ' + obj[key][0] + '-' + obj[key][1];
@@ -105,9 +109,11 @@ export class ExpensesComponent implements OnInit {
 
   searchValues(): void {
     this.beautifiedFilters = this.parseFilters(this.filterForm.value);
-    const expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
-    this.expenseService.getExpenses(expenseFilter).then(resp => {
-      this.expenses = resp;
+    this.expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
+    this.expenseService.getExpenses(this.lastEvent, this.expenseFilter).then(resp => {
+      this.expenses = resp.content;
+      this.totalTableRecords = resp.totalElements;
+      this.loading = false;
     });
   }
 
@@ -131,9 +137,12 @@ export class ExpensesComponent implements OnInit {
     });
   }
 
-  getExpenses(): void {
-    this.expenseService.getExpenses().then(resp => {
-      this.expenses = resp || [];
+  getExpenses(event: LazyLoadEvent): void {
+    this.expenseService.getExpenses(event, this.expenseFilter).then(resp => {
+      this.expenses = resp.content || [];
+      this.totalTableRecords = resp.totalElements;
+      this.loading = false;
+      this.lastEvent = event;
     });
   }
 
@@ -146,7 +155,6 @@ export class ExpensesComponent implements OnInit {
       };
     }));
   }
-
 
   getCategories(): void {
     this.categoryService.getCategories(TABLE_DEFAULTS.maxSize)
@@ -161,7 +169,6 @@ export class ExpensesComponent implements OnInit {
     });
   }
 
-
   decideVisibilityAccordingToPayedField(): boolean {
     if (this.selectedForDeletion) {
       return this.selectedForDeletion.payed > 0;
@@ -175,7 +182,7 @@ export class ExpensesComponent implements OnInit {
     this.expenseService.deleteExpenses(idsToDelete, false)
     .then(() => {
       this.resetDeletionVariables();
-      this.getExpenses();
+      this.getExpenses(this.lastEvent);
       this.globalNotificationService.add(MESSAGES.deletedExpense);
     })
     .catch(() => this.globalNotificationService.add(MESSAGES.error));
@@ -204,14 +211,13 @@ export class ExpensesComponent implements OnInit {
     this.expenseService.deleteExpenses(idsToDelete, true)
     .then(() => {
       this.resetDeletionVariables();
-      this.getExpenses();
+      this.getExpenses(this.lastEvent);
       this.globalNotificationService.add(MESSAGES.deletedExpense);
     })
     .catch(() => this.globalNotificationService.add(MESSAGES.error));
   }
 
   fetchAndDisplayRates(exp: Expense): void {
-
     this.rateService.getRatesByExpenseId(exp.id).then(rates => {
       const ref = this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
         header: 'Rates',

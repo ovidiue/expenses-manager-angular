@@ -8,6 +8,7 @@ import {ExpenseService} from '../services/expense.service';
 import {GlobalNotificationService} from '../services/global-notification.service';
 import {MESSAGES} from '../utils/messages';
 import {fadeIn} from '../utils/animations/fadeIn';
+import {TABLE_DEFAULTS} from '../utils/table-options';
 
 @Component({
   selector: 'app-rate-detail',
@@ -100,7 +101,7 @@ export class RateDetailComponent implements OnInit {
   }
 
   private getExpenses() {
-    this.expenseService.getExpenses().then(expenses => {
+    this.expenseService.getExpenses(TABLE_DEFAULTS.query).then(expenses => {
       this.expenses = expenses.map(exp => {
         return {
           label: exp.title,

@@ -244,22 +244,54 @@
         <p-table [value]="expenses"
                  [responsive]="true"
                  [paginator]="true"
+                 [lazy]="true"
                  [rows]="10"
+                 (onLazyLoad)="getExpenses($event)"
+                 [totalRecords]="totalTableRecords"
+                 [loading]="loading"
+                 [rowsPerPageOptions]="rowsPerPageOptions"
                  [(selection)]="selectedExpenses">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th>Title</th>
-              <th>Amount</th>
-              <th>Description</th>
-              <th>Recurrent</th>
-              <th>Created on</th>
-              <th>Due date</th>
-              <th>Category</th>
-              <th>Tags</th>
-              <th>Payed</th>
+              <th [pSortableColumn]="'title'">
+                Title
+                <p-sortIcon [field]="'title'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'amount'">
+                Amount
+                <p-sortIcon [field]="'amount'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'description'">
+                Description
+                <p-sortIcon [field]="'description'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'recurrent'">
+                Recurrent
+                <p-sortIcon [field]="'recurrent'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'createdOn'">
+                Created on
+                <p-sortIcon [field]="'createdOn'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'dueDate'">
+                Due date
+                <p-sortIcon [field]="'dueDate'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'category'">
+                Category
+                <p-sortIcon [field]="'category'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'tags'">
+                Tags
+                <p-sortIcon [field]="'tags'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'payed'">
+                Payed
+                <p-sortIcon [field]="'payed'"></p-sortIcon>
+              </th>
               <th>Actions</th>
             </tr>
           </ng-template>

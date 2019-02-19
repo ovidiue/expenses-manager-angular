@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Expense} from '../classes/expense';
 import {ExpenseFilter} from '../classes/filters/expense-filter';
+import {LazyLoadEvent} from 'primeng/api';
+import mapToRestParams from '../utils/MapTableParamsToRest';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -16,12 +18,14 @@ export class ExpenseService {
   constructor(private http: HttpClient) {
   }
 
-  getExpenses(expenseFilter?: ExpenseFilter): Promise<any> {
-    let params: HttpParams = new HttpParams();
+  getExpenses(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Promise<any> {
+    let params: HttpParams = mapToRestParams(event);
     for (const key in expenseFilter) {
-      params = params.append(key, expenseFilter[key]);
+      if (expenseFilter.hasOwnProperty(key)) {
+        params = params.append(key, expenseFilter[key]);
+      }
     }
-    return this.http.get<Expense[]>(this.expensesBaseUrl, {params}).toPromise();
+    return this.http.get(this.expensesBaseUrl, {params}).toPromise();
   }
 
   saveExpense(expense: Expense): Promise<any> {

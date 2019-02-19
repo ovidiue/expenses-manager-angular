@@ -84,8 +84,8 @@ export class RatesComponent implements OnInit {
   }
 
   getExpenses(): void {
-    this.expenseService.getExpenses()
-    .then(expenses => this.expenses = expenses);
+    this.expenseService.getExpenses(TABLE_DEFAULTS.maxSize)
+    .then(resp => this.expenses = resp.content);
   }
 
   confirmDeletion() {
