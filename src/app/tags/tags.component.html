@@ -50,6 +50,8 @@
         <p-table [value]="tags"
                  [paginator]="true"
                  [lazy]="true"
+                 [sortField]="'name'"
+                 [sortOrder]="-1"
                  [rows]="10"
                  (onLazyLoad)="getTags($event)"
                  [totalRecords]="totalTableRecords"

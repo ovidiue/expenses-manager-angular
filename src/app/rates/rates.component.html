@@ -77,6 +77,8 @@
         <p-table [value]="rates"
                  [paginator]="true"
                  [lazy]="true"
+                 [sortField]="'creationDate'"
+                 [sortOrder]="-1"
                  [rows]="10"
                  (onLazyLoad)="getRates($event)"
                  [totalRecords]="totalTableRecords"

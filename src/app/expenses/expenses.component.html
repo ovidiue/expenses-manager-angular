@@ -245,6 +245,8 @@
                  [responsive]="true"
                  [paginator]="true"
                  [lazy]="true"
+                 [sortField]="'createdOn'"
+                 [sortOrder]="-1"
                  [rows]="10"
                  (onLazyLoad)="getExpenses($event)"
                  [totalRecords]="totalTableRecords"

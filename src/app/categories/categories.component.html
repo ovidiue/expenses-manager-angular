@@ -68,6 +68,8 @@
         <p-table [value]="categories"
                  [paginator]="true"
                  [lazy]="true"
+                 [sortField]="'name'"
+                 [sortOrder]="-1"
                  [rows]="10"
                  (onLazyLoad)="getCategories($event)"
                  [totalRecords]="totalTableRecords"
