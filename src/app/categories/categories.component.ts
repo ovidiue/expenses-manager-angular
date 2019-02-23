@@ -25,6 +25,7 @@ export class CategoriesComponent implements OnInit {
   selectedForDeletion: Category;
 
   rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
+  rowsPerPage = TABLE_DEFAULTS.defaultRows;
   totalTableRecords: number;
   loading = true;
 

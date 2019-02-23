@@ -52,7 +52,7 @@
                  [lazy]="true"
                  [sortField]="'name'"
                  [sortOrder]="-1"
-                 [rows]="10"
+                 [rows]="rowsPerPage"
                  (onLazyLoad)="getTags($event)"
                  [totalRecords]="totalTableRecords"
                  [loading]="loading"

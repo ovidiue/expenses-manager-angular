@@ -79,7 +79,7 @@
                  [lazy]="true"
                  [sortField]="'creationDate'"
                  [sortOrder]="-1"
-                 [rows]="10"
+                 [rows]="rowsPerPage"
                  (onLazyLoad)="getRates($event)"
                  [totalRecords]="totalTableRecords"
                  [loading]="loading"

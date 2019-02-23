@@ -5,5 +5,6 @@ export const TABLE_DEFAULTS = {
   },
   maxSize: {
     rows: 100
-  }
+  },
+  defaultRows: 10
 };

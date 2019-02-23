@@ -247,7 +247,7 @@
                  [lazy]="true"
                  [sortField]="'createdOn'"
                  [sortOrder]="-1"
-                 [rows]="10"
+                 [rows]="rowsPerPage"
                  (onLazyLoad)="getExpenses($event)"
                  [totalRecords]="totalTableRecords"
                  [loading]="loading"

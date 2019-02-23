@@ -39,6 +39,7 @@ export class ExpensesComponent implements OnInit {
   totalTableRecords: number;
   loading = true;
   rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
+  rowsPerPage = TABLE_DEFAULTS.defaultRows;
 
   lastEvent: LazyLoadEvent;
 
