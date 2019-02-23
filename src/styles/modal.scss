@@ -60,7 +60,11 @@ $baseDanger: #710915;
 }
 
 body {
-  .ui-dialog {
+  .ui-dynamicdialog {
+    top: 150px !important;
+  }
+
+  .ui-dialog:not(.ui-dynamicdialog) {
     width: 425px;
     top: 100px !important;
 

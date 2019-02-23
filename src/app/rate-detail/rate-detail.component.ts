@@ -101,7 +101,7 @@ export class RateDetailComponent implements OnInit {
   }
 
   private getExpenses() {
-    this.expenseService.getExpenses(TABLE_DEFAULTS.query).then(resp => {
+    this.expenseService.getExpenses(TABLE_DEFAULTS.maxSize).then(resp => {
       this.expenses = resp.content.map(exp => {
         return {
           label: exp.title,
