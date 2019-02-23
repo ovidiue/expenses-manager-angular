@@ -36,11 +36,12 @@
             <p-confirmDialog #cd
                              [style]="{width: '425px'}"
                              [acceptLabel]="'Delete'"
+                             [closable]="false"
                              [acceptButtonStyleClass]="'ui-button-danger'"
                              [rejectButtonStyleClass]="'ui-button-secondary'"
                              [header]="'Confirm DELETE'"
                              [rejectLabel]="'Cancel'">
-              <p-footer>
+              <p-footer class="two-button">
                 <button type="button"
                         [class]="'ui-button-secondary float-left'"
                         pButton

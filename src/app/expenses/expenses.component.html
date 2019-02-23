@@ -191,15 +191,14 @@
       <div class="col">
         <p-toolbar>
           <div class="ui-toolbar-group-right">
-            <p-dialog [style]="{width: '425px'}"
-                      [rtl]="true"
+            <p-dialog [rtl]="true"
                       modal="true"
-                      positionTop="50"
+                      [closable]="false"
                       [visible]="displayDelete"
                       [header]="'Confirm DELETE'">
               <span>{{deletionText}}</span>
               <p>This action can not be undone!</p>
-              <p-footer>
+              <p-footer class="three-button">
                 <button type="button"
                         [class]="'ui-button-secondary float-left ui-button-secondary ui-button-raised'"
                         pButton
@@ -215,7 +214,7 @@
                         (click)="displayDelete=true; deleteExpense()">
                 </button>
                 <button type="button"
-                        [class]="'ui-button-danger ui-button-raised'"
+                        [class]="'ui-button-danger ui-button-raised extra-danger'"
                         pButton
                         *ngIf="decideVisibilityAccordingToPayedField()"
                         icon="pi pi-check"

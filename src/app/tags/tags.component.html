@@ -21,9 +21,10 @@
                              [acceptButtonStyleClass]="'ui-button-danger'"
                              [rejectButtonStyleClass]="'ui-button-secondary'"
                              [rtl]="true"
+                             [closable]="false"
                              [header]="'Confirm DELETE'"
                              [rejectLabel]="'Cancel'">
-              <p-footer>
+              <p-footer class="two-button">
                 <button type="button" [class]="'ui-button-secondary float-left'" pButton
                         icon="pi pi-times"
                         label="Cancel" (click)="cd.reject()"></button>
