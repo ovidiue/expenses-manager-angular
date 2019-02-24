@@ -29,6 +29,10 @@ export class CategoriesComponent implements OnInit {
   totalTableRecords: number;
   loading = true;
 
+  tableConfig = {
+    noData: TABLE_DEFAULTS.noData
+  };
+
   constructor(private categoryService: CategoryService,
               private globalNotificationService: GlobalNotificationService) {
   }

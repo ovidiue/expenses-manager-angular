@@ -23,6 +23,10 @@ export class TagsComponent implements OnInit {
   rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
   rowsPerPage = TABLE_DEFAULTS.defaultRows;
 
+  tableConfig = {
+    noData: TABLE_DEFAULTS.noData
+  };
+
   selectedDescription = '';
 
   constructor(private tagService: TagService,

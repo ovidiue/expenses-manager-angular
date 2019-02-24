@@ -17,7 +17,7 @@ import {TABLE_DEFAULTS} from '../utils/table-options';
   animations: [fadeIn]
 })
 export class RatesComponent implements OnInit {
-  rates: Rate[];
+  rates: Rate[] = [];
   selectedExpenses: Expense[] = [];
   expenses: Expense[];
   selectedRates: Rate[] = [];
@@ -26,6 +26,10 @@ export class RatesComponent implements OnInit {
   loading = true;
   rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
   rowsPerPage = TABLE_DEFAULTS.defaultRows;
+
+  tableConfig = {
+    noData: TABLE_DEFAULTS.noData
+  };
 
   selectedObservation = '';
 
@@ -52,7 +56,6 @@ export class RatesComponent implements OnInit {
     if (expenses.length) {
       const ids = expenses.map(ex => ex.id);
       const event = this.getStoredTableParams();
-      console.log('built event', event);
       this.rateService.getRatesByExpenseIds(ids, event).then(rates => this.rates = rates);
     } else {
       this.getRates(TABLE_DEFAULTS.query);
