@@ -246,11 +246,11 @@
                  [lazy]="true"
                  [sortField]="'createdOn'"
                  [sortOrder]="-1"
-                 [rows]="rowsPerPage"
+                 [rows]="tableConfig.rowsPerPage"
                  (onLazyLoad)="getExpenses($event)"
-                 [totalRecords]="totalTableRecords"
-                 [loading]="loading"
-                 [rowsPerPageOptions]="rowsPerPageOptions"
+                 [totalRecords]="tableConfig.totalTableRecords"
+                 [loading]="tableConfig.loading"
+                 [rowsPerPageOptions]="tableConfig.rowsPerPageOptions"
                  [(selection)]="selectedExpenses">
           <ng-template pTemplate="header">
             <tr>

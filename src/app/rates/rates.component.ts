@@ -22,13 +22,12 @@ export class RatesComponent implements OnInit {
   expenses: Expense[];
   selectedRates: Rate[] = [];
 
-  totalTableRecords: number;
-  loading = true;
-  rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
-  rowsPerPage = TABLE_DEFAULTS.defaultRows;
-
   tableConfig = {
-    noData: TABLE_DEFAULTS.noData
+    noData: TABLE_DEFAULTS.noData,
+    totalTableRecords: 0,
+    loading: true,
+    rowsPerPageOptions: TABLE_DEFAULTS.rowsPerPageOptions,
+    rowsPerPage: TABLE_DEFAULTS.defaultRows
   };
 
   selectedObservation = '';
@@ -78,8 +77,8 @@ export class RatesComponent implements OnInit {
     .getRates(event)
     .then(resp => {
       this.rates = resp.content;
-      this.totalTableRecords = resp.totalElements;
-      this.loading = false;
+      this.tableConfig.totalTableRecords = resp.totalElements;
+      this.tableConfig.loading = false;
       this.rows = event.rows;
       this.first = event.first;
       this.sortOrder = event.sortOrder;

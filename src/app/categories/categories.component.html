@@ -69,11 +69,11 @@
                  [lazy]="true"
                  [sortField]="'name'"
                  [sortOrder]="-1"
-                 [rows]="rowsPerPage"
+                 [rows]="tableConfig.rowsPerPage"
                  (onLazyLoad)="getCategories($event)"
-                 [totalRecords]="totalTableRecords"
-                 [loading]="loading"
-                 [rowsPerPageOptions]="rowsPerPageOptions"
+                 [totalRecords]="tableConfig.totalTableRecords"
+                 [loading]="tableConfig.loading"
+                 [rowsPerPageOptions]="tableConfig.rowsPerPageOptions"
                  [(selection)]="selectedCategories">
           <ng-template pTemplate="header">
             <tr>

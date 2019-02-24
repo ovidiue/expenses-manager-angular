@@ -36,13 +36,12 @@ export class ExpensesComponent implements OnInit {
   categories = [];
   tags = [];
 
-  totalTableRecords: number;
-  loading = true;
-  rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
-  rowsPerPage = TABLE_DEFAULTS.defaultRows;
-
   tableConfig = {
-    noData: TABLE_DEFAULTS.noData
+    noData: TABLE_DEFAULTS.noData,
+    totalTableRecords: 0,
+    loading: true,
+    rowsPerPageOptions: TABLE_DEFAULTS.rowsPerPageOptions,
+    rowsPerPage: TABLE_DEFAULTS.defaultRows
   };
 
   lastEvent: LazyLoadEvent;
@@ -117,8 +116,8 @@ export class ExpensesComponent implements OnInit {
     this.expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
     this.expenseService.getExpenses(this.lastEvent, this.expenseFilter).then(resp => {
       this.expenses = resp.content;
-      this.totalTableRecords = resp.totalElements;
-      this.loading = false;
+      this.tableConfig.totalTableRecords = resp.totalElements;
+      this.tableConfig.loading = false;
     });
   }
 
@@ -145,8 +144,8 @@ export class ExpensesComponent implements OnInit {
   getExpenses(event: LazyLoadEvent): void {
     this.expenseService.getExpenses(event, this.expenseFilter).then(resp => {
       this.expenses = resp.content || [];
-      this.totalTableRecords = resp.totalElements;
-      this.loading = false;
+      this.tableConfig.totalTableRecords = resp.totalElements;
+      this.tableConfig.loading = false;
       this.lastEvent = event;
     });
   }

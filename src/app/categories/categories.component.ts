@@ -24,13 +24,12 @@ export class CategoriesComponent implements OnInit {
   deletionText = '';
   selectedForDeletion: Category;
 
-  rowsPerPageOptions = TABLE_DEFAULTS.rowsPerPageOptions;
-  rowsPerPage = TABLE_DEFAULTS.defaultRows;
-  totalTableRecords: number;
-  loading = true;
-
   tableConfig = {
-    noData: TABLE_DEFAULTS.noData
+    noData: TABLE_DEFAULTS.noData,
+    rowsPerPageOptions: TABLE_DEFAULTS.rowsPerPageOptions,
+    rowsPerPage: TABLE_DEFAULTS.defaultRows,
+    totalTableRecords: 0,
+    loading: true
   };
 
   constructor(private categoryService: CategoryService,
@@ -64,12 +63,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   getCategories(event: LazyLoadEvent): void {
-    this.loading = true;
+    this.tableConfig.loading = true;
     this.categoryService.getCategories(event)
     .then(resp => {
-      this.totalTableRecords = resp.totalElements;
+      this.tableConfig.totalTableRecords = resp.totalElements;
       this.categories = resp.content;
-      this.loading = false;
+      this.tableConfig.loading = false;
     });
   }
 }

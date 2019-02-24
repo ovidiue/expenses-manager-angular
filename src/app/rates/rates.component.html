@@ -80,11 +80,11 @@
                  [lazy]="true"
                  [sortField]="'creationDate'"
                  [sortOrder]="-1"
-                 [rows]="rowsPerPage"
+                 [rows]="tableConfig.rowsPerPage"
                  (onLazyLoad)="getRates($event)"
-                 [totalRecords]="totalTableRecords"
-                 [loading]="loading"
-                 [rowsPerPageOptions]="rowsPerPageOptions"
+                 [totalRecords]="tableConfig.totalTableRecords"
+                 [loading]="tableConfig.loading"
+                 [rowsPerPageOptions]="tableConfig.rowsPerPageOptions"
                  [(selection)]="selectedRates">
           <ng-template pTemplate="header">
             <tr>
