@@ -50,31 +50,30 @@
       <div class="col">
         <p-table [value]="tags"
                  [paginator]="tags.length > 0"
+                 [paginatorPosition]="tableDefaults.paginatorPosition"
                  [lazy]="true"
+                 [scrollable]="tableDefaults.scrollable"
+                 [scrollHeight]="tableDefaults.scrollHeight"
                  [sortField]="'name'"
+                 [rowHover]="tableDefaults.rowHover"
+                 [responsive]="true"
+                 [reorderableColumns]="tableDefaults.reorderableColumns"
                  [sortOrder]="-1"
-                 [rows]="tableConfig.rowsPerPage"
+                 [rows]="tableDefaults.defaultRows"
                  (onLazyLoad)="getTags($event)"
-                 [totalRecords]="tableConfig.totalTableRecords"
-                 [loading]="tableConfig.loading"
-                 [rowsPerPageOptions]="tableConfig.rowsPerPageOptions"
+                 [totalRecords]="tableOptions.totalTableRecords"
+                 [loading]="tableDefaults.loading"
+                 [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
                  [(selection)]="selectedTags">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th [pSortableColumn]="'name'">
-                Name
-                <p-sortIcon [field]="'name'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'description'">
-                Description
-                <p-sortIcon [field]="'description'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'color'">
-                Color
-                <p-sortIcon [field]="'color'"></p-sortIcon>
+              <th *ngFor="let col of tableOptions.columns"
+                  [pSortableColumn]="col.value">
+                {{col.name}}
+                <p-sortIcon [field]="col.value"></p-sortIcon>
               </th>
               <th>Actions</th>
             </tr>
@@ -121,7 +120,7 @@
         </p-table>
         <div class="text-center font-weight-bold font-italic bg-light p-2"
              *ngIf="!tags.length">
-          {{tableConfig.noData}}
+          {{tableDefaults.noData}}
         </div>
       </div>
 

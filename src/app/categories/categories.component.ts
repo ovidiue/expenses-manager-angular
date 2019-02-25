@@ -24,12 +24,15 @@ export class CategoriesComponent implements OnInit {
   deletionText = '';
   selectedForDeletion: Category;
 
-  tableConfig = {
-    noData: TABLE_DEFAULTS.noData,
-    rowsPerPageOptions: TABLE_DEFAULTS.rowsPerPageOptions,
-    rowsPerPage: TABLE_DEFAULTS.defaultRows,
+  tableDefaults = TABLE_DEFAULTS;
+
+  tableOptions = {
     totalTableRecords: 0,
-    loading: true
+    columns: [
+      {name: 'Name', value: 'name'},
+      {name: 'Description', value: 'description'},
+      {name: 'Color', value: 'color'}
+    ]
   };
 
   constructor(private categoryService: CategoryService,
@@ -63,12 +66,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   getCategories(event: LazyLoadEvent): void {
-    this.tableConfig.loading = true;
+    this.tableDefaults.loading = true;
     this.categoryService.getCategories(event)
     .then(resp => {
-      this.tableConfig.totalTableRecords = resp.totalElements;
+      this.tableOptions.totalTableRecords = resp.totalElements;
       this.categories = resp.content;
-      this.tableConfig.loading = false;
+      this.tableDefaults.loading = false;
     });
   }
 }

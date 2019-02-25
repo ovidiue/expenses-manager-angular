@@ -18,12 +18,15 @@ export class TagsComponent implements OnInit {
   tags: Tag[] = [];
   selectedTags: Tag[] = [];
 
-  tableConfig = {
-    noData: TABLE_DEFAULTS.noData,
+  tableDefaults = TABLE_DEFAULTS;
+
+  tableOptions = {
     totalTableRecords: 0,
-    loading: true,
-    rowsPerPageOptions: TABLE_DEFAULTS.rowsPerPageOptions,
-    rowsPerPage: TABLE_DEFAULTS.defaultRows
+    columns: [
+      {name: 'Name', value: 'name'},
+      {name: 'Description', value: 'description'},
+      {name: 'Color', value: 'color'}
+    ]
   };
 
   selectedDescription = '';
@@ -40,8 +43,8 @@ export class TagsComponent implements OnInit {
     this.tagService.getTags(event)
     .then(resp => {
       this.tags = resp.content;
-      this.tableConfig.totalTableRecords = resp.totalElements;
-      this.tableConfig.loading = false;
+      this.tableOptions.totalTableRecords = resp.totalElements;
+      this.tableDefaults.loading = false;
     });
   }
 
@@ -72,5 +75,4 @@ export class TagsComponent implements OnInit {
       }
     });
   }
-
 }

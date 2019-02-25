@@ -243,55 +243,29 @@
         <p-table [value]="expenses"
                  [responsive]="true"
                  [paginator]="expenses.length > 0"
+                 [paginatorPosition]="tableDefaults.paginatorPosition"
+                 [scrollable]="tableDefaults.scrollable"
+                 [scrollHeight]="tableDefaults.scrollHeight"
+                 [rowHover]="tableDefaults.rowHover"
+                 [reorderableColumns]="tableDefaults.reorderableColumns"
+                 [rows]="tableDefaults.defaultRows"
+                 [totalRecords]="tableOptions.totalTableRecords"
+                 [loading]="tableDefaults.loading"
+                 [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
                  [lazy]="true"
                  [sortField]="'createdOn'"
                  [sortOrder]="-1"
-                 [rows]="tableConfig.rowsPerPage"
                  (onLazyLoad)="getExpenses($event)"
-                 [totalRecords]="tableConfig.totalTableRecords"
-                 [loading]="tableConfig.loading"
-                 [rowsPerPageOptions]="tableConfig.rowsPerPageOptions"
                  [(selection)]="selectedExpenses">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th [pSortableColumn]="'title'">
-                Title
-                <p-sortIcon [field]="'title'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'amount'">
-                Amount
-                <p-sortIcon [field]="'amount'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'description'">
-                Description
-                <p-sortIcon [field]="'description'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'recurrent'">
-                Recurrent
-                <p-sortIcon [field]="'recurrent'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'createdOn'">
-                Created on
-                <p-sortIcon [field]="'createdOn'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'dueDate'">
-                Due date
-                <p-sortIcon [field]="'dueDate'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'category'">
-                Category
-                <p-sortIcon [field]="'category'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'tags'">
-                Tags
-                <p-sortIcon [field]="'tags'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'payed'">
-                Payed
-                <p-sortIcon [field]="'payed'"></p-sortIcon>
+              <th *ngFor="let col of tableOptions.columns"
+                  [pSortableColumn]="col.value">
+                {{col.name}}
+                <p-sortIcon [field]="col.value"></p-sortIcon>
               </th>
               <th>Actions</th>
             </tr>
@@ -370,7 +344,7 @@
         </p-table>
         <div class="text-center font-weight-bold font-italic bg-light p-2"
              *ngIf="!expenses.length">
-          {{tableConfig.noData}}
+          {{tableDefaults.noData}}
         </div>
       </div>
 

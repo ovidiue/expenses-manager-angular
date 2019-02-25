@@ -77,39 +77,29 @@
       <div class="col">
         <p-table [value]="rates"
                  [paginator]="rates.length > 0"
+                 [paginatorPosition]="tableDefaults.paginatorPosition"
+                 [scrollable]="tableDefaults.scrollable"
+                 [scrollHeight]="tableDefaults.scrollHeight"
+                 [rowHover]="tableDefaults.rowHover"
+                 [reorderableColumns]="tableDefaults.reorderableColumns"
+                 [rows]="tableDefaults.defaultRows"
+                 [totalRecords]="tableOptions.totalTableRecords"
+                 [loading]="tableDefaults.loading"
+                 [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
                  [lazy]="true"
                  [sortField]="'creationDate'"
                  [sortOrder]="-1"
-                 [rows]="tableConfig.rowsPerPage"
                  (onLazyLoad)="getRates($event)"
-                 [totalRecords]="tableConfig.totalTableRecords"
-                 [loading]="tableConfig.loading"
-                 [rowsPerPageOptions]="tableConfig.rowsPerPageOptions"
                  [(selection)]="selectedRates">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th [pSortableColumn]="'amount'">
-                Amount
-                <p-sortIcon [field]="'amount'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'observation'">
-                Observation
-                <p-sortIcon [field]="'observation'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'creationDate'">
-                Creation Date
-                <p-sortIcon [field]="'creationDate'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'payedOn'">
-                Payed On
-                <p-sortIcon [field]="'payedOn'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'expense'">
-                Expense
-                <p-sortIcon [field]="'name'"></p-sortIcon>
+              <th *ngFor="let col of tableOptions.columns"
+                  [pSortableColumn]="col.value">
+                {{col.name}}
+                <p-sortIcon [field]="col.value"></p-sortIcon>
               </th>
               <th>Actions</th>
             </tr>
@@ -158,7 +148,7 @@
         </p-table>
         <div class="text-center font-weight-bold font-italic bg-light p-2"
              *ngIf="!rates.length">
-          {{tableConfig.noData}}
+          {{tableDefaults.noData}}
         </div>
       </div>
 

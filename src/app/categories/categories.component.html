@@ -66,31 +66,29 @@
       <div class="col">
         <p-table [value]="categories"
                  [paginator]="categories.length > 0"
+                 [paginatorPosition]="tableDefaults.paginatorPosition"
+                 [scrollable]="tableDefaults.scrollable"
+                 [scrollHeight]="tableDefaults.scrollHeight"
+                 [rowHover]="tableDefaults.rowHover"
+                 [reorderableColumns]="tableDefaults.reorderableColumns"
+                 [rows]="tableDefaults.defaultRows"
+                 [totalRecords]="tableOptions.totalTableRecords"
+                 [loading]="tableDefaults.loading"
+                 [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
                  [lazy]="true"
                  [sortField]="'name'"
                  [sortOrder]="-1"
-                 [rows]="tableConfig.rowsPerPage"
                  (onLazyLoad)="getCategories($event)"
-                 [totalRecords]="tableConfig.totalTableRecords"
-                 [loading]="tableConfig.loading"
-                 [rowsPerPageOptions]="tableConfig.rowsPerPageOptions"
                  [(selection)]="selectedCategories">
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
               </th>
-              <th [pSortableColumn]="'name'">
-                Name
-                <p-sortIcon [field]="'name'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'description'">
-                Description
-                <p-sortIcon [field]="'description'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'color'">
-                Color
-                <p-sortIcon [field]="'color'"></p-sortIcon>
+              <th *ngFor="let col of tableOptions.columns"
+                  [pSortableColumn]="col.value">
+                {{col.name}}
+                <p-sortIcon [field]="col.value"></p-sortIcon>
               </th>
               <th>Actions</th>
             </tr>

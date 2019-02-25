@@ -7,5 +7,12 @@ export const TABLE_DEFAULTS = {
     rows: 100
   },
   defaultRows: 10,
-  noData: 'No Data ...'
+  noData: 'No Data ...',
+  paginatorPosition: 'top',
+  rowHover: true,
+  responsive: true,
+  reorderableColumns: true,
+  loading: true,
+  scrollable: false,
+  scrollHeight: '500px'
 };

@@ -22,20 +22,23 @@ export class RatesComponent implements OnInit {
   expenses: Expense[];
   selectedRates: Rate[] = [];
 
-  tableConfig = {
-    noData: TABLE_DEFAULTS.noData,
+  tableDefaults = TABLE_DEFAULTS;
+
+  tableOptions = {
     totalTableRecords: 0,
-    loading: true,
-    rowsPerPageOptions: TABLE_DEFAULTS.rowsPerPageOptions,
-    rowsPerPage: TABLE_DEFAULTS.defaultRows
+    columns: [
+      {name: 'Amount', value: 'amount'},
+      {name: 'Observation', value: 'observation'},
+      {name: 'Creation Date', value: 'creationDate'},
+      {name: 'Payed On', value: 'payedOn'},
+      {name: 'Expense', value: 'expense'},
+      {name: 'Expense', value: 'expense'}
+    ]
   };
 
   selectedObservation = '';
 
-  rows: number;
-  first: number;
-  sortField: string;
-  sortOrder: number;
+  lastEvent: LazyLoadEvent;
 
   constructor(private confirmationService: ConfirmationService,
               private rateService: RateService,
@@ -50,26 +53,13 @@ export class RatesComponent implements OnInit {
   filterTable($event) {
     // TODO investigate table 'filters' property to inject the dropdown value
     // TODO hit expenses endpoint => this should also be paged
-    console.log('event', $event);
     const expenses = $event.value;
     if (expenses.length) {
       const ids = expenses.map(ex => ex.id);
-      const event = this.getStoredTableParams();
-      this.rateService.getRatesByExpenseIds(ids, event).then(rates => this.rates = rates);
+      this.rateService.getRatesByExpenseIds(ids, this.lastEvent).then(rates => this.rates = rates);
     } else {
       this.getRates(TABLE_DEFAULTS.query);
     }
-  }
-
-  private getStoredTableParams(): LazyLoadEvent {
-    const event: LazyLoadEvent = {
-      rows: this.rows,
-      sortField: this.sortField,
-      sortOrder: this.sortOrder,
-      first: this.first
-    };
-
-    return event;
   }
 
   getRates(event: LazyLoadEvent): void {
@@ -77,12 +67,9 @@ export class RatesComponent implements OnInit {
     .getRates(event)
     .then(resp => {
       this.rates = resp.content;
-      this.tableConfig.totalTableRecords = resp.totalElements;
-      this.tableConfig.loading = false;
-      this.rows = event.rows;
-      this.first = event.first;
-      this.sortOrder = event.sortOrder;
-      this.sortField = event.sortField;
+      this.tableOptions.totalTableRecords = resp.totalElements;
+      this.tableDefaults.loading = false;
+      this.lastEvent = event;
     });
   }
 
@@ -95,10 +82,11 @@ export class RatesComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete these rates?',
       accept: () => {
+        // TODO check map warning
         const ids = this.selectedRates.map(el => el.id);
         this.rateService.deleteRates(ids)
         .then(() => {
-          this.rates = this.rates.filter(rate => ids.indexOf(rate.id) < 0);
+          this.getRates(this.lastEvent);
           this.globalNotificationService.add(MESSAGES.deletedRates);
         })
         .catch(err => this.globalNotificationService.add(MESSAGES.error));
@@ -112,7 +100,7 @@ export class RatesComponent implements OnInit {
       accept: () => {
         this.rateService.deleteRates([rate.id])
         .then(() => {
-          this.rates = this.rates.filter(el => el.id !== rate.id);
+          this.getRates(this.lastEvent);
           this.globalNotificationService.add(MESSAGES.deletedRate);
         })
         .catch(() => this.globalNotificationService.add(MESSAGES.error));

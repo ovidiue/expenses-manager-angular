@@ -36,12 +36,21 @@ export class ExpensesComponent implements OnInit {
   categories = [];
   tags = [];
 
-  tableConfig = {
-    noData: TABLE_DEFAULTS.noData,
+  tableDefaults = TABLE_DEFAULTS;
+
+  tableOptions = {
     totalTableRecords: 0,
-    loading: true,
-    rowsPerPageOptions: TABLE_DEFAULTS.rowsPerPageOptions,
-    rowsPerPage: TABLE_DEFAULTS.defaultRows
+    columns: [
+      {name: 'Title', value: 'title'},
+      {name: 'Amount', value: 'amount'},
+      {name: 'Description', value: 'description'},
+      {name: 'Recurrent', value: 'recurrent'},
+      {name: 'Created On', value: 'createdOn'},
+      {name: 'Due Date', value: 'dueDate'},
+      {name: 'Category', value: 'category'},
+      {name: 'Tags', value: 'tags'},
+      {name: 'Payed', value: 'payed'}
+    ]
   };
 
   lastEvent: LazyLoadEvent;
@@ -116,8 +125,8 @@ export class ExpensesComponent implements OnInit {
     this.expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
     this.expenseService.getExpenses(this.lastEvent, this.expenseFilter).then(resp => {
       this.expenses = resp.content;
-      this.tableConfig.totalTableRecords = resp.totalElements;
-      this.tableConfig.loading = false;
+      this.tableOptions.totalTableRecords = resp.totalElements;
+      this.tableDefaults.loading = false;
     });
   }
 
@@ -144,8 +153,8 @@ export class ExpensesComponent implements OnInit {
   getExpenses(event: LazyLoadEvent): void {
     this.expenseService.getExpenses(event, this.expenseFilter).then(resp => {
       this.expenses = resp.content || [];
-      this.tableConfig.totalTableRecords = resp.totalElements;
-      this.tableConfig.loading = false;
+      this.tableOptions.totalTableRecords = resp.totalElements;
+      this.tableDefaults.loading = false;
       this.lastEvent = event;
     });
   }
