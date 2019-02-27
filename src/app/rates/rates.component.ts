@@ -31,7 +31,6 @@ export class RatesComponent implements OnInit {
       {name: 'Observation', value: 'observation'},
       {name: 'Creation Date', value: 'creationDate'},
       {name: 'Payed On', value: 'payedOn'},
-      {name: 'Expense', value: 'expense'},
       {name: 'Expense', value: 'expense'}
     ]
   };
