@@ -283,12 +283,13 @@ export class ExpensesComponent implements OnInit {
   }
 
   fetchAndDisplayRates(exp: Expense): void {
-    this.rateService.getRatesByExpenseId(exp.id).then(rates => {
-      const ref = this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
-        header: 'Rates',
-        width: '70%',
+    this.rateService.getRatesByExpenseId(exp.id).then(resp => {
+      const width = resp.content.length > 0 ? '70%' : '30%';
+      this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
+        header: `${exp.title} - rates`,
+        width,
         data: {
-          rates: rates
+          resp: resp
         }
       });
     });
