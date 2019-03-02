@@ -21,7 +21,7 @@ import {
   DropdownModule,
   MultiSelectModule,
   OverlayPanelModule,
-  ScrollPanelModule, SidebarModule,
+  ScrollPanelModule, SidebarModule, SplitButtonModule,
   ToolbarModule,
   TooltipModule
 } from 'primeng/primeng';
@@ -77,7 +77,8 @@ import {ChipsModule} from 'primeng/chips';
     SliderModule,
     ReactiveFormsModule,
     ChipsModule,
-    SidebarModule
+    SidebarModule,
+    SplitButtonModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

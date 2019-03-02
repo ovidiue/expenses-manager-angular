@@ -271,25 +271,12 @@
                 </button>
               </p-footer>
             </p-dialog>
-            <button type="button"
-                    pButton
-                    (click)="displaySidebar = true"
-                    [disabled]="!selectedExpenses.length"
-                    class="ui-button-raised ui-button-danger"
-                    label="Assign Category">
-            </button>
-            <button type="button"
-                    (click)="displayDeleteMultiple()"
-                    pButton
-                    [disabled]="!selectedExpenses.length"
-                    class="ui-button-raised ui-button-danger"
-                    label="Delete">
-            </button>
-            <button pButton type="button"
-                    routerLink="add"
-                    label="Add Expense"
-                    class="ui-button-raised">
-            </button>
+            <p-splitButton label="Add Expense"
+                           icon="pi pi-file"
+                           class="ui-button-raised"
+                           (onClick)="goToAddExpense()"
+                           [model]="tableOptions.actions">
+            </p-splitButton>
           </div>
         </p-toolbar>
 

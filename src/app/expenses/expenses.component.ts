@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, DialogService, DynamicDialogConfig, LazyLoadEvent, MessageService} from 'primeng/api';
+import {ConfirmationService, DialogService, DynamicDialogConfig, LazyLoadEvent, MenuItem, MessageService} from 'primeng/api';
 import {Expense} from '../classes/expense';
 import {ExpenseService} from '../services/expense.service';
 import {RateService} from '../services/rate.service';
@@ -14,6 +14,7 @@ import {ExpenseFilter} from '../classes/filters/expense-filter';
 import * as moment from 'moment';
 import {TABLE_DEFAULTS} from '../utils/table-options';
 import {Category} from '../classes/category';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-expenses',
@@ -53,7 +54,8 @@ export class ExpensesComponent implements OnInit {
       {name: 'Category', value: 'category'},
       {name: 'Tags', value: 'tags'},
       {name: 'Payed', value: 'payed'}
-    ]
+    ],
+    actions: <MenuItem[]>[]
   };
 
   lastEvent: LazyLoadEvent;
@@ -65,6 +67,7 @@ export class ExpensesComponent implements OnInit {
               private rateService: RateService,
               private categoryService: CategoryService,
               private tagService: TagService,
+              private router: Router,
               public dialogService: DialogService,
               private globalNotificationService: GlobalNotificationService) {
   }
@@ -74,16 +77,40 @@ export class ExpensesComponent implements OnInit {
     this.getTags();
     this.instantiateForm();
     this.onFormChange();
+    this.instantiateTableActions();
   }
 
-  translateCategories(categories: Category[]): any[] {
-    return categories.map(el => {
-      return {
-        label: el.name,
-        value: el,
-        color: el.color
-      };
-    });
+  instantiateTableActions(): void {
+    this.tableOptions.actions = [
+      {
+        label: 'Delete Selection',
+        command: () => {
+          if (!this.areRowsSelected()) {
+            this.globalNotificationService.add(MESSAGES.no_rows_selected);
+            return false;
+          }
+          this.displayDeleteMultiple();
+        }
+      },
+      {
+        label: 'Assign Category',
+        command: () => {
+          if (!this.areRowsSelected()) {
+            this.globalNotificationService.add(MESSAGES.no_rows_selected);
+            return false;
+          }
+          this.displaySidebar = true;
+        }
+      }
+    ];
+  }
+
+  areRowsSelected(): boolean {
+    return this.selectedExpenses.length > 0;
+  }
+
+  goToAddExpense(): void {
+    this.router.navigate(['/expenses/add']);
   }
 
   clearFormFilters(): void {
