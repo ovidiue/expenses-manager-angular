@@ -27,7 +27,7 @@
                     type="button"
                     pTooltip="Clear filters"
                     [hidden]="!selectedExpenses.length"
-                    (click)="selectedExpenses=[]"
+                    (click)="clearExpenseFilter()"
                     icon="pi pi-times"
                     class="clear-filters ui-button-raised ui-button-rounded ui-button-warning">
             </button>

@@ -49,6 +49,11 @@ export class RatesComponent implements OnInit {
     this.getExpenses();
   }
 
+  clearExpenseFilter(): void {
+    this.selectedExpenses = [];
+    this.getRates(this.lastEvent);
+  }
+
   filterTable($event) {
     // TODO investigate table 'filters' property to inject the dropdown value
     // TODO hit expenses endpoint => this should also be paged
