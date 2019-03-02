@@ -12,7 +12,8 @@ export const MESSAGES = {
   deletedRates      : 'Successfully deleted rates...',
   deletedExpense    : 'Successfully deleted expense...',
   deletedExpenses   : 'Successfully deleted expenses...',
-  error             : 'Something went wrong ... '
+  error             : 'Something went wrong ... ',
+  set_new_category  : 'Successfully set new category ...'
 };
 
 

@@ -28,4 +28,22 @@ button {
   min-width: 100px;
 }
 
-// TODO clear filters button style ignored
+.selected-cat {
+  width: 50%;
+  height: 20px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+p-sidebar {
+  z-index: 1100;
+  &.top-sidebar {
+    background: black;
+
+    &.ui-sidebar-top {
+      height: auto;
+    }
+  }
+}
+

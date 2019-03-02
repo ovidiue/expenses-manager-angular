@@ -46,4 +46,9 @@ export class ExpenseService {
     const url = this.EXPENSES_BASE_URL + '/' + exId;
     return this.http.get<Expense>(url).toPromise();
   }
+
+  setNewCategory(expenseIds: number[], categoryId: number): Promise<any> {
+    const url = `${this.EXPENSES_BASE_URL}/set-category/${categoryId}`;
+    return this.http.post(url, expenseIds).toPromise();
+  }
 }

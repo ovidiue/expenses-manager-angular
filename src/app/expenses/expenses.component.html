@@ -4,6 +4,54 @@
   </div>
 
   <div class="row">
+    <p-sidebar [(visible)]="displaySidebar" position="top" [styleClass]="'top-sidebar'">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-g-offset-1">
+          <h2>Category</h2>
+        </div>
+        <div class="ui-g-1"></div>
+        <div class="ui-g-10">
+          <div class="ui-g-6">
+            <p-dropdown [options]="categories"
+                        [showClear]="true"
+                        [(ngModel)]="categoryToAssign"
+                        [placeholder]="'Select category'"
+                        [style]="{'width':'100%'}">
+              <ng-template let-item pTemplate="selectedItem">
+                <span [ngStyle]="{background: item.color}" class="selected-cat"></span>
+                <span style="font-size:14px;margin-left:10px;margin-top:4px">{{item.label}}</span>
+              </ng-template>
+              <ng-template let-cat pTemplate="item">
+                <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                  <span
+                    [ngStyle]="{background: cat.color, width: '50%', height: '100%', display:'inline-block'}"></span>
+                  <span style="font-size:14px;float:right;margin-top:4px">{{cat.label}}</span>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="ui-g-6">
+            <button type="button"
+                    pButton
+                    (click)="resetAssignVariables()"
+                    class="ui-button-raised ui-button-secondary"
+                    label="Cancel">
+            </button>
+            <button type="button"
+                    pButton
+                    (click)="assignNewCategory()"
+                    class="ui-button-raised ui-button-success"
+                    label="Save">
+            </button>
+          </div>
+
+        </div>
+        <div class="ui-g-1"></div>
+
+      </div>
+
+    </p-sidebar>
+
     <p-overlayPanel #op>
       <p-scrollPanel [style]="{width: '300px', height: '200px'}">
         <div style="padding:1em;line-height:1.5">
@@ -223,6 +271,13 @@
                 </button>
               </p-footer>
             </p-dialog>
+            <button type="button"
+                    pButton
+                    (click)="displaySidebar = true"
+                    [disabled]="!selectedExpenses.length"
+                    class="ui-button-raised ui-button-danger"
+                    label="Assign Category">
+            </button>
             <button type="button"
                     (click)="displayDeleteMultiple()"
                     pButton

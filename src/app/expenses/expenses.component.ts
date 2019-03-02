@@ -13,6 +13,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {ExpenseFilter} from '../classes/filters/expense-filter';
 import * as moment from 'moment';
 import {TABLE_DEFAULTS} from '../utils/table-options';
+import {Category} from '../classes/category';
 
 @Component({
   selector: 'app-expenses',
@@ -30,11 +31,13 @@ export class ExpensesComponent implements OnInit {
   selectedForDeletion: Expense;
 
   selectedDescription = '';
+  displaySidebar = false;
 
   amountBetween: number[] = [0, 10000];
   beautifiedFilters: string[] = [];
   categories = [];
   tags = [];
+  categoryToAssign: Category;
 
   tableDefaults = TABLE_DEFAULTS;
 
@@ -71,6 +74,16 @@ export class ExpensesComponent implements OnInit {
     this.getTags();
     this.instantiateForm();
     this.onFormChange();
+  }
+
+  translateCategories(categories: Category[]): any[] {
+    return categories.map(el => {
+      return {
+        label: el.name,
+        value: el,
+        color: el.color
+      };
+    });
   }
 
   clearFormFilters(): void {
@@ -182,6 +195,18 @@ export class ExpensesComponent implements OnInit {
     });
   }
 
+  assignNewCategory(): void {
+    console.log(this.categoryToAssign);
+    console.log(this.selectedExpenses);
+    const expensesIds = this.selectedExpenses.map(exp => exp.id);
+    this.expenseService.setNewCategory(expensesIds, this.categoryToAssign.id)
+    .then(() => {
+      this.getExpenses(this.lastEvent);
+      this.globalNotificationService.add(MESSAGES.set_new_category);
+    });
+    this.resetAssignVariables();
+  }
+
   decideVisibilityAccordingToPayedField(): boolean {
     if (this.selectedForDeletion) {
       return this.selectedForDeletion.payed > 0;
@@ -240,6 +265,12 @@ export class ExpensesComponent implements OnInit {
         }
       });
     });
+  }
+
+  resetAssignVariables(): void {
+    this.displaySidebar = false;
+    this.selectedExpenses = [];
+    this.categoryToAssign = null;
   }
 
   mapToExpenseFilter(obj: any): ExpenseFilter {
