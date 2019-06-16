@@ -40,6 +40,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tableDefaults.loading = true;
+    this.getCategories(TABLE_DEFAULTS.query);
   }
 
   resetDeletionVariables(): void {
@@ -52,11 +54,10 @@ export class CategoriesComponent implements OnInit {
   deleteCategory(withExpenses: boolean): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedCategories
     .map(cat => cat.id);
-    console.log('withExpenses', withExpenses);
     this.categoryService.deleteCategories(idsToDelete, withExpenses)
     .then(() => {
-      this.getCategories(TABLE_DEFAULTS.query);
       this.resetDeletionVariables();
+      this.getCategories(TABLE_DEFAULTS.query);
       this.globalNotificationService.add(MESSAGES.deletedCategories);
     })
     .catch(() => {
@@ -67,10 +68,9 @@ export class CategoriesComponent implements OnInit {
 
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
-    this.categoryService.getCategories(event)
-    .then(resp => {
-      this.tableOptions.totalTableRecords = resp.totalElements;
+    this.categoryService.getAll(event).subscribe(resp => {
       this.categories = resp.content;
+      this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;
     });
   }

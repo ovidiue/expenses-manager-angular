@@ -12,7 +12,7 @@ export const TABLE_DEFAULTS = {
   rowHover: true,
   responsive: true,
   reorderableColumns: true,
-  loading: true,
+  loading: false,
   scrollable: false,
   scrollHeight: '500px'
 };

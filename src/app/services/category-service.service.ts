@@ -5,11 +5,13 @@ import {LazyLoadEvent} from 'primeng/api';
 import mapTableParams from '../utils/MapTableParamsToRest';
 import {PathBuilder} from '../classes/helper/PathBuilder';
 import {ApiPath} from '../utils/constants/api-paths';
+import {ServerResp} from '../interfaces';
+import {Observable} from 'rxjs';
+import {map, mergeMap, toArray} from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,12 @@ export class CategoryService {
   constructor(private http: HttpClient) {
   }
 
-  getCategories(event: LazyLoadEvent): Promise<any> {
+  getAll(event: LazyLoadEvent = {}): Observable<ServerResp<Category>>{
+    const params: HttpParams = mapTableParams(event);
+    return this.http.get<ServerResp<Category>>(this.CATEGORIES_BASE_URL, {params});
+  }
+
+  getCategories(event: LazyLoadEvent = null): Promise<any> {
     const params: HttpParams = mapTableParams(event);
     return this.http.get(this.CATEGORIES_BASE_URL, {params}).toPromise();
   }
