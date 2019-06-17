@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Category} from '../../classes/category';
+import {Category} from '../../models/category';
 import {Location} from '@angular/common';
 import {CategoryService} from '../../services/category-service.service';
 import {ActivatedRoute, Router} from '@angular/router';

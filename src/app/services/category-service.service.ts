@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Category} from '../classes/category';
+import {Category} from '../models/category';
 import {LazyLoadEvent} from 'primeng/api';
 import mapTableParams from '../utils/MapTableParamsToRest';
-import {PathBuilder} from '../classes/helper/PathBuilder';
+import {PathBuilder} from '../utils/PathBuilder';
 import {ApiPath} from '../utils/constants/api-paths';
-import {ServerResp} from '../interfaces';
 import {Observable} from 'rxjs';
-import {map, mergeMap, toArray} from 'rxjs/operators';
+import {ServerResp} from '../models/interfaces';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -22,7 +21,7 @@ export class CategoryService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(event: LazyLoadEvent = {}): Observable<ServerResp<Category>>{
+  getAll(event: LazyLoadEvent = {}): Observable<ServerResp<Category>> {
     const params: HttpParams = mapTableParams(event);
     return this.http.get<ServerResp<Category>>(this.CATEGORIES_BASE_URL, {params});
   }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Rate} from '../../classes/rate';
+import {Rate} from '../../models/rate';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RateService} from '../../services/rate.service';
 import {Location} from '@angular/common';

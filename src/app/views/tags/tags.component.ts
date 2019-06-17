@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Tag} from '../../classes/tag';
+import {Tag} from '../../models/tag';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 import {TagService} from '../../services/tag.service';
 import {GlobalNotificationService} from '../../services/global-notification.service';

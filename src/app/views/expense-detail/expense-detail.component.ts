@@ -6,7 +6,7 @@ import {Location} from '@angular/common';
 import {TagService} from '../../services/tag.service';
 import {CategoryService} from '../../services/category-service.service';
 import {MessageService} from 'primeng/api';
-import {Expense} from '../../classes/expense';
+import {Expense} from '../../models/expense';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';

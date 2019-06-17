@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Tag} from '../../classes/tag';
+import {Tag} from '../../models/tag';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TagService} from '../../services/tag.service';
 import {Location} from '@angular/common';

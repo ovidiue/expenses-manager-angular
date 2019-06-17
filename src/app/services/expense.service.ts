@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Expense} from '../classes/expense';
-import {ExpenseFilter} from '../classes/filters/expense-filter';
+import {Expense} from '../models/expense';
+import {ExpenseFilter} from '../models/filters/expense-filter';
 import {LazyLoadEvent} from 'primeng/api';
 import mapToRestParams from '../utils/MapTableParamsToRest';
 import {ApiPath} from '../utils/constants/api-paths';
-import {PathBuilder} from '../classes/helper/PathBuilder';
+import {PathBuilder} from '../utils/PathBuilder';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})

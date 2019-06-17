@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Rate} from '../classes/rate';
+import {Rate} from '../models/rate';
 import {LazyLoadEvent} from 'primeng/api';
 import mapTableParams from '../utils/MapTableParamsToRest';
-import {PathBuilder} from '../classes/helper/PathBuilder';
+import {PathBuilder} from '../utils/PathBuilder';
 import {ApiPath} from '../utils/constants/api-paths';
 
 const httpOptions = {

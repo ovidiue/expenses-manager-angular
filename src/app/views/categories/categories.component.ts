@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Category} from '../../classes/category';
+import {Category} from '../../models/category';
 import {CategoryService} from '../../services/category-service.service';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 import {GlobalNotificationService} from '../../services/global-notification.service';
