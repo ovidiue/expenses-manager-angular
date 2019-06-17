@@ -5,7 +5,7 @@ import {ExpenseService} from '../../services/expense.service';
 import {RateService} from '../../services/rate.service';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
-import {DialogRatesComponent} from '../../dialog-rates/dialog-rates.component';
+import {DialogRatesComponent} from '../../components/dialog-rates/dialog-rates.component';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {CategoryService} from '../../services/category-service.service';
 import {TagService} from '../../services/tag.service';

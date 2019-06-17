@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DialogRatesComponent} from './dialog-rates/dialog-rates.component';
+import {DialogRatesComponent} from './components/dialog-rates/dialog-rates.component';
 import {PrimengModule} from './modules/primeng.module';
 import {CategoriesComponent} from './views/categories/categories.component';
 import {ExpensesComponent} from './views/expenses/expenses.component';
