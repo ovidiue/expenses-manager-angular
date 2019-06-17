@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Category} from '../classes/category';
-import {CategoryService} from '../services/category-service.service';
+import {Category} from '../../classes/category';
+import {CategoryService} from '../../services/category-service.service';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {GlobalNotificationService} from '../services/global-notification.service';
-import {fadeIn} from '../utils/animations/fadeIn';
-import {MESSAGES} from '../utils/messages';
-import {TABLE_DEFAULTS} from '../utils/table-options';
+import {GlobalNotificationService} from '../../services/global-notification.service';
+import {fadeIn} from '../../utils/animations/fadeIn';
+import {MESSAGES} from '../../utils/messages';
+import {TABLE_DEFAULTS} from '../../utils/table-options';
 
 @Component({
   selector: 'app-categories',

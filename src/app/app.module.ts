@@ -2,47 +2,28 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {ExpensesComponent} from './expenses/expenses.component';
-import {RatesComponent} from './rates/rates.component';
-import {CategoriesComponent} from './categories/categories.component';
-import {TagsComponent} from './tags/tags.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TableModule} from 'primeng/table';
-import {ButtonModule} from 'primeng/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  AccordionModule,
-  CalendarModule,
-  CheckboxModule,
-  ColorPickerModule,
-  ConfirmDialogModule,
-  DropdownModule,
-  MultiSelectModule,
-  OverlayPanelModule,
-  ScrollPanelModule, SidebarModule, SplitButtonModule,
-  ToolbarModule,
-  TooltipModule
-} from 'primeng/primeng';
-import {CategoryDetailComponent} from './category-detail/category-detail.component';
-import {ToastModule} from 'primeng/toast';
-import {TagDetailComponent} from './tag-detail/tag-detail.component';
-import {ExpenseDetailComponent} from './expense-detail/expense-detail.component';
-import {RateDetailComponent} from './rate-detail/rate-detail.component';
-import {GlobalMessageComponent} from './global-message/global-message.component';
 import {DialogRatesComponent} from './dialog-rates/dialog-rates.component';
-import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import {DialogModule} from 'primeng/dialog';
-import {SliderModule} from 'primeng/slider';
-import {ChipsModule} from 'primeng/chips';
+import {PrimengModule} from './modules/primeng.module';
+import {CategoriesComponent} from './views/categories/categories.component';
+import {ExpensesComponent} from './views/expenses/expenses.component';
+import {RatesComponent} from './views/rates/rates.component';
+import {TagsComponent} from './views/tags/tags.component';
+import {CategoryDetailComponent} from './views/category-detail/category-detail.component';
+import {TagDetailComponent} from './views/tag-detail/tag-detail.component';
+import {ExpenseDetailComponent} from './views/expense-detail/expense-detail.component';
+import {RateDetailComponent} from './views/rate-detail/rate-detail.component';
+import {GlobalMessageComponent} from './global-message/global-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    CategoriesComponent,
     ExpensesComponent,
     RatesComponent,
-    CategoriesComponent,
     TagsComponent,
     CategoryDetailComponent,
     TagDetailComponent,
@@ -54,31 +35,11 @@ import {ChipsModule} from 'primeng/chips';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    TableModule,
     FormsModule,
-    ToolbarModule,
-    ScrollPanelModule,
-    MultiSelectModule,
-    ButtonModule,
     AppRoutingModule,
     HttpClientModule,
-    ColorPickerModule,
-    ConfirmDialogModule,
-    ToastModule,
-    CheckboxModule,
-    CalendarModule,
-    DropdownModule,
-    AccordionModule,
-    TooltipModule,
-    DynamicDialogModule,
-    DialogModule,
-    OverlayPanelModule,
-    AccordionModule,
-    SliderModule,
     ReactiveFormsModule,
-    ChipsModule,
-    SidebarModule,
-    SplitButtonModule
+    PrimengModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

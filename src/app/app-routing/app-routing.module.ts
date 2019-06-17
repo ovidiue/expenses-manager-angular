@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ExpensesComponent} from '../expenses/expenses.component';
-import {RatesComponent} from '../rates/rates.component';
-import {CategoriesComponent} from '../categories/categories.component';
-import {TagsComponent} from '../tags/tags.component';
-import {CategoryDetailComponent} from '../category-detail/category-detail.component';
-import {TagDetailComponent} from '../tag-detail/tag-detail.component';
-import {ExpenseDetailComponent} from '../expense-detail/expense-detail.component';
-import {RateDetailComponent} from '../rate-detail/rate-detail.component';
+import {ExpensesComponent} from '../views/expenses/expenses.component';
+import {RatesComponent} from '../views/rates/rates.component';
+import {CategoriesComponent} from '../views/categories/categories.component';
+import {TagsComponent} from '../views/tags/tags.component';
+import {CategoryDetailComponent} from '../views/category-detail/category-detail.component';
+import {TagDetailComponent} from '../views/tag-detail/tag-detail.component';
+import {ExpenseDetailComponent} from '../views/expense-detail/expense-detail.component';
+import {RateDetailComponent} from '../views/rate-detail/rate-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},

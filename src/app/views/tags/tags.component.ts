@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Tag} from '../classes/tag';
+import {Tag} from '../../classes/tag';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {TagService} from '../services/tag.service';
-import {GlobalNotificationService} from '../services/global-notification.service';
-import {MESSAGES} from '../utils/messages';
-import {fadeIn} from '../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../utils/table-options';
+import {TagService} from '../../services/tag.service';
+import {GlobalNotificationService} from '../../services/global-notification.service';
+import {MESSAGES} from '../../utils/messages';
+import {fadeIn} from '../../utils/animations/fadeIn';
+import {TABLE_DEFAULTS} from '../../utils/table-options';
 
 @Component({
   selector: 'app-tags',

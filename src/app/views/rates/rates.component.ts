@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {Rate} from '../classes/rate';
-import {RateService} from '../services/rate.service';
-import {GlobalNotificationService} from '../services/global-notification.service';
-import {MESSAGES} from '../utils/messages';
-import {Expense} from '../classes/expense';
-import {ExpenseService} from '../services/expense.service';
-import {fadeIn} from '../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../utils/table-options';
+import {Rate} from '../../classes/rate';
+import {RateService} from '../../services/rate.service';
+import {GlobalNotificationService} from '../../services/global-notification.service';
+import {MESSAGES} from '../../utils/messages';
+import {Expense} from '../../classes/expense';
+import {ExpenseService} from '../../services/expense.service';
+import {fadeIn} from '../../utils/animations/fadeIn';
+import {TABLE_DEFAULTS} from '../../utils/table-options';
 
 @Component({
   selector: 'app-rates',

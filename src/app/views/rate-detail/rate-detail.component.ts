@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {Rate} from '../classes/rate';
+import {Rate} from '../../classes/rate';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RateService} from '../services/rate.service';
+import {RateService} from '../../services/rate.service';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
-import {ExpenseService} from '../services/expense.service';
-import {GlobalNotificationService} from '../services/global-notification.service';
-import {MESSAGES} from '../utils/messages';
-import {fadeIn} from '../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../utils/table-options';
+import {ExpenseService} from '../../services/expense.service';
+import {GlobalNotificationService} from '../../services/global-notification.service';
+import {MESSAGES} from '../../utils/messages';
+import {fadeIn} from '../../utils/animations/fadeIn';
+import {TABLE_DEFAULTS} from '../../utils/table-options';
 
 @Component({
   selector: 'app-rate-detail',

@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {ExpenseService} from '../services/expense.service';
+import {ExpenseService} from '../../services/expense.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {TagService} from '../services/tag.service';
-import {CategoryService} from '../services/category-service.service';
+import {TagService} from '../../services/tag.service';
+import {CategoryService} from '../../services/category-service.service';
 import {MessageService} from 'primeng/api';
-import {Expense} from '../classes/expense';
-import {GlobalNotificationService} from '../services/global-notification.service';
-import {MESSAGES} from '../utils/messages';
-import {fadeIn} from '../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../utils/table-options';
+import {Expense} from '../../classes/expense';
+import {GlobalNotificationService} from '../../services/global-notification.service';
+import {MESSAGES} from '../../utils/messages';
+import {fadeIn} from '../../utils/animations/fadeIn';
+import {TABLE_DEFAULTS} from '../../utils/table-options';
 
 
 @Component({

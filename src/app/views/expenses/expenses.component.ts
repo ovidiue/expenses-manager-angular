@@ -1,19 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, DialogService, DynamicDialogConfig, LazyLoadEvent, MenuItem, MessageService} from 'primeng/api';
-import {Expense} from '../classes/expense';
-import {ExpenseService} from '../services/expense.service';
-import {RateService} from '../services/rate.service';
-import {GlobalNotificationService} from '../services/global-notification.service';
-import {MESSAGES} from '../utils/messages';
-import {DialogRatesComponent} from '../dialog-rates/dialog-rates.component';
-import {fadeIn} from '../utils/animations/fadeIn';
-import {CategoryService} from '../services/category-service.service';
-import {TagService} from '../services/tag.service';
+import {Expense} from '../../classes/expense';
+import {ExpenseService} from '../../services/expense.service';
+import {RateService} from '../../services/rate.service';
+import {GlobalNotificationService} from '../../services/global-notification.service';
+import {MESSAGES} from '../../utils/messages';
+import {DialogRatesComponent} from '../../dialog-rates/dialog-rates.component';
+import {fadeIn} from '../../utils/animations/fadeIn';
+import {CategoryService} from '../../services/category-service.service';
+import {TagService} from '../../services/tag.service';
 import {FormControl, FormGroup} from '@angular/forms';
-import {ExpenseFilter} from '../classes/filters/expense-filter';
+import {ExpenseFilter} from '../../classes/filters/expense-filter';
 import * as moment from 'moment';
-import {TABLE_DEFAULTS} from '../utils/table-options';
-import {Category} from '../classes/category';
+import {TABLE_DEFAULTS} from '../../utils/table-options';
+import {Category} from '../../classes/category';
 import {Router} from '@angular/router';
 
 @Component({
