@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CategoryService} from '../../services/category-service.service';
+import {CategoryService} from '../../services/category.service';
 import {LazyLoadEvent} from 'primeng/api';
 
 @Injectable({providedIn: 'root'})

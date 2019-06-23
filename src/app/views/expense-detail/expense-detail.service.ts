@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ExpenseService} from '../../services/expense.service';
 import {TagService} from '../../services/tag.service';
-import {CategoryService} from '../../services/category-service.service';
+import {CategoryService} from '../../services/category.service';
 import {LazyLoadEvent} from 'primeng/api';
 import {Expense} from '../../models/expense';
 
