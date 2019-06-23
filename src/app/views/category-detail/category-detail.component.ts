@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../../models/category';
 import {Location} from '@angular/common';
-import {CategoryService} from '../../services/category-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
+import {CategoryDetailDataService} from './category-detail-data.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -21,7 +21,7 @@ export class CategoryDetailComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
-              private categoryService: CategoryService,
+              private categoryService: CategoryDetailDataService,
               private globalNotificationService: GlobalNotificationService,
               private route: ActivatedRoute) {
   }

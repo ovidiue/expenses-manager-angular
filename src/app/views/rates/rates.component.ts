@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 import {Rate} from '../../models/rate';
-import {RateService} from '../../services/rate.service';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {Expense} from '../../models/expense';
-import {ExpenseService} from '../../services/expense.service';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
+import {RatesDataService} from './rates-data.service';
 
 @Component({
   selector: 'app-rates',
@@ -39,10 +38,10 @@ export class RatesComponent implements OnInit {
 
   lastEvent: LazyLoadEvent;
 
-  constructor(private confirmationService: ConfirmationService,
-              private rateService: RateService,
-              private expenseService: ExpenseService,
-              private globalNotificationService: GlobalNotificationService) {
+  constructor(
+    private confirmationService: ConfirmationService,
+    private service: RatesDataService,
+    private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
@@ -60,14 +59,14 @@ export class RatesComponent implements OnInit {
     const expenses = $event.value;
     if (expenses.length) {
       const ids = expenses.map(ex => ex.id);
-      this.rateService.getRatesByExpenseIds(ids, this.lastEvent).then(rates => this.rates = rates);
+      this.service.getRatesByExpenseIds(ids, this.lastEvent).then(rates => this.rates = rates);
     } else {
       this.getRates(TABLE_DEFAULTS.query);
     }
   }
 
   getRates(event: LazyLoadEvent): void {
-    this.rateService
+    this.service
     .getRates(event)
     .then(resp => {
       this.rates = resp.content;
@@ -78,7 +77,7 @@ export class RatesComponent implements OnInit {
   }
 
   getExpenses(): void {
-    this.expenseService.getExpenses(TABLE_DEFAULTS.maxSize)
+    this.service.getExpenses(TABLE_DEFAULTS.maxSize)
     .then(resp => this.expenses = resp.content);
   }
 
@@ -88,12 +87,12 @@ export class RatesComponent implements OnInit {
       accept: () => {
         // TODO check map warning
         const ids = this.selectedRates.map(el => el.id);
-        this.rateService.deleteRates(ids)
+        this.service.deleteRates(ids)
         .then(() => {
           this.getRates(this.lastEvent);
           this.globalNotificationService.add(MESSAGES.deletedRates);
         })
-        .catch(err => this.globalNotificationService.add(MESSAGES.error));
+        .catch(() => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
@@ -102,7 +101,7 @@ export class RatesComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${rate.amount} ?`,
       accept: () => {
-        this.rateService.deleteRates([rate.id])
+        this.service.deleteRates([rate.id])
         .then(() => {
           this.getRates(this.lastEvent);
           this.globalNotificationService.add(MESSAGES.deletedRate);

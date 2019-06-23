@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Tag} from '../../models/tag';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TagService} from '../../services/tag.service';
 import {Location} from '@angular/common';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
+import {TagDetailDataService} from './tag-detail-data.service';
 
 @Component({
   selector: 'app-tag-detail',
@@ -22,7 +22,7 @@ export class TagDetailComponent implements OnInit {
   constructor(private location: Location,
               private router: Router,
               private globalNotificationService: GlobalNotificationService,
-              private tagService: TagService,
+              private service: TagDetailDataService,
               private route: ActivatedRoute) {
   }
 
@@ -43,16 +43,16 @@ export class TagDetailComponent implements OnInit {
 
   getTag(): void {
     if (this.id) {
-      this.tagService.getTag(this.id).then(tag => this.tag = tag).catch(err => console.error(err));
+      this.service.getTag(this.id)
+      .then(tag => this.tag = tag)
+      .catch(err => console.error(err));
     }
   }
 
   checkName($event): void {
-    console.log('checkcname', $event);
     const name = $event.target.value;
-    this.tagService.getTagByName(name)
+    this.service.getTagByName(name)
     .then(resp => {
-      console.log('resp', resp);
       if (resp) {
         this.nameExists = true;
       } else {
@@ -68,12 +68,12 @@ export class TagDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.tagService.saveTag(this.tag)
+    this.service.saveTag(this.tag)
     .then(() => {
       this.router.navigate(['/tags']);
       this.globalNotificationService.add(MESSAGES.addTag);
     })
-    .catch(err => this.globalNotificationService.add(MESSAGES.error));
+    .catch(() => this.globalNotificationService.add(MESSAGES.error));
   }
 
 }

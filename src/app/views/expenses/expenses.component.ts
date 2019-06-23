@@ -1,20 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, DialogService, DynamicDialogConfig, LazyLoadEvent, MenuItem, MessageService} from 'primeng/api';
 import {Expense} from '../../models/expense';
-import {ExpenseService} from '../../services/expense.service';
-import {RateService} from '../../services/rate.service';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {DialogRatesComponent} from '../../components/dialog-rates/dialog-rates.component';
 import {fadeIn} from '../../utils/animations/fadeIn';
-import {CategoryService} from '../../services/category-service.service';
-import {TagService} from '../../services/tag.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ExpenseFilter} from '../../models/filters/expense-filter';
 import * as moment from 'moment';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {Category} from '../../models/category';
 import {Router} from '@angular/router';
+import {ExpensesDataService} from './expenses-data.service';
 
 @Component({
   selector: 'app-expenses',
@@ -63,13 +60,11 @@ export class ExpensesComponent implements OnInit {
   filterForm: FormGroup;
   expenseFilter: ExpenseFilter;
 
-  constructor(private expenseService: ExpenseService,
-              private rateService: RateService,
-              private categoryService: CategoryService,
-              private tagService: TagService,
-              private router: Router,
-              public dialogService: DialogService,
-              private globalNotificationService: GlobalNotificationService) {
+  constructor(
+    private router: Router,
+    private service: ExpensesDataService,
+    public dialogService: DialogService,
+    private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
@@ -163,7 +158,7 @@ export class ExpensesComponent implements OnInit {
   searchValues(): void {
     this.beautifiedFilters = this.parseFilters(this.filterForm.value);
     this.expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
-    this.expenseService.getExpenses(this.lastEvent, this.expenseFilter).then(resp => {
+    this.service.getExpenses(this.lastEvent, this.expenseFilter).then(resp => {
       this.expenses = resp.content;
       this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;
@@ -191,7 +186,7 @@ export class ExpensesComponent implements OnInit {
   }
 
   getExpenses(event: LazyLoadEvent): void {
-    this.expenseService.getExpenses(event, this.expenseFilter).then(resp => {
+    this.service.getExpenses(event, this.expenseFilter).then(resp => {
       this.expenses = resp.content || [];
       this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;
@@ -200,7 +195,7 @@ export class ExpensesComponent implements OnInit {
   }
 
   getTags(): void {
-    this.tagService.getTags(TABLE_DEFAULTS.maxSize).then(resp => this.tags = resp.content.map(el => {
+    this.service.getTags(TABLE_DEFAULTS.maxSize).then(resp => this.tags = resp.content.map(el => {
       return {
         label: el.name,
         value: {id: el.id, name: el.name, color: el.color},
@@ -210,8 +205,8 @@ export class ExpensesComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories(TABLE_DEFAULTS.maxSize)
-    .then(resp => {
+    this.service.getCategories(TABLE_DEFAULTS.maxSize)
+    .subscribe(resp => {
       this.categories = resp.content.map(el => {
         return {
           label: el.name,
@@ -226,7 +221,7 @@ export class ExpensesComponent implements OnInit {
     console.log(this.categoryToAssign);
     console.log(this.selectedExpenses);
     const expensesIds = this.selectedExpenses.map(exp => exp.id);
-    this.expenseService.setNewCategory(expensesIds, this.categoryToAssign.id)
+    this.service.setCategory(expensesIds, this.categoryToAssign.id)
     .then(() => {
       this.getExpenses(this.lastEvent);
       this.globalNotificationService.add(MESSAGES.set_new_category);
@@ -244,7 +239,7 @@ export class ExpensesComponent implements OnInit {
 
   deleteExpense(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
-    this.expenseService.deleteExpenses(idsToDelete, false)
+    this.service.deleteExpenses(idsToDelete, false)
     .then(() => {
       this.resetDeletionVariables();
       this.getExpenses(this.lastEvent);
@@ -273,7 +268,7 @@ export class ExpensesComponent implements OnInit {
 
   deleteExpenseAndRates(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
-    this.expenseService.deleteExpenses(idsToDelete, true)
+    this.service.deleteExpenses(idsToDelete, true)
     .then(() => {
       this.resetDeletionVariables();
       this.getExpenses(this.lastEvent);
@@ -283,7 +278,7 @@ export class ExpensesComponent implements OnInit {
   }
 
   fetchAndDisplayRates(exp: Expense): void {
-    this.rateService.getRatesByExpenseId(exp.id).then(resp => {
+    this.service.getRatesByExpenseId(exp.id).then(resp => {
       const width = resp.content.length > 0 ? '70%' : '30%';
       this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
         header: `${exp.title} - rates`,

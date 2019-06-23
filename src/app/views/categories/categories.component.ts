@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../../models/category';
-import {CategoryService} from '../../services/category-service.service';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {MESSAGES} from '../../utils/messages';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
+import {CategoriesDataService} from './categories-data.service';
 
 @Component({
   selector: 'app-categories',
@@ -35,8 +35,9 @@ export class CategoriesComponent implements OnInit {
     ]
   };
 
-  constructor(private categoryService: CategoryService,
-              private globalNotificationService: GlobalNotificationService) {
+  constructor(
+    private service: CategoriesDataService,
+    private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
@@ -54,7 +55,7 @@ export class CategoriesComponent implements OnInit {
   deleteCategory(withExpenses: boolean): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedCategories
     .map(cat => cat.id);
-    this.categoryService.deleteCategories(idsToDelete, withExpenses)
+    this.service.deleteCategory(idsToDelete, withExpenses)
     .then(() => {
       this.resetDeletionVariables();
       this.getCategories(TABLE_DEFAULTS.query);
@@ -68,7 +69,7 @@ export class CategoriesComponent implements OnInit {
 
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
-    this.categoryService.getAll(event).subscribe(resp => {
+    this.service.getAllCategories(event).subscribe(resp => {
       this.categories = resp.content;
       this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;

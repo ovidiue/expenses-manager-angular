@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Tag} from '../../models/tag';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {TagService} from '../../services/tag.service';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
+import {TagsDataService} from './tags-data.service';
 
 @Component({
   selector: 'app-tags',
@@ -31,16 +31,17 @@ export class TagsComponent implements OnInit {
 
   selectedDescription = '';
 
-  constructor(private tagService: TagService,
-              private confirmationService: ConfirmationService,
-              private globalNotificationService: GlobalNotificationService) {
+  constructor(
+    private service: TagsDataService,
+    private confirmationService: ConfirmationService,
+    private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
   }
 
   getTags(event: LazyLoadEvent): void {
-    this.tagService.getTags(event)
+    this.service.getTags(event)
     .then(resp => {
       this.tags = resp.content;
       this.tableOptions.totalTableRecords = resp.totalElements;
@@ -52,12 +53,12 @@ export class TagsComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete these tags?',
       accept: () => {
-        this.tagService.deleteTags(this.selectedTags)
+        this.service.deleteTags(this.selectedTags)
         .then(() => {
           this.getTags(TABLE_DEFAULTS.query);
           this.globalNotificationService.add(MESSAGES.deletedTags);
         })
-        .catch(err => this.globalNotificationService.add(MESSAGES.error));
+        .catch(() => this.globalNotificationService.add(MESSAGES.error));
       }
     });
   }
@@ -66,7 +67,7 @@ export class TagsComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${tag.name} ?`,
       accept: () => {
-        this.tagService.deleteTags([tag])
+        this.service.deleteTags([tag])
         .then(() => {
           this.getTags(TABLE_DEFAULTS.query);
           this.globalNotificationService.add(MESSAGES.deletedTag);

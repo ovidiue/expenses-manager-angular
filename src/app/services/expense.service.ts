@@ -20,7 +20,7 @@ export class ExpenseService {
   constructor(private http: HttpClient) {
   }
 
-  getExpenses(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Promise<any> {
+  getAll(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Promise<any> {
     let params: HttpParams = mapToRestParams(event);
     for (const key in expenseFilter) {
       if (expenseFilter.hasOwnProperty(key)) {
@@ -30,24 +30,24 @@ export class ExpenseService {
     return this.http.get(this.EXPENSES_BASE_URL, {params}).toPromise();
   }
 
-  saveExpense(expense: Expense): Promise<any> {
+  save(expense: Expense): Promise<any> {
     const url = this.EXPENSES_BASE_URL + '/save';
     return this.http.post(url, expense, httpOptions).toPromise();
   }
 
-  deleteExpenses(expenseIds: number[], withRates: boolean): Promise<any> {
+  delete(expenseIds: number[], withRates: boolean): Promise<any> {
     let params: HttpParams = new HttpParams();
     params = params.append('ratesToo', withRates.toString());
     const url = this.EXPENSES_BASE_URL + '/delete';
     return this.http.post(url, expenseIds, {params}).toPromise();
   }
 
-  getExpense(exId: number): Promise<any> {
+  get(exId: number): Promise<any> {
     const url = this.EXPENSES_BASE_URL + '/' + exId;
     return this.http.get<Expense>(url).toPromise();
   }
 
-  setNewCategory(expenseIds: number[], categoryId: number): Promise<any> {
+  setCategory(expenseIds: number[], categoryId: number): Promise<any> {
     const url = `${this.EXPENSES_BASE_URL}/set-category/${categoryId}`;
     return this.http.post(url, expenseIds).toPromise();
   }

@@ -31,33 +31,33 @@ export class CategoryService {
     return this.http.get(this.CATEGORIES_BASE_URL, {params}).toPromise();
   }
 
-  saveCategory(category: Category): Promise<any> {
+  save(category: Category): Promise<any> {
     const url = this.CATEGORIES_BASE_URL + '/save';
     return this.http.post(url, category, httpOptions).toPromise();
   }
 
-  deleteCategories(categoryIds: number[], withExpenses: boolean): Promise<any> {
+  delete(categoryIds: number[], withExpenses: boolean): Promise<any> {
     let params: HttpParams = new HttpParams();
     params = params.append('withExpenses', withExpenses.toString());
     const url = this.CATEGORIES_BASE_URL + '/delete';
     return this.http.post(url, categoryIds, {params}).toPromise();
   }
 
-  getCategory(catId: number): Promise<any> {
+  get(catId: number): Promise<any> {
     const url = this.CATEGORIES_BASE_URL + '/' + catId;
     return this.http.get<Category>(url).toPromise();
   }
 
-  getCategoryByName(name: string): Promise<any> {
+  getByName(name: string): Promise<any> {
     const url = this.CATEGORIES_BASE_URL + '/name/' + name;
     return this.http.get<Category>(url).toPromise();
   }
 
   nameExists(name: string): Promise<any> {
-    return this.getCategoryByName(name);
+    return this.getByName(name);
   }
 
-  updateCategory(category: Category, id: number): Promise<any> {
+  update(category: Category, id: number): Promise<any> {
     const url = this.CATEGORIES_BASE_URL + `/update/${id}`;
     return this.http.put(url, category, httpOptions).toPromise();
   }

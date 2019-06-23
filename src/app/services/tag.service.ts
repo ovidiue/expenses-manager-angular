@@ -19,29 +19,29 @@ export class TagService {
   constructor(private http: HttpClient) {
   }
 
-  getTags(event: LazyLoadEvent): Promise<any> {
+  getAll(event: LazyLoadEvent): Promise<any> {
     const params: HttpParams = mapEventToRestParams(event);
     return this.http.get(this.TAGS_BASE_URL, {params}).toPromise();
   }
 
-  saveTag(tag: Tag): Promise<any> {
+  save(tag: Tag): Promise<any> {
     const url = this.TAGS_BASE_URL + '/save';
     return this.http.post(url, tag, httpOptions).toPromise();
   }
 
-  deleteTags(tagsIds: Tag[]): Promise<any> {
+  delete(tagsIds: Tag[]): Promise<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     tagsIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.TAGS_BASE_URL + '/delete';
     return this.http.post(url, tagsIds).toPromise();
   }
 
-  getTag(catId: number): Promise<any> {
+  get(catId: number): Promise<any> {
     const url = this.TAGS_BASE_URL + '/' + catId;
     return this.http.get<Tag>(url).toPromise();
   }
 
-  getTagByName(name: string): Promise<any> {
+  getByName(name: string): Promise<any> {
     const url = this.TAGS_BASE_URL + '/name/' + name;
     return this.http.get<Tag>(url).toPromise();
   }

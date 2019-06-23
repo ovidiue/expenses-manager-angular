@@ -1,16 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {ExpenseService} from '../../services/expense.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {TagService} from '../../services/tag.service';
-import {CategoryService} from '../../services/category-service.service';
 import {MessageService} from 'primeng/api';
 import {Expense} from '../../models/expense';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
+import {ExpenseDetailService} from './expense-detail.service';
 
 
 @Component({
@@ -31,16 +29,14 @@ export class ExpenseDetailComponent implements OnInit {
   constructor(private location: Location,
               private router: Router,
               private globalNotificationService: GlobalNotificationService,
-              private expenseService: ExpenseService,
-              private tagService: TagService,
-              private categoryService: CategoryService,
+              private service: ExpenseDetailService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.id = <any>this.route.snapshot.paramMap.get('id');
     this.pageTitle = this.determineTitle();
-    this.expenseService.getExpense(this.id).then(exp => {
+    this.service.getExpense(this.id).then(exp => {
       this.expense = exp;
       if (this.expense.dueDate) {
         this.expense.dueDate = moment(this.expense.dueDate).toDate();
@@ -52,7 +48,7 @@ export class ExpenseDetailComponent implements OnInit {
   }
 
   getTags(): void {
-    this.tagService.getTags(TABLE_DEFAULTS.maxSize).then(resp => this.tags = resp.content.map(el => {
+    this.service.getTags(TABLE_DEFAULTS.maxSize).then(resp => this.tags = resp.content.map(el => {
       return {
         label: el.name,
         value: {id: el.id, name: el.name, color: el.color},
@@ -62,7 +58,7 @@ export class ExpenseDetailComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories(TABLE_DEFAULTS.maxSize)
+    this.service.getCategories(TABLE_DEFAULTS.maxSize)
     .then(resp => {
       this.categories = resp.content.map(el => {
         return {
@@ -88,7 +84,7 @@ export class ExpenseDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.expenseService
+    this.service
     .saveExpense(this.expense)
     .then(() => {
       this.router.navigate(['/expenses']);

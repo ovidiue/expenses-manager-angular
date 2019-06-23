@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Rate} from '../../models/rate';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RateService} from '../../services/rate.service';
 import {Location} from '@angular/common';
 import * as moment from 'moment';
-import {ExpenseService} from '../../services/expense.service';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
+import {RateDetailService} from './rate-detail.service';
 
 @Component({
   selector: 'app-rate-detail',
@@ -25,13 +24,13 @@ export class RateDetailComponent implements OnInit {
   expenses: any[];
   initialExpenseId: string = null;
   initialRateAmount: string = null;
+
   // TODO: on edit, expense doesn't preselect previous value
 
   constructor(private location: Location,
               private router: Router,
-              private rateService: RateService,
+              private service: RateDetailService,
               private globalNotificationService: GlobalNotificationService,
-              private expenseService: ExpenseService,
               private route: ActivatedRoute) {
   }
 
@@ -52,23 +51,20 @@ export class RateDetailComponent implements OnInit {
 
   getRate(): void {
     if (this.id) {
-      this.rateService.get(this.id).then(rate => {
+      this.service.getRate(this.id).then(rate => {
         this.rate = rate;
         this.rate.payedOn = moment(this.rate.payedOn).toDate();
         if (rate.expense && rate.expense.id) {
           this.initialExpenseId = rate.expense.id;
         }
         this.initialRateAmount = rate.amount;
-        console.log('fetched rate', rate);
-        console.log('rateAmount', this.initialRateAmount);
-        console.log('expenseId', this.initialExpenseId);
       }).catch(err => this.globalNotificationService.add(MESSAGES.error + ' err: ' + err));
     }
   }
 
   checkName($event): void {
     const name = $event.target.value;
-    this.rateService.getByName(name)
+    this.service.getRateByName(name)
     .then(resp => {
       if (resp) {
         this.nameExists = true;
@@ -86,14 +82,14 @@ export class RateDetailComponent implements OnInit {
   onSubmit() {
     this.id === null
       ?
-      this.rateService.save(this.rate)
+      this.service.saveRate(this.rate)
       .then(() => {
         this.router.navigate(['/rates']);
         this.globalNotificationService.add(MESSAGES.addRate);
       })
       .catch(err => this.globalNotificationService.add(MESSAGES.error))
       :
-      this.rateService.update(this.rate, this.initialExpenseId, this.initialRateAmount)
+      this.service.updateRate(this.rate, this.initialExpenseId, this.initialRateAmount)
       .then(() => {
         this.router.navigate(['/rates']);
         this.globalNotificationService.add(MESSAGES.updatedRate + this.rate.amount + '!');
@@ -101,7 +97,7 @@ export class RateDetailComponent implements OnInit {
   }
 
   private getExpenses() {
-    this.expenseService.getExpenses(TABLE_DEFAULTS.maxSize).then(resp => {
+    this.service.getExpenses(TABLE_DEFAULTS.maxSize).then(resp => {
       this.expenses = resp.content.map(exp => {
         return {
           label: exp.title,
