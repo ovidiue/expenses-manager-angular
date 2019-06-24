@@ -48,7 +48,7 @@
 
       </div>
       <div class="col">
-        <p-table [value]="tags"
+        <p-table [value]="tags | async"
                  [paginator]="tags.length > 0"
                  [paginatorPosition]="tableDefaults.paginatorPosition"
                  [lazy]="true"

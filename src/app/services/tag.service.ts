@@ -5,6 +5,8 @@ import {LazyLoadEvent} from 'primeng/api';
 import mapEventToRestParams from '../utils/MapTableParamsToRest';
 import {PathBuilder} from '../utils/PathBuilder';
 import {ApiPath} from '../utils/constants/api-paths';
+import {ServerResp} from '../models/interfaces';
+import {Observable} from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -19,9 +21,11 @@ export class TagService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(event: LazyLoadEvent): Promise<any> {
-    const params: HttpParams = mapEventToRestParams(event);
-    return this.http.get(this.TAGS_BASE_URL, {params}).toPromise();
+  getAll(event?: LazyLoadEvent): Observable<any> {
+    let params: HttpParams;
+    if (event)
+      params = mapEventToRestParams(event);
+    return this.http.get<ServerResp<Tag>>(this.TAGS_BASE_URL, {params});
   }
 
   save(tag: Tag): Promise<any> {
@@ -29,11 +33,11 @@ export class TagService {
     return this.http.post(url, tag, httpOptions).toPromise();
   }
 
-  delete(tagsIds: Tag[]): Promise<any> {
+  delete(tagsIds: Tag[]) {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     tagsIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.TAGS_BASE_URL + '/delete';
-    return this.http.post(url, tagsIds).toPromise();
+    return this.http.post(url, tagsIds);
   }
 
   get(catId: number): Promise<any> {

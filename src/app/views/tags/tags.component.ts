@@ -1,21 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {Tag} from '../../models/tag';
-import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {GlobalNotificationService} from '../../services/global-notification.service';
-import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {TagsDataService} from './tags-data.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss'],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, TagsDataService],
   animations: [fadeIn]
 })
 export class TagsComponent implements OnInit {
-  tags: Tag[] = [];
+  tags: Observable<any>;
   selectedTags: Tag[] = [];
 
   tableDefaults = TABLE_DEFAULTS;
@@ -38,27 +38,19 @@ export class TagsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tags = this.service.getTags();
   }
 
-  getTags(event: LazyLoadEvent): void {
-    this.service.getTags(event)
-    .then(resp => {
-      this.tags = resp.content;
-      this.tableOptions.totalTableRecords = resp.totalElements;
-      this.tableDefaults.loading = false;
-    });
+  getTags() {
+    this.service.getTags();
   }
 
   confirmDeletion() {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete these tags?',
       accept: () => {
-        this.service.deleteTags(this.selectedTags)
-        .then(() => {
-          this.getTags(TABLE_DEFAULTS.query);
-          this.globalNotificationService.add(MESSAGES.deletedTags);
-        })
-        .catch(() => this.globalNotificationService.add(MESSAGES.error));
+        this.service.deleteTags(this.selectedTags);
+
       }
     });
   }
@@ -67,12 +59,7 @@ export class TagsComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${tag.name} ?`,
       accept: () => {
-        this.service.deleteTags([tag])
-        .then(() => {
-          this.getTags(TABLE_DEFAULTS.query);
-          this.globalNotificationService.add(MESSAGES.deletedTag);
-        })
-        .catch(() => this.globalNotificationService.add(MESSAGES.error));
+        this.service.deleteTags([tag]);
       }
     });
   }

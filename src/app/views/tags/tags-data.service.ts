@@ -1,19 +1,36 @@
 import {Injectable} from '@angular/core';
 import {TagService} from '../../services/tag.service';
-import {LazyLoadEvent} from 'primeng/api';
 import {Tag} from '../../models/tag';
+import {BehaviorSubject, Observable} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TagsDataService {
-  constructor(private tagService: TagService,) {}
+  private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
 
-  getTags(event: LazyLoadEvent) {
-    return this.tagService.getAll(event);
+  constructor(private tagService: TagService) {
+    this.loadInitialData();
   }
 
   deleteTags(ids: Tag[]) {
-    return this.tagService.delete(ids);
+    return this.tagService.delete(ids)
+    .subscribe(() => {
+      let tags = this._tags.getValue();
+      tags = tags.filter(tag => !ids.includes(tag));
+      return this._tags.next(tags);
+    });
   }
+
+  public getTags(): Observable<any> {
+    return this._tags.asObservable();
+  }
+
+  private loadInitialData() {
+    this.tagService.getAll()
+    .subscribe(
+      resp => {
+        this._tags.next(resp.content);
+      }
+    );
+  }
+
 }
