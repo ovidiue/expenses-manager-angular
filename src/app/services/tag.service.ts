@@ -21,10 +21,9 @@ export class TagService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(event?: LazyLoadEvent): Observable<any> {
+  getAll(event: LazyLoadEvent): Observable<any> {
     let params: HttpParams;
-    if (event)
-      params = mapEventToRestParams(event);
+    params = mapEventToRestParams(event);
     return this.http.get<ServerResp<Tag>>(this.TAGS_BASE_URL, {params});
   }
 

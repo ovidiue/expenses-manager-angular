@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Tag} from '../../models/tag';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {TagsDataService} from './tags-data.service';
@@ -37,12 +37,12 @@ export class TagsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tags$ = this.service.getTags();
+    this.tags$ = this.service.getTags(TABLE_DEFAULTS.query);
     this.total$ = this.service.getTotal();
   }
 
-  getTags() {
-    this.service.getTags();
+  getTags(event: LazyLoadEvent) {
+    this.service.getTags(event);
   }
 
   confirmDeletion() {
