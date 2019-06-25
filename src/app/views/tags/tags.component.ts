@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Tag} from '../../models/tag';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {GlobalNotificationService} from '../../services/global-notification.service';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {TagsDataService} from './tags-data.service';
@@ -15,13 +14,13 @@ import {Observable} from 'rxjs';
   animations: [fadeIn]
 })
 export class TagsComponent implements OnInit {
-  tags: Observable<any>;
-  selectedTags: Tag[] = [];
+  tags$: Observable<Tag[]>;
+  total$: Observable<number>;
 
+  selectedTags: Tag[] = [];
   tableDefaults = TABLE_DEFAULTS;
 
   tableOptions = {
-    totalTableRecords: 0,
     columns: [
       {name: 'Name', value: 'name'},
       {name: 'Description', value: 'description'},
@@ -33,12 +32,13 @@ export class TagsComponent implements OnInit {
 
   constructor(
     private service: TagsDataService,
-    private confirmationService: ConfirmationService,
-    private globalNotificationService: GlobalNotificationService) {
+    private confirmationService: ConfirmationService
+  ) {
   }
 
   ngOnInit() {
-    this.tags = this.service.getTags();
+    this.tags$ = this.service.getTags();
+    this.total$ = this.service.getTotal();
   }
 
   getTags() {
@@ -50,7 +50,6 @@ export class TagsComponent implements OnInit {
       message: 'Are you sure that you want to delete these tags?',
       accept: () => {
         this.service.deleteTags(this.selectedTags);
-
       }
     });
   }
