@@ -27,9 +27,9 @@ export class TagService {
     return this.http.get<ServerResp<Tag>>(this.TAGS_BASE_URL, {params});
   }
 
-  save(tag: Tag): Promise<any> {
+  save(tag: Tag) {
     const url = this.TAGS_BASE_URL + '/save';
-    return this.http.post(url, tag, httpOptions).toPromise();
+    return this.http.post(url, tag, httpOptions);
   }
 
   delete(tagsIds: Tag[]) {
@@ -39,12 +39,12 @@ export class TagService {
     return this.http.post(url, tagsIds);
   }
 
-  get(catId: number): Promise<any> {
+  get(catId: number): Observable<Tag> {
     const url = this.TAGS_BASE_URL + '/' + catId;
-    return this.http.get<Tag>(url).toPromise();
+    return this.http.get<Tag>(url);
   }
 
-  getByName(name: string): Promise<any> {
+  getByName(name: string) {
     const url = this.TAGS_BASE_URL + '/name/' + name;
     return this.http.get<Tag>(url).toPromise();
   }

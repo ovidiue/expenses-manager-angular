@@ -31,7 +31,7 @@ export class TagsDataService {
         let tags = this._tags.getValue();
         tags = tags.filter(tag => !ids.includes(tag));
         this.globalNotificationService.add(MESSAGES.deletedCategory);
-        const updatedTotal = parseInt(this._total.getValue().toFixed()) - 1;
+        const updatedTotal = parseInt(this._total.getValue().toFixed(), 10) - 1;
         this._total.next(updatedTotal);
         this._tags.next(tags);
       },

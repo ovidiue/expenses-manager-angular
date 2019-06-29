@@ -6,7 +6,8 @@ import {Tag} from '../../models/tag';
   providedIn: 'root'
 })
 export class TagDetailDataService {
-  constructor(private tagService: TagService,) {}
+  constructor(private tagService: TagService) {
+  }
 
   getTag(id: number) {
     return this.tagService.get(id);

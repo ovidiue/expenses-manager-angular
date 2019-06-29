@@ -5,23 +5,19 @@
   <div class="row mb-5">
     <div class="col">
       <div class="form-wrapper">
-        <form #f="ngForm"
-              name="form"
-              (ngSubmit)="f.form.valid && !nameExists && onSubmit()">
+        <form [formGroup]="tagFormControls"
+              (ngSubmit)="tagFormControls.valid && !nameExists && onSubmit()">
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text"
-                   class="form-control"
                    id="name"
-                   (change)="checkName($event)"
-                   [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid': tagFormControls.status === 'INVALID' }"
                    required
-                   name="name"
-                   #name="ngModel"
                    placeholder="Enter name"
-                   [(ngModel)]="tag.name">
-            <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-              <div *ngIf="name.errors.required">Name is required</div>
+                   formControlName="name">
+            <div *ngIf="tagFormControls.errors && tagFormControls.controls['name'].errors" class="invalid-feedback">
+              <div *ngIf="tagFormControls.errors">Name is required</div>
             </div>
             <div *ngIf="nameExists" class="invalid-feedback" style="display: block;">
               <div>Name already exists. Please choose another name!</div>
@@ -33,21 +29,20 @@
                       class="form-control"
                       id="description"
                       name="description"
+                      formControlName="description"
                       placeholder="Description"
-                      [(ngModel)]="tag.description"
             ></textarea>
           </div>
 
           <div class="form-group">
             <label class="block">Color</label>
             <p-colorPicker class="test"
-                           [(ngModel)]="tag.color"
                            [inline]="true"
-                           name="color"
+                           formControlName="color"
                            value="selectedColor">
             </p-colorPicker>
             <div class="preview-block"
-                 [ngStyle]="{'background':tag.color}">
+                 [ngStyle]="{'background':tagFormControls.controls['color'].value}">
             </div>
           </div>
           <hr>
