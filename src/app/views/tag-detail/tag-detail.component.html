@@ -20,7 +20,7 @@
                  class="invalid-feedback">
               <div *ngIf="name.errors.required">Name is required</div>
             </div>
-            <div *ngIf="nameExists" class="invalid-feedback" style="display: block;">
+            <div *ngIf="nameExists && !name.errors" class="invalid-feedback" style="display: block;">
               <div>Name already exists. Please choose another name!</div>
             </div>
           </div>

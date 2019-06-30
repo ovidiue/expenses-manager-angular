@@ -50,13 +50,13 @@ export class TagDetailComponent implements OnInit, OnDestroy {
       debounceTime(500),
       distinctUntilChanged(),
       switchMap(name =>
-        name.toString().length
+        name.toString().length && name.toString() !== this.initialName
           ? this.service.getTagByName(name.toString())
           : new Observable())
     )
     .subscribe(resp => {
       this.isSubmitted = false;
-      this.nameExists = !!resp;
+      this.nameExists = !!resp || false;
     });
 
     this.paramSubscription = this.route.params
