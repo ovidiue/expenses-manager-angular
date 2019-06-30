@@ -56,15 +56,13 @@ export class CategoriesComponent implements OnInit {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedCategories
     .map(cat => cat.id);
     this.service.deleteCategory(idsToDelete, withExpenses)
-    .then(() => {
-      this.resetDeletionVariables();
-      this.getCategories(TABLE_DEFAULTS.query);
-      this.globalNotificationService.add(MESSAGES.deletedCategories);
-    })
-    .catch(() => {
-      this.globalNotificationService.add(MESSAGES.error);
-      this.resetDeletionVariables();
-    });
+    .subscribe(
+      () => {
+        this.getCategories(TABLE_DEFAULTS.query);
+        this.globalNotificationService.add(MESSAGES.deletedCategories);
+      },
+      () => this.globalNotificationService.add(MESSAGES.error),
+      () => this.resetDeletionVariables());
   }
 
   getCategories(event: LazyLoadEvent): void {

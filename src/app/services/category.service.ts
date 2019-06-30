@@ -36,11 +36,11 @@ export class CategoryService {
     return this.http.post(url, category, httpOptions).toPromise();
   }
 
-  delete(categoryIds: number[], withExpenses: boolean): Promise<any> {
+  delete(categoryIds: number[], withExpenses: boolean): Observable<any> {
     let params: HttpParams = new HttpParams();
     params = params.append('withExpenses', withExpenses.toString());
     const url = this.CATEGORIES_BASE_URL + '/delete';
-    return this.http.post(url, categoryIds, {params}).toPromise();
+    return this.http.post(url, categoryIds, {params});
   }
 
   get(catId: number): Promise<any> {
