@@ -7,7 +7,7 @@ import {fadeIn} from '../../utils/animations/fadeIn';
 import {TagDetailDataService} from './tag-detail-data.service';
 import {Observable, Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {debounceTime, flatMap, mergeMap, pluck} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, flatMap, switchMap, tap} from 'rxjs/operators';
 import {RoutePaths} from '../../models/interfaces';
 
 @Component({
@@ -21,7 +21,8 @@ export class TagDetailComponent implements OnInit, OnDestroy {
   nameExists: boolean;
   isEditScreen: boolean;
   tagFormControls: FormGroup;
-
+  private initialName: string;
+  private isSubmitted = false;
   private paramSubscription: Subscription;
   private formSubscription: Subscription;
 
@@ -39,7 +40,25 @@ export class TagDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  get name() {
+    return this.tagFormControls.get('name');
+  }
+
   ngOnInit() {
+    this.formSubscription = this.tagFormControls.get('name').valueChanges
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(name =>
+        name.toString().length
+          ? this.service.getTagByName(name.toString())
+          : new Observable())
+    )
+    .subscribe(resp => {
+      this.isSubmitted = false;
+      this.nameExists = !!resp;
+    });
+
     this.paramSubscription = this.route.params
     .pipe(
       flatMap(param => {
@@ -48,6 +67,7 @@ export class TagDetailComponent implements OnInit, OnDestroy {
         return obs;
       }),
       flatMap(id => this.service.getTag(parseInt(id.toString(), 10))),
+      tap(tag => this.initialName = tag.name)
     )
     .subscribe(tag => {
       this.tagFormControls.patchValue({
@@ -55,16 +75,6 @@ export class TagDetailComponent implements OnInit, OnDestroy {
         description: tag.description,
         color: tag.color
       });
-    });
-
-    this.formSubscription = this.tagFormControls.valueChanges
-    .pipe(
-      debounceTime(500),
-      pluck('name'),
-      mergeMap(name => this.service.getTagByName(name.toString())),
-    )
-    .subscribe(nameValue => {
-      this.nameExists = !!nameValue;
     });
 
   }
@@ -80,6 +90,10 @@ export class TagDetailComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
+    if (this.tagFormControls.invalid || this.nameExists === true) {
+      return;
+    }
     this.service.saveTag(this.tagFormControls.value)
     .subscribe(() => {
       const confirmMsg = this.isEditScreen ? MESSAGES.editTag : MESSAGES.addTag;

@@ -44,8 +44,9 @@ export class TagService {
     return this.http.get<Tag>(url);
   }
 
-  getByName(name: string) {
+  getByName(name: string): Observable<Tag> {
+    console.log('getByName', name);
     const url = this.TAGS_BASE_URL + '/name/' + name;
-    return this.http.get<Tag>(url).toPromise();
+    return this.http.get<Tag>(url);
   }
 }

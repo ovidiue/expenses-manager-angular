@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TagService} from '../../services/tag.service';
 import {Tag} from '../../models/tag';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class TagDetailDataService {
     return this.tagService.get(id);
   }
 
-  getTagByName(name: string) {
-    return this.tagService.getByName(name);
+  getTagByName(name: string): Observable<Tag> {
+    return name.length ? this.tagService.getByName(name) : new Observable();
   }
 
   saveTag(tag: Tag) {
