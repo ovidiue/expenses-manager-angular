@@ -1,22 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../../models/category';
 import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {GlobalNotificationService} from '../../services/global-notification.service';
 import {fadeIn} from '../../utils/animations/fadeIn';
-import {MESSAGES} from '../../utils/messages';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {CategoriesDataService} from './categories-data.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, CategoriesDataService],
   animations: [fadeIn]
 })
 export class CategoriesComponent implements OnInit {
 
-  categories: Category[] = [];
+  categories$: Observable<Category[]>;
+  total$: Observable<number>;
+
   selectedCategories: Category[] = [];
 
   selectedDescription = '';
@@ -27,7 +28,6 @@ export class CategoriesComponent implements OnInit {
   tableDefaults = TABLE_DEFAULTS;
 
   tableOptions = {
-    totalTableRecords: 0,
     columns: [
       {name: 'Name', value: 'name'},
       {name: 'Description', value: 'description'},
@@ -36,8 +36,10 @@ export class CategoriesComponent implements OnInit {
   };
 
   constructor(
-    private service: CategoriesDataService,
-    private globalNotificationService: GlobalNotificationService) {
+    private service: CategoriesDataService
+  ) {
+    this.categories$ = this.service.getCategories(TABLE_DEFAULTS.query);
+    this.total$ = this.service.getTotal();
   }
 
   ngOnInit() {
@@ -55,22 +57,12 @@ export class CategoriesComponent implements OnInit {
   deleteCategory(withExpenses: boolean): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedCategories
     .map(cat => cat.id);
-    this.service.deleteCategory(idsToDelete, withExpenses)
-    .subscribe(
-      () => {
-        this.getCategories(TABLE_DEFAULTS.query);
-        this.globalNotificationService.add(MESSAGES.deletedCategories);
-      },
-      () => this.globalNotificationService.add(MESSAGES.error),
-      () => this.resetDeletionVariables());
+    this.service.deleteCategory(idsToDelete, withExpenses).subscribe(() => this.resetDeletionVariables());
   }
 
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
-    this.service.getAllCategories(event).subscribe(resp => {
-      this.categories = resp.content;
-      this.tableOptions.totalTableRecords = resp.totalElements;
-      this.tableDefaults.loading = false;
-    });
+    this.service.getCategories(event)
+    .subscribe(() => this.tableDefaults.loading = false);
   }
 }
