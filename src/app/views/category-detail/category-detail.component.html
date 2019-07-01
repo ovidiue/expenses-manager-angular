@@ -5,9 +5,11 @@
   <div class="row mb-5">
     <div class="col">
       <div class="form-wrapper">
-        <form (ngSubmit)="f.form.valid && !nameExists && onSubmit()"
-              name="form"
-              #f="ngForm">
+        <form (ngSubmit)="onSubmit()"
+              [formGroup]="categoryForm">
+          <div class="form-group">
+            <input type="text" hidden formControlName="id">
+          </div>
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text"
@@ -15,12 +17,10 @@
                    id="name"
                    (change)="checkName($event)"
                    required
-                   #name="ngModel"
-                   name="name"
-                   [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
-                   placeholder="Enter name"
-                   [(ngModel)]="category.name">
-            <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                   formControlName="name"
+                   [ngClass]="{ 'is-invalid': name.errors && isSubmitted}"
+                   placeholder="Enter name">
+            <div *ngIf="name.errors && isSubmitted" class="invalid-feedback">
               <div *ngIf="name.errors.required">Name is required</div>
             </div>
             <div *ngIf="nameExists" class="invalid-feedback" style="display: block;">
@@ -32,22 +32,19 @@
             <textarea rows="7"
                       class="form-control"
                       id="description"
-                      name="description"
+                      formControlName="description"
                       placeholder="Description"
-                      [(ngModel)]="category.description"
             ></textarea>
           </div>
 
           <div class="form-group">
             <label class="block">Color</label>
             <p-colorPicker class="test"
-                           [(ngModel)]="category.color"
-                           name="color"
-                           [inline]="true"
-                           value="selectedColor">
+                           formControlName="color"
+                           [inline]="true">
             </p-colorPicker>
             <div class="preview-block"
-                 [ngStyle]="{'background':category.color}">
+                 [ngStyle]="{'background':categoryForm.get('color').value}">
             </div>
           </div>
           <hr>

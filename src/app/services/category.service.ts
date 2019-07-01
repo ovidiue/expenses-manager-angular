@@ -31,9 +31,9 @@ export class CategoryService {
     return this.http.get(this.CATEGORIES_BASE_URL, {params}).toPromise();
   }
 
-  save(category: Category): Promise<any> {
+  save(category: Category): Observable<any> {
     const url = this.CATEGORIES_BASE_URL + '/save';
-    return this.http.post(url, category, httpOptions).toPromise();
+    return this.http.post(url, category, httpOptions);
   }
 
   delete(categoryIds: number[], withExpenses: boolean): Observable<any> {
@@ -43,23 +43,23 @@ export class CategoryService {
     return this.http.post(url, categoryIds, {params});
   }
 
-  get(catId: number): Promise<any> {
+  get(catId: number): Observable<Category> {
     const url = this.CATEGORIES_BASE_URL + '/' + catId;
-    return this.http.get<Category>(url).toPromise();
+    return this.http.get<Category>(url);
   }
 
-  getByName(name: string): Promise<any> {
+  getByName(name: string): Observable<Category> {
     const url = this.CATEGORIES_BASE_URL + '/name/' + name;
-    return this.http.get<Category>(url).toPromise();
+    return this.http.get<Category>(url);
   }
 
-  nameExists(name: string): Promise<any> {
+  nameExists(name: string): Observable<Category> {
     return this.getByName(name);
   }
 
-  update(category: Category, id: number): Promise<any> {
+  update(category: Category, id: number): Observable<any> {
     const url = this.CATEGORIES_BASE_URL + `/update/${id}`;
-    return this.http.put(url, category, httpOptions).toPromise();
+    return this.http.put(url, category, httpOptions);
   }
 
 }

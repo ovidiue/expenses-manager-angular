@@ -5,5 +5,6 @@ export interface ServerResp<T> {
 }
 
 export enum RoutePaths {
-  TAG_LISTING = 'tags'
+  TAG_LISTING = 'tags',
+  CATEGORY_LISTING = 'categories'
 }

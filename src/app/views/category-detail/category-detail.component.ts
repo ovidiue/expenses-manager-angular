@@ -1,11 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Category} from '../../models/category';
 import {Location} from '@angular/common';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {GlobalNotificationService} from '../../services/global-notification.service';
 import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {CategoryDetailDataService} from './category-detail-data.service';
+import {Observable, Subscription} from 'rxjs';
+import {flatMap} from 'rxjs/operators';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {RoutePaths} from '../../models/interfaces';
 
 @Component({
   selector: 'app-category-detail',
@@ -13,47 +17,61 @@ import {CategoryDetailDataService} from './category-detail-data.service';
   styleUrls: ['./category-detail.component.scss'],
   animations: [fadeIn]
 })
-export class CategoryDetailComponent implements OnInit {
-  pageTitle: string = this.determineTitle();
-  nameExists = false;
-  category = new Category();
-  id: number;
+export class CategoryDetailComponent implements OnInit, OnDestroy {
 
-  constructor(private location: Location,
-              private router: Router,
-              private categoryService: CategoryDetailDataService,
-              private globalNotificationService: GlobalNotificationService,
-              private route: ActivatedRoute) {
+  protected pageTitle: string;
+  protected nameExists = false;
+  protected categoryForm: FormGroup;
+  private isEdit: boolean;
+  private id: number;
+  private paramSubscription: Subscription;
+  private formSubscription: Subscription;
+  private isSubmitted: boolean;
+
+  constructor(
+    private location: Location,
+    private router: Router,
+    private service: CategoryDetailDataService,
+    private globalNotificationService: GlobalNotificationService,
+    private route: ActivatedRoute
+  ) {
+    this.categoryForm = new FormGroup({
+      name        : new FormControl('', Validators.required),
+      description : new FormControl(''),
+      color       : new FormControl('#B0AEB0'),
+      id          : new FormControl(null)
+    });
+  }
+
+  get name() {
+    return this.categoryForm.get('name');
   }
 
   ngOnInit() {
-    this.id = <any>this.route.snapshot.paramMap.get('id');
-    this.pageTitle = this.determineTitle();
-    this.categoryService.getCategory(this.id).then(cat => this.category = cat).catch(err => console.error(err));
+    this.paramSubscription = this.route.params
+    .pipe(
+      flatMap((params: Params) => {
+        this.id = params && params.id || null;
+        this.pageTitle = this.id ? 'Edit Category' : 'Add Category';
+        this.isEdit = !!(params && params.id);
+        return params.id || new Observable();
+      }),
+      flatMap(id => id ? this.service.getCategory(parseInt(id.toString(), 10)) : new Observable())
+    )
+    .subscribe((category: Category) => this.categoryForm.setValue(category));
+
+    this.formSubscription = this.categoryForm.valueChanges
+    .subscribe(() => this.isSubmitted = false);
   }
 
-  isEdit(): boolean {
-    return this.id !== null;
-  }
-
-  determineTitle(): string {
-    if (this.id) {
-      return 'Edit Category';
-    } else {
-      return 'Add Category';
-    }
+  ngOnDestroy(): void {
+    this.paramSubscription.unsubscribe();
   }
 
   checkName($event): void {
     const name = $event.target.value;
-    this.categoryService.getCategoryByName(name)
-    .then(resp => {
-      if (resp) {
-        this.nameExists = true;
-      } else {
-        this.nameExists = false;
-      }
-    });
+    this.service.getCategoryByName(name)
+    .subscribe(resp => this.nameExists = !!resp);
   }
 
   goBack(event: any) {
@@ -62,18 +80,17 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isEdit()
-      ?
-      this.categoryService.updateCategory(this.category, this.id)
-      .then(() => {
-        this.router.navigate(['/categories']);
-        this.globalNotificationService.add(MESSAGES.addCategory);
-      }).catch(() => this.globalNotificationService.add(MESSAGES.error))
-      :
-      this.categoryService.saveCategory(this.category)
-      .then(() => {
-        this.router.navigate(['/categories']);
-        this.globalNotificationService.add(MESSAGES.addCategory);
-      }).catch(() => this.globalNotificationService.add(MESSAGES.error));
+    this.isSubmitted = true;
+    if (this.nameExists || this.categoryForm.invalid) {
+      return;
+    }
+
+    // TODO fix confirm message
+    const confirmMessage = this.isEdit ? MESSAGES.updatedCategory : MESSAGES.addCategory;
+    this.service.saveCategory(this.categoryForm.value)
+    .subscribe(() => {
+      this.router.navigate([RoutePaths.CATEGORY_LISTING]);
+      this.globalNotificationService.add(confirmMessage);
+    });
   }
 }

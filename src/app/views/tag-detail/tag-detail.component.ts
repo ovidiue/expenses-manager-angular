@@ -34,9 +34,9 @@ export class TagDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
     this.tagFormControls = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      color: new FormControl('lightgray')
+      name        : new FormControl('', Validators.required),
+      description : new FormControl(''),
+      color       : new FormControl('lightgray')
     });
   }
 
