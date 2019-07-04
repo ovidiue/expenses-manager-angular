@@ -81,7 +81,7 @@ export class ExpensesComponent implements OnInit {
         label: 'Delete Selection',
         command: () => {
           if (!this.areRowsSelected()) {
-            this.globalNotificationService.add(MESSAGES.no_rows_selected);
+            this.globalNotificationService.add(MESSAGES.NO_ROWS_SELECTED);
             return false;
           }
           this.displayDeleteMultiple();
@@ -91,7 +91,7 @@ export class ExpensesComponent implements OnInit {
         label: 'Assign Category',
         command: () => {
           if (!this.areRowsSelected()) {
-            this.globalNotificationService.add(MESSAGES.no_rows_selected);
+            this.globalNotificationService.add(MESSAGES.NO_ROWS_SELECTED);
             return false;
           }
           this.displaySidebar = true;
@@ -224,7 +224,7 @@ export class ExpensesComponent implements OnInit {
     this.service.setCategory(expensesIds, this.categoryToAssign.id)
     .then(() => {
       this.getExpenses(this.lastEvent);
-      this.globalNotificationService.add(MESSAGES.set_new_category);
+      this.globalNotificationService.add(MESSAGES.EXPENSE.SET_NEW_CATEGORY);
     });
     this.resetAssignVariables();
   }
@@ -243,9 +243,9 @@ export class ExpensesComponent implements OnInit {
     .then(() => {
       this.resetDeletionVariables();
       this.getExpenses(this.lastEvent);
-      this.globalNotificationService.add(MESSAGES.deletedExpense);
+      this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
     })
-    .catch(() => this.globalNotificationService.add(MESSAGES.error));
+    .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
   resetDeletionVariables(): void {
@@ -272,9 +272,9 @@ export class ExpensesComponent implements OnInit {
     .then(() => {
       this.resetDeletionVariables();
       this.getExpenses(this.lastEvent);
-      this.globalNotificationService.add(MESSAGES.deletedExpense);
+      this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
     })
-    .catch(() => this.globalNotificationService.add(MESSAGES.error));
+    .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
   fetchAndDisplayRates(exp: Expense): void {

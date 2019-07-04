@@ -96,10 +96,10 @@ export class TagDetailComponent implements OnInit, OnDestroy {
     }
     this.service.saveTag(this.tagFormControls.value)
     .subscribe(() => {
-      const confirmMsg = this.isEditScreen ? MESSAGES.editTag : MESSAGES.addTag;
+      const confirmMsg = this.isEditScreen ? MESSAGES.TAG.UPDATE : MESSAGES.TAG.ADD;
       this.router.navigate([RoutePaths.TAG_LISTING]);
       this.globalNotificationService.add(confirmMsg);
-    }, () => this.globalNotificationService.add(MESSAGES.error));
+    }, () => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
 }

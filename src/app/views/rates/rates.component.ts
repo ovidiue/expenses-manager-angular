@@ -90,9 +90,9 @@ export class RatesComponent implements OnInit {
         this.service.deleteRates(ids)
         .then(() => {
           this.getRates(this.lastEvent);
-          this.globalNotificationService.add(MESSAGES.deletedRates);
+          this.globalNotificationService.add(MESSAGES.RATE.DELETE_MULTIPLE);
         })
-        .catch(() => this.globalNotificationService.add(MESSAGES.error));
+        .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
       }
     });
   }
@@ -104,9 +104,9 @@ export class RatesComponent implements OnInit {
         this.service.deleteRates([rate.id])
         .then(() => {
           this.getRates(this.lastEvent);
-          this.globalNotificationService.add(MESSAGES.deletedRate);
+          this.globalNotificationService.add(MESSAGES.RATE.DELETE_SINGLE);
         })
-        .catch(() => this.globalNotificationService.add(MESSAGES.error));
+        .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
       }
     });
   }

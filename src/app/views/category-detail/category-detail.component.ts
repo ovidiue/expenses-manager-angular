@@ -86,7 +86,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     }
 
     // TODO fix confirm message
-    const confirmMessage = this.isEdit ? MESSAGES.updatedCategory : MESSAGES.addCategory;
+    const confirmMessage = this.isEdit ? MESSAGES.CATEGORY.UPDATE : MESSAGES.CATEGORY.ADD;
     this.service.saveCategory(this.categoryForm.value)
     .subscribe(() => {
       this.router.navigate([RoutePaths.CATEGORY_LISTING]);

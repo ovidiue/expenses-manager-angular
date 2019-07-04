@@ -88,9 +88,9 @@ export class ExpenseDetailComponent implements OnInit {
     .saveExpense(this.expense)
     .then(() => {
       this.router.navigate(['/expenses']);
-      this.globalNotificationService.add(MESSAGES.addExpense);
+      this.globalNotificationService.add(MESSAGES.EXPENSE.ADD);
     })
-    .catch(err => this.globalNotificationService.add(MESSAGES.error));
+    .catch(err => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
 

@@ -30,12 +30,12 @@ export class TagsDataService {
     .subscribe(() => {
         let tags = this._tags.getValue();
         tags = tags.filter(tag => !ids.includes(tag));
-        this.globalNotificationService.add(MESSAGES.deletedCategory);
+        this.globalNotificationService.add(MESSAGES.CATEGORY.DELETE_SINGLE);
         const updatedTotal = parseInt(this._total.getValue().toFixed(), 10) - 1;
         this._total.next(updatedTotal);
         this._tags.next(tags);
       },
-      () => this.globalNotificationService.add(MESSAGES.error));
+      () => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
   public getTags(event: LazyLoadEvent): Observable<any> {

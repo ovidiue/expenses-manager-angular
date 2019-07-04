@@ -8,6 +8,7 @@ import {MESSAGES} from '../../utils/messages';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {RateDetailService} from './rate-detail.service';
+import {RoutePaths} from '../../models/interfaces';
 
 @Component({
   selector: 'app-rate-detail',
@@ -58,7 +59,7 @@ export class RateDetailComponent implements OnInit {
           this.initialExpenseId = rate.expense.id;
         }
         this.initialRateAmount = rate.amount;
-      }).catch(err => this.globalNotificationService.add(MESSAGES.error + ' err: ' + err));
+      }).catch(err => this.globalNotificationService.add(MESSAGES.ERROR + ' err: ' + err));
     }
   }
 
@@ -84,16 +85,16 @@ export class RateDetailComponent implements OnInit {
       ?
       this.service.saveRate(this.rate)
       .then(() => {
-        this.router.navigate(['/rates']);
-        this.globalNotificationService.add(MESSAGES.addRate);
+        this.router.navigate([RoutePaths.RATES_LISTING]);
+        this.globalNotificationService.add(MESSAGES.RATE.ADD);
       })
-      .catch(err => this.globalNotificationService.add(MESSAGES.error))
+      .catch(err => this.globalNotificationService.add(MESSAGES.ERROR))
       :
       this.service.updateRate(this.rate, this.initialExpenseId, this.initialRateAmount)
       .then(() => {
-        this.router.navigate(['/rates']);
-        this.globalNotificationService.add(MESSAGES.updatedRate + this.rate.amount + '!');
-      }).catch(() => this.globalNotificationService.add(MESSAGES.error));
+        this.router.navigate([RoutePaths.RATES_LISTING]);
+        this.globalNotificationService.add(MESSAGES.RATE.UPDATE + this.rate.amount + '!');
+      }).catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
   private getExpenses() {

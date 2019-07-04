@@ -32,7 +32,7 @@ export class CategoriesDataService {
         this._total.next(newTotal);
         this._categories.next(categories);
       },
-      () => this.globaNotificationService.add(MESSAGES.error)
+      () => this.globaNotificationService.add(MESSAGES.ERROR)
     );
 
     return this._categories;
@@ -53,6 +53,6 @@ export class CategoriesDataService {
         this._categories.next(resp.content);
         this._total.next(resp.totalElements);
       },
-      () => this.globaNotificationService.add(MESSAGES.error));
+      () => this.globaNotificationService.add(MESSAGES.ERROR));
   }
 }
