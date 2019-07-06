@@ -17,6 +17,7 @@ import {TagDetailComponent} from './views/tag-detail/tag-detail.component';
 import {ExpenseDetailComponent} from './views/expense-detail/expense-detail.component';
 import {RateDetailComponent} from './views/rate-detail/rate-detail.component';
 import {GlobalMessageComponent} from './global-message/global-message.component';
+import {TagDetailEditComponent} from "./views/tag-detail/tag-detail-edit.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {GlobalMessageComponent} from './global-message/global-message.component'
     TagsComponent,
     CategoryDetailComponent,
     TagDetailComponent,
+    TagDetailEditComponent,
     ExpenseDetailComponent,
     RateDetailComponent,
     GlobalMessageComponent,
