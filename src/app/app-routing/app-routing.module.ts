@@ -11,18 +11,38 @@ import {RateDetailComponent} from '../views/rate-detail/rate-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},
-  {path: 'expenses', component: ExpensesComponent},
-  {path: 'expenses/add', component: ExpenseDetailComponent},
-  {path: 'expenses/add/:id', component: ExpenseDetailComponent},
-  {path: 'rates', component: RatesComponent},
-  {path: 'rates/add', component: RateDetailComponent},
-  {path: 'rates/add/:id', component: RateDetailComponent},
-  {path: 'categories', component: CategoriesComponent},
-  {path: 'categories/add', component: CategoryDetailComponent},
-  {path: 'categories/add/:id', component: CategoryDetailComponent},
-  {path: 'tags', component: TagsComponent},
-  {path: 'tags/add', component: TagDetailComponent},
-  {path: 'tags/add/:id', component: TagDetailComponent},
+  {
+    path: 'expenses',
+    children: [
+      {path: '', component: ExpensesComponent},
+      {path: 'add', component: ExpenseDetailComponent},
+      {path: 'edit/:id', component: ExpenseDetailComponent},
+    ]
+  },
+  {
+    path: 'rates',
+    children: [
+      {path: '', component: RatesComponent},
+      {path: 'add', component: RateDetailComponent},
+      {path: 'edit/:id', component: RateDetailComponent},
+    ]
+  },
+  {
+    path: 'categories',
+    children: [
+      {path: '', component: CategoriesComponent},
+      {path: 'add', component: CategoryDetailComponent},
+      {path: 'edit/:id', component: CategoryDetailComponent}
+    ]
+  },
+  {
+    path: 'tags',
+    children: [
+      {path: '', component: TagsComponent},
+      {path: 'add', component: TagDetailComponent},
+      {path: 'edit/:id', component: TagDetailComponent}
+    ]
+  },
 ];
 
 @NgModule({
