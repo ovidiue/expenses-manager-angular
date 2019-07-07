@@ -16,30 +16,34 @@ import {CategoryDetailComponent} from './views/category-detail/category-detail.c
 import {TagDetailComponent} from './views/tag-detail/tag-detail.component';
 import {ExpenseDetailComponent} from './views/expense-detail/expense-detail.component';
 import {RateDetailComponent} from './views/rate-detail/rate-detail.component';
-import {GlobalMessageComponent} from './global-message/global-message.component';
+import {GlobalMessageComponent} from './components/global-message/global-message.component';
+import { PageSpinnerComponent } from './components/page-spinner/page-spinner.component';
+import {ProgressSpinnerModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesComponent,
-    ExpensesComponent,
-    RatesComponent,
-    TagsComponent,
     CategoryDetailComponent,
-    TagDetailComponent,
+    DialogRatesComponent,
     ExpenseDetailComponent,
-    RateDetailComponent,
+    ExpensesComponent,
     GlobalMessageComponent,
-    DialogRatesComponent
+    PageSpinnerComponent,
+    RateDetailComponent,
+    RatesComponent,
+    TagDetailComponent,
+    TagsComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    PrimengModule
+    PrimengModule,
+    ProgressSpinnerModule,
+    ReactiveFormsModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],
