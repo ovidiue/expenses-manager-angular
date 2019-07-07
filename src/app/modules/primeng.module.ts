@@ -17,7 +17,7 @@ import {
   SliderModule,
   SplitButtonModule,
   ToolbarModule,
-  TooltipModule
+  TooltipModule,
 } from 'primeng/primeng';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {ToastModule} from 'primeng/toast';
