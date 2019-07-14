@@ -6,6 +6,7 @@ import {LazyLoadEvent} from 'primeng/api';
 import mapToRestParams from '../utils/MapTableParamsToRest';
 import {ApiPath} from '../utils/constants/api-paths';
 import {PathBuilder} from '../utils/PathBuilder';
+import {Observable} from "rxjs";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,14 +21,14 @@ export class ExpenseService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Promise<any> {
+  getAll(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Observable<any> {
     let params: HttpParams = mapToRestParams(event);
     for (const key in expenseFilter) {
       if (expenseFilter.hasOwnProperty(key)) {
         params = params.append(key, expenseFilter[key]);
       }
     }
-    return this.http.get(this.EXPENSES_BASE_URL, {params}).toPromise();
+    return this.http.get(this.EXPENSES_BASE_URL, {params});
   }
 
   save(expense: Expense): Promise<any> {

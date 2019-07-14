@@ -158,7 +158,7 @@ export class ExpensesComponent implements OnInit {
   searchValues(): void {
     this.beautifiedFilters = this.parseFilters(this.filterForm.value);
     this.expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
-    this.service.getExpenses(this.lastEvent, this.expenseFilter).then(resp => {
+    this.service.getExpenses(this.lastEvent, this.expenseFilter).subscribe(resp => {
       this.expenses = resp.content;
       this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;
@@ -186,7 +186,7 @@ export class ExpensesComponent implements OnInit {
   }
 
   getExpenses(event: LazyLoadEvent): void {
-    this.service.getExpenses(event, this.expenseFilter).then(resp => {
+    this.service.getExpenses(event, this.expenseFilter).subscribe(resp => {
       this.expenses = resp.content || [];
       this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;

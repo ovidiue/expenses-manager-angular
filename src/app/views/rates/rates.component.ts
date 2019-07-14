@@ -7,6 +7,7 @@ import {Expense} from '../../models/expense';
 import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {RatesDataService} from './rates-data.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-rates',
@@ -16,7 +17,10 @@ import {RatesDataService} from './rates-data.service';
   animations: [fadeIn]
 })
 export class RatesComponent implements OnInit {
-  rates: Rate[] = [];
+  rates$: Observable<Rate[]>;
+  total$: Observable<Number>;
+  expenses$: Observable<Expense[]>;
+
   selectedExpenses: Expense[] = [];
   expenses: Expense[];
   selectedRates: Rate[] = [];
@@ -24,7 +28,6 @@ export class RatesComponent implements OnInit {
   tableDefaults = TABLE_DEFAULTS;
 
   tableOptions = {
-    totalTableRecords: 0,
     columns: [
       {name: 'Amount', value: 'amount'},
       {name: 'Observation', value: 'observation'},
@@ -45,12 +48,14 @@ export class RatesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getExpenses();
+    this.rates$ = this.service.getRates(TABLE_DEFAULTS.query);
+    this.total$ = this.service.getTotal();
+    this.expenses$ = this.service.getExpenses();
   }
 
   clearExpenseFilter(): void {
     this.selectedExpenses = [];
-    this.getRates(this.lastEvent);
+    this.service.getRates(this.lastEvent);
   }
 
   filterTable($event) {
@@ -59,26 +64,10 @@ export class RatesComponent implements OnInit {
     const expenses = $event.value;
     if (expenses.length) {
       const ids = expenses.map(ex => ex.id);
-      this.service.getRatesByExpenseIds(ids, this.lastEvent).then(rates => this.rates = rates);
+      this.service.getRatesByExpenseIds(ids, this.lastEvent).subscribe(rates => this.rates$ = rates);
     } else {
-      this.getRates(TABLE_DEFAULTS.query);
+      this.service.getRates(TABLE_DEFAULTS.query);
     }
-  }
-
-  getRates(event: LazyLoadEvent): void {
-    this.service
-    .getRates(event)
-    .then(resp => {
-      this.rates = resp.content;
-      this.tableOptions.totalTableRecords = resp.totalElements;
-      this.tableDefaults.loading = false;
-      this.lastEvent = event;
-    });
-  }
-
-  getExpenses(): void {
-    this.service.getExpenses(TABLE_DEFAULTS.maxSize)
-    .then(resp => this.expenses = resp.content);
   }
 
   confirmDeletion() {
@@ -88,11 +77,9 @@ export class RatesComponent implements OnInit {
         // TODO check map warning
         const ids = this.selectedRates.map(el => el.id);
         this.service.deleteRates(ids)
-        .then(() => {
-          this.getRates(this.lastEvent);
+        .subscribe(() => {
           this.globalNotificationService.add(MESSAGES.RATE.DELETE_MULTIPLE);
-        })
-        .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
+        }, () => this.globalNotificationService.add(MESSAGES.ERROR));
       }
     });
   }
@@ -102,11 +89,9 @@ export class RatesComponent implements OnInit {
       message: `Are you sure you want to delete ${rate.amount} ?`,
       accept: () => {
         this.service.deleteRates([rate.id])
-        .then(() => {
-          this.getRates(this.lastEvent);
+        .subscribe(() => {
           this.globalNotificationService.add(MESSAGES.RATE.DELETE_SINGLE);
-        })
-        .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
+        }, () => this.globalNotificationService.add(MESSAGES.ERROR));
       }
     });
   }

@@ -5,6 +5,7 @@ import {LazyLoadEvent} from 'primeng/api';
 import mapTableParams from '../utils/MapTableParamsToRest';
 import {PathBuilder} from '../utils/PathBuilder';
 import {ApiPath} from '../utils/constants/api-paths';
+import {Observable} from "rxjs";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -19,9 +20,9 @@ export class RateService {
   constructor(private http: HttpClient) {
   }
 
-  getRates(event: LazyLoadEvent): Promise<any> {
+  getRates(event: LazyLoadEvent): Observable<any> {
     const params: HttpParams = mapTableParams(event);
-    return this.http.get(this.RATES_BASE_URL, {params}).toPromise();
+    return this.http.get(this.RATES_BASE_URL, {params});
   }
 
   save(rate: Rate): Promise<any> {
@@ -41,11 +42,11 @@ export class RateService {
     return this.http.put(url, rate, {params}).toPromise();
   }
 
-  deleteRates(rateIds: number[]): Promise<any> {
+  deleteRates(rateIds: number[]): Observable<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     rateIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.RATES_BASE_URL + '/delete';
-    return this.http.post(url, rateIds).toPromise();
+    return this.http.post(url, rateIds);
   }
 
   get(rateId: number): Promise<any> {
@@ -65,10 +66,10 @@ export class RateService {
     return this.http.get<Rate[]>(url, {params}).toPromise();
   }
 
-  getRatesByExpenseIds(id: number[], event: LazyLoadEvent): Promise<any> {
+  getRatesByExpenseIds(id: number[], event: LazyLoadEvent): Observable<any> {
     const url = this.RATES_BASE_URL + '/expenses';
     let params: HttpParams = mapTableParams(event);
     params = params.append('expenseIds', id.toString());
-    return this.http.get<Rate[]>(url, {params}).toPromise();
+    return this.http.get<Rate[]>(url, {params});
   }
 }
