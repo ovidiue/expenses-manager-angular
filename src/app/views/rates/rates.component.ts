@@ -19,6 +19,7 @@ import {Observable} from 'rxjs';
 export class RatesComponent implements OnInit {
 
   pageData$: Observable<any>;
+  expenses$: Observable<Expense[]>;
 
   selectedExpenses: Expense[] = [];
   selectedRates: Rate[] = [];
@@ -47,6 +48,7 @@ export class RatesComponent implements OnInit {
 
   ngOnInit() {
     this.pageData$ = this.service.getData(TABLE_DEFAULTS.query);
+    this.expenses$ = this.service.getExpenses();
   }
 
   clearExpenseFilter(): void {

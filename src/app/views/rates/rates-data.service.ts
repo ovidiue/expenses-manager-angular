@@ -21,20 +21,19 @@ export class RatesDataService {
     private expenseService: ExpenseService
   ) {
     this.loadServerData(TABLE_DEFAULTS.query);
+    this.loadServerExpenses();
   }
 
   getData(event: LazyLoadEvent) {
     this.loadServerData(event);
     return combineLatest([
       this._rates.asObservable(),
-      this._expenses.asObservable(),
       this._total.asObservable()
     ])
     .pipe(
-      map(([rates, expenses, total]) => (
+      map(([rates, total]) => (
         {
           rates,
-          expenses,
           total
         }
       ))
@@ -80,9 +79,13 @@ export class RatesDataService {
       this._total.next(totalElements);
     });
 
+  }
+
+  loadServerExpenses() {
     this.expenseService.getAll(TABLE_DEFAULTS.query)
     .subscribe(
       resp => this._expenses.next(resp.content)
     );
+
   }
 }
