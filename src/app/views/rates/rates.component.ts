@@ -13,16 +13,14 @@ import {Observable} from 'rxjs';
   selector: 'app-rates',
   templateUrl: './rates.component.html',
   styleUrls: ['./rates.component.scss'],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, RatesDataService],
   animations: [fadeIn]
 })
 export class RatesComponent implements OnInit {
-  rates$: Observable<Rate[]>;
-  total$: Observable<Number>;
-  expenses$: Observable<Expense[]>;
+
+  pageData$: Observable<any>;
 
   selectedExpenses: Expense[] = [];
-  expenses: Expense[];
   selectedRates: Rate[] = [];
 
   tableDefaults = TABLE_DEFAULTS;
@@ -48,9 +46,7 @@ export class RatesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rates$ = this.service.getRates(TABLE_DEFAULTS.query);
-    this.total$ = this.service.getTotal();
-    this.expenses$ = this.service.getExpenses();
+    this.pageData$ = this.service.getData(TABLE_DEFAULTS.query);
   }
 
   clearExpenseFilter(): void {
@@ -62,12 +58,12 @@ export class RatesComponent implements OnInit {
     // TODO investigate table 'filters' property to inject the dropdown value
     // TODO hit expenses endpoint => this should also be paged
     const expenses = $event.value;
-    if (expenses.length) {
+    /*if (expenses.length) {
       const ids = expenses.map(ex => ex.id);
-      this.service.getRatesByExpenseIds(ids, this.lastEvent).subscribe(rates => this.rates$ = rates);
+      this.service.getRatesByExpenseIds(ids, this.lastEvent).subscribe(rates => this.pageData$.rates = rates);
     } else {
       this.service.getRates(TABLE_DEFAULTS.query);
-    }
+    }*/
   }
 
   confirmDeletion() {

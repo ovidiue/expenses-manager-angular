@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {RateService} from '../../services/rate.service';
 import {ExpenseService} from '../../services/expense.service';
 import {LazyLoadEvent} from 'primeng/api';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {Rate} from '../../models/rate';
 import {Expense} from '../../models/expense';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 
 @Injectable({
@@ -21,6 +21,24 @@ export class RatesDataService {
     private expenseService: ExpenseService
   ) {
     this.loadServerData(TABLE_DEFAULTS.query);
+  }
+
+  getData(event: LazyLoadEvent) {
+    this.loadServerData(event);
+    return combineLatest([
+      this._rates.asObservable(),
+      this._expenses.asObservable(),
+      this._total.asObservable()
+    ])
+    .pipe(
+      map(([rates, expenses, total]) => (
+        {
+          rates,
+          expenses,
+          total
+        }
+      ))
+    );
   }
 
   getRatesByExpenseIds(ids: number[], event: LazyLoadEvent) {
