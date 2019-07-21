@@ -49,7 +49,7 @@
             <p-dropdown id="expense"
                         name="expense"
                         class="block"
-                        [options]="expenses"
+                        [options]="expenses$ | async"
                         [(ngModel)]="rate.expense"
                         [showClear]="true"
                         [placeholder]="'Select expense'"

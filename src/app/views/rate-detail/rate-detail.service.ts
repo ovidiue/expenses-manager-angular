@@ -3,6 +3,8 @@ import {RateService} from '../../services/rate.service';
 import {ExpenseService} from '../../services/expense.service';
 import {Rate} from '../../models/rate';
 import {LazyLoadEvent} from 'primeng/api';
+import {map, pluck} from 'rxjs/operators';
+import {Expense} from '../../models/expense';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +32,10 @@ export class RateDetailService {
   }
 
   getExpenses(event: LazyLoadEvent) {
-    return this.expenseService.getAll(event);
+    return this.expenseService.getAll(event)
+    .pipe(
+      pluck('content'),
+      map((exp: Expense[]) => exp.map(el => ({label: el.title, value: el})))
+    );
   }
 }

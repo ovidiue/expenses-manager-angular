@@ -25,12 +25,12 @@ export class RateService {
     return this.http.get(this.RATES_BASE_URL, {params});
   }
 
-  save(rate: Rate): Promise<any> {
+  save(rate: Rate): Observable<any> {
     const url = this.RATES_BASE_URL + '/save';
-    return this.http.post(url, rate, httpOptions).toPromise();
+    return this.http.post(url, rate, httpOptions);
   }
 
-  update(rate: Rate, initialExpenseId?: string, initialRateAmount?: string): Promise<any> {
+  update(rate: Rate, initialExpenseId?: string, initialRateAmount?: string): Observable<any> {
     const url = this.RATES_BASE_URL + '/update';
     let params: HttpParams = new HttpParams();
     if (initialExpenseId) {
@@ -39,7 +39,7 @@ export class RateService {
     if (initialRateAmount) {
       params = params.append('initialRateAmount', initialRateAmount.toString());
     }
-    return this.http.put(url, rate, {params}).toPromise();
+    return this.http.put(url, rate, {params});
   }
 
   deleteRates(rateIds: number[]): Observable<any> {
@@ -49,14 +49,14 @@ export class RateService {
     return this.http.post(url, rateIds);
   }
 
-  get(rateId: number): Promise<any> {
+  get(rateId: number): Observable<any> {
     const url = this.RATES_BASE_URL + '/' + rateId;
-    return this.http.get(url).toPromise();
+    return this.http.get(url);
   }
 
-  getByName(name: string): Promise<any> {
+  getByName(name: string): Observable<any> {
     const url = this.RATES_BASE_URL + '/name/' + name;
-    return this.http.get<Rate>(url).toPromise();
+    return this.http.get<Rate>(url);
   }
 
   getRatesByExpenseId(id: number): Promise<any> {

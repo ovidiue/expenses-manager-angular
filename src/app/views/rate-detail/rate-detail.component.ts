@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Rate} from '../../models/rate';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
@@ -9,6 +9,8 @@ import {fadeIn} from '../../utils/animations/fadeIn';
 import {TABLE_DEFAULTS} from '../../utils/table-options';
 import {RateDetailService} from './rate-detail.service';
 import {RoutePaths} from '../../models/interfaces';
+import {Observable, of, Subscription} from 'rxjs';
+import {pluck, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-rate-detail',
@@ -16,7 +18,11 @@ import {RoutePaths} from '../../models/interfaces';
   styleUrls: ['./rate-detail.component.scss'],
   animations: [fadeIn]
 })
-export class RateDetailComponent implements OnInit {
+export class RateDetailComponent implements OnInit, OnDestroy {
+
+  routeSubscription: Subscription;
+  expenses$: Observable<any[]>;
+
   pageTitle: string;
   rate = new Rate();
   id: number;
@@ -36,37 +42,38 @@ export class RateDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getExpenses();
-    this.id = <any>this.route.snapshot.paramMap.get('id');
-    this.pageTitle = this.determineTitle();
-    this.getRate();
-  }
-
-  determineTitle(): string {
-    if (this.id) {
-      return 'Edit Rate';
-    } else {
-      return 'Add Rate';
-    }
-  }
-
-  getRate(): void {
-    if (this.id) {
-      this.service.getRate(this.id).then(rate => {
-        this.rate = rate;
-        this.rate.payedOn = moment(this.rate.payedOn).toDate();
-        if (rate.expense && rate.expense.id) {
-          this.initialExpenseId = rate.expense.id;
+    this.routeSubscription = this.route.params
+    .pipe(
+      pluck('id'),
+      tap((id: number) => {
+        if (id) {
+          this.id = id;
+          this.pageTitle = 'Edit Rate';
+        } else {
+          this.pageTitle = 'Add Rate';
         }
-        this.initialRateAmount = rate.amount;
-      }).catch(err => this.globalNotificationService.add(MESSAGES.ERROR + ' err: ' + err));
-    }
+      }),
+      switchMap(id => id ? this.service.getRate(id) : of({}))
+    ).subscribe(rate => {
+      this.rate = rate;
+      this.rate.payedOn = moment(this.rate.payedOn).toDate();
+      if (rate.expense && rate.expense.id) {
+        this.initialExpenseId = rate.expense.id;
+      }
+      this.initialRateAmount = rate.amount;
+    });
+
+    this.expenses$ = this.service.getExpenses(TABLE_DEFAULTS.maxSize);
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription.unsubscribe();
   }
 
   checkName($event): void {
     const name = $event.target.value;
     this.service.getRateByName(name)
-    .then(resp => {
+    .subscribe(resp => {
       if (resp) {
         this.nameExists = true;
       } else {
@@ -84,27 +91,29 @@ export class RateDetailComponent implements OnInit {
     this.id === null
       ?
       this.service.saveRate(this.rate)
-      .then(() => {
+      .subscribe(() => {
         this.router.navigate([RoutePaths.RATES_LISTING]);
         this.globalNotificationService.add(MESSAGES.RATE.ADD);
-      })
-      .catch(err => this.globalNotificationService.add(MESSAGES.ERROR))
+      }, () => this.globalNotificationService.add(MESSAGES.ERROR))
       :
       this.service.updateRate(this.rate, this.initialExpenseId, this.initialRateAmount)
-      .then(() => {
+      .subscribe(() => {
         this.router.navigate([RoutePaths.RATES_LISTING]);
         this.globalNotificationService.add(MESSAGES.RATE.UPDATE + this.rate.amount + '!');
-      }).catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
+      }, () => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
-  private getExpenses() {
-    this.service.getExpenses(TABLE_DEFAULTS.maxSize).subscribe(resp => {
-      this.expenses = resp.content.map(exp => {
-        return {
-          label: exp.title,
-          value: exp
-        };
+  /*
+    private getExpenses() {
+      this.service.getExpenses(TABLE_DEFAULTS.maxSize)
+      .subscribe(resp => {
+        this.expenses = resp.content.map(exp => {
+          return {
+            label: exp.title,
+            value: exp
+          };
+        });
       });
-    });
-  }
+    }
+  */
 }
