@@ -1,17 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, DialogService, DynamicDialogConfig, LazyLoadEvent, MenuItem, MessageService} from 'primeng/api';
-import {Expense} from '../../models/expense';
-import {GlobalNotificationService} from '../../services/global-notification.service';
-import {MESSAGES} from '../../utils/messages';
-import {DialogRatesComponent} from '../../components/dialog-rates/dialog-rates.component';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {FormControl, FormGroup} from '@angular/forms';
-import {ExpenseFilter} from '../../models/filters/expense-filter';
+import { Component, OnInit } from '@angular/core';
+import {
+  ConfirmationService,
+  DialogService,
+  DynamicDialogConfig,
+  LazyLoadEvent,
+  MenuItem,
+  MessageService
+} from 'primeng/api';
+import { Expense } from '../../models/expense';
+import { GlobalNotificationService } from '../../services/global-notification.service';
+import { MESSAGES } from '../../utils/messages';
+import { DialogRatesComponent } from '../../components/dialog-rates/dialog-rates.component';
+import { fadeIn } from '../../utils/animations/fadeIn';
+import { FormGroup } from '@angular/forms';
+import { ExpenseFilter } from '../../models/filters/expense-filter';
 import * as moment from 'moment';
-import {TABLE_DEFAULTS} from '../../utils/table-options';
-import {Category} from '../../models/category';
-import {Router} from '@angular/router';
-import {ExpensesDataService} from './expenses-data.service';
+import { TABLE_DEFAULTS } from '../../utils/table-options';
+import { Category } from '../../models/category';
+import { Router } from '@angular/router';
+import { ExpensesDataService } from './expenses-data.service';
 
 @Component({
   selector: 'app-expenses',
@@ -31,8 +38,6 @@ export class ExpensesComponent implements OnInit {
   selectedDescription = '';
   displaySidebar = false;
 
-  amountBetween: number[] = [0, 10000];
-  beautifiedFilters: string[] = [];
   categories = [];
   tags = [];
   categoryToAssign: Category;
@@ -61,17 +66,13 @@ export class ExpensesComponent implements OnInit {
   expenseFilter: ExpenseFilter;
 
   constructor(
-    private router: Router,
-    private service: ExpensesDataService,
-    public dialogService: DialogService,
-    private globalNotificationService: GlobalNotificationService) {
+      private router: Router,
+      private service: ExpensesDataService,
+      public dialogService: DialogService,
+      private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
-    this.getCategories();
-    this.getTags();
-    this.instantiateForm();
-    this.onFormChange();
     this.instantiateTableActions();
   }
 
@@ -108,80 +109,13 @@ export class ExpensesComponent implements OnInit {
     this.router.navigate(['/expenses/add']);
   }
 
-  clearFormFilters(): void {
-    this.filterForm.reset();
-    this.amountBetween = [0, 10000];
-    this.searchValues();
-  }
-
-  parseFilters(obj: any): string[] {
-    const result = [];
-    if (obj) {
-      for (const key in obj) {
-        if (obj[key] !== '' && obj[key] !== null) {
-          let value = '';
-          switch (key) {
-            case 'amount':
-              value = 'Amount between: ' + obj[key][0] + '-' + obj[key][1];
-              break;
-            case 'category':
-              value = 'Category: ' + obj[key].name;
-              break;
-            case 'createdBetween':
-              value = 'Created between: ' + moment(obj[key][0]).format('L') + ' - ' +
-                moment(obj[key][1]).format('L');
-              break;
-            case 'dueBetween':
-              value = 'Due between: ' + moment(obj[key][0]).format('L') + ' - ' +
-                moment(obj[key][1]).format('L');
-              break;
-            case 'title':
-              value = 'Title contains: ' + obj[key];
-              break;
-            case 'description':
-              value = 'Description contains: ' + obj[key];
-              break;
-            case 'recurrent':
-              value = 'Recurrent: ' + obj[key];
-              break;
-            case 'tags':
-              value = 'Tags: ' + obj[key].map(el => el.name).concat();
-              break;
-          }
-          result.push(value);
-        }
-      }
-    }
-    return result;
-  }
-
-  searchValues(): void {
-    this.beautifiedFilters = this.parseFilters(this.filterForm.value);
-    this.expenseFilter = this.mapToExpenseFilter(this.filterForm.value);
+  searchValues($event: any): void {
+    console.log('searchValues parent', $event);
+    this.expenseFilter = this.mapToExpenseFilter($event);
     this.service.getExpenses(this.lastEvent, this.expenseFilter).subscribe(resp => {
       this.expenses = resp.content;
       this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;
-    });
-  }
-
-  onFormChange(): void {
-    const self = this;
-    self.filterForm.valueChanges.subscribe(val => {
-      this.beautifiedFilters = self.parseFilters(val);
-    });
-  }
-
-  instantiateForm(): void {
-    this.filterForm = new FormGroup({
-      title: new FormControl(''),
-      amount: new FormControl(''),
-      description: new FormControl(''),
-      createdBetween: new FormControl(''),
-      dueBetween: new FormControl(''),
-      recurrent: new FormControl(false),
-      category: new FormControl(''),
-      tags: new FormControl('')
     });
   }
 
@@ -191,29 +125,6 @@ export class ExpensesComponent implements OnInit {
       this.tableOptions.totalTableRecords = resp.totalElements;
       this.tableDefaults.loading = false;
       this.lastEvent = event;
-    });
-  }
-
-  getTags(): void {
-    this.service.getTags(TABLE_DEFAULTS.maxSize).subscribe(resp => this.tags = resp.content.map(el => {
-      return {
-        label: el.name,
-        value: {id: el.id, name: el.name, color: el.color},
-        color: el.color
-      };
-    }));
-  }
-
-  getCategories(): void {
-    this.service.getCategories(TABLE_DEFAULTS.maxSize)
-    .subscribe(resp => {
-      this.categories = resp.content.map(el => {
-        return {
-          label: el.name,
-          value: el,
-          color: el.color
-        };
-      });
     });
   }
 
