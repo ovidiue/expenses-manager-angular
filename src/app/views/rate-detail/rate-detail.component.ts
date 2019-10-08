@@ -1,16 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Rate} from '../../models/rate';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Rate } from '../../models/rate';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import * as moment from 'moment';
-import {GlobalNotificationService} from '../../services/global-notification.service';
-import {MESSAGES} from '../../utils/messages';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../../utils/table-options';
-import {RateDetailService} from './rate-detail.service';
-import {RoutePaths} from '../../models/interfaces';
-import {Observable, of, Subscription} from 'rxjs';
-import {pluck, switchMap, tap} from 'rxjs/operators';
+import { GlobalNotificationService } from '../../services/global-notification.service';
+import { MESSAGES } from '../../utils/messages';
+import { fadeIn } from '../../utils/animations/fadeIn';
+import { TABLE_DEFAULTS } from '../../utils/table-options';
+import { RateDetailService } from './rate-detail.service';
+import { Observable, of, Subscription } from 'rxjs';
+import { pluck, switchMap, tap } from 'rxjs/operators';
+import { RoutePaths } from '../../models/enums/route-paths';
 
 @Component({
   selector: 'app-rate-detail',
@@ -44,16 +44,16 @@ export class RateDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeSubscription = this.route.params
     .pipe(
-      pluck('id'),
-      tap((id: number) => {
-        if (id) {
-          this.id = id;
-          this.pageTitle = 'Edit Rate';
-        } else {
-          this.pageTitle = 'Add Rate';
-        }
-      }),
-      switchMap(id => id ? this.service.getRate(id) : of({}))
+        pluck('id'),
+        tap((id: number) => {
+          if (id) {
+            this.id = id;
+            this.pageTitle = 'Edit Rate';
+          } else {
+            this.pageTitle = 'Add Rate';
+          }
+        }),
+        switchMap(id => id ? this.service.getRate(id) : of({}))
     ).subscribe(rate => {
       this.rate = rate;
       this.rate.payedOn = moment(this.rate.payedOn).toDate();
@@ -89,18 +89,18 @@ export class RateDetailComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.id === null
-      ?
-      this.service.saveRate(this.rate)
-      .subscribe(() => {
-        this.router.navigate([RoutePaths.RATES_LISTING]);
-        this.globalNotificationService.add(MESSAGES.RATE.ADD);
-      }, () => this.globalNotificationService.add(MESSAGES.ERROR))
-      :
-      this.service.updateRate(this.rate, this.initialExpenseId, this.initialRateAmount)
-      .subscribe(() => {
-        this.router.navigate([RoutePaths.RATES_LISTING]);
-        this.globalNotificationService.add(MESSAGES.RATE.UPDATE + this.rate.amount + '!');
-      }, () => this.globalNotificationService.add(MESSAGES.ERROR));
+        ?
+        this.service.saveRate(this.rate)
+        .subscribe(() => {
+          this.router.navigate([RoutePaths.RATES_LISTING]);
+          this.globalNotificationService.add(MESSAGES.RATE.ADD);
+        }, () => this.globalNotificationService.add(MESSAGES.ERROR))
+        :
+        this.service.updateRate(this.rate, this.initialExpenseId, this.initialRateAmount)
+        .subscribe(() => {
+          this.router.navigate([RoutePaths.RATES_LISTING]);
+          this.globalNotificationService.add(MESSAGES.RATE.UPDATE + this.rate.amount + '!');
+        }, () => this.globalNotificationService.add(MESSAGES.ERROR));
   }
 
   /*

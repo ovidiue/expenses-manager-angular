@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
-import {GlobalNotificationService} from '../../services/global-notification.service';
-import {MESSAGES} from '../../utils/messages';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {TagDetailDataService} from './tag-detail-data.service';
-import {Observable, Subscription} from 'rxjs';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, flatMap, switchMap, tap} from 'rxjs/operators';
-import {RoutePaths} from '../../models/interfaces';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { GlobalNotificationService } from '../../services/global-notification.service';
+import { MESSAGES } from '../../utils/messages';
+import { fadeIn } from '../../utils/animations/fadeIn';
+import { TagDetailDataService } from './tag-detail-data.service';
+import { Observable, Subscription } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, flatMap, switchMap, tap } from 'rxjs/operators';
+import { RoutePaths } from '../../models/enums/route-paths';
 
 @Component({
   selector: 'app-tag-detail',
@@ -27,16 +27,16 @@ export class TagDetailComponent implements OnInit, OnDestroy {
   private formSubscription: Subscription;
 
   constructor(
-    private location: Location,
-    private router: Router,
-    private globalNotificationService: GlobalNotificationService,
-    private service: TagDetailDataService,
-    private route: ActivatedRoute
+      private location: Location,
+      private router: Router,
+      private globalNotificationService: GlobalNotificationService,
+      private service: TagDetailDataService,
+      private route: ActivatedRoute
   ) {
     this.tagFormControls = new FormGroup({
-      name        : new FormControl('', Validators.required),
-      description : new FormControl(''),
-      color       : new FormControl('lightgray')
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      color: new FormControl('lightgray')
     });
   }
 
@@ -47,12 +47,12 @@ export class TagDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.formSubscription = this.tagFormControls.get('name').valueChanges
     .pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      switchMap(name =>
-        name.toString().length && name.toString() !== this.initialName
-          ? this.service.getTagByName(name.toString())
-          : new Observable())
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(name =>
+            name.toString().length && name.toString() !== this.initialName
+                ? this.service.getTagByName(name.toString())
+                : new Observable())
     )
     .subscribe(resp => {
       this.isSubmitted = false;
@@ -61,13 +61,13 @@ export class TagDetailComponent implements OnInit, OnDestroy {
 
     this.paramSubscription = this.route.params
     .pipe(
-      flatMap(param => {
-        this.isEditScreen = param && param.id || false;
-        const obs = param.id ? param.id : new Observable();
-        return obs;
-      }),
-      flatMap(id => this.service.getTag(parseInt(id.toString(), 10))),
-      tap(tag => this.initialName = tag.name)
+        flatMap(param => {
+          this.isEditScreen = param && param.id || false;
+          const obs = param.id ? param.id : new Observable();
+          return obs;
+        }),
+        flatMap(id => this.service.getTag(parseInt(id.toString(), 10))),
+        tap(tag => this.initialName = tag.name)
     )
     .subscribe(tag => {
       this.tagFormControls.patchValue({

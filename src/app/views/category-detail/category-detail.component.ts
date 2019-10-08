@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Category} from '../../models/category';
-import {Location} from '@angular/common';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {GlobalNotificationService} from '../../services/global-notification.service';
-import {MESSAGES} from '../../utils/messages';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {CategoryDetailDataService} from './category-detail-data.service';
-import {Observable, Subscription} from 'rxjs';
-import {flatMap} from 'rxjs/operators';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {RoutePaths} from '../../models/interfaces';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Category } from '../../models/category';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { GlobalNotificationService } from '../../services/global-notification.service';
+import { MESSAGES } from '../../utils/messages';
+import { fadeIn } from '../../utils/animations/fadeIn';
+import { CategoryDetailDataService } from './category-detail-data.service';
+import { Observable, Subscription } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RoutePaths } from '../../models/enums/route-paths';
 
 @Component({
   selector: 'app-category-detail',
@@ -29,17 +29,17 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   private isSubmitted: boolean;
 
   constructor(
-    private location: Location,
-    private router: Router,
-    private service: CategoryDetailDataService,
-    private globalNotificationService: GlobalNotificationService,
-    private route: ActivatedRoute
+      private location: Location,
+      private router: Router,
+      private service: CategoryDetailDataService,
+      private globalNotificationService: GlobalNotificationService,
+      private route: ActivatedRoute
   ) {
     this.categoryForm = new FormGroup({
-      name        : new FormControl('', Validators.required),
-      description : new FormControl(''),
-      color       : new FormControl('#B0AEB0'),
-      id          : new FormControl(null)
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      color: new FormControl('#B0AEB0'),
+      id: new FormControl(null)
     });
   }
 
@@ -50,13 +50,13 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.paramSubscription = this.route.params
     .pipe(
-      flatMap((params: Params) => {
-        this.id = params && params.id || null;
-        this.pageTitle = this.id ? 'Edit Category' : 'Add Category';
-        this.isEdit = !!(params && params.id);
-        return params.id || new Observable();
-      }),
-      flatMap(id => id ? this.service.getCategory(parseInt(id.toString(), 10)) : new Observable())
+        flatMap((params: Params) => {
+          this.id = params && params.id || null;
+          this.pageTitle = this.id ? 'Edit Category' : 'Add Category';
+          this.isEdit = !!(params && params.id);
+          return params.id || new Observable();
+        }),
+        flatMap(id => id ? this.service.getCategory(parseInt(id.toString(), 10)) : new Observable())
     )
     .subscribe((category: Category) => this.categoryForm.setValue(category));
 
