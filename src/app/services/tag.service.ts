@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Tag} from '../models/tag';
-import {LazyLoadEvent} from 'primeng/api';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Tag } from '../models/tag';
+import { LazyLoadEvent } from 'primeng/api';
 import mapEventToRestParams from '../utils/MapTableParamsToRest';
-import {PathBuilder} from '../utils/PathBuilder';
-import {ApiPath} from '../utils/constants/api-paths';
-import {ServerResp} from '../models/interfaces';
-import {Observable} from 'rxjs';
+import { PathBuilder } from '../utils/PathBuilder';
+import { ApiPath } from '../utils/constants/api-paths';
+import { Observable } from 'rxjs';
+import { ServerResp } from '../models/interfaces/server-resp';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -21,7 +21,7 @@ export class TagService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(event: LazyLoadEvent): Observable<any> {
+  getAll(event: LazyLoadEvent): Observable<ServerResp<Tag>> {
     let params: HttpParams;
     params = mapEventToRestParams(event);
     return this.http.get<ServerResp<Tag>>(this.TAGS_BASE_URL, {params});

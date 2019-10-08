@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Category} from '../models/category';
-import {LazyLoadEvent} from 'primeng/api';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Category } from '../models/category';
+import { LazyLoadEvent } from 'primeng/api';
+import { PathBuilder } from '../utils/PathBuilder';
+import { ApiPath } from '../utils/constants/api-paths';
+import { Observable } from 'rxjs';
+import { ServerResp } from '../models/interfaces/server-resp';
 import mapTableParams from '../utils/MapTableParamsToRest';
-import {PathBuilder} from '../utils/PathBuilder';
-import {ApiPath} from '../utils/constants/api-paths';
-import {Observable} from 'rxjs';
-import {ServerResp} from '../models/interfaces';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -26,9 +26,9 @@ export class CategoryService {
     return this.http.get<ServerResp<Category>>(this.CATEGORIES_BASE_URL, {params});
   }
 
-  getCategories(event: LazyLoadEvent = null): Promise<any> {
+  getCategories(event: LazyLoadEvent = null): Observable<any> {
     const params: HttpParams = mapTableParams(event);
-    return this.http.get(this.CATEGORIES_BASE_URL, {params}).toPromise();
+    return this.http.get(this.CATEGORIES_BASE_URL, {params});
   }
 
   save(category: Category): Observable<any> {
