@@ -133,7 +133,7 @@ export class ExpensesComponent implements OnInit {
     console.log(this.selectedExpenses);
     const expensesIds = this.selectedExpenses.map(exp => exp.id);
     this.service.setCategory(expensesIds, this.categoryToAssign.id)
-    .then(() => {
+    .subscribe(() => {
       this.getExpenses(this.lastEvent);
       this.globalNotificationService.add(MESSAGES.EXPENSE.SET_NEW_CATEGORY);
     });
@@ -151,12 +151,13 @@ export class ExpensesComponent implements OnInit {
   deleteExpense(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
     this.service.deleteExpenses(idsToDelete, false)
-    .then(() => {
-      this.resetDeletionVariables();
-      this.getExpenses(this.lastEvent);
-      this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
-    })
-    .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
+    .subscribe(() => {
+          this.resetDeletionVariables();
+          this.getExpenses(this.lastEvent);
+          this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
+        }, (() => this.globalNotificationService.add(MESSAGES.ERROR))
+    );
+
   }
 
   resetDeletionVariables(): void {
@@ -180,12 +181,11 @@ export class ExpensesComponent implements OnInit {
   deleteExpenseAndRates(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
     this.service.deleteExpenses(idsToDelete, true)
-    .then(() => {
+    .subscribe(() => {
       this.resetDeletionVariables();
       this.getExpenses(this.lastEvent);
       this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
-    })
-    .catch(() => this.globalNotificationService.add(MESSAGES.ERROR));
+    }, (() => this.globalNotificationService.add(MESSAGES.ERROR)));
   }
 
   fetchAndDisplayRates(exp: Expense): void {
