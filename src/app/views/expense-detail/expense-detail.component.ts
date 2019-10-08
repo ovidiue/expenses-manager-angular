@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
-import {MessageService} from 'primeng/api';
-import {Expense} from '../../models/expense';
-import {GlobalNotificationService} from '../../services/global-notification.service';
-import {MESSAGES} from '../../utils/messages';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../../utils/table-options';
-import {ExpenseDetailService} from './expense-detail.service';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { MessageService, SelectItem } from 'primeng/api';
+import { Expense } from '../../models/expense';
+import { GlobalNotificationService } from '../../services/global-notification.service';
+import { MESSAGES } from '../../utils/messages';
+import { fadeIn } from '../../utils/animations/fadeIn';
+import { ExpenseDetailService } from './expense-detail.service';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { filter, flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-expense-detail',
@@ -18,13 +19,17 @@ import {ExpenseDetailService} from './expense-detail.service';
   providers: [MessageService],
   animations: [fadeIn]
 })
-export class ExpenseDetailComponent implements OnInit {
-  expense = new Expense();
+export class ExpenseDetailComponent implements OnInit, OnDestroy {
+  pageTitle: string;
+  isFormSubmitted = false;
+  expenseForm: FormGroup;
+  paramSubscription: Subscription;
+  formSubscription: Subscription;
+  idSubscription: Subscription;
   minDate = moment().startOf('day').toDate();
-  pageTitle: string = this.determineTitle();
-  tags: any[];
-  categories: any[];
-  id: number;
+  tags$: Observable<SelectItem[]>;
+  categories$: Observable<SelectItem[]>;
+  id$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
   constructor(private location: Location,
               private router: Router,
@@ -33,49 +38,52 @@ export class ExpenseDetailComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
+  get title(): AbstractControl {
+    return this.expenseForm.get('title');
+  }
+
+  get amount(): AbstractControl {
+    return this.expenseForm.get('amount');
+  }
+
   ngOnInit() {
-    this.id = <any>this.route.snapshot.paramMap.get('id');
-    this.pageTitle = this.determineTitle();
-    this.service.getExpense(this.id).then(exp => {
-      this.expense = exp;
-      if (this.expense.dueDate) {
-        this.expense.dueDate = moment(this.expense.dueDate).toDate();
-      }
-    }).catch(err => console.error(err));
-
-    this.getTags();
-    this.getCategories();
-  }
-
-  getTags(): void {
-    this.service.getTags(TABLE_DEFAULTS.maxSize).subscribe(resp => this.tags = resp.content.map(el => {
-      return {
-        label: el.name,
-        value: {id: el.id, name: el.name, color: el.color},
-        color: el.color
-      };
-    }));
-  }
-
-  getCategories(): void {
-    this.service.getCategories(TABLE_DEFAULTS.maxSize)
-    .then(resp => {
-      this.categories = resp.content.map(el => {
-        return {
-          label: el.name,
-          value: el,
-          color: el.color
-        };
-      });
+    this.paramSubscription = this.route.params
+    .subscribe(params => {
+      this.pageTitle = params && params.id
+          ? 'Edit Expense'
+          : 'Add Expense';
+      this.id$.next(params.id || null);
     });
+
+    this.idSubscription = this.id$
+    .pipe(
+        filter(id => id !== null),
+        flatMap(id => this.service.getExpense(id)),
+    )
+    .subscribe(exp => this.expenseForm.patchValue(exp));
+
+    this.expenseForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      amount: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      recurrent: new FormControl(false),
+      dueDate: new FormControl(''),
+      category: new FormControl(null),
+      tags: new FormControl([]),
+    });
+
+    this.tags$ = this.service.getTags();
+    this.categories$ = this.service.getCategories();
+
+    this.formSubscription = this.expenseForm.valueChanges
+    .subscribe(() => this.isFormSubmitted = false);
+
   }
 
-  determineTitle(): string {
-    if (this.id) {
-      return 'Edit Expense';
-    } else {
-      return 'Add Expense';
-    }
+  ngOnDestroy(): void {
+    this.paramSubscription.unsubscribe();
+    this.formSubscription.unsubscribe();
+    this.idSubscription.unsubscribe();
   }
 
   goBack(event: any) {
@@ -84,13 +92,22 @@ export class ExpenseDetailComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isFormSubmitted = true;
+
+    if (!this.expenseForm.valid) {
+      return;
+    }
+
+    const expense = new Expense();
+    Object.assign(expense, this.expenseForm.value);
     this.service
-    .saveExpense(this.expense)
-    .then(() => {
-      this.router.navigate(['/expenses']);
-      this.globalNotificationService.add(MESSAGES.EXPENSE.ADD);
-    })
-    .catch(err => this.globalNotificationService.add(MESSAGES.ERROR));
+    .saveExpense(expense)
+    .subscribe(() => {
+          this.router.navigate(['/expenses']);
+          this.globalNotificationService.add(MESSAGES.EXPENSE.ADD);
+        },
+        err => this.globalNotificationService.add(MESSAGES.ERROR)
+    );
   }
 
 

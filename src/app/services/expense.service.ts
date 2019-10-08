@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Expense} from '../models/expense';
-import {ExpenseFilter} from '../models/filters/expense-filter';
-import {LazyLoadEvent} from 'primeng/api';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Expense } from '../models/expense';
+import { ExpenseFilter } from '../models/filters/expense-filter';
+import { LazyLoadEvent } from 'primeng/api';
 import mapToRestParams from '../utils/MapTableParamsToRest';
-import {ApiPath} from '../utils/constants/api-paths';
-import {PathBuilder} from '../utils/PathBuilder';
-import {Observable} from "rxjs";
+import { ApiPath } from '../utils/constants/api-paths';
+import { PathBuilder } from '../utils/PathBuilder';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -31,25 +31,25 @@ export class ExpenseService {
     return this.http.get(this.EXPENSES_BASE_URL, {params});
   }
 
-  save(expense: Expense): Promise<any> {
+  save(expense: Expense): Observable<any> {
     const url = this.EXPENSES_BASE_URL + '/save';
-    return this.http.post(url, expense, httpOptions).toPromise();
+    return this.http.post(url, expense, httpOptions);
   }
 
-  delete(expenseIds: number[], withRates: boolean): Promise<any> {
+  delete(expenseIds: number[], withRates: boolean): Observable<any> {
     let params: HttpParams = new HttpParams();
     params = params.append('ratesToo', withRates.toString());
     const url = this.EXPENSES_BASE_URL + '/delete';
-    return this.http.post(url, expenseIds, {params}).toPromise();
+    return this.http.post(url, expenseIds, {params});
   }
 
-  get(exId: number): Promise<any> {
+  get(exId: number): Observable<Expense> {
     const url = this.EXPENSES_BASE_URL + '/' + exId;
-    return this.http.get<Expense>(url).toPromise();
+    return this.http.get<Expense>(url);
   }
 
-  setCategory(expenseIds: number[], categoryId: number): Promise<any> {
+  setCategory(expenseIds: number[], categoryId: number): Observable<any> {
     const url = `${this.EXPENSES_BASE_URL}/set-category/${categoryId}`;
-    return this.http.post(url, expenseIds).toPromise();
+    return this.http.post(url, expenseIds);
   }
 }
