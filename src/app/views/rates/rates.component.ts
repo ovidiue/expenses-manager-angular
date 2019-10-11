@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {Rate} from '../../models/rate';
-import {GlobalNotificationService} from '../../services/global-notification.service';
-import {MESSAGES} from '../../utils/messages';
-import {Expense} from '../../models/expense';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../../utils/table-options';
-import {RatesDataService} from './rates-data.service';
-import {Observable} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { RatesDataService } from './rates-data.service';
+import { Observable } from 'rxjs';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { Expense } from '@models/expense';
+import { Rate } from '@models/rate';
+import { MESSAGES } from '@utils/messages';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import { GlobalNotificationService } from '@services/global-notification.service';
 
 @Component({
   selector: 'app-rates',
@@ -41,9 +41,9 @@ export class RatesComponent implements OnInit {
   lastEvent: LazyLoadEvent;
 
   constructor(
-    private confirmationService: ConfirmationService,
-    private service: RatesDataService,
-    private globalNotificationService: GlobalNotificationService) {
+      private confirmationService: ConfirmationService,
+      private service: RatesDataService,
+      private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {

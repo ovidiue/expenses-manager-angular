@@ -3,14 +3,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MessageService, SelectItem } from 'primeng/api';
-import { Expense } from '../../models/expense';
-import { GlobalNotificationService } from '../../services/global-notification.service';
-import { MESSAGES } from '../../utils/messages';
-import { fadeIn } from '../../utils/animations/fadeIn';
 import { ExpenseDetailService } from './expense-detail.service';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { filter, flatMap } from 'rxjs/operators';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { Expense } from '@models/expense';
+import { MESSAGES } from '@utils/messages';
+import { GlobalNotificationService } from '@services/global-notification.service';
 
 @Component({
   selector: 'app-expense-detail',

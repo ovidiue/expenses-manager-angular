@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Rate } from '../../models/rate';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
-import { GlobalNotificationService } from '../../services/global-notification.service';
-import { MESSAGES } from '../../utils/messages';
-import { fadeIn } from '../../utils/animations/fadeIn';
-import { TABLE_DEFAULTS } from '../../utils/table-options';
 import { RateDetailService } from './rate-detail.service';
 import { Observable, of, Subscription } from 'rxjs';
 import { pluck, switchMap, tap } from 'rxjs/operators';
-import { RoutePaths } from '../../models/enums/route-paths';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { Rate } from '@models/rate';
+import { MESSAGES } from '@utils/messages';
+import { RoutePaths } from '@models/enums/route-paths';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import { GlobalNotificationService } from '@services/global-notification.service';
 
 @Component({
   selector: 'app-rate-detail',
@@ -102,18 +102,4 @@ export class RateDetailComponent implements OnInit, OnDestroy {
           this.globalNotificationService.add(MESSAGES.RATE.UPDATE + this.rate.amount + '!');
         }, () => this.globalNotificationService.add(MESSAGES.ERROR));
   }
-
-  /*
-    private getExpenses() {
-      this.service.getExpenses(TABLE_DEFAULTS.maxSize)
-      .subscribe(resp => {
-        this.expenses = resp.content.map(exp => {
-          return {
-            label: exp.title,
-            value: exp
-          };
-        });
-      });
-    }
-  */
 }

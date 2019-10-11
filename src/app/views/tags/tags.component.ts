@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Tag} from '../../models/tag';
-import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../../utils/table-options';
-import {TagsDataService} from './tags-data.service';
-import {Observable} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { TagsDataService } from './tags-data.service';
+import { Observable } from 'rxjs';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import { Tag } from '@models/tag';
 
 @Component({
   selector: 'app-tags',
@@ -31,8 +31,8 @@ export class TagsComponent implements OnInit {
   selectedDescription = '';
 
   constructor(
-    private service: TagsDataService,
-    private confirmationService: ConfirmationService
+      private service: TagsDataService,
+      private confirmationService: ConfirmationService
   ) {
   }
 

@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Category} from '../../models/category';
-import {ConfirmationService, LazyLoadEvent, MessageService} from 'primeng/api';
-import {fadeIn} from '../../utils/animations/fadeIn';
-import {TABLE_DEFAULTS} from '../../utils/table-options';
-import {CategoriesDataService} from './categories-data.service';
-import {Observable} from 'rxjs';
-import {GlobalNotificationService} from "../../services/global-notification.service";
-import {MESSAGES} from "../../utils/messages";
+import { Component, OnInit } from '@angular/core';
+import { Category } from '@models/category';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import { CategoriesDataService } from './categories-data.service';
+import { Observable } from 'rxjs';
+import { GlobalNotificationService } from '@services/global-notification.service';
+import { MESSAGES } from '@utils/messages';
 
 @Component({
   selector: 'app-categories',
@@ -38,8 +38,8 @@ export class CategoriesComponent implements OnInit {
   };
 
   constructor(
-    private service: CategoriesDataService,
-    private globalNotificationService: GlobalNotificationService
+      private service: CategoriesDataService,
+      private globalNotificationService: GlobalNotificationService
   ) {
     this.categories$ = this.service.getCategories(TABLE_DEFAULTS.query);
     this.total$ = this.service.getTotal();

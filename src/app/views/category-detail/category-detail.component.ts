@@ -1,15 +1,14 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Category } from '../../models/category';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { GlobalNotificationService } from '../../services/global-notification.service';
-import { MESSAGES } from '../../utils/messages';
-import { fadeIn } from '../../utils/animations/fadeIn';
-import { CategoryDetailDataService } from './category-detail-data.service';
-import { Observable, Subscription } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RoutePaths } from '../../models/enums/route-paths';
+import { Location } from '@angular/common';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { filter, flatMap } from 'rxjs/operators';
+import { CategoryDetailDataService } from './category-detail-data.service';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { GlobalNotificationService } from '@services/global-notification.service';
+import { MESSAGES } from '@utils/messages';
+import { RoutePaths } from '@models/enums/route-paths';
 
 @Component({
   selector: 'app-category-detail',
@@ -23,9 +22,10 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   protected nameExists = false;
   protected categoryForm: FormGroup;
   private isEdit: boolean;
-  private id: number;
+  private id$: BehaviorSubject<number> = new BehaviorSubject<number>(null);
   private paramSubscription: Subscription;
   private formSubscription: Subscription;
+  private idSubscription: Subscription;
   private isSubmitted: boolean;
 
   constructor(
@@ -35,12 +35,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       private globalNotificationService: GlobalNotificationService,
       private route: ActivatedRoute
   ) {
-    this.categoryForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      color: new FormControl('#B0AEB0'),
-      id: new FormControl(null)
-    });
   }
 
   get name() {
@@ -48,17 +42,25 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.paramSubscription = this.route.params
+    this.categoryForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      color: new FormControl('#B0AEB0'),
+      id: new FormControl(null)
+    });
+
+    this.idSubscription = this.id$
     .pipe(
-        flatMap((params: Params) => {
-          this.id = params && params.id || null;
-          this.pageTitle = this.id ? 'Edit Category' : 'Add Category';
-          this.isEdit = !!(params && params.id);
-          return params.id || new Observable();
-        }),
-        flatMap(id => id ? this.service.getCategory(parseInt(id.toString(), 10)) : new Observable())
+        filter(id => id !== null),
+        flatMap(id => this.service.getCategory(id))
     )
-    .subscribe((category: Category) => this.categoryForm.setValue(category));
+    .subscribe(category => this.categoryForm.setValue(category));
+
+    this.paramSubscription = this.route.params.subscribe(params => {
+      this.id$.next(params.id || null);
+      this.isEdit = !!(params && params.id);
+      this.pageTitle = params.id ? 'Edit Category' : 'Add Category';
+    });
 
     this.formSubscription = this.categoryForm.valueChanges
     .subscribe(() => this.isSubmitted = false);
@@ -66,6 +68,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramSubscription.unsubscribe();
+    this.idSubscription.unsubscribe();
   }
 
   checkName($event): void {
@@ -85,7 +88,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // TODO fix confirm message
     const confirmMessage = this.isEdit ? MESSAGES.CATEGORY.UPDATE : MESSAGES.CATEGORY.ADD;
     this.service.saveCategory(this.categoryForm.value)
     .subscribe(() => {

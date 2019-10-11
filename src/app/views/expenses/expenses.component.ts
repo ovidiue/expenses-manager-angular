@@ -7,18 +7,18 @@ import {
   MenuItem,
   MessageService
 } from 'primeng/api';
-import { Expense } from '../../models/expense';
-import { GlobalNotificationService } from '../../services/global-notification.service';
-import { MESSAGES } from '../../utils/messages';
-import { DialogRatesComponent } from '../../components/dialog-rates/dialog-rates.component';
-import { fadeIn } from '../../utils/animations/fadeIn';
 import { FormGroup } from '@angular/forms';
-import { ExpenseFilter } from '../../models/filters/expense-filter';
 import * as moment from 'moment';
-import { TABLE_DEFAULTS } from '../../utils/table-options';
-import { Category } from '../../models/category';
 import { Router } from '@angular/router';
 import { ExpensesDataService } from './expenses-data.service';
+import { ExpenseFilter } from '@models/filters/expense-filter';
+import { Category } from '@models/category';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { Expense } from '@models/expense';
+import { MESSAGES } from '@utils/messages';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import { GlobalNotificationService } from '@services/global-notification.service';
+import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
 
 @Component({
   selector: 'app-expenses',

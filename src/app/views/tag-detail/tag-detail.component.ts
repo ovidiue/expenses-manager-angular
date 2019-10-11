@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { GlobalNotificationService } from '../../services/global-notification.service';
-import { MESSAGES } from '../../utils/messages';
-import { fadeIn } from '../../utils/animations/fadeIn';
 import { TagDetailDataService } from './tag-detail-data.service';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, flatMap, switchMap, tap } from 'rxjs/operators';
-import { RoutePaths } from '../../models/enums/route-paths';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { MESSAGES } from '@utils/messages';
+import { RoutePaths } from '@models/enums/route-paths';
+import { GlobalNotificationService } from '@services/global-notification.service';
 
 @Component({
   selector: 'app-tag-detail',
