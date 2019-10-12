@@ -4,9 +4,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { ServerResp } from '@models/interfaces/server-resp';
 import { Expense } from '@models/expense';
 import { ExpenseFilter } from '@models/filters/expense-filter';
-import { TagService } from '@services/tag.service';
 import { ExpenseService } from '@services/expense.service';
-import { CategoryService } from '@services/category.service';
 import { RateService } from '@services/rate.service';
 
 @Injectable({
@@ -16,8 +14,6 @@ export class ExpensesDataService {
   constructor(
       private expenseService: ExpenseService,
       private rateService: RateService,
-      private categoryService: CategoryService,
-      private tagService: TagService,
   ) {
   }
 
