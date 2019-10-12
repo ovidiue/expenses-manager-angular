@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-1">
   <div class="row">
     <div class="holder col-11">
   <span *ngFor="let filter of parsedFilter" class="tag">
@@ -6,10 +6,11 @@
     <span (click)="removeExistingTag(filter.value)" class="action" role="button">X</span>
   </span>
     </div>
-    <div class="col-1 text-center">
-      <button (click)="removeAll()" [disabled]="areFiltersEmpty()"
-              class="ui-button-rounded ui-button-warning ui-button-raised" label="X"
-              pButton type="button"></button>
+    <div (click)="removeAll()"
+         [ngClass]="{'disabled': areFiltersEmpty()}"
+         class="col-1 clear"
+         role="button">
+      <i class="pi pi-times-circle icon" style="font-size: 3em"></i>
     </div>
   </div>
 </div>
