@@ -1,33 +1,28 @@
-import {Injectable} from '@angular/core';
-import {ExpenseService} from '../../services/expense.service';
-import {RateService} from '../../services/rate.service';
-import {CategoryService} from '../../services/category.service';
-import {TagService} from '../../services/tag.service';
-import {LazyLoadEvent} from 'primeng/api';
-import {ExpenseFilter} from '../../models/filters/expense-filter';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LazyLoadEvent } from 'primeng/api';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { Expense } from '@models/expense';
+import { ExpenseFilter } from '@models/filters/expense-filter';
+import { TagService } from '@services/tag.service';
+import { ExpenseService } from '@services/expense.service';
+import { CategoryService } from '@services/category.service';
+import { RateService } from '@services/rate.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpensesDataService {
   constructor(
-    private expenseService: ExpenseService,
-    private rateService: RateService,
-    private categoryService: CategoryService,
-    private tagService: TagService,
+      private expenseService: ExpenseService,
+      private rateService: RateService,
+      private categoryService: CategoryService,
+      private tagService: TagService,
   ) {
   }
 
-  getExpenses(event: LazyLoadEvent, expenseFilter?: ExpenseFilter) {
+  getExpenses(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Observable<ServerResp<Expense>> {
     return this.expenseService.getAll(event, expenseFilter);
-  }
-
-  getTags(event: LazyLoadEvent) {
-    return this.tagService.getAll(event);
-  }
-
-  getCategories(event: LazyLoadEvent) {
-    return this.categoryService.getAll(event);
   }
 
   setCategory(expIds: number[], catId: number) {

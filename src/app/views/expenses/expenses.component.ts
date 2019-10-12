@@ -110,7 +110,6 @@ export class ExpensesComponent implements OnInit {
   }
 
   searchValues($event: any): void {
-    console.log('searchValues parent', $event);
     this.expenseFilter = this.mapToExpenseFilter($event);
     this.service.getExpenses(this.lastEvent, this.expenseFilter).subscribe(resp => {
       this.expenses = resp.content;

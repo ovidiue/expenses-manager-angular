@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import FilterDataService from './filter-data.service';
 import { Observable, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import FilterDataService from './filter-data.service';
 import { SelectItem } from 'primeng/api';
 import * as moment from 'moment';
 
@@ -16,8 +17,8 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
   @Output() filterChange = new EventEmitter<any>();
   private formSubscription: Subscription;
   private filterForm: FormGroup;
-  private beautifiedFilters: string[] = [];
   private amountBetween: number[] = [0, 10000];
+  private beautifiedFilters: string[];
 
   constructor(
       private dataService: FilterDataService
@@ -39,21 +40,22 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.formSubscription = this.filterForm.valueChanges
-    .subscribe(values => this.beautifiedFilters = this.parseFilters(values));
+    .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+    )
+    .subscribe(values => {
+      this.beautifiedFilters = this.parseFilters(values);
+      this.filterChange.emit(this.filterForm.value);
+    });
   }
 
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
   }
 
-  clearFormFilters($event): void {
-    console.log('clearFormFilters called');
+  clearFormFilters(): void {
     this.filterForm.reset();
-    this.filterChange.emit(this.filterForm.value);
-  }
-
-  emitValues(): void {
-    this.beautifiedFilters = this.parseFilters(this.filterForm.value);
     this.filterChange.emit(this.filterForm.value);
   }
 
