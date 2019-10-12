@@ -4,7 +4,6 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import FilterDataService from './filter-data.service';
 import { SelectItem } from 'primeng/api';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-expense-filter',
@@ -18,7 +17,6 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
   private formSubscription: Subscription;
   private filterForm: FormGroup;
   private amountBetween: number[] = [0, 10000];
-  private beautifiedFilters: string[];
 
   constructor(
       private dataService: FilterDataService
@@ -45,7 +43,6 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
         distinctUntilChanged()
     )
     .subscribe(values => {
-      this.beautifiedFilters = this.parseFilters(values);
       this.filterChange.emit(this.filterForm.value);
     });
   }
@@ -59,44 +56,10 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
     this.filterChange.emit(this.filterForm.value);
   }
 
-  parseFilters(obj: any): string[] {
-    const result = [];
-    if (obj) {
-      for (const key in obj) {
-        if (obj[key] !== '' && obj[key] !== null) {
-          let value = '';
-          switch (key) {
-            case 'amount':
-              value = 'Amount between: ' + obj[key][0] + '-' + obj[key][1];
-              break;
-            case 'category':
-              value = 'Category: ' + obj[key].name;
-              break;
-            case 'createdBetween':
-              value = 'Created between: ' + moment(obj[key][0]).format('L') + ' - ' +
-                  moment(obj[key][1]).format('L');
-              break;
-            case 'dueBetween':
-              value = 'Due between: ' + moment(obj[key][0]).format('L') + ' - ' +
-                  moment(obj[key][1]).format('L');
-              break;
-            case 'title':
-              value = 'Title contains: ' + obj[key];
-              break;
-            case 'description':
-              value = 'Description contains: ' + obj[key];
-              break;
-            case 'recurrent':
-              value = 'Recurrent: ' + obj[key];
-              break;
-            case 'tags':
-              value = 'Tags: ' + obj[key].map(el => el.name).concat();
-              break;
-          }
-          result.push(value);
-        }
-      }
-    }
-    return result;
+  filterUpdate(val: any) {
+    val !== null
+        ? this.filterForm.controls[val].reset()
+        : this.filterForm.reset();
   }
+
 }

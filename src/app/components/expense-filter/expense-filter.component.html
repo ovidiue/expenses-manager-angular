@@ -4,7 +4,9 @@
       <p-header>
         Filters
       </p-header>
-      <p-chips [(ngModel)]="beautifiedFilters" [disabled]="true"></p-chips>
+      <app-short-filter [filter]="filterForm.value"
+                        (removeFilter)="filterUpdate($event)">
+      </app-short-filter>
       <form [formGroup]="filterForm">
         <div class="row">
           <div class="col">

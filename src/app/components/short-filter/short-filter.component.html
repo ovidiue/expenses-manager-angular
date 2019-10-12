@@ -1,0 +1,6 @@
+<div class="holder">
+  <span *ngFor="let filter of parsedFilter" class="tag">
+    <span class="value">{{filter.label}}</span>
+    <span (click)="removeExistingTag(filter.value)" class="action" role="button">X</span>
+  </span>
+</div>
