@@ -51,11 +51,6 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
     this.formSubscription.unsubscribe();
   }
 
-  clearFormFilters(): void {
-    this.filterForm.reset();
-    this.filterChange.emit(this.filterForm.value);
-  }
-
   filterUpdate(val: any) {
     val !== null
         ? this.filterForm.controls[val].reset()

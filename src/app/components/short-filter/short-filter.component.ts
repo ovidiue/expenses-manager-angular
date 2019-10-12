@@ -11,6 +11,7 @@ export class ShortFilterComponent implements OnChanges {
   @Output() removeFilter = new EventEmitter<any>();
   parsedFilter: object[] = [];
 
+  // TODO fix range value initialization
   constructor() {
   }
 
@@ -75,5 +76,13 @@ export class ShortFilterComponent implements OnChanges {
       }
     }
     return result;
+  }
+
+  removeAll() {
+    this.removeFilter.emit(null);
+  }
+
+  areFiltersEmpty() {
+    return !this.parsedFilter.length;
   }
 }

@@ -1,6 +1,15 @@
-<div class="holder">
+<div class="container">
+  <div class="row">
+    <div class="holder col-11">
   <span *ngFor="let filter of parsedFilter" class="tag">
     <span class="value">{{filter.label}}</span>
     <span (click)="removeExistingTag(filter.value)" class="action" role="button">X</span>
   </span>
+    </div>
+    <div class="col-1 text-center">
+      <button (click)="removeAll()" [disabled]="areFiltersEmpty()"
+              class="ui-button-rounded ui-button-warning ui-button-raised" label="X"
+              pButton type="button"></button>
+    </div>
+  </div>
 </div>
