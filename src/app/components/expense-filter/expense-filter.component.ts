@@ -33,7 +33,7 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
       createdBetween: new FormControl(''),
       dueBetween: new FormControl(''),
       recurrent: new FormControl(false),
-      amount: new FormControl(''),
+      amount: new FormControl([0, 10000]),
     });
   }
 

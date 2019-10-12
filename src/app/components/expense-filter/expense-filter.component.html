@@ -47,13 +47,12 @@
                       <span [ngStyle]="{background: item.color}"
                             class="selected-cat">
                       </span>
-                  <span
-                      style="font-size:14px;margin-left:10px;margin-top:4px">{{item.label}}</span>
+                  <span style="font-size:14px;margin-left:10px;margin-top:4px">{{item.label}}</span>
                 </ng-template>
                 <ng-template let-cat pTemplate="item">
                   <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                   <span
-                      [ngStyle]="{background: cat.color, width: '50%', height: '100%', display:'inline-block'}"></span>
+                      [ngStyle]="{background: cat.value.color, width: '50%', height: '100%', display:'inline-block'}"></span>
                     <span style="font-size:14px;float:right;margin-top:4px">{{cat.label}}</span>
                   </div>
                 </ng-template>
@@ -78,7 +77,7 @@
                         class="ui-multiselected-empty-token ui-corner-all">Select Tags</span>
                 </ng-template>
                 <ng-template let-tag pTemplate="item">
-                  <span [ngStyle]="{background:tag.color}" class="select-tag"></span>
+                  <span [ngStyle]="{background:tag.value.color}" class="select-tag"></span>
                   <div style="font-size:14px;float:right;margin-top:4px">{{tag.label}}</div>
                 </ng-template>
               </p-multiSelect>
@@ -142,9 +141,9 @@
               <p-slider formControlName="amount"
                         name="amount"
                         id="amount"
-                        [min]="0"
+                        [min]="amountBetween[0]"
                         [step]="100"
-                        [max]="10000"
+                        [max]="amountBetween[1]"
                         [range]="true">
               </p-slider>
             </div>
