@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {TableModule} from 'primeng/table';
+import { NgModule } from '@angular/core';
+import { TableModule } from 'primeng/table';
 import {
   AccordionModule,
   ButtonModule,
@@ -16,11 +16,12 @@ import {
   SidebarModule,
   SliderModule,
   SplitButtonModule,
+  TabMenuModule,
   ToolbarModule,
   TooltipModule,
 } from 'primeng/primeng';
-import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import {ToastModule} from 'primeng/toast';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -42,7 +43,8 @@ import {ToastModule} from 'primeng/toast';
     DialogModule,
     DynamicDialogModule,
     ToastModule,
-    ButtonModule
+    ButtonModule,
+    TabMenuModule
   ],
   exports: [
     TableModule,
@@ -62,7 +64,8 @@ import {ToastModule} from 'primeng/toast';
     DialogModule,
     DynamicDialogModule,
     ToastModule,
-    ButtonModule
+    ButtonModule,
+    TabMenuModule
   ]
 })
 export class PrimengModule {

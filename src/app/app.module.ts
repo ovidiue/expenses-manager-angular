@@ -21,6 +21,8 @@ import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.comp
 import { ProgressSpinnerModule } from 'primeng/primeng';
 import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { ShortFilterComponent } from '@components/short-filter/short-filter.comp
     TagsComponent,
     ExpenseFilterComponent,
     ShortFilterComponent,
+    DashboardComponent,
+    ExpenseCardListComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -47,7 +51,7 @@ import { ShortFilterComponent } from '@components/short-filter/short-filter.comp
     HttpClientModule,
     PrimengModule,
     ProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],
