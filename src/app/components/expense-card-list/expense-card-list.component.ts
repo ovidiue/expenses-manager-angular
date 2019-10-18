@@ -14,7 +14,6 @@ export class ExpenseCardListComponent implements OnInit {
 
   ngOnInit() {
     this.service.getStats().subscribe(resp => {
-      console.log('resp', resp);
       this.stats = resp;
     });
   }

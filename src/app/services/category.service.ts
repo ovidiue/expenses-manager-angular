@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Category } from '../models/category';
 import { LazyLoadEvent } from 'primeng/api';
-import { PathBuilder } from '../utils/PathBuilder';
-import { ApiPath } from '../utils/constants/api-paths';
+import { PathBuilder } from '@utils/PathBuilder';
+import { ApiPath } from '@utils/constants/api-paths';
+import mapTableParams from '@utils/MapTableParamsToRest';
 import { Observable } from 'rxjs';
-import { ServerResp } from '../models/interfaces/server-resp';
-import mapTableParams from '../utils/MapTableParamsToRest';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { Category } from '@models/category';
+import { Card } from '@models/interfaces/card';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -62,4 +63,8 @@ export class CategoryService {
     return this.http.put(url, category, httpOptions);
   }
 
+  getStats(): Observable<Card[]> {
+    const url = this.CATEGORIES_BASE_URL + `/info`;
+    return this.http.get<Card[]>(url);
+  }
 }

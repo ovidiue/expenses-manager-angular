@@ -6,10 +6,10 @@
           <app-expense-card-list></app-expense-card-list>
         </p-tabPanel>
         <p-tabPanel header="Tags">
-          <app-card-view-list></app-card-view-list>
+          <app-card-view-list [stats]="tagStats$ | async"></app-card-view-list>
         </p-tabPanel>
         <p-tabPanel header="Categories">
-          Content 3 Categories
+          <app-card-view-list [stats]="categoriesStats$$ | async"></app-card-view-list>
         </p-tabPanel>
       </p-tabView>
     </div>

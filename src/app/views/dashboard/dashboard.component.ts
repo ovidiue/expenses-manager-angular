@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardDataService } from './dashboard-data.service';
+import { Observable } from 'rxjs';
+import { Card } from '@models/interfaces/card';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  tagStats$: Observable<Card[]>;
+  categoriesStats$$: Observable<Card[]>;
 
-  constructor() {
+  constructor(private service: DashboardDataService) {
   }
 
   ngOnInit() {
+    this.tagStats$ = this.service.getTagStats();
+    this.categoriesStats$$ = this.service.getCategoriesStats();
   }
 }
