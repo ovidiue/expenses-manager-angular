@@ -6,16 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  tabItems = [
-    {label: 'Expenses', icon: 'fa fa-fw fa-bar-chart'},
-    {label: 'Categories', icon: 'fa fa-fw fa-calendar'},
-    {label: 'Tags', icon: 'fa fa-fw fa-book'}
-  ];
 
   constructor() {
   }
 
   ngOnInit() {
   }
-
 }

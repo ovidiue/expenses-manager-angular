@@ -1,7 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <p-tabMenu [model]="tabItems"></p-tabMenu>
+      <p-tabView>
+        <p-tabPanel header="Expenses">
+          <app-expense-card-list></app-expense-card-list>
+        </p-tabPanel>
+        <p-tabPanel header="Tags">
+          Content 2 Tags
+        </p-tabPanel>
+        <p-tabPanel header="Categories">
+          Content 3 Categories
+        </p-tabPanel>
+      </p-tabView>
     </div>
   </div>
 </div>
