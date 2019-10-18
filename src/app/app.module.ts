@@ -18,7 +18,6 @@ import { ExpenseDetailComponent } from './views/expense-detail/expense-detail.co
 import { RateDetailComponent } from './views/rate-detail/rate-detail.component';
 import { GlobalMessageComponent } from '@components/global-message/global-message.component';
 import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.component';
-import { ProgressSpinnerModule } from 'primeng/primeng';
 import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
@@ -50,7 +49,6 @@ import { ExpenseCardListComponent } from '@components/expense-card-list/expense-
     FormsModule,
     HttpClientModule,
     PrimengModule,
-    ProgressSpinnerModule,
     ReactiveFormsModule,
   ],
   entryComponents: [DialogRatesComponent],
