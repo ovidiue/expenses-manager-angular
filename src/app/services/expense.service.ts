@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Expense } from '../models/expense';
-import { ExpenseFilter } from '../models/filters/expense-filter';
+import { Expense } from '@models/expense';
+import { ExpenseFilter } from '@models/filters/expense-filter';
 import { LazyLoadEvent } from 'primeng/api';
-import mapToRestParams from '../utils/MapTableParamsToRest';
-import { ApiPath } from '../utils/constants/api-paths';
-import { PathBuilder } from '../utils/PathBuilder';
+import mapToRestParams from '@utils/MapTableParamsToRest';
+import { ApiPath } from '@utils/constants/api-paths';
+import { PathBuilder } from '@utils/PathBuilder';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -51,5 +51,10 @@ export class ExpenseService {
   setCategory(expenseIds: number[], categoryId: number): Observable<any> {
     const url = `${this.EXPENSES_BASE_URL}/set-category/${categoryId}`;
     return this.http.post(url, expenseIds);
+  }
+
+  getStats(): Observable<any> {
+    const url = this.EXPENSES_BASE_URL + '/expense-stats';
+    return this.http.get(url);
   }
 }
