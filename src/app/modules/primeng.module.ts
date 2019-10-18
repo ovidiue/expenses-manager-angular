@@ -4,6 +4,7 @@ import {
   AccordionModule,
   ButtonModule,
   CalendarModule,
+  CardModule,
   CheckboxModule,
   ChipsModule,
   ColorPickerModule,
@@ -12,11 +13,13 @@ import {
   DropdownModule,
   MultiSelectModule,
   OverlayPanelModule,
+  ProgressSpinnerModule,
   ScrollPanelModule,
   SidebarModule,
   SliderModule,
   SplitButtonModule,
   TabMenuModule,
+  TabViewModule,
   ToolbarModule,
   TooltipModule,
 } from 'primeng/primeng';
@@ -44,7 +47,10 @@ import { ToastModule } from 'primeng/toast';
     DynamicDialogModule,
     ToastModule,
     ButtonModule,
-    TabMenuModule
+    TabMenuModule,
+    CardModule,
+    TabViewModule,
+    ProgressSpinnerModule
   ],
   exports: [
     TableModule,
@@ -65,7 +71,10 @@ import { ToastModule } from 'primeng/toast';
     DynamicDialogModule,
     ToastModule,
     ButtonModule,
-    TabMenuModule
+    TabMenuModule,
+    CardModule,
+    TabViewModule,
+    ProgressSpinnerModule
   ]
 })
 export class PrimengModule {
