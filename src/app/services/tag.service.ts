@@ -7,6 +7,7 @@ import { PathBuilder } from '../utils/PathBuilder';
 import { ApiPath } from '../utils/constants/api-paths';
 import { Observable } from 'rxjs';
 import { ServerResp } from '../models/interfaces/server-resp';
+import { Card } from '@models/interfaces/card';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -45,8 +46,12 @@ export class TagService {
   }
 
   getByName(name: string): Observable<Tag> {
-    console.log('getByName', name);
     const url = this.TAGS_BASE_URL + '/name/' + name;
     return this.http.get<Tag>(url);
+  }
+
+  getStats(): Observable<Card[]> {
+    const url = this.TAGS_BASE_URL + '/tag-info';
+    return this.http.get<Card[]>(url);
   }
 }

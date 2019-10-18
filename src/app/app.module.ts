@@ -22,6 +22,8 @@ import { ExpenseFilterComponent } from '@components/expense-filter/expense-filte
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
+import { CardViewComponent } from '@components/card-view/card-view.component';
+import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { ExpenseCardListComponent } from '@components/expense-card-list/expense-
     ShortFilterComponent,
     DashboardComponent,
     ExpenseCardListComponent,
+    CardViewComponent,
+    CardViewListComponent,
   ],
   imports: [
     AppRoutingModule,
