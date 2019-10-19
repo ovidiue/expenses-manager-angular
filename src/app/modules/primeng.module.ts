@@ -5,6 +5,7 @@ import {
   ButtonModule,
   CalendarModule,
   CardModule,
+  ChartModule,
   CheckboxModule,
   ChipsModule,
   ColorPickerModule,
@@ -50,7 +51,8 @@ import { ToastModule } from 'primeng/toast';
     TabMenuModule,
     CardModule,
     TabViewModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ChartModule
   ],
   exports: [
     TableModule,
@@ -74,7 +76,8 @@ import { ToastModule } from 'primeng/toast';
     TabMenuModule,
     CardModule,
     TabViewModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ChartModule
   ]
 })
 export class PrimengModule {

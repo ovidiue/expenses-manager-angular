@@ -57,4 +57,9 @@ export class ExpenseService {
     const url = this.EXPENSES_BASE_URL + '/expense-stats';
     return this.http.get(url);
   }
+
+  getSimpleExpenses(): Observable<any[]> {
+    const url = this.EXPENSES_BASE_URL + '/simple-expenses';
+    return this.http.get<any[]>(url);
+  }
 }

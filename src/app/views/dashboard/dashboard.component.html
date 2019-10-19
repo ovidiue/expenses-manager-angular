@@ -4,6 +4,8 @@
       <p-tabView>
         <p-tabPanel header="Expenses">
           <app-expense-card-list></app-expense-card-list>
+          <hr>
+          <app-expense-chart></app-expense-chart>
         </p-tabPanel>
         <p-tabPanel header="Tags">
           <app-card-view-list [stats]="tagStats$ | async"></app-card-view-list>
