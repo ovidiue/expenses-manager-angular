@@ -1,5 +1,5 @@
-import {BASE_PATH} from './constants/base-path';
-import {ApiPath} from './constants/api-paths';
+import { BASE_PATH } from './constants/base-path';
+import { ApiPath } from './constants/api-paths';
 
 export class PathBuilder {
   private static ROOT = BASE_PATH;
