@@ -25,6 +25,7 @@ import { ExpenseCardListComponent } from '@components/expense-card-list/expense-
 import { CardViewComponent } from '@components/card-view/card-view.component';
 import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
 import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
+import { ChartComponent } from '@components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.c
     CardViewComponent,
     CardViewListComponent,
     ExpenseChartComponent,
+    ChartComponent,
   ],
   imports: [
     AppRoutingModule,

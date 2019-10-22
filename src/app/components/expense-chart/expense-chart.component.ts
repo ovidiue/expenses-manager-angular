@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartDataService } from '@components/expense-chart/chart-data.service';
+import { ExpenseChartDataService } from '@components/expense-chart/expense-chart-data.service';
 
 @Component({
   selector: 'app-expense-chart',
@@ -9,7 +9,7 @@ import { ChartDataService } from '@components/expense-chart/chart-data.service';
 export class ExpenseChartComponent implements OnInit {
   data: any;
 
-  constructor(private service: ChartDataService) {
+  constructor(private service: ExpenseChartDataService) {
   }
 
   ngOnInit() {

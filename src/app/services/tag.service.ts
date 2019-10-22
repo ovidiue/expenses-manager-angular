@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Tag } from '../models/tag';
+import { Tag } from '@models/tag';
 import { LazyLoadEvent } from 'primeng/api';
-import mapEventToRestParams from '../utils/MapTableParamsToRest';
-import { PathBuilder } from '../utils/PathBuilder';
-import { ApiPath } from '../utils/constants/api-paths';
+import mapEventToRestParams from '@utils/map-rest-params';
+import { PathBuilder } from '@utils/path-builder';
+import { ApiPath } from '@utils/constants/api-paths';
 import { Observable } from 'rxjs';
-import { ServerResp } from '../models/interfaces/server-resp';
+import { ServerResp } from '@models/interfaces/server-resp';
 import { Card } from '@models/interfaces/card';
 
 const httpOptions = {

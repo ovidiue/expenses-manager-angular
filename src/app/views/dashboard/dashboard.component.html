@@ -8,10 +8,14 @@
           <app-expense-chart></app-expense-chart>
         </p-tabPanel>
         <p-tabPanel header="Tags">
-          <app-card-view-list [stats]="tagStats$ | async"></app-card-view-list>
+          <ng-container *ngIf="(tagStats$ | async) as tagStats">
+            <app-card-view-list [stats]="tagStats"></app-card-view-list>
+            <app-chart [chartData]="tagStats" [chartType]="pieChart"></app-chart>
+          </ng-container>
         </p-tabPanel>
         <p-tabPanel header="Categories">
-          <app-card-view-list [stats]="categoriesStats$$ | async"></app-card-view-list>
+          <app-card-view-list [stats]="categoriesStats$ | async"></app-card-view-list>
+          <app-chart [chartData]="categoriesStats$ | async" [chartType]="pieChart"></app-chart>
         </p-tabPanel>
       </p-tabView>
     </div>

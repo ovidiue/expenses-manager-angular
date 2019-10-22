@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Rate} from '../models/rate';
-import {LazyLoadEvent} from 'primeng/api';
-import mapTableParams from '../utils/MapTableParamsToRest';
-import {PathBuilder} from '../utils/PathBuilder';
-import {ApiPath} from '../utils/constants/api-paths';
-import {Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Rate } from '../models/rate';
+import { LazyLoadEvent } from 'primeng/api';
+import mapTableParams from '@utils/map-rest-params';
+import { PathBuilder } from '@utils/path-builder';
+import { ApiPath } from '../utils/constants/api-paths';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})

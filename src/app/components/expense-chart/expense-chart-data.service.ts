@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
-export class ChartDataService {
+export class ExpenseChartDataService {
 
   constructor(private service: ExpenseService) {
   }
@@ -14,7 +14,6 @@ export class ChartDataService {
     return this.service.getSimpleExpenses()
     .pipe(
         map(resp => {
-              console.log('resp', resp);
               const parsed = this.getArrFromObj(this.groupBy(resp, 'month'));
               const labels = this.extractData(parsed, 'month');
               const dataSet1 = this.extractData(parsed, 'total');

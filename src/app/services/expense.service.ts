@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Expense } from '@models/expense';
 import { ExpenseFilter } from '@models/filters/expense-filter';
 import { LazyLoadEvent } from 'primeng/api';
-import mapToRestParams from '@utils/MapTableParamsToRest';
+import mapToRestParams from '@utils/map-rest-params';
 import { ApiPath } from '@utils/constants/api-paths';
-import { PathBuilder } from '@utils/PathBuilder';
+import { PathBuilder } from '@utils/path-builder';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
