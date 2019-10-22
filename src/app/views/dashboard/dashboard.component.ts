@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   categoriesStats$: Observable<Card[]>;
 
   pieChart = ChartType.PIE;
+  barChart = ChartType.BAR;
 
   constructor(private service: DashboardDataService) {
   }

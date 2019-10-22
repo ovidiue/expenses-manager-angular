@@ -8,20 +8,32 @@ import reduceProperty from '@utils/reduce-property';
 export class ChartDataService {
 
   parseChartData(dataArr: Card[],
-                 chartType: ChartType): ChartData {
+                 chartType: ChartType, chartName: string = ''): ChartData {
+    if (!dataArr) {
+      return null;
+    }
+
     switch (chartType) {
       case ChartType.BAR:
-        return this.getBarData();
+        return this.getBarData(dataArr, 'name', 'total', chartName);
       case ChartType.PIE:
-        if (!dataArr) {
-          return null;
-        }
         return this.getPieData(dataArr, 'name', 'total', 'color');
     }
   }
 
-  private getBarData(): ChartData {
-    return null;
+  private getBarData(dataArr: Card[], keyLabel: string, keyData: string, chartName: string = null): any {
+    const nonEmptyArr = dataArr.filter(el => el.total !== 0);
+    const labels = reduceProperty(nonEmptyArr, keyLabel);
+    const datasets = [{
+      label: chartName,
+      backgroundColor: '#42A5F5',
+      borderColor: '#1E88E5',
+      data: reduceProperty(nonEmptyArr, keyData)
+    }];
+    return {
+      labels,
+      datasets
+    };
   }
 
   private getPieData(dataArr: Card[],
