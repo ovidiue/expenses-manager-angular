@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {RateService} from '../../services/rate.service';
-import {ExpenseService} from '../../services/expense.service';
-import {Rate} from '../../models/rate';
-import {LazyLoadEvent} from 'primeng/api';
-import {map, pluck} from 'rxjs/operators';
-import {Expense} from '../../models/expense';
+import { Injectable } from '@angular/core';
+import { RateService } from '@services/rate.service';
+import { ExpenseService } from '@services/expense.service';
+import { Rate } from '@models/rate';
+import { LazyLoadEvent } from 'primeng/api';
+import { map, pluck } from 'rxjs/operators';
+import { Expense } from '@models/expense';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RateDetailService {
   constructor(
-    private rateService: RateService,
-    private expenseService: ExpenseService) {
+      private rateService: RateService,
+      private expenseService: ExpenseService) {
   }
 
   getRate(id: number) {

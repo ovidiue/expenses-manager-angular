@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {RateService} from '../../services/rate.service';
-import {ExpenseService} from '../../services/expense.service';
-import {LazyLoadEvent} from 'primeng/api';
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
-import {Rate} from '../../models/rate';
-import {Expense} from '../../models/expense';
-import {map, tap} from 'rxjs/operators';
-import {TABLE_DEFAULTS} from '../../utils/table-options';
+import { Injectable } from '@angular/core';
+import { RateService } from '@services/rate.service';
+import { ExpenseService } from '@services/expense.service';
+import { LazyLoadEvent } from 'primeng/api';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { Rate } from '@models/rate';
+import { Expense } from '@models/expense';
+import { map, tap } from 'rxjs/operators';
+import { TABLE_DEFAULTS } from '@utils/table-options';
 
 @Injectable({
   providedIn: 'root'

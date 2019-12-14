@@ -11,12 +11,12 @@ import { GlobalNotificationService } from '@services/global-notification.service
 
 @Component({
   selector: 'app-rates',
-  templateUrl: './rates.component.html',
-  styleUrls: ['./rates.component.scss'],
+  templateUrl: './rate-list.component.html',
+  styleUrls: ['./rate-list.component.scss'],
   providers: [ConfirmationService, MessageService, RatesDataService],
   animations: [fadeIn]
 })
-export class RatesComponent implements OnInit {
+export class RateListComponent implements OnInit {
 
   pageData$: Observable<any>;
   expenses$: Observable<Expense[]>;
