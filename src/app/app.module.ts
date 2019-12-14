@@ -7,11 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
-import { ExpensesComponent } from './views/expenses/expenses.component';
-import { ExpenseDetailComponent } from './views/expense-detail/expense-detail.component';
 import { GlobalMessageComponent } from '@components/global-message/global-message.component';
-import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
-import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
 import { CardViewComponent } from '@components/card-view/card-view.component';
@@ -22,16 +18,13 @@ import { CategoryModule } from './views/category/category.module';
 import { SharedModule } from './modules/shared.module';
 import { RateModule } from './views/rate/rate.module';
 import { TagModule } from './views/tag/tag.module';
+import { ExpenseModule } from './views/expense/expense.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogRatesComponent,
-    ExpenseDetailComponent,
-    ExpensesComponent,
     GlobalMessageComponent,
-    ExpenseFilterComponent,
-    ShortFilterComponent,
     DashboardComponent,
     ExpenseCardListComponent,
     CardViewComponent,
@@ -49,6 +42,7 @@ import { TagModule } from './views/tag/tag.module';
     CategoryModule,
     RateModule,
     TagModule,
+    ExpenseModule,
     SharedModule
   ],
   entryComponents: [DialogRatesComponent],

@@ -22,12 +22,12 @@ import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.comp
 
 @Component({
   selector: 'app-expenses',
-  templateUrl: './expenses.component.html',
-  styleUrls: ['./expenses.component.scss'],
+  templateUrl: './expense-list.component.html',
+  styleUrls: ['./expense-list.component.scss'],
   animations: [fadeIn],
   providers: [ConfirmationService, MessageService, DialogService, DynamicDialogConfig]
 })
-export class ExpensesComponent implements OnInit {
+export class ExpenseListComponent implements OnInit {
   expenses: Expense[] = [];
   selectedExpenses: Expense[] = [];
 
