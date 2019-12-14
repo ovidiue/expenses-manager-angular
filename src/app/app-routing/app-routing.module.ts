@@ -9,6 +9,7 @@ import { TagDetailComponent } from '../views/tag-detail/tag-detail.component';
 import { ExpenseDetailComponent } from '../views/expense-detail/expense-detail.component';
 import { RateDetailComponent } from '../views/rate-detail/rate-detail.component';
 import { DashboardComponent } from '../views/dashboard/dashboard.component';
+import { CategoryDetailEditComponent } from '../views/category-detail/category-detail-edit.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},
@@ -33,7 +34,7 @@ const routes: Routes = [
     children: [
       {path: '', component: CategoriesComponent},
       {path: 'add', component: CategoryDetailComponent},
-      {path: 'edit/:id', component: CategoryDetailComponent}
+      {path: 'edit/:id', component: CategoryDetailEditComponent}
     ]
   },
   {

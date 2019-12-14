@@ -1,15 +1,16 @@
-import {Injectable} from '@angular/core';
-import {CategoryService} from '../../services/category.service';
-import {Category} from '../../models/category';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { CategoryService } from '@services/category.service';
+import { Category } from '@models/category';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryDetailDataService {
   constructor(
-    private service: CategoryService
-  ) {}
+      private service: CategoryService
+  ) {
+  }
 
   getCategory(catId: number): Observable<Category> {
     return this.service.get(catId);
@@ -19,8 +20,8 @@ export class CategoryDetailDataService {
     return this.service.getByName(name);
   }
 
-  updateCategory(category: Category, id: number): Observable<any> {
-    return this.service.update(category, id);
+  updateCategory(category: Category): Observable<any> {
+    return this.service.update(category);
   }
 
   saveCategory(category: Category): Observable<any> {

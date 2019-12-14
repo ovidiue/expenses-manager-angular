@@ -26,12 +26,14 @@ import { CardViewComponent } from '@components/card-view/card-view.component';
 import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
 import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
 import { ChartComponent } from '@components/chart/chart.component';
+import { CategoryDetailEditComponent } from './views/category-detail/category-detail-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesComponent,
     CategoryDetailComponent,
+    CategoryDetailEditComponent,
     DialogRatesComponent,
     ExpenseDetailComponent,
     ExpensesComponent,

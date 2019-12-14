@@ -1,12 +1,15 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Location } from '@angular/common';
 import { CategoryDetailDataService } from './category-detail-data.service';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { GlobalNotificationService } from '@services/global-notification.service';
 import { MESSAGES } from '@utils/messages';
 import { RoutePaths } from '@models/enums/route-paths';
 import { CategoryDetailBaseComponent } from './category-detail-base.component';
-import { Location } from '@angular/common';
+import { pluck, switchMap } from 'rxjs/operators';
+import { Category } from '@models/category';
 
 @Component({
   selector: 'app-category-detail',
@@ -14,7 +17,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./category-detail.component.scss'],
   animations: [fadeIn]
 })
-export class CategoryDetailComponent extends CategoryDetailBaseComponent implements OnInit {
+export class CategoryDetailEditComponent extends CategoryDetailBaseComponent implements OnInit {
+
   constructor(
       protected location: Location,
       protected router: Router,
@@ -23,11 +27,27 @@ export class CategoryDetailComponent extends CategoryDetailBaseComponent impleme
       protected route: ActivatedRoute
   ) {
     super(location, router, service, globalNotificationService, route);
-    this.pageTitle = 'Create category';
+    this.pageTitle = 'Edit Category';
   }
 
   get name() {
     return this.categoryForm.get('name');
+  }
+
+  ngOnInit() {
+    this.categoryForm.addControl('id', new FormControl(null));
+
+    this.subscriptions.push(
+        this.route.params
+            .pipe(
+                pluck('id'),
+                switchMap((id: number) => this.service.getCategory(id))
+            )
+            .subscribe((category: Category) => {
+              this.initialName = category.name;
+              this.categoryForm.setValue(category);
+            })
+    );
   }
 
   onSubmit() {
@@ -36,10 +56,10 @@ export class CategoryDetailComponent extends CategoryDetailBaseComponent impleme
       return;
     }
 
-    this.service.saveCategory(this.categoryForm.value)
+    this.service.updateCategory(this.categoryForm.value)
         .subscribe(() => {
           this.router.navigate([RoutePaths.CATEGORY_LISTING]);
-          this.globalNotificationService.add(MESSAGES.CATEGORY.ADD);
+          this.globalNotificationService.add(MESSAGES.CATEGORY.UPDATE);
         });
   }
 }

@@ -58,8 +58,8 @@ export class CategoryService {
     return this.getByName(name);
   }
 
-  update(category: Category, id: number): Observable<any> {
-    const url = this.CATEGORIES_BASE_URL + `/update/${id}`;
+  update(category: Category): Observable<any> {
+    const url = this.CATEGORIES_BASE_URL + `/update`;
     return this.http.put(url, category, httpOptions);
   }
 
