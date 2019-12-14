@@ -10,12 +10,12 @@ import { MESSAGES } from '@utils/messages';
 
 @Component({
   selector: 'app-categories',
-  templateUrl: './categories.component.html',
+  templateUrl: './category-list.component.html',
   styleUrls: ['./categories.component.scss'],
   providers: [ConfirmationService, MessageService, CategoriesDataService],
   animations: [fadeIn]
 })
-export class CategoriesComponent implements OnInit {
+export class CategoryListComponent implements OnInit {
 
   categories$: Observable<Category[]>;
   total$: Observable<number>;
@@ -59,7 +59,7 @@ export class CategoriesComponent implements OnInit {
 
   deleteCategory(withExpenses: boolean): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedCategories
-    .map(cat => cat.id);
+        .map(cat => cat.id);
     this.service.deleteCategory(idsToDelete, withExpenses).subscribe((deleted) => {
       this.resetDeletionVariables();
       this.globalNotificationService.add(MESSAGES.CATEGORY.DELETED_MULTIPLE + ' ' + deleted);
@@ -69,6 +69,6 @@ export class CategoriesComponent implements OnInit {
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
     this.service.getCategories(event)
-    .subscribe(() => this.tableDefaults.loading = false);
+        .subscribe(() => this.tableDefaults.loading = false);
   }
 }

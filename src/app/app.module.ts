@@ -7,17 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
-import { PrimengModule } from './modules/primeng.module';
-import { CategoriesComponent } from './views/categories/categories.component';
 import { ExpensesComponent } from './views/expenses/expenses.component';
 import { RatesComponent } from './views/rates/rates.component';
 import { TagsComponent } from './views/tags/tags.component';
-import { CategoryDetailComponent } from './views/category-detail/category-detail.component';
 import { TagDetailComponent } from './views/tag-detail/tag-detail.component';
 import { ExpenseDetailComponent } from './views/expense-detail/expense-detail.component';
 import { RateDetailComponent } from './views/rate-detail/rate-detail.component';
 import { GlobalMessageComponent } from '@components/global-message/global-message.component';
-import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.component';
 import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
@@ -26,19 +22,16 @@ import { CardViewComponent } from '@components/card-view/card-view.component';
 import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
 import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
 import { ChartComponent } from '@components/chart/chart.component';
-import { CategoryDetailEditComponent } from './views/category-detail/category-detail-edit.component';
+import { CategoryModule } from './views/category/category.module';
+import { SharedModule } from './modules/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoriesComponent,
-    CategoryDetailComponent,
-    CategoryDetailEditComponent,
     DialogRatesComponent,
     ExpenseDetailComponent,
     ExpensesComponent,
     GlobalMessageComponent,
-    PageSpinnerComponent,
     RateDetailComponent,
     RatesComponent,
     TagDetailComponent,
@@ -58,8 +51,9 @@ import { CategoryDetailEditComponent } from './views/category-detail/category-de
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    PrimengModule,
     ReactiveFormsModule,
+    CategoryModule,
+    SharedModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [],

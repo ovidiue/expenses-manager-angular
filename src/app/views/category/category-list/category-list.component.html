@@ -1,0 +1,153 @@
+<div [@fadeIn] class="container">
+  <div class="page-title">
+    <h3>Categories</h3>
+  </div>
+
+  <ng-container *ngIf="categories$ | async as categories">
+
+    <app-page-spinner [displaySpinner]="categories.length === 0"></app-page-spinner>
+
+    <div *ngIf="categories.length" class="row">
+      <p-overlayPanel #op>
+        <p-scrollPanel [style]="{width: '300px', height: '200px'}">
+          <div style="padding:1em;line-height:1.5">
+            {{selectedDescription}}
+          </div>
+        </p-scrollPanel>
+      </p-overlayPanel>
+      <div class="table-wrapper mt-5 mb-5">
+        <div class="col">
+          <p-toolbar>
+            <div class="ui-toolbar-group-right">
+              <p-dialog [closable]="false"
+                        [header]="'Confirm DELETE'"
+                        [rtl]="true"
+                        [visible]="displayDeleteModal"
+                        modal="true">
+                <span>{{deletionText}}</span>
+                <p>This action can not be undone!</p>
+                <p-footer class="three-button">
+                  <button (click)="resetDeletionVariables()"
+                          [class]="'ui-button-secondary float-left ui-button-secondary ui-button-raised'"
+                          icon="pi pi-times"
+                          label="Cancel"
+                          pButton
+                          type="button">
+                  </button>
+                  <button (click)="deleteCategory(false)"
+                          [class]="'ui-button-danger ui-button-raised'"
+                          icon="pi pi-check"
+                          label="Delete"
+                          pButton
+                          type="button">
+                  </button>
+                  <button (click)="deleteCategory(true)"
+                          [class]="'ui-button-danger ui-button-raised extra-danger'"
+                          icon="pi pi-check"
+                          label="Delete expenses too"
+                          pButton
+                          pTooltip="This will delete attached expenses, and the rates attached to those expenses!"
+                          type="button">
+                  </button>
+                </p-footer>
+              </p-dialog>
+              <button (click)="displayDeleteModal=true"
+                      [disabled]="!selectedCategories.length"
+                      class="ui-button-raised ui-button-danger"
+                      label="Delete"
+                      pButton
+                      type="button">
+              </button>
+              <button class="ui-button-raised" label="Add Category"
+                      pButton
+                      routerLink="add"
+                      type="button">
+              </button>
+            </div>
+          </p-toolbar>
+
+        </div>
+        <div class="col">
+          <p-table (onLazyLoad)="getCategories($event)"
+                   [(selection)]="selectedCategories"
+                   [lazy]="true"
+                   [loading]="tableDefaults.loading"
+                   [paginatorPosition]="tableDefaults.paginatorPosition"
+                   [paginator]="categories.length > 0"
+                   [reorderableColumns]="tableDefaults.reorderableColumns"
+                   [rowHover]="tableDefaults.rowHover"
+                   [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
+                   [rows]="tableDefaults.defaultRows"
+                   [scrollHeight]="tableDefaults.scrollHeight"
+                   [scrollable]="tableDefaults.scrollable"
+                   [sortField]="'name'"
+                   [sortOrder]="-1"
+                   [totalRecords]="total$ | async"
+                   [value]="categories">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 3em">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of tableOptions.columns"
+                    [pSortableColumn]="col.value">
+                  {{col.name}}
+                  <p-sortIcon [field]="col.value"></p-sortIcon>
+                </th>
+                <th class="actions-width">Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template let-cat pTemplate="body">
+              <tr [pSelectableRow]="cat">
+                <td>
+                  <p-tableCheckbox [value]="cat"></p-tableCheckbox>
+                </td>
+                <td>{{cat.name}}</td>
+                <td>
+                  <div (click)="selectedDescription=cat.description;op.toggle($event)"
+                       *ngIf="cat.description && cat.description.length > 15; else smallerDesc"
+                       pTooltip="Click for detailed info"
+                       style="cursor:pointer;">
+                    {{cat.description.length > 15 ? (cat.description | slice:0:20) + '...' :
+                      cat.description}}
+                  </div>
+                  <ng-template #smallerDesc>
+                    <div>
+                      {{cat.description}}
+                    </div>
+                  </ng-template>
+                </td>
+                <td>
+                  <div [ngStyle]="{'background':cat.color}" class="table-cell-color"></div>
+                </td>
+                <td class="text-center">
+                  <button [routerLink]="['edit', cat.id]"
+                          class="ui-button-info"
+                          icon="pi pi-pencil"
+                          iconPos="left"
+                          pButton
+                          type="button"></button>
+                  <button (click)="selectedForDeletion=cat;displayDeleteModal=true"
+                          class="ui-button-danger"
+                          icon="pi pi-trash"
+                          iconPos="left"
+                          pButton
+                          type="button"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <div *ngIf="!categories.length"
+               class="text-center font-weight-bold font-italic bg-light p-2">
+            {{tableDefaults.noData}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+
+
+</div>
+
+
