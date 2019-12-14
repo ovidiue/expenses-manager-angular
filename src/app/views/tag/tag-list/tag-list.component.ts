@@ -8,12 +8,12 @@ import { Tag } from '@models/tag';
 
 @Component({
   selector: 'app-tags',
-  templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss'],
+  templateUrl: './tag-list.component.html',
+  styleUrls: ['./tag-list.component.scss'],
   providers: [ConfirmationService, MessageService, TagsDataService],
   animations: [fadeIn]
 })
-export class TagsComponent implements OnInit {
+export class TagListComponent implements OnInit {
   tags$: Observable<Tag[]>;
   total$: Observable<number>;
 

@@ -8,8 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
 import { ExpensesComponent } from './views/expenses/expenses.component';
-import { TagsComponent } from './views/tags/tags.component';
-import { TagDetailComponent } from './views/tag-detail/tag-detail.component';
 import { ExpenseDetailComponent } from './views/expense-detail/expense-detail.component';
 import { GlobalMessageComponent } from '@components/global-message/global-message.component';
 import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
@@ -23,6 +21,7 @@ import { ChartComponent } from '@components/chart/chart.component';
 import { CategoryModule } from './views/category/category.module';
 import { SharedModule } from './modules/shared.module';
 import { RateModule } from './views/rate/rate.module';
+import { TagModule } from './views/tag/tag.module';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,6 @@ import { RateModule } from './views/rate/rate.module';
     ExpenseDetailComponent,
     ExpensesComponent,
     GlobalMessageComponent,
-    TagDetailComponent,
-    TagsComponent,
     ExpenseFilterComponent,
     ShortFilterComponent,
     DashboardComponent,
@@ -51,6 +48,7 @@ import { RateModule } from './views/rate/rate.module';
     ReactiveFormsModule,
     CategoryModule,
     RateModule,
+    TagModule,
     SharedModule
   ],
   entryComponents: [DialogRatesComponent],
