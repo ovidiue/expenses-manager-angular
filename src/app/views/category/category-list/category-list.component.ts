@@ -19,6 +19,7 @@ export class CategoryListComponent implements OnInit {
 
   categories$: Observable<Category[]>;
   total$: Observable<number>;
+  loading$: Observable<boolean>;
 
   selectedCategories: Category[] = [];
 
@@ -43,6 +44,7 @@ export class CategoryListComponent implements OnInit {
   ) {
     this.categories$ = this.service.getCategories(TABLE_DEFAULTS.query);
     this.total$ = this.service.getTotal();
+    this.loading$ = this.service.getLoading();
   }
 
   ngOnInit() {

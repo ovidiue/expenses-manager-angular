@@ -5,7 +5,7 @@
 
   <ng-container *ngIf="categories$ | async as categories">
 
-    <app-page-spinner [displaySpinner]="categories.length === 0"></app-page-spinner>
+    <app-page-spinner [displaySpinner]="loading$ | async"></app-page-spinner>
 
     <div *ngIf="categories.length" class="row">
       <p-overlayPanel #op>
