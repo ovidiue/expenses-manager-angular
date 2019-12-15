@@ -50,13 +50,17 @@ export class ExpenseDetailService {
     return this.expenseService.save(expense);
   }
 
+  updateExpense(expense: Expense) {
+    return this.expenseService.update(expense);
+  }
+
   private loadTags() {
     this.tagService.getAll(TABLE_DEFAULTS.maxSize)
-    .pipe(
+      .pipe(
         pluck('content'),
         map((tags: Tag[]) => tags.map(tag => ({label: tag.name, value: tag})
         )))
-    .subscribe((tags: SelectItem[]) => this._tags.next(tags));
+      .subscribe((tags: SelectItem[]) => this._tags.next(tags));
   }
 
   private loadCategories() {

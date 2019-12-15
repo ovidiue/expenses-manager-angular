@@ -62,4 +62,9 @@ export class ExpenseService {
     const url = this.EXPENSES_BASE_URL + '/simple-expenses';
     return this.http.get<any[]>(url);
   }
+
+  update(expense: Expense): Observable<any> {
+    const url = this.EXPENSES_BASE_URL + '/update';
+    return this.http.put(url, expense);
+  }
 }
