@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RateDetailComponent } from './rate-detail.component';
+import { RateDetailAddComponent } from './rate-detail-add.component';
 
 describe('RateDetailComponent', () => {
-  let component: RateDetailComponent;
-  let fixture: ComponentFixture<RateDetailComponent>;
+  let component: RateDetailAddComponent;
+  let fixture: ComponentFixture<RateDetailAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RateDetailComponent ]
-    })
-    .compileComponents();
+          declarations: [RateDetailAddComponent]
+        })
+        .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RateDetailComponent);
+    fixture = TestBed.createComponent(RateDetailAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -21,6 +21,7 @@
               <div *ngIf="name.errors.required">Name is required</div>
             </div>
             <div *ngIf="nameExists && !name.errors" class="invalid-feedback" style="display: block;">
+<!--              TODO animations for error transitions-->
               <div>Name already exists. Please choose another name!</div>
             </div>
           </div>

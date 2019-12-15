@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../modules/shared.module';
 import { RateListComponent } from './rate-list/rate-list.component';
-import { RateDetailComponent } from './rate-detail/rate-detail.component';
+import { RateDetailAddComponent } from './rate-detail/rate-detail-add.component';
+import { RateDetailEditComponent } from './rate-detail/rate-detail-edit.component';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import { RateDetailComponent } from './rate-detail/rate-detail.component';
   ],
   declarations: [
     RateListComponent,
-    RateDetailComponent
+    RateDetailAddComponent,
+    RateDetailEditComponent
   ]
 })
 export class RateModule {

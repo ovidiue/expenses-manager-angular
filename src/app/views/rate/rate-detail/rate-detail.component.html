@@ -5,28 +5,25 @@
   <div class="row mb-5">
     <div class="col">
       <div class="form-wrapper">
-        <form #f="ngForm"
-              name="form"
-              (ngSubmit)="f.form.valid && onSubmit()">
+        <form (ngSubmit)="onSubmit()"
+              [formGroup]="rateFormControls">
           <div class="form-group">
             <label for="amount">Amount</label>
             <input type="text"
                    class="form-control"
                    id="amount"
-                   [ngClass]="{ 'is-invalid': f.submitted && amount.invalid }"
+                   [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
                    required
                    name="amount"
-                   #amount="ngModel"
                    placeholder="Enter amount"
-                   [(ngModel)]="rate.amount">
-            <div *ngIf="f.submitted && amount.invalid" class="invalid-feedback">
+                   formControlName="amount">
+            <div *ngIf="isSubmitted && amount.errors" class="invalid-feedback">
               <div *ngIf="amount.errors.required">Amount is required</div>
             </div>
           </div>
           <div class="form-group">
             <label for="payedOn">Payed On</label>
-            <p-calendar [(ngModel)]="rate.payedOn"
-                        name="payedOn"
+            <p-calendar formControlName="payedOn"
                         id="payedOn"
                         class="block"
                         [required]="true"
@@ -34,14 +31,14 @@
                         [monthNavigator]="true"
                         [yearNavigator]="true"
                         [maxDate]="maxDate"
-                        #payedOn="ngModel"
+                        name="payedOn"
                         yearRange="2000:2030"
                         showButtonBar="true">
             </p-calendar>
-            <div *ngIf="f.submitted && payedOn.invalid"
+            <div *ngIf="isSubmitted && payedOn.invalid"
                  class="invalid-feedback"
                  style="display: block;">
-              <div *ngIf="payedOn.errors.required">Date is required</div>
+              <div *ngIf="payedOn.errors">Date is required</div>
             </div>
           </div>
           <div class="form-group">
@@ -50,7 +47,7 @@
                         name="expense"
                         class="block"
                         [options]="expenses$ | async"
-                        [(ngModel)]="rate.expense"
+                        formControlName="expense"
                         [showClear]="true"
                         [placeholder]="'Select expense'"
                         [style]="{'width':'50%'}">
@@ -63,7 +60,7 @@
                       id="observation"
                       name="observation"
                       placeholder="Observation"
-                      [(ngModel)]="rate.observation"
+                      formControlName="observation"
             ></textarea>
           </div>
           <hr>
