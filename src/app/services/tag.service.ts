@@ -54,4 +54,9 @@ export class TagService {
     const url = this.TAGS_BASE_URL + '/tag-info';
     return this.http.get<Card[]>(url);
   }
+
+  update(tag: Tag) {
+    const url = this.TAGS_BASE_URL + '/update';
+    return this.http.put(url, tag, httpOptions);
+  }
 }

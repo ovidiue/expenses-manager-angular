@@ -15,10 +15,14 @@ export class TagDetailDataService {
   }
 
   getTagByName(name: string): Observable<Tag> {
-    return name.length ? this.tagService.getByName(name) : new Observable();
+    return this.tagService.getByName(name);
   }
 
   saveTag(tag: Tag) {
     return this.tagService.save(tag);
+  }
+
+  update(tag: Tag) {
+    return this.tagService.update(tag);
   }
 }

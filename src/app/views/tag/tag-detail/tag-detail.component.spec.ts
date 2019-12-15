@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagDetailComponent } from './tag-detail.component';
+import { TagDetailComponent } from './tag-detail-add.component';
 
 describe('TagDetailComponent', () => {
   let component: TagDetailComponent;
