@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
-import { GlobalMessageComponent } from '@components/global-message/global-message.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
 import { CardViewComponent } from '@components/card-view/card-view.component';
@@ -24,7 +23,6 @@ import { ExpenseModule } from './views/expense/expense.module';
   declarations: [
     AppComponent,
     DialogRatesComponent,
-    GlobalMessageComponent,
     DashboardComponent,
     ExpenseCardListComponent,
     CardViewComponent,

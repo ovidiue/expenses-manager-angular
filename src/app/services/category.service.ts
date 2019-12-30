@@ -27,9 +27,9 @@ export class CategoryService {
     return this.http.get<ServerResp<Category>>(this.CATEGORIES_BASE_URL, {params});
   }
 
-  getCategories(event: LazyLoadEvent = null): Observable<any> {
+  getCategories(event: LazyLoadEvent = null): Observable<Category[]> {
     const params: HttpParams = mapTableParams(event);
-    return this.http.get(this.CATEGORIES_BASE_URL, {params});
+    return this.http.get<Category[]>(this.CATEGORIES_BASE_URL, {params});
   }
 
   save(category: Category): Observable<any> {
@@ -37,11 +37,11 @@ export class CategoryService {
     return this.http.post(url, category, httpOptions);
   }
 
-  delete(categoryIds: number[], withExpenses: boolean): Observable<any> {
+  delete(categoryIds: number[], withExpenses: boolean): Observable<number[]> {
     let params: HttpParams = new HttpParams();
     params = params.append('withExpenses', withExpenses.toString());
     const url = this.CATEGORIES_BASE_URL + '/delete';
-    return this.http.post(url, categoryIds, {params});
+    return this.http.post<number[]>(url, categoryIds, {params});
   }
 
   get(catId: number): Observable<Category> {

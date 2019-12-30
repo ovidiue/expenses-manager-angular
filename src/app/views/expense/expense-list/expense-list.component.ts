@@ -19,6 +19,8 @@ import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import { GlobalNotificationService } from '@services/global-notification.service';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { Rate } from '@models/rate';
 
 @Component({
   selector: 'app-expenses',
@@ -188,7 +190,7 @@ export class ExpenseListComponent implements OnInit {
   }
 
   fetchAndDisplayRates(exp: Expense): void {
-    this.service.getRatesByExpenseId(exp.id).then(resp => {
+    this.service.getRatesByExpenseId(exp.id).subscribe((resp: ServerResp<Rate[]>) => {
       const width = resp.content.length > 0 ? '70%' : '30%';
       this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
         header: `${exp.title} - rates`,

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { RateService } from '@services/rate.service';
 import { ExpenseService } from '@services/expense.service';
 import { LazyLoadEvent } from 'primeng/api';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, throwError } from 'rxjs';
 import { Rate } from '@models/rate';
 import { Expense } from '@models/expense';
-import { map, tap } from 'rxjs/operators';
+import { catchError, finalize, map } from 'rxjs/operators';
 import { TABLE_DEFAULTS } from '@utils/table-options';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +17,12 @@ export class RatesDataService {
   private _rates: BehaviorSubject<Rate[]> = new BehaviorSubject([]);
   private _expenses: BehaviorSubject<Expense[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<Number> = new BehaviorSubject(0);
+  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private rateService: RateService,
-    private expenseService: ExpenseService
+    private expenseService: ExpenseService,
+    private toastr: ToastrService
   ) {
     this.loadServerData(TABLE_DEFAULTS.query);
     this.loadServerExpenses();
@@ -30,14 +34,14 @@ export class RatesDataService {
       this._rates.asObservable(),
       this._total.asObservable()
     ])
-    .pipe(
-      map(([rates, total]) => (
-        {
-          rates,
-          total
-        }
-      ))
-    );
+      .pipe(
+        map(([rates, total]) => (
+          {
+            rates,
+            total
+          }
+        ))
+      );
   }
 
   getRatesByExpenseIds(ids: number[], event: LazyLoadEvent) {
@@ -54,17 +58,23 @@ export class RatesDataService {
   }
 
   deleteRates(ids: number[]) {
+    this.setLoadingState(true);
     return this.rateService.deleteRates(ids)
-    .pipe(
-      tap(respIds => {
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, 'Failed deleting rates');
+          return throwError(err);
+        }),
+        finalize(() => this.setLoadingState(false))
+      ).subscribe(respIds => {
         const remainingRates = this._rates.getValue()
-        .filter(rate => !respIds.includes(rate.id));
+          .filter(rate => !respIds.includes(rate.id));
         this._rates.next(remainingRates);
         const newTotalValue = Number(this._total.getValue()) - respIds.length;
         this._total.next(newTotalValue);
+        this.toastr.success('', 'Deleted rates');
         return respIds;
-      })
-    );
+      });
   }
 
   getExpenses(): Observable<Expense[]> {
@@ -72,20 +82,43 @@ export class RatesDataService {
   }
 
   loadServerData(event: LazyLoadEvent): void {
+    this.setLoadingState(true);
     this.rateService.getRates(event)
-    .subscribe(resp => {
-      const {content, totalElements} = resp;
-      this._rates.next(content);
-      this._total.next(totalElements);
-    });
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, 'Load rates failed');
+          return throwError(err);
+        }),
+        finalize(() => this.setLoadingState(false))
+      )
+      .subscribe(resp => {
+        const {content, totalElements} = resp;
+        this._rates.next(content);
+        this._total.next(totalElements);
+      });
 
   }
 
   loadServerExpenses() {
+    this.setLoadingState(true);
     this.expenseService.getAll(TABLE_DEFAULTS.query)
-    .subscribe(
-      resp => this._expenses.next(resp.content)
-    );
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, 'Failed fetching expenses');
+          return throwError(err);
+        }),
+        finalize(() => this.setLoadingState(false))
+      )
+      .subscribe(
+        resp => this._expenses.next(resp.content)
+      );
+  }
 
+  public getLoadingState(): Observable<boolean> {
+    return this._loading.asObservable();
+  }
+
+  private setLoadingState(state: boolean): void {
+    this._loading.next(state);
   }
 }

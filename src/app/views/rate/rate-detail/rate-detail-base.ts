@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RateDetailService } from './rate-detail.service';
 import { Observable } from 'rxjs';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { GlobalNotificationService } from '@services/global-notification.service';
 import * as moment from 'moment';
 import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -25,7 +24,6 @@ export class RateDetailBase extends SubscriptionsBaseClass {
       protected location: Location,
       protected router: Router,
       protected service: RateDetailService,
-      protected globalNotificationService: GlobalNotificationService,
       protected route: ActivatedRoute
   ) {
     super();

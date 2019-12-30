@@ -4,9 +4,7 @@ import { Location } from '@angular/common';
 import { TagDetailDataService } from './tag-detail-data.service';
 import { FormGroup } from '@angular/forms';
 import { fadeIn } from '@utils/animations/fadeIn';
-import { MESSAGES } from '@utils/messages';
 import { RoutePaths } from '@models/enums/route-paths';
-import { GlobalNotificationService } from '@services/global-notification.service';
 import { TagDetailBase } from './tag-detail-base';
 
 @Component({
@@ -22,11 +20,10 @@ export class TagDetailAddComponent extends TagDetailBase {
   constructor(
       protected location: Location,
       protected router: Router,
-      protected globalNotificationService: GlobalNotificationService,
       protected service: TagDetailDataService,
       protected route: ActivatedRoute
   ) {
-    super(location, router, globalNotificationService, service, route);
+    super(location, router, service, route);
     this.pageTitle = 'Add Rate';
   }
 
@@ -36,13 +33,11 @@ export class TagDetailAddComponent extends TagDetailBase {
       return;
     }
     this.service
-        .saveTag(this.tagFormControls.value)
-        .subscribe(
-            () => {
-              this.router.navigate([RoutePaths.TAG_LISTING]);
-              this.globalNotificationService.add(MESSAGES.TAG.ADD);
-            },
-            () => this.globalNotificationService.add(MESSAGES.ERROR));
+      .saveTag(this.tagFormControls.value)
+      .subscribe(
+        () => {
+          this.router.navigate([RoutePaths.TAG_LISTING]);
+        });
   }
 
 }

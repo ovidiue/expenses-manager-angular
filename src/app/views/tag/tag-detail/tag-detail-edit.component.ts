@@ -4,9 +4,7 @@ import { Location } from '@angular/common';
 import { TagDetailDataService } from './tag-detail-data.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { fadeIn } from '@utils/animations/fadeIn';
-import { MESSAGES } from '@utils/messages';
 import { RoutePaths } from '@models/enums/route-paths';
-import { GlobalNotificationService } from '@services/global-notification.service';
 import { TagDetailBase } from './tag-detail-base';
 import { pluck, switchMap } from 'rxjs/operators';
 import { Tag } from '@models/tag';
@@ -24,11 +22,10 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
   constructor(
       protected location: Location,
       protected router: Router,
-      protected globalNotificationService: GlobalNotificationService,
       protected service: TagDetailDataService,
       protected route: ActivatedRoute
   ) {
-    super(location, router, globalNotificationService, service, route);
+    super(location, router, service, route);
 
     this.pageTitle = 'Edit Rate';
   }
@@ -54,13 +51,11 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
       return;
     }
     this.service
-        .update(this.tagFormControls.value)
-        .subscribe(
-            () => {
-              this.router.navigate([RoutePaths.TAG_LISTING]);
-              this.globalNotificationService.add(MESSAGES.TAG.ADD);
-            },
-            () => this.globalNotificationService.add(MESSAGES.ERROR));
+      .update(this.tagFormControls.value)
+      .subscribe(
+        () => {
+          this.router.navigate([RoutePaths.TAG_LISTING]);
+        });
   }
 
 }

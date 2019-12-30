@@ -2,7 +2,6 @@ import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalNotificationService } from '@services/global-notification.service';
 import { TagDetailDataService } from './tag-detail-data.service';
 import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 import { Tag } from '@models/tag';
@@ -17,7 +16,6 @@ export class TagDetailBase extends SubscriptionsBaseClass {
   constructor(
       protected location: Location,
       protected router: Router,
-      protected globalNotificationService: GlobalNotificationService,
       protected service: TagDetailDataService,
       protected route: ActivatedRoute
   ) {

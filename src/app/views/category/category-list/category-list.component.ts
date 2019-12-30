@@ -5,8 +5,6 @@ import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import { CategoriesDataService } from './categories-data.service';
 import { Observable } from 'rxjs';
-import { GlobalNotificationService } from '@services/global-notification.service';
-import { MESSAGES } from '@utils/messages';
 
 @Component({
   selector: 'app-categories',
@@ -39,12 +37,11 @@ export class CategoryListComponent implements OnInit {
   };
 
   constructor(
-      private service: CategoriesDataService,
-      private globalNotificationService: GlobalNotificationService
+    private service: CategoriesDataService,
   ) {
+    this.loading$ = this.service.getLoading();
     this.categories$ = this.service.getCategories(TABLE_DEFAULTS.query);
     this.total$ = this.service.getTotal();
-    this.loading$ = this.service.getLoading();
   }
 
   ngOnInit() {
@@ -61,16 +58,16 @@ export class CategoryListComponent implements OnInit {
 
   deleteCategory(withExpenses: boolean): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedCategories
-        .map(cat => cat.id);
-    this.service.deleteCategory(idsToDelete, withExpenses).subscribe((deleted) => {
-      this.resetDeletionVariables();
-      this.globalNotificationService.add(MESSAGES.CATEGORY.DELETED_MULTIPLE + ' ' + deleted);
-    });
+      .map(cat => cat.id);
+    this.service.deleteCategory(idsToDelete, withExpenses)
+      .subscribe((deleted) => {
+        this.resetDeletionVariables();
+      });
   }
 
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
     this.service.getCategories(event)
-        .subscribe(() => this.tableDefaults.loading = false);
+      .subscribe(() => this.tableDefaults.loading = false);
   }
 }

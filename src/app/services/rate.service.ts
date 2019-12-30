@@ -6,6 +6,7 @@ import mapTableParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';
 import { ApiPath } from '@utils/constants/api-paths';
 import { Observable } from 'rxjs';
+import { ServerResp } from '@models/interfaces/server-resp';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -59,11 +60,11 @@ export class RateService {
     return this.http.get<Rate>(url);
   }
 
-  getRatesByExpenseId(id: number): Promise<any> {
+  getRatesByExpenseId(id: number): Observable<ServerResp<Rate[]>> {
     const url = this.RATES_BASE_URL + '/exp';
     let params: HttpParams = new HttpParams();
     params = params.append('expId', id.toString());
-    return this.http.get<Rate[]>(url, {params}).toPromise();
+    return this.http.get<ServerResp<Rate[]>>(url, {params});
   }
 
   getRatesByExpenseIds(id: number[], event: LazyLoadEvent): Observable<any> {

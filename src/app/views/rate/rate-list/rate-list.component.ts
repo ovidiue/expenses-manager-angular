@@ -5,9 +5,7 @@ import { Observable } from 'rxjs';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { Expense } from '@models/expense';
 import { Rate } from '@models/rate';
-import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { GlobalNotificationService } from '@services/global-notification.service';
 
 @Component({
   selector: 'app-rates',
@@ -41,9 +39,9 @@ export class RateListComponent implements OnInit {
   lastEvent: LazyLoadEvent;
 
   constructor(
-      private confirmationService: ConfirmationService,
-      private service: RatesDataService,
-      private globalNotificationService: GlobalNotificationService) {
+    private confirmationService: ConfirmationService,
+    private service: RatesDataService,
+  ) {
   }
 
   ngOnInit() {
@@ -74,10 +72,7 @@ export class RateListComponent implements OnInit {
       accept: () => {
         // TODO check map warning
         const ids = this.selectedRates.map(el => el.id);
-        this.service.deleteRates(ids)
-        .subscribe(() => {
-          this.globalNotificationService.add(MESSAGES.RATE.DELETE_MULTIPLE);
-        }, () => this.globalNotificationService.add(MESSAGES.ERROR));
+        this.service.deleteRates(ids);
       }
     });
   }
@@ -86,10 +81,7 @@ export class RateListComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${rate.amount} ?`,
       accept: () => {
-        this.service.deleteRates([rate.id])
-        .subscribe(() => {
-          this.globalNotificationService.add(MESSAGES.RATE.DELETE_SINGLE);
-        }, () => this.globalNotificationService.add(MESSAGES.ERROR));
+        this.service.deleteRates([rate.id]);
       }
     });
   }

@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { PrimengModule } from './primeng.module';
 import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -12,6 +14,8 @@ import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.comp
     FormsModule,
     ReactiveFormsModule,
     PrimengModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({progressBar: true}),
   ],
   exports: [
     CommonModule,

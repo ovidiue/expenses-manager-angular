@@ -3,39 +3,92 @@ import { RateService } from '@services/rate.service';
 import { ExpenseService } from '@services/expense.service';
 import { Rate } from '@models/rate';
 import { LazyLoadEvent } from 'primeng/api';
-import { map, pluck } from 'rxjs/operators';
+import { catchError, finalize, map, pluck, tap } from 'rxjs/operators';
 import { Expense } from '@models/expense';
+import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RateDetailService {
+  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(
-      private rateService: RateService,
-      private expenseService: ExpenseService) {
+    private rateService: RateService,
+    private expenseService: ExpenseService,
+    private readonly toastr: ToastrService
+  ) {
   }
 
   getRate(id: number) {
-    return this.rateService.get(id);
+    this.setLoading(true);
+    return this.rateService.get(id)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, `Get rate ${id} failed`);
+          return throwError(err);
+        }),
+        finalize(() => this.setLoading(false))
+      );
   }
 
   getRateByName(name: string) {
-    return this.rateService.getByName(name);
+    this.setLoading(true);
+    return this.rateService.getByName(name)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, `Get rate ${name} failed`);
+          return throwError(err);
+        }),
+        finalize(() => this.setLoading(false))
+      );
   }
 
   saveRate(rate: Rate) {
-    return this.rateService.save(rate);
+    this.setLoading(true);
+    return this.rateService.save(rate)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, `Save rate ${rate.amount} failed`);
+          return throwError(err);
+        }),
+        tap(() => this.toastr.success('', 'Added rate')),
+        finalize(() => this.setLoading(false))
+      );
   }
 
   updateRate(rate: Rate, expenseId: string, rateAmount: string) {
-    return this.rateService.update(rate, expenseId, rateAmount);
+    this.setLoading(true);
+    return this.rateService.update(rate, expenseId, rateAmount)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, `Update rate ${rate.amount} failed`);
+          return throwError(err);
+        }),
+        tap(() => this.toastr.success('', 'Updated rate')),
+        finalize(() => this.setLoading(false))
+      );
   }
 
   getExpenses(event: LazyLoadEvent) {
     return this.expenseService.getAll(event)
-    .pipe(
-      pluck('content'),
-      map((exp: Expense[]) => exp.map(el => ({label: el.title, value: el})))
-    );
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, 'Failed fetching expenses');
+          return throwError(err);
+        }),
+        pluck('content'),
+        map((exp: Expense[]) => exp.map(el => ({label: el.title, value: el})))
+      );
+  }
+
+  public getLoadingState(): Observable<boolean> {
+    return this._loading.asObservable();
+  }
+
+  private setLoading(state: boolean): void {
+    this._loading.next(state);
   }
 }
