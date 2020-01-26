@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from './login.service';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +13,9 @@ export class LoginComponent implements OnInit {
   submitted = false;
   isFormFocused = false;
 
-  loading$ = this.service.getLoadingState();
+  loading$ = this.authService.getLoadingState();
 
-  constructor(private readonly service: LoginService) {
+  constructor(private readonly authService: AuthService) {
   }
 
   get password() {
@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
     }
 
     const {username, password} = this.loginForm.value;
-    this.service.authenticate(username, password);
+    this.authService.authenticate(username, password);
   }
 
   register() {
     const {username, password} = this.loginForm.value;
-    this.service.register(username, password);
+    this.authService.register(username, password);
   }
 }
