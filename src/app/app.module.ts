@@ -21,6 +21,7 @@ import { ExpenseModule } from './views/expense/expense.module';
 import { LoginComponent } from './views/login/login.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { HeaderComponent } from '@components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     CardViewListComponent,
     ExpenseChartComponent,
     ChartComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     AppRoutingModule,
