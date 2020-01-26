@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@services/auth.service';
+import { LoginService } from '../../views/login/login.service';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +7,9 @@ import { AuthService } from '@services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  isLoggedIn$ = this.authService.getLoggedInStatus();
 
-  constructor(private readonly authService: AuthService) {
+  constructor(private readonly authService: LoginService) {
   }
 
   logout() {

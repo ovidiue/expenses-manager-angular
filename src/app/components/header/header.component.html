@@ -1,49 +1,51 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-3">
-  <a class="navbar-brand" href="#" routerLink="expenses">EXPENSES</a>
-  <button aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler"
-          data-target="#navbarNav"
-          data-toggle="collapse"
-          type="button">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li [routerLinkActive]="['active']"
-          class="nav-item"
-          data-target=".navbar-collapse.show"
-          data-toggle="collapse">
-        <a class="nav-link" routerLink="expenses">Expenses
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li [routerLinkActive]="['active']"
-          class="nav-item"
-          data-target=".navbar-collapse.show"
-          data-toggle="collapse">
-        <a class="nav-link" routerLink="rates">Rates</a>
-      </li>
-      <li [routerLinkActive]="['active']"
-          class="nav-item"
-          data-target=".navbar-collapse.show"
-          data-toggle="collapse">
-        <a class="nav-link" routerLink="categories">Categories</a>
-      </li>
-      <li [routerLinkActive]="['active']"
-          class="nav-item"
-          data-target=".navbar-collapse.show"
-          data-toggle="collapse">
-        <a class="nav-link" routerLink="tags">Tags</a>
-      </li>
-      <li [routerLinkActive]="['active']"
-          class="nav-item"
-          data-target=".navbar-collapse.show"
-          data-toggle="collapse">
-        <a class="nav-link" routerLink="dashboard">Dashboard</a>
-      </li>
-    </ul>
-  </div>
+<ng-container *ngIf="isLoggedIn$ | async">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-3">
+    <a class="navbar-brand" href="#" routerLink="expenses">EXPENSES</a>
+    <button aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarNav"
+            data-toggle="collapse"
+            type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li [routerLinkActive]="['active']"
+            class="nav-item"
+            data-target=".navbar-collapse.show"
+            data-toggle="collapse">
+          <a class="nav-link" routerLink="expenses">Expenses
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li [routerLinkActive]="['active']"
+            class="nav-item"
+            data-target=".navbar-collapse.show"
+            data-toggle="collapse">
+          <a class="nav-link" routerLink="rates">Rates</a>
+        </li>
+        <li [routerLinkActive]="['active']"
+            class="nav-item"
+            data-target=".navbar-collapse.show"
+            data-toggle="collapse">
+          <a class="nav-link" routerLink="categories">Categories</a>
+        </li>
+        <li [routerLinkActive]="['active']"
+            class="nav-item"
+            data-target=".navbar-collapse.show"
+            data-toggle="collapse">
+          <a class="nav-link" routerLink="tags">Tags</a>
+        </li>
+        <li [routerLinkActive]="['active']"
+            class="nav-item"
+            data-target=".navbar-collapse.show"
+            data-toggle="collapse">
+          <a class="nav-link" routerLink="dashboard">Dashboard</a>
+        </li>
+      </ul>
+    </div>
     <i (click)="logout()" class="pi pi-sign-out"></i>
-</nav>
+  </nav>
+</ng-container>

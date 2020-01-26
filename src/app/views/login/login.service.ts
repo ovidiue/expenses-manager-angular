@@ -10,7 +10,8 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class LoginService {
-  isLoading$ = new BehaviorSubject<boolean>(false);
+  private isLoading$ = new BehaviorSubject<boolean>(false);
+  private isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private readonly service: AuthService,
@@ -36,6 +37,7 @@ export class LoginService {
         })
       )
       .subscribe(() => {
+        this.isLoggedIn$.next(true);
         this.toastr.success('Register Success');
         this.router.navigate(['expenses']);
       });
@@ -54,10 +56,21 @@ export class LoginService {
           this.setLoading(false);
         })
       )
-      .subscribe(resp => {
+      .subscribe(() => {
+        this.isLoggedIn$.next(true);
         this.toastr.success('Success logged in');
         this.router.navigate(['expenses']);
       });
+  }
+
+  public getLoggedInStatus() {
+    return this.isLoggedIn$.asObservable();
+  }
+
+  logout() {
+    this.isLoggedIn$.next(false);
+    localStorage.removeItem('token');
+    this.router.navigate(['login']);
   }
 
   private setLoading(state: boolean) {

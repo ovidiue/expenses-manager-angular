@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   authenticate(username: string, password: string) {
-    return this.http.post(this.AUTHENTICATE_BASE_URL, {username, password}, httpOptions)
+    return this.http.post(this.AUTHENTICATE_BASE_URL, {username, password}, httpOptions);
   }
 
   logout() {
