@@ -15,7 +15,7 @@ import { ExpenseDetailEditComponent } from './expense-detail/expense-detail-edit
     ExpenseDetailAddComponent,
     ExpenseDetailEditComponent,
     ExpenseFilterComponent,
-    ShortFilterComponent
+    ShortFilterComponent,
   ]
 })
 export class ExpenseModule {

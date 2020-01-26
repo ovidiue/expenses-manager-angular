@@ -13,11 +13,15 @@ import { ExpenseListComponent } from '../views/expense/expense-list/expense-list
 import { TagDetailEditComponent } from '../views/tag/tag-detail/tag-detail-edit.component';
 import { RateDetailEditComponent } from '../views/rate/rate-detail/rate-detail-edit.component';
 import { ExpenseDetailEditComponent } from '../views/expense/expense-detail/expense-detail-edit.component';
+import { LoginComponent } from '../views/login/login.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
   {
     path: 'expenses',
+    canActivate: [AuthGuard],
     children: [
       {path: '', component: ExpenseListComponent},
       {path: 'add', component: ExpenseDetailAddComponent},

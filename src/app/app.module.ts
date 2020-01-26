@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
@@ -18,6 +18,9 @@ import { SharedModule } from './modules/shared.module';
 import { RateModule } from './views/rate/rate.module';
 import { TagModule } from './views/tag/tag.module';
 import { ExpenseModule } from './views/expense/expense.module';
+import { LoginComponent } from './views/login/login.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { ExpenseModule } from './views/expense/expense.module';
     CardViewListComponent,
     ExpenseChartComponent,
     ChartComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -44,7 +48,11 @@ import { ExpenseModule } from './views/expense/expense.module';
     SharedModule
   ],
   entryComponents: [DialogRatesComponent],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
