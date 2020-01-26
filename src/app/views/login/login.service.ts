@@ -35,7 +35,8 @@ export class LoginService {
           this.setLoading(false);
         })
       )
-      .subscribe(resp => {
+      .subscribe(() => {
+        this.toastr.success('Register Success');
         this.router.navigate(['expenses']);
       });
   }
