@@ -1,20 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagDetailComponent } from './tag-detail-add.component';
+import { TagDetailAddComponent } from './tag-detail-add.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../../../modules/shared.module';
 
 describe('TagDetailComponent', () => {
-  let component: TagDetailComponent;
-  let fixture: ComponentFixture<TagDetailComponent>;
+  let component: TagDetailAddComponent;
+  let fixture: ComponentFixture<TagDetailAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TagDetailComponent ]
+      imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
+      declarations: [TagDetailAddComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TagDetailComponent);
+    fixture = TestBed.createComponent(TagDetailAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CategoryListComponent } from './category-list.component';
+import { SharedModule } from '../../../modules/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CategoriesComponent', () => {
   let component: CategoryListComponent;
@@ -8,9 +10,10 @@ describe('CategoriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-          declarations: [CategoryListComponent]
-        })
-        .compileComponents();
+      imports: [SharedModule, HttpClientTestingModule],
+      declarations: [CategoryListComponent]
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

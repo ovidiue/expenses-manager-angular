@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpenseListComponent } from './expense-list.component';
+import { SharedModule } from '../../../modules/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
+import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 
 describe('ExpensesComponent', () => {
   let component: ExpenseListComponent;
@@ -8,9 +13,10 @@ describe('ExpensesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-          declarations: [ExpenseListComponent]
-        })
-        .compileComponents();
+      imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
+      declarations: [ExpenseListComponent, ExpenseFilterComponent, ShortFilterComponent]
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

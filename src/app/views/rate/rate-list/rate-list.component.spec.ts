@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RateListComponent } from './rate-list.component';
+import { SharedModule } from '../../../modules/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RatesComponent', () => {
   let component: RateListComponent;
@@ -8,9 +11,10 @@ describe('RatesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-          declarations: [RateListComponent]
-        })
-        .compileComponents();
+      imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
+      declarations: [RateListComponent]
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

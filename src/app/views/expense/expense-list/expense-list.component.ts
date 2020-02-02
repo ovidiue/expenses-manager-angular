@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ConfirmationService,
-  DialogService,
-  DynamicDialogConfig,
-  LazyLoadEvent,
-  MenuItem,
-  MessageService
-} from 'primeng/api';
+import { ConfirmationService, DialogService, DynamicDialogConfig, LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
 import { FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
@@ -196,7 +189,7 @@ export class ExpenseListComponent implements OnInit {
         header: `${exp.title} - rates`,
         width,
         data: {
-          resp: resp
+          resp
         }
       });
     });

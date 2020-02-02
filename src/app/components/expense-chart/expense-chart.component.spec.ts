@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpenseChartComponent } from './expense-chart.component';
+import { SharedModule } from '../../modules/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ExpenseChartComponent', () => {
   let component: ExpenseChartComponent;
@@ -8,9 +10,10 @@ describe('ExpenseChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [SharedModule, HttpClientTestingModule],
       declarations: [ExpenseChartComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

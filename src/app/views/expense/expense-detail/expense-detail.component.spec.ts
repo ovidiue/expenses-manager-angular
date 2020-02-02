@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpenseDetailAddComponent } from './expense-detail-add.component';
+import { SharedModule } from '../../../modules/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ExpenseDetailComponent', () => {
   let component: ExpenseDetailAddComponent;
@@ -8,8 +11,9 @@ describe('ExpenseDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-        declarations: [ExpenseDetailAddComponent]
-      })
+      imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
+      declarations: [ExpenseDetailAddComponent]
+    })
       .compileComponents();
   }));
 

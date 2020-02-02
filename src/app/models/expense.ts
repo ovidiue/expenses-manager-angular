@@ -1,6 +1,7 @@
-import {Category} from './category';
-import {Tag} from './tag';
-export class Expense {
+import { Category } from './category';
+import { Tag } from './tag';
+
+export interface Expense {
   title: string;
   description: string;
   recurrent: boolean;
@@ -11,7 +12,4 @@ export class Expense {
   payed: number;
   category: Category;
   tags: Tag[];
-
-  constructor() {
-  }
 }

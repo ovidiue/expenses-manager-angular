@@ -1,5 +1,6 @@
-import {Expense} from './expense';
-export class Rate {
+import { Expense } from './expense';
+
+export interface Rate {
   amount: number;
   creationDate: Date;
   observation: string;
