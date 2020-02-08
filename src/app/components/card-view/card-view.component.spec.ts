@@ -1,8 +1,9 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardViewComponent } from './card-view.component';
 import { SharedModule } from '../../modules/shared.module';
-import { Component } from '@angular/core';
+
+import { CardViewComponent } from './card-view.component';
 
 describe('CardViewComponent', () => {
   let testHostComponent: TestHostComponent;

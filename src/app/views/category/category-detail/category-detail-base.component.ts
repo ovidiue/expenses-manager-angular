@@ -1,10 +1,11 @@
+import { Location } from '@angular/common';
+import { OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryDetailDataService } from './category-detail-data.service';
-import { OnInit } from '@angular/core';
-import { GlobalNotificationService } from '@services/global-notification.service';
 import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
-import { Location } from '@angular/common';
+import { GlobalNotificationService } from '@services/global-notification.service';
+
+import { CategoryDetailDataService } from './category-detail-data.service';
 
 export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implements OnInit {
 
@@ -15,11 +16,11 @@ export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implemen
   protected initialName: string;
 
   constructor(
-      protected location: Location,
-      protected router: Router,
-      protected service: CategoryDetailDataService,
-      protected globalNotificationService: GlobalNotificationService,
-      protected route: ActivatedRoute
+    protected location: Location,
+    protected router: Router,
+    protected service: CategoryDetailDataService,
+    protected globalNotificationService: GlobalNotificationService,
+    protected route: ActivatedRoute
   ) {
     super();
     this.categoryForm = new FormGroup({
@@ -35,8 +36,8 @@ export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implemen
 
   ngOnInit() {
     this.subscriptions.push(
-        this.categoryForm.valueChanges
-            .subscribe(() => this.isSubmitted = false)
+      this.categoryForm.valueChanges
+        .subscribe(() => this.isSubmitted = false)
     );
   }
 
@@ -44,16 +45,16 @@ export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implemen
     console.log('checkName', this.initialName);
     const name = $event.target.value;
     this.subscriptions.push(
-        this.service
-            .getCategoryByName(name)
-            .subscribe(resp => {
-              if (this.initialName) {
-                this.nameExists = name !== this.initialName && !!resp;
-              } else {
-                this.nameExists = !!resp;
-              }
+      this.service
+        .getCategoryByName(name)
+        .subscribe(resp => {
+          if (this.initialName) {
+            this.nameExists = name !== this.initialName && !!resp;
+          } else {
+            this.nameExists = !!resp;
+          }
 
-            })
+        })
     );
   }
 

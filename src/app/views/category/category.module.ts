@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CategoryDetailEditComponent } from './category-detail/category-detail-edit.component';
-import { CategoryListComponent } from './category-list/category-list.component';
-import { CategoryDetailComponent } from './category-detail/category-detail.component';
+
 import { SharedModule } from '../../modules/shared.module';
+
+import { CategoryDetailEditComponent } from './category-detail/category-detail-edit.component';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 @NgModule({
   imports: [

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '@models/category';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { CategoriesDataService } from './categories-data.service';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
+
+import { CategoriesDataService } from './categories-data.service';
 
 @Component({
   selector: 'app-categories',

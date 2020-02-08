@@ -1,14 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DialogRatesComponent } from './dialog-rates.component';
-import { SharedModule } from '../../modules/shared.module';
-import { DialogModule } from 'primeng/dialog';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ExpenseListComponent } from '../../views/expense/expense-list/expense-list.component';
 import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+
+import { SharedModule } from '../../modules/shared.module';
+import { ExpenseListComponent } from '../../views/expense/expense-list/expense-list.component';
 import { ExpensesDataService } from '../../views/expense/expense-list/expenses-data.service';
+
+import { DialogRatesComponent } from './dialog-rates.component';
 
 describe('DialogRatesComponent', () => {
   let component: DialogRatesComponent;

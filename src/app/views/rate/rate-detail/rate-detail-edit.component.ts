@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { RateDetailService } from './rate-detail.service';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { RoutePaths } from '@models/enums/route-paths';
-import { RateDetailBase } from './rate-detail-base';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RoutePaths } from '@models/enums/route-paths';
 import { Rate } from '@models/rate';
+import { fadeIn } from '@utils/animations/fadeIn';
 import * as moment from 'moment';
+import { map, pluck, switchMap } from 'rxjs/operators';
+
+import { RateDetailBase } from './rate-detail-base';
+import { RateDetailService } from './rate-detail.service';
 
 @Component({
   selector: 'app-rate-detail',
@@ -29,7 +30,6 @@ export class RateDetailEditComponent extends RateDetailBase implements OnInit {
 
     this.pageTitle = 'Edit rate';
   }
-
 
   // TODO: on edit, expense doesn't preselect previous value
 

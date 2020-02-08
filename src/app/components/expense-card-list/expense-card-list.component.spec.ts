@@ -1,8 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpenseCardListComponent } from './expense-card-list.component';
 import { SharedModule } from '../../modules/shared.module';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { ExpenseCardListComponent } from './expense-card-list.component';
 
 describe('ExpenseCardListComponent', () => {
   let component: ExpenseCardListComponent;

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import {
   AccordionModule,
   ButtonModule,
@@ -24,7 +24,7 @@ import {
   ToolbarModule,
   TooltipModule,
 } from 'primeng/primeng';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
 @NgModule({

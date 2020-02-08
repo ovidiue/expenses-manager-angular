@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { TagDetailDataService } from './tag-detail-data.service';
+import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { fadeIn } from '@utils/animations/fadeIn';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths';
+import { fadeIn } from '@utils/animations/fadeIn';
+
 import { TagDetailBase } from './tag-detail-base';
+import { TagDetailDataService } from './tag-detail-data.service';
 
 @Component({
   selector: 'app-tag-detail',

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartType } from '@models/enums/chart-type';
 import { ChartDataService } from '@components/chart/chart-data.service';
+import { ChartType } from '@models/enums/chart-type';
 import { Card } from '@models/interfaces/card';
-import { BehaviorSubject } from 'rxjs';
 import { ChartData } from '@models/interfaces/chart-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-chart',

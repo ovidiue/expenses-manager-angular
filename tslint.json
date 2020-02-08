@@ -25,11 +25,61 @@
       true,
       "spaces"
     ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "lowercase-last",
+        "grouped-imports": true,
+        "groups": [
+          {
+            "name": "angular",
+            "match": "^@angular/",
+            "order": 10
+          },
+          {
+            "name": "rxjs",
+            "match": "^(@rxjs|rxjs)",
+            "order": 20
+          },
+          {
+            "name": "primeng",
+            "match": "^primeng",
+            "order": 30
+          },
+          {
+            "name": "services",
+            "match": "^@services",
+            "order": 40
+          },
+          {
+            "name": "models",
+            "match": "^@models",
+            "order": 50
+          },
+          {
+            "name": "utils",
+            "match": "^@utils",
+            "order": 60
+          },
+          {
+            "name": "components",
+            "match": "^@components",
+            "order": 70
+          },
+          {
+            "name": "local",
+            "match": "^(../|./)",
+            "order": 80
+          }
+        ]
+      }
+    ],
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
       true,
-      140
+      120
     ],
     "member-access": false,
     "member-ordering": [
@@ -59,6 +109,7 @@
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
+    "no-conditional-assignment": true,
     "no-inferrable-types": [
       true,
       "ignore-params"

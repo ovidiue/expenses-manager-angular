@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { TagDetailDataService } from './tag-detail-data.service';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { fadeIn } from '@utils/animations/fadeIn';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths';
-import { TagDetailBase } from './tag-detail-base';
-import { pluck, switchMap } from 'rxjs/operators';
 import { Tag } from '@models/tag';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { pluck, switchMap } from 'rxjs/operators';
+
+import { TagDetailBase } from './tag-detail-base';
+import { TagDetailDataService } from './tag-detail-data.service';
 
 @Component({
   selector: 'app-tag-detail',

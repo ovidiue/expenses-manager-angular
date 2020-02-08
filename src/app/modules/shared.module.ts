@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { PrimengModule } from './primeng.module';
-import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.component';
 import { ToastrModule } from 'ngx-toastr';
+
+import { PrimengModule } from './primeng.module';
 
 @NgModule({
   imports: [

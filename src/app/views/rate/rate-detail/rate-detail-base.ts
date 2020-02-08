@@ -1,11 +1,12 @@
-import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RateDetailService } from './rate-detail.service';
-import { Observable } from 'rxjs';
-import { TABLE_DEFAULTS } from '@utils/table-options';
-import * as moment from 'moment';
 import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+
+import { RateDetailService } from './rate-detail.service';
 
 export class RateDetailBase extends SubscriptionsBaseClass {
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ChartType } from '@models/enums/chart-type';
-import { ChartData } from '@models/interfaces/chart-data';
 import { Card } from '@models/interfaces/card';
+import { ChartData } from '@models/interfaces/chart-data';
 import reduceProperty from '@utils/reduce-property';
 
 @Injectable({providedIn: 'root'})

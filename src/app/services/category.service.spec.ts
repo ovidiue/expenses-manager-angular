@@ -1,7 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { CategoryService } from './category.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CategoryService', () => {
   beforeEach(() => TestBed.configureTestingModule({

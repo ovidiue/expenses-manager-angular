@@ -1,13 +1,14 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { MessageService } from 'primeng/api';
-import { ExpenseDetailService } from './expense-detail.service';
+import { RoutePaths } from '@models/enums/route-paths';
+import { GlobalNotificationService } from '@services/global-notification.service';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { MESSAGES } from '@utils/messages';
-import { GlobalNotificationService } from '@services/global-notification.service';
+import { MessageService } from 'primeng/api';
+
 import { ExpenseDetailBase } from './expense-detail-base';
-import { RoutePaths } from '@models/enums/route-paths';
+import { ExpenseDetailService } from './expense-detail.service';
 
 @Component({
   selector: 'app-expense-detail',
@@ -43,6 +44,5 @@ export class ExpenseDetailAddComponent extends ExpenseDetailBase {
         err => this.globalNotificationService.add(MESSAGES.ERROR)
       );
   }
-
 
 }

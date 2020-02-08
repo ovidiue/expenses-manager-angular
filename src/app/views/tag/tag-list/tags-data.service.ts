@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { TagService } from '@services/tag.service';
 import { Tag } from '@models/tag';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { GlobalNotificationService } from '@services/global-notification.service';
+import { TagService } from '@services/tag.service';
 import { MESSAGES } from '@utils/messages';
-import { LazyLoadEvent } from 'primeng/api';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as _ from 'lodash';
+import { LazyLoadEvent } from 'primeng/api';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class TagsDataService {
@@ -16,7 +16,7 @@ export class TagsDataService {
   private event: LazyLoadEvent;
 
   constructor(
-      private tagService: TagService,
+    private tagService: TagService,
       private globalNotificationService: GlobalNotificationService) {
     this.loadInitialData(TABLE_DEFAULTS.query);
   }

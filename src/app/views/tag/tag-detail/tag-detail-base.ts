@@ -1,10 +1,11 @@
-import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TagDetailDataService } from './tag-detail-data.service';
-import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
 import { Tag } from '@models/tag';
+import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+
+import { TagDetailDataService } from './tag-detail-data.service';
 
 export class TagDetailBase extends SubscriptionsBaseClass {
   pageTitle: string;
@@ -14,7 +15,7 @@ export class TagDetailBase extends SubscriptionsBaseClass {
   protected isSubmitted = false;
 
   constructor(
-      protected location: Location,
+    protected location: Location,
       protected router: Router,
       protected service: TagDetailDataService,
       protected route: ActivatedRoute

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardDataService } from './dashboard-data.service';
-import { Observable } from 'rxjs';
-import { Card } from '@models/interfaces/card';
 import { ChartType } from '@models/enums/chart-type';
+import { Card } from '@models/interfaces/card';
+import { Observable } from 'rxjs';
+
+import { DashboardDataService } from './dashboard-data.service';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
-import { TagsDataService } from './tags-data.service';
-import { Observable } from 'rxjs';
+import { Tag } from '@models/tag';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { Tag } from '@models/tag';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
+
+import { TagsDataService } from './tags-data.service';
 
 @Component({
   selector: 'app-tags',

@@ -1,13 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CategoryService } from '@services/category.service';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { Category } from '@models/category';
+import { CategoryService } from '@services/category.service';
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { LazyLoadEvent } from 'primeng/api';
-import { catchError, finalize, tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { HttpErrorResponse } from '@angular/common/http';
+import { LazyLoadEvent } from 'primeng/api';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
 export class CategoriesDataService {

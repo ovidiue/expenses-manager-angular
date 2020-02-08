@@ -1,27 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
-import { CardViewComponent } from '@components/card-view/card-view.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
-import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
+import { CardViewComponent } from '@components/card-view/card-view.component';
 import { ChartComponent } from '@components/chart/chart.component';
-import { CategoryModule } from './views/category/category.module';
+import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
+import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
+import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
+import { HeaderComponent } from '@components/header/header.component';
+
+import { AppRoutingModule } from './app-routing/app-routing.module';
+import { AppComponent } from './app.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { SharedModule } from './modules/shared.module';
-import { RateModule } from './views/rate/rate.module';
-import { TagModule } from './views/tag/tag.module';
+import { CategoryModule } from './views/category/category.module';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ExpenseModule } from './views/expense/expense.module';
 import { LoginComponent } from './views/login/login.component';
-import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { HeaderComponent } from '@components/header/header.component';
+import { RateModule } from './views/rate/rate.module';
+import { TagModule } from './views/tag/tag.module';
 
 @NgModule({
   declarations: [

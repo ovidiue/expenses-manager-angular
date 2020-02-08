@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { TagService } from '@services/tag.service';
-import { Tag } from '@models/tag';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { catchError, finalize, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Tag } from '@models/tag';
+import { TagService } from '@services/tag.service';
+import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

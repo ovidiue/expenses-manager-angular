@@ -1,9 +1,10 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { SharedModule } from '../../../modules/shared.module';
 
 import { RateDetailAddComponent } from './rate-detail-add.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from '../../../modules/shared.module';
 
 describe('RateDetailComponent', () => {
   let component: RateDetailAddComponent;

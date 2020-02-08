@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { PathBuilder } from '@utils/path-builder';
 import { ApiPath } from '@utils/constants/api-paths';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { PathBuilder } from '@utils/path-builder';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 
 const httpOptions = {

@@ -1,9 +1,10 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { SharedModule } from '../../../modules/shared.module';
 
 import { ExpenseDetailAddComponent } from './expense-detail-add.component';
-import { SharedModule } from '../../../modules/shared.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ExpenseDetailComponent', () => {
   let component: ExpenseDetailAddComponent;

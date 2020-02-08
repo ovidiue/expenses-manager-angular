@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
 import { GlobalNotificationService } from '@services/global-notification.service';
 
 @Component({

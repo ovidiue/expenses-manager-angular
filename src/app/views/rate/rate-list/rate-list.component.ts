@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
-import { RatesDataService } from './rates-data.service';
-import { Observable } from 'rxjs';
-import { fadeIn } from '@utils/animations/fadeIn';
 import { Expense } from '@models/expense';
 import { Rate } from '@models/rate';
+import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
+
+import { RatesDataService } from './rates-data.service';
 
 @Component({
   selector: 'app-rates',

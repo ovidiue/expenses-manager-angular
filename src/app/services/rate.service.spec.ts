@@ -1,7 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { RateService } from './rate.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('RateService', () => {
   beforeEach(() => TestBed.configureTestingModule({

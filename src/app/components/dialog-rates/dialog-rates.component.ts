@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Rate } from '@models/rate';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
 
 @Component({
   selector: 'app-dialog-rates',

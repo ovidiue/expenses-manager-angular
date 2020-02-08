@@ -1,15 +1,16 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Location } from '@angular/common';
-import { CategoryDetailDataService } from './category-detail-data.service';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { GlobalNotificationService } from '@services/global-notification.service';
-import { MESSAGES } from '@utils/messages';
-import { RoutePaths } from '@models/enums/route-paths';
-import { CategoryDetailBaseComponent } from './category-detail-base.component';
-import { pluck, switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '@models/category';
+import { RoutePaths } from '@models/enums/route-paths';
+import { GlobalNotificationService } from '@services/global-notification.service';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { MESSAGES } from '@utils/messages';
+import { pluck, switchMap } from 'rxjs/operators';
+
+import { CategoryDetailBaseComponent } from './category-detail-base.component';
+import { CategoryDetailDataService } from './category-detail-data.service';
 
 @Component({
   selector: 'app-category-detail',
