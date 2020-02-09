@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths';
 import { fadeIn } from '@utils/animations/fadeIn';
 
+import { TagDataService } from '../tag-data.service';
+
 import { TagDetailBase } from './tag-detail-base';
-import { TagDetailDataService } from './tag-detail-data.service';
 
 @Component({
   selector: 'app-tag-detail',
@@ -19,12 +20,12 @@ export class TagDetailAddComponent extends TagDetailBase {
   tagFormControls: FormGroup;
 
   constructor(
-      protected location: Location,
-      protected router: Router,
-      protected service: TagDetailDataService,
-      protected route: ActivatedRoute
+    protected location: Location,
+    protected router: Router,
+    protected service: TagDataService,
+    protected route: ActivatedRoute
   ) {
-    super(location, router, service, route);
+    super(location, service);
     this.pageTitle = 'Add Rate';
   }
 

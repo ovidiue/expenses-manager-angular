@@ -1,11 +1,10 @@
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
 import { Tag } from '@models/tag';
 import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 
-import { TagDetailDataService } from './tag-detail-data.service';
+import { TagDataService } from '../tag-data.service';
 
 export class TagDetailBase extends SubscriptionsBaseClass {
   pageTitle: string;
@@ -13,12 +12,12 @@ export class TagDetailBase extends SubscriptionsBaseClass {
   tagFormControls: FormGroup;
   initialName: string;
   protected isSubmitted = false;
+  private spinnerMessage$ = this.service.getLoadingMessage();
+  private loading$ = this.service.getLoadingState();
 
   constructor(
     protected location: Location,
-      protected router: Router,
-      protected service: TagDetailDataService,
-      protected route: ActivatedRoute
+    protected service: TagDataService
   ) {
     super();
     this.tagFormControls = new FormGroup({
@@ -28,19 +27,19 @@ export class TagDetailBase extends SubscriptionsBaseClass {
     });
 
     this.name.valueChanges
-        .pipe(
-            debounceTime(300),
-            distinctUntilChanged(),
-            filter((value: string) => value.length > 0),
-            switchMap((value: string) => this.service.getTagByName(value)),
-        )
-        .subscribe((tag: Tag | null) => {
-          if (this.initialName) {
-            this.nameExists = !!tag && this.initialName !== tag.name;
-          } else {
-            this.nameExists = !!tag;
-          }
-        });
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        filter((value: string) => value.length > 0),
+        switchMap((value: string) => this.service.getTagByName(value)),
+      )
+      .subscribe((tag: Tag | null) => {
+        if (this.initialName) {
+          this.nameExists = !!tag && this.initialName !== tag.name;
+        } else {
+          this.nameExists = !!tag;
+        }
+      });
   }
 
   get name() {

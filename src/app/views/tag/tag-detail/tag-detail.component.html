@@ -4,56 +4,64 @@
   </div>
   <div class="row mb-5">
     <div class="col">
-      <div class="form-wrapper">
-        <form [formGroup]="tagFormControls"
-              (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text"
-                   id="name"
-                   class="form-control"
-                   [ngClass]="{ 'is-invalid': name.errors && isSubmitted === true}"
-                   required
-                   placeholder="Enter name"
-                   formControlName="name">
-            <div *ngIf="name.errors && isSubmitted === true"
-                 class="invalid-feedback">
-              <div *ngIf="name.errors.required">Name is required</div>
+      <ng-container *ngIf="loading$ | async as loading; else form">
+        <app-page-spinner [displaySpinner]="loading"
+                          [message]="spinnerMessage$ | async"></app-page-spinner>
+      </ng-container>
+      <ng-template #form>
+        <div class="form-wrapper">
+          <form (ngSubmit)="onSubmit()"
+                [formGroup]="tagFormControls">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input [ngClass]="{ 'is-invalid': name.errors && isSubmitted === true}"
+                     class="form-control"
+                     formControlName="name"
+                     id="name"
+                     placeholder="Enter name"
+                     required
+                     type="text">
+              <div *ngIf="name.errors && isSubmitted === true"
+                   class="invalid-feedback">
+                <div *ngIf="name.errors.required">Name is required</div>
+              </div>
+              <div *ngIf="nameExists && !name.errors"
+                   class="invalid-feedback"
+                   style="display: block;">
+                <!--              TODO animations for error transitions-->
+                <div>Name already exists. Please choose another name!</div>
+              </div>
             </div>
-            <div *ngIf="nameExists && !name.errors" class="invalid-feedback" style="display: block;">
-<!--              TODO animations for error transitions-->
-              <div>Name already exists. Please choose another name!</div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control"
+                        formControlName="description"
+                        id="description"
+                        name="description"
+                        placeholder="Description"
+                        rows="7"
+              ></textarea>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea rows="7"
-                      class="form-control"
-                      id="description"
-                      name="description"
-                      formControlName="description"
-                      placeholder="Description"
-            ></textarea>
-          </div>
 
-          <div class="form-group">
-            <label class="block">Color</label>
-            <p-colorPicker class="test"
-                           [inline]="true"
-                           formControlName="color"
-                           value="selectedColor">
-            </p-colorPicker>
-            <div class="preview-block"
-                 [ngStyle]="{'background':tagFormControls.controls['color'].value}">
+            <div class="form-group">
+              <label class="block">Color</label>
+              <p-colorPicker [inline]="true"
+                             class="test"
+                             formControlName="color"
+                             value="selectedColor">
+              </p-colorPicker>
+              <div [ngStyle]="{'background':tagFormControls.controls['color'].value}"
+                   class="preview-block">
+              </div>
             </div>
-          </div>
-          <hr>
-          <div>
-            <button type="submit" class="btn btn-primary float-right">Save</button>
-            <button (click)="goBack($event)" class="btn btn-secondary">Cancel</button>
-          </div>
-        </form>
-      </div>
+            <hr>
+            <div>
+              <button class="btn btn-primary float-right" type="submit">Save</button>
+              <button (click)="goBack($event)" class="btn btn-secondary">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
     </div>
 
   </div>

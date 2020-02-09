@@ -5,18 +5,19 @@ import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
-import { TagsDataService } from './tags-data.service';
+import { TagDataService } from '../tag-data.service';
 
 @Component({
   selector: 'app-tags',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
-  providers: [ConfirmationService, MessageService, TagsDataService],
+  providers: [ConfirmationService, MessageService, TagDataService],
   animations: [fadeIn]
 })
 export class TagListComponent implements OnInit {
   tags$: Observable<Tag[]>;
   total$: Observable<number>;
+  loading$: Observable<boolean> = this.service.getLoadingState();
 
   selectedTags: Tag[] = [];
   tableDefaults = TABLE_DEFAULTS;
@@ -32,8 +33,8 @@ export class TagListComponent implements OnInit {
   selectedDescription = '';
 
   constructor(
-      private service: TagsDataService,
-      private confirmationService: ConfirmationService
+    private service: TagDataService,
+    private confirmationService: ConfirmationService
   ) {
   }
 
@@ -43,6 +44,7 @@ export class TagListComponent implements OnInit {
   }
 
   getTags(event: LazyLoadEvent) {
+    // TODO inspect fetching tags mechanism
     this.service.getTags(event);
   }
 

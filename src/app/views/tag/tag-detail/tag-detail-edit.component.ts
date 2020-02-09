@@ -7,8 +7,9 @@ import { Tag } from '@models/tag';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { pluck, switchMap } from 'rxjs/operators';
 
+import { TagDataService } from '../tag-data.service';
+
 import { TagDetailBase } from './tag-detail-base';
-import { TagDetailDataService } from './tag-detail-data.service';
 
 @Component({
   selector: 'app-tag-detail',
@@ -21,12 +22,12 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
   tagFormControls: FormGroup;
 
   constructor(
-      protected location: Location,
-      protected router: Router,
-      protected service: TagDetailDataService,
-      protected route: ActivatedRoute
+    protected location: Location,
+    protected router: Router,
+    protected service: TagDataService,
+    protected route: ActivatedRoute
   ) {
-    super(location, router, service, route);
+    super(location, service);
 
     this.pageTitle = 'Edit Rate';
   }
@@ -34,15 +35,15 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
   ngOnInit(): void {
     this.tagFormControls.addControl('id', new FormControl(null));
     this.subscriptions.push(
-        this.route.params
-            .pipe(
-                pluck('id'),
-                switchMap((id: number) => this.service.getTag(id))
-            )
-            .subscribe((tag: Tag) => {
-              this.tagFormControls.setValue(tag);
-              this.initialName = tag.name;
-            })
+      this.route.params
+        .pipe(
+          pluck('id'),
+          switchMap((id: number) => this.service.getTag(id))
+        )
+        .subscribe((tag: Tag) => {
+          this.tagFormControls.setValue(tag);
+          this.initialName = tag.name;
+        })
     );
   }
 
