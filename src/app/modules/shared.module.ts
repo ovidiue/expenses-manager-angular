@@ -8,23 +8,23 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { PrimengModule } from './primeng.module';
 
+const importsExports = [
+  CommonModule,
+  BrowserModule,
+  FormsModule,
+  ReactiveFormsModule,
+  PrimengModule
+];
+
 @NgModule({
   imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PrimengModule,
+    ...importsExports,
     BrowserAnimationsModule,
     ToastrModule.forRoot({progressBar: true}),
   ],
   exports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PageSpinnerComponent,
-    PrimengModule,
+    ...importsExports,
+    PageSpinnerComponent
   ],
   declarations: [
     PageSpinnerComponent
