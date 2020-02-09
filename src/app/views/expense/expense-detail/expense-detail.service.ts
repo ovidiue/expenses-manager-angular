@@ -38,10 +38,12 @@ export class ExpenseDetailService {
 
   getExpense(id: number) {
     this._loading.next(true);
+
     return this.expenseService.get(id)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         tap((exp: Expense) => {
@@ -63,10 +65,12 @@ export class ExpenseDetailService {
 
   saveExpense(expense: Expense) {
     this._loading.next(true);
+
     return this.expenseService.save(expense)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         tap(() => {
@@ -78,10 +82,12 @@ export class ExpenseDetailService {
 
   updateExpense(expense: Expense) {
     this._loading.next(true);
+
     return this.expenseService.update(expense)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         tap((resp) => {
@@ -96,6 +102,7 @@ export class ExpenseDetailService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         pluck('content'),
@@ -109,6 +116,7 @@ export class ExpenseDetailService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         pluck('content'),

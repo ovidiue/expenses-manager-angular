@@ -20,10 +20,12 @@ export class TagDetailDataService {
 
   getTag(id: number) {
     this.setLoading(true);
+
     return this.tagService.get(id)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Failed fetching tag');
+
           return throwError(err);
         }),
         finalize(() => this.setLoading(false))
@@ -32,10 +34,12 @@ export class TagDetailDataService {
 
   getTagByName(name: string): Observable<Tag> {
     this.setLoading(true);
+
     return this.tagService.getByName(name)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Failed fetching tag');
+
           return throwError(err);
         }),
         finalize(() => this.setLoading(false))
@@ -44,10 +48,12 @@ export class TagDetailDataService {
 
   saveTag(tag: Tag) {
     this.setLoading(true);
+
     return this.tagService.save(tag)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Failed saving tag');
+
           return throwError(err);
         }),
         tap(resp => {
@@ -58,10 +64,12 @@ export class TagDetailDataService {
 
   update(tag: Tag) {
     this.setLoading(true);
+
     return this.tagService.update(tag)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Failed updating tag');
+
           return throwError(err);
         }),
         tap(resp => {

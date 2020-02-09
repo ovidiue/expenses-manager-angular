@@ -24,10 +24,12 @@ export class RateDetailService {
 
   getRate(id: number) {
     this.setLoading(true);
+
     return this.rateService.get(id)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, `Get rate ${id} failed`);
+
           return throwError(err);
         }),
         finalize(() => this.setLoading(false))
@@ -36,10 +38,12 @@ export class RateDetailService {
 
   getRateByName(name: string) {
     this.setLoading(true);
+
     return this.rateService.getByName(name)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, `Get rate ${name} failed`);
+
           return throwError(err);
         }),
         finalize(() => this.setLoading(false))
@@ -48,10 +52,12 @@ export class RateDetailService {
 
   saveRate(rate: Rate) {
     this.setLoading(true);
+
     return this.rateService.save(rate)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, `Save rate ${rate.amount} failed`);
+
           return throwError(err);
         }),
         tap(() => this.toastr.success('', 'Added rate')),
@@ -61,10 +67,12 @@ export class RateDetailService {
 
   updateRate(rate: Rate, expenseId: string, rateAmount: string) {
     this.setLoading(true);
+
     return this.rateService.update(rate, expenseId, rateAmount)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, `Update rate ${rate.amount} failed`);
+
           return throwError(err);
         }),
         tap(() => this.toastr.success('', 'Updated rate')),
@@ -77,6 +85,7 @@ export class RateDetailService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Failed fetching expenses');
+
           return throwError(err);
         }),
         pluck('content'),

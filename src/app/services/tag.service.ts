@@ -25,11 +25,13 @@ export class TagService {
   getAll(event: LazyLoadEvent): Observable<ServerResp<Tag>> {
     let params: HttpParams;
     params = mapEventToRestParams(event);
+
     return this.http.get<ServerResp<Tag>>(this.TAGS_BASE_URL, {params});
   }
 
   save(tag: Tag) {
     const url = this.TAGS_BASE_URL + '/save';
+
     return this.http.post(url, tag, httpOptions);
   }
 
@@ -37,26 +39,31 @@ export class TagService {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     tagsIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.TAGS_BASE_URL + '/delete';
+
     return this.http.post(url, tagsIds);
   }
 
   get(catId: number): Observable<Tag> {
     const url = this.TAGS_BASE_URL + '/' + catId;
+
     return this.http.get<Tag>(url);
   }
 
   getByName(name: string): Observable<Tag> {
     const url = this.TAGS_BASE_URL + '/name/' + name;
+
     return this.http.get<Tag>(url);
   }
 
   getStats(): Observable<Card[]> {
     const url = this.TAGS_BASE_URL + '/tag-info';
+
     return this.http.get<Card[]>(url);
   }
 
   update(tag: Tag) {
     const url = this.TAGS_BASE_URL + '/update';
+
     return this.http.put(url, tag, httpOptions);
   }
 }

@@ -31,10 +31,12 @@ export class AuthService {
 
   register(username: string, password: string) {
     this.setLoading(true);
+
     return this.http.post(this.REGISTER_BASE_URL, {username, password}, httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Register Failed');
+
           return throwError(err);
         }),
         finalize(() => {
@@ -50,10 +52,12 @@ export class AuthService {
 
   authenticate(username: string, password: string) {
     this.setLoading(true);
+
     return this.http.post(this.AUTHENTICATE_BASE_URL, {username, password}, httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Login Failed');
+
           return throwError(err);
         }),
         tap((resp: { [token: string]: string }) => localStorage.setItem('token', resp.token)),

@@ -37,6 +37,7 @@ export class CategoryDataService {
   getCategory(catId: number): Observable<Category> {
     this._loading.next(true);
     this.setMessage(`Fetching category with id ${catId}`);
+
     return this.service.get(catId)
       .pipe(
         catchError((err: HttpErrorResponse) => {
@@ -58,6 +59,7 @@ export class CategoryDataService {
   updateCategory(category: Category): Observable<any> {
     this._loading.next(true);
     this.setMessage(`Updating category ${category.name}`);
+
     return this.service.update(category)
       .pipe(
         catchError((err: HttpErrorResponse) => {
@@ -78,6 +80,7 @@ export class CategoryDataService {
   saveCategory(category: Category): Observable<any> {
     this._loading.next(true);
     this.setMessage(`Saving category ${category.name}`);
+
     return this.service.save(category)
       .pipe(
         catchError((err: HttpErrorResponse) => {
@@ -96,6 +99,7 @@ export class CategoryDataService {
 
   public deleteCategory(ids: number[], withExpense: boolean): Observable<number[]> {
     this._loading.next(true);
+
     return this.service.delete(ids, withExpense)
       .pipe(
         catchError((err: HttpErrorResponse) => {
@@ -122,6 +126,7 @@ export class CategoryDataService {
 
   public getCategories(event: LazyLoadEvent): Observable<Category[]> {
     this.loadFromServer(event);
+
     return this._categories.asObservable();
   }
 
@@ -147,6 +152,7 @@ export class CategoryDataService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         finalize(() => {

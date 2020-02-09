@@ -86,6 +86,7 @@ export class ExpenseListComponent implements OnInit {
         command: () => {
           if (!this.areRowsSelected()) {
             this.globalNotificationService.add(MESSAGES.NO_ROWS_SELECTED);
+
             return false;
           }
           this.displayDeleteMultiple();
@@ -96,6 +97,7 @@ export class ExpenseListComponent implements OnInit {
         command: () => {
           if (!this.areRowsSelected()) {
             this.globalNotificationService.add(MESSAGES.NO_ROWS_SELECTED);
+
             return false;
           }
           this.displaySidebar = true;

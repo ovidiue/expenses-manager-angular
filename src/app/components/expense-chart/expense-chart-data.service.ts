@@ -35,7 +35,8 @@ export class ExpenseChartDataService {
                   }
                 ]
               };
-              return data;
+
+          return data;
             }
         )
     );
@@ -48,6 +49,7 @@ export class ExpenseChartDataService {
         acc[key] = [];
       }
       acc[key].push(obj);
+
       return acc;
     }, {});
   }

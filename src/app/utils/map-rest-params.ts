@@ -18,6 +18,7 @@ export default (param: LazyLoadEvent): HttpParams => {
       params = params.append('sort', param.sortField + ',' + getSort(param.sortOrder));
     }
   }
+
   return params;
 };
 

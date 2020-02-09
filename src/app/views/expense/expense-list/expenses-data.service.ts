@@ -31,10 +31,12 @@ export class ExpensesDataService {
 
   getExpenses(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Observable<ServerResp<Expense>> {
     this.setLoading(true);
+
     return this.expenseService.getAll(event, expenseFilter)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         finalize(() => this.setLoading(false))
@@ -43,10 +45,12 @@ export class ExpensesDataService {
 
   setCategory(expIds: number[], catId: number) {
     this.setLoading(true);
+
     return this.expenseService.setCategory(expIds, catId)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         finalize(() => this.setLoading(false))
@@ -55,10 +59,12 @@ export class ExpensesDataService {
 
   deleteExpenses(ids: number[], withRates: boolean) {
     this.setLoading(true);
+
     return this.expenseService.delete(ids, withRates)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
         tap((resp) => {
@@ -74,6 +80,7 @@ export class ExpensesDataService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
+
           return throwError(err);
         }),
       );

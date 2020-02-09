@@ -23,11 +23,13 @@ export class RateService {
 
   getRates(event: LazyLoadEvent): Observable<any> {
     const params: HttpParams = mapTableParams(event);
+
     return this.http.get(this.RATES_BASE_URL, {params});
   }
 
   save(rate: Rate): Observable<any> {
     const url = this.RATES_BASE_URL + '/save';
+
     return this.http.post(url, rate, httpOptions);
   }
 
@@ -40,6 +42,7 @@ export class RateService {
     if (initialRateAmount) {
       params = params.append('initialRateAmount', initialRateAmount.toString());
     }
+
     return this.http.put(url, rate, {params});
   }
 
@@ -47,16 +50,19 @@ export class RateService {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
     rateIds.forEach(id => urlSearchParams.append('', id.toString()));
     const url = this.RATES_BASE_URL + '/delete';
+
     return this.http.post(url, rateIds);
   }
 
   get(rateId: number): Observable<any> {
     const url = this.RATES_BASE_URL + '/' + rateId;
+
     return this.http.get(url);
   }
 
   getByName(name: string): Observable<any> {
     const url = this.RATES_BASE_URL + '/name/' + name;
+
     return this.http.get<Rate>(url);
   }
 
@@ -64,6 +70,7 @@ export class RateService {
     const url = this.RATES_BASE_URL + '/exp';
     let params: HttpParams = new HttpParams();
     params = params.append('expId', id.toString());
+
     return this.http.get<ServerResp<Rate[]>>(url, {params});
   }
 
@@ -71,6 +78,7 @@ export class RateService {
     const url = this.RATES_BASE_URL + '/expenses';
     let params: HttpParams = mapTableParams(event);
     params = params.append('expenseIds', id.toString());
+
     return this.http.get<Rate[]>(url, {params});
   }
 }
