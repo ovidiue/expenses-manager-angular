@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class PageSpinnerComponent {
   @Input() displaySpinner: boolean;
+  @Input() message = 'Loading data ...';
 
   constructor() {
   }

@@ -5,13 +5,13 @@ import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
-import { CategoriesDataService } from './categories-data.service';
+import { CategoryDataService } from '../category-data.service';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './category-list.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [ConfirmationService, MessageService, CategoriesDataService],
+  providers: [ConfirmationService, MessageService, CategoryDataService],
   animations: [fadeIn]
 })
 export class CategoryListComponent implements OnInit {
@@ -38,7 +38,7 @@ export class CategoryListComponent implements OnInit {
   };
 
   constructor(
-    private service: CategoriesDataService,
+    private service: CategoryDataService,
   ) {
     this.loading$ = this.service.getLoading();
     this.categories$ = this.service.getCategories(TABLE_DEFAULTS.query);

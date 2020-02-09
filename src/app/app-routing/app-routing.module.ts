@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../guards/auth.guard';
+import { CategoryDetailAddComponent } from '../views/category/category-detail/category-detail-add.component';
 import { CategoryDetailEditComponent } from '../views/category/category-detail/category-detail-edit.component';
-import { CategoryDetailComponent } from '../views/category/category-detail/category-detail.component';
 import { CategoryListComponent } from '../views/category/category-list/category-list.component';
 import { DashboardComponent } from '../views/dashboard/dashboard.component';
 import { ExpenseDetailAddComponent } from '../views/expense/expense-detail/expense-detail-add.component';
@@ -41,7 +41,7 @@ const routes: Routes = [
     path: 'categories',
     children: [
       {path: '', component: CategoryListComponent},
-      {path: 'add', component: CategoryDetailComponent},
+      {path: 'add', component: CategoryDetailAddComponent},
       {path: 'edit/:id', component: CategoryDetailEditComponent}
     ]
   },

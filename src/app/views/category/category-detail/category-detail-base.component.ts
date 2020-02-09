@@ -1,11 +1,10 @@
 import { Location } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
-import { GlobalNotificationService } from '@services/global-notification.service';
 
-import { CategoryDetailDataService } from './category-detail-data.service';
+import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
+
+import { CategoryDataService } from '../category-data.service';
 
 export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implements OnInit {
 
@@ -14,13 +13,12 @@ export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implemen
   protected categoryForm: FormGroup;
   protected isSubmitted: boolean;
   protected initialName: string;
+  loading$ = this.service.getLoading();
+  spinnerMessage$ = this.service.getLoadingMessage();
 
   constructor(
     protected location: Location,
-    protected router: Router,
-    protected service: CategoryDetailDataService,
-    protected globalNotificationService: GlobalNotificationService,
-    protected route: ActivatedRoute
+    protected service: CategoryDataService,
   ) {
     super();
     this.categoryForm = new FormGroup({
@@ -42,7 +40,6 @@ export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implemen
   }
 
   checkName($event): void {
-    console.log('checkName', this.initialName);
     const name = $event.target.value;
     this.subscriptions.push(
       this.service

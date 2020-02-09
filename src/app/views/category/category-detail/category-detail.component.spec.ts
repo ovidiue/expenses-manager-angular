@@ -5,22 +5,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedModule } from '../../../modules/shared.module';
 
-import { CategoryDetailComponent } from './category-detail.component';
+import { CategoryDetailAddComponent } from './category-detail-add.component';
 
-describe('CategoryDetailComponent', () => {
-  let component: CategoryDetailComponent;
-  let fixture: ComponentFixture<CategoryDetailComponent>;
+describe('CategoryDetailAddComponent', () => {
+  let component: CategoryDetailAddComponent;
+  let fixture: ComponentFixture<CategoryDetailAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule, SharedModule, ReactiveFormsModule],
-      declarations: [CategoryDetailComponent]
+      declarations: [CategoryDetailAddComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CategoryDetailComponent);
+    fixture = TestBed.createComponent(CategoryDetailAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
