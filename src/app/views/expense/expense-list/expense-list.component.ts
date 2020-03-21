@@ -12,14 +12,8 @@ import { fadeIn } from '@utils/animations/fadeIn';
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as moment from 'moment';
-import {
-  ConfirmationService,
-  DialogService,
-  DynamicDialogConfig,
-  LazyLoadEvent,
-  MenuItem,
-  MessageService
-} from 'primeng/api';
+import { DialogService, DynamicDialogConfig } from 'primeng';
+import { ConfirmationService, LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
 
 import { ExpensesDataService } from './expenses-data.service';
 
@@ -69,10 +63,10 @@ export class ExpenseListComponent implements OnInit {
   expenseFilter: ExpenseFilter;
 
   constructor(
-      private router: Router,
-      private service: ExpensesDataService,
-      public dialogService: DialogService,
-      private globalNotificationService: GlobalNotificationService) {
+    private router: Router,
+    private service: ExpensesDataService,
+    public dialogService: DialogService,
+    private globalNotificationService: GlobalNotificationService) {
   }
 
   ngOnInit() {
@@ -137,10 +131,10 @@ export class ExpenseListComponent implements OnInit {
     console.log(this.selectedExpenses);
     const expensesIds = this.selectedExpenses.map(exp => exp.id);
     this.service.setCategory(expensesIds, this.categoryToAssign.id)
-    .subscribe(() => {
-      this.getExpenses(this.lastEvent);
-      this.globalNotificationService.add(MESSAGES.EXPENSE.SET_NEW_CATEGORY);
-    });
+      .subscribe(() => {
+        this.getExpenses(this.lastEvent);
+        this.globalNotificationService.add(MESSAGES.EXPENSE.SET_NEW_CATEGORY);
+      });
     this.resetAssignVariables();
   }
 
@@ -155,12 +149,12 @@ export class ExpenseListComponent implements OnInit {
   deleteExpense(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
     this.service.deleteExpenses(idsToDelete, false)
-    .subscribe(() => {
+      .subscribe(() => {
           this.resetDeletionVariables();
           this.getExpenses(this.lastEvent);
           this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
         }, (() => this.globalNotificationService.add(MESSAGES.ERROR))
-    );
+      );
 
   }
 
@@ -185,11 +179,11 @@ export class ExpenseListComponent implements OnInit {
   deleteExpenseAndRates(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
     this.service.deleteExpenses(idsToDelete, true)
-    .subscribe(() => {
-      this.resetDeletionVariables();
-      this.getExpenses(this.lastEvent);
-      this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
-    }, (() => this.globalNotificationService.add(MESSAGES.ERROR)));
+      .subscribe(() => {
+        this.resetDeletionVariables();
+        this.getExpenses(this.lastEvent);
+        this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
+      }, (() => this.globalNotificationService.add(MESSAGES.ERROR)));
   }
 
   fetchAndDisplayRates(exp: Expense): void {

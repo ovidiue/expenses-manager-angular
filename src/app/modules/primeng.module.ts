@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import {
   AccordionModule,
   ButtonModule,
-  CalendarModule,
   CardModule,
   ChartModule,
   CheckboxModule,
@@ -22,8 +20,11 @@ import {
   TabMenuModule,
   TabViewModule,
   ToolbarModule,
-  TooltipModule,
-} from 'primeng/primeng';
+  TooltipModule
+} from 'primeng';
+import { CalendarModule } from 'primeng/calendar';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
