@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogComponent } from '@components/dialog/dialog.component';
 import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.component';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -24,10 +25,12 @@ const importsExports = [
   ],
   exports: [
     ...importsExports,
-    PageSpinnerComponent
+    PageSpinnerComponent,
+    DialogComponent
   ],
   declarations: [
-    PageSpinnerComponent
+    PageSpinnerComponent,
+    DialogComponent
   ]
 })
 export class SharedModule {

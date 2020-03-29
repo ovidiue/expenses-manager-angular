@@ -69,38 +69,12 @@
       <div class="col">
         <p-toolbar>
           <div class="ui-toolbar-group-right">
-            <p-dialog [rtl]="true"
-                      modal="true"
-                      [closable]="false"
-                      [visible]="displayDelete$ | async"
-                      [header]="'Confirm DELETE'">
-              <span>{{deletionText}}</span>
-              <p>This action can not be undone!</p>
-              <p-footer class="three-button">
-                <button type="button"
-                        [class]="'ui-button-secondary float-left ui-button-secondary ui-button-raised'"
-                        pButton
-                        icon="pi pi-times"
-                        label="Cancel"
-                        (click)="resetDeletionVariables()">
-                </button>
-                <button type="button"
-                        [class]="'ui-button-danger ui-button-raised'"
-                        pButton
-                        icon="pi pi-check"
-                        label="Delete"
-                        (click)="deleteExpense()">
-                </button>
-                <button type="button"
-                        [class]="'ui-button-danger ui-button-raised extra-danger'"
-                        pButton
-                        *ngIf="decideVisibilityAccordingToPayedField()"
-                        icon="pi pi-check"
-                        label="Delete rates too"
-                        (click)="deleteExpenseAndRates()">
-                </button>
-              </p-footer>
-            </p-dialog>
+            <app-dialog (clickCancel)="service.setModalVisibility(false)"
+                        (clickExtra)="deleteExpenseAndRates()"
+                        (clickOk)="deleteExpense()"
+                        [message]="deletionText"
+                        [threeButtons]="decideVisibilityAccordingToPayedField()"
+                        [visible]="displayDelete$ | async"></app-dialog>
             <p-splitButton label="Add Expense"
                            icon="pi pi-file"
                            class="ui-button-raised"
