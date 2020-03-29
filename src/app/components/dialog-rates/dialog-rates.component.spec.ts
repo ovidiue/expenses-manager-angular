@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ExpenseFilterComponent } from '@components/expense-filter/expense-filter.component';
+import { ExpenseFilterComponent } from '@components/../../views/expense/expense-filter/expense-filter.component';
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';

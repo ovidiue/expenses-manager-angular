@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Expense } from '@models/expense';
 import { ExpenseFilter } from '@models/filters/expense-filter';
+import { ServerResp } from '@models/interfaces/server-resp';
 import { ApiPath } from '@utils/constants/api-paths';
 import mapToRestParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';
@@ -21,7 +22,7 @@ export class ExpenseService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Observable<any> {
+  getAll(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Observable<ServerResp<Expense>> {
     let params: HttpParams = mapToRestParams(event);
     for (const key in expenseFilter) {
       if (expenseFilter.hasOwnProperty(key)) {
@@ -29,7 +30,7 @@ export class ExpenseService {
       }
     }
 
-    return this.http.get(this.EXPENSES_BASE_URL, {params});
+    return this.http.get<ServerResp<Expense>>(this.EXPENSES_BASE_URL, {params});
   }
 
   save(expense: Expense): Observable<any> {
@@ -65,7 +66,7 @@ export class ExpenseService {
   }
 
   getSimpleExpenses(): Observable<any[]> {
-    const url = this.EXPENSES_BASE_URL + '/simple-expenses';
+    const url = this.EXPENSES_BASE_URL + '/simple-expenses$';
 
     return this.http.get<any[]>(url);
   }

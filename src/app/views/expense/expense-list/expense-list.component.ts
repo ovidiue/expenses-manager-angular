@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
 import { Category } from '@models/category';
@@ -7,13 +6,13 @@ import { Expense } from '@models/expense';
 import { ExpenseFilter } from '@models/filters/expense-filter';
 import { ServerResp } from '@models/interfaces/server-resp';
 import { Rate } from '@models/rate';
-import { GlobalNotificationService } from '@services/global-notification.service';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { DialogService, DynamicDialogConfig } from 'primeng';
 import { ConfirmationService, LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 import { ExpensesDataService } from './expenses-data.service';
 
@@ -25,18 +24,18 @@ import { ExpensesDataService } from './expenses-data.service';
   providers: [ConfirmationService, MessageService, DialogService, DynamicDialogConfig]
 })
 export class ExpenseListComponent implements OnInit {
-  expenses: Expense[] = [];
+  expenses$: Observable<Expense[]> = this.service.getExpenses();
   selectedExpenses: Expense[] = [];
 
-  displayDelete = false;
+  displayDelete$ = this.service.getModalVisible();
   deletionText = '';
   selectedForDeletion: Expense;
 
   selectedDescription = '';
   displaySidebar = false;
 
-  categories = [];
-  tags = [];
+  categories$ = this.service.getCategories();
+  tags$ = this.service.getTags();
   categoryToAssign: Category;
 
   tableDefaults = TABLE_DEFAULTS;
@@ -59,18 +58,19 @@ export class ExpenseListComponent implements OnInit {
 
   lastEvent: LazyLoadEvent;
 
-  filterForm: FormGroup;
   expenseFilter: ExpenseFilter;
+  total$ = this.service.getTotal();
 
   constructor(
     private router: Router,
     private service: ExpensesDataService,
     public dialogService: DialogService,
-    private globalNotificationService: GlobalNotificationService) {
+    private toastr: ToastrService) {
   }
 
   ngOnInit() {
     this.instantiateTableActions();
+    this.service.fetchCategoriesApi();
   }
 
   instantiateTableActions(): void {
@@ -79,7 +79,7 @@ export class ExpenseListComponent implements OnInit {
         label: 'Delete Selection',
         command: () => {
           if (!this.areRowsSelected()) {
-            this.globalNotificationService.add(MESSAGES.NO_ROWS_SELECTED);
+            this.toastr.warning(MESSAGES.NO_ROWS_SELECTED);
 
             return false;
           }
@@ -90,7 +90,7 @@ export class ExpenseListComponent implements OnInit {
         label: 'Assign Category',
         command: () => {
           if (!this.areRowsSelected()) {
-            this.globalNotificationService.add(MESSAGES.NO_ROWS_SELECTED);
+            this.toastr.warning(MESSAGES.NO_ROWS_SELECTED);
 
             return false;
           }
@@ -104,37 +104,18 @@ export class ExpenseListComponent implements OnInit {
     return this.selectedExpenses.length > 0;
   }
 
-  goToAddExpense(): void {
-    this.router.navigate(['/expenses/add']);
-  }
-
   searchValues($event: any): void {
-    this.expenseFilter = this.mapToExpenseFilter($event);
-    this.service.getExpenses(this.lastEvent, this.expenseFilter).subscribe(resp => {
-      this.expenses = resp.content;
-      this.tableOptions.totalTableRecords = resp.totalElements;
-      this.tableDefaults.loading = false;
-    });
+    this.expenseFilter = this.service.mapToExpenseFilter($event);
+    this.service.fetchExpensesApi(this.lastEvent, this.expenseFilter);
   }
 
   getExpenses(event: LazyLoadEvent): void {
-    this.service.getExpenses(event, this.expenseFilter).subscribe(resp => {
-      this.expenses = resp.content || [];
-      this.tableOptions.totalTableRecords = resp.totalElements;
-      this.tableDefaults.loading = false;
-      this.lastEvent = event;
-    });
+    this.service.fetchExpensesApi(event, this.expenseFilter);
   }
 
   assignNewCategory(): void {
-    console.log(this.categoryToAssign);
-    console.log(this.selectedExpenses);
     const expensesIds = this.selectedExpenses.map(exp => exp.id);
-    this.service.setCategory(expensesIds, this.categoryToAssign.id)
-      .subscribe(() => {
-        this.getExpenses(this.lastEvent);
-        this.globalNotificationService.add(MESSAGES.EXPENSE.SET_NEW_CATEGORY);
-      });
+    this.service.setCategoryApi(expensesIds, this.categoryToAssign.id);
     this.resetAssignVariables();
   }
 
@@ -148,46 +129,36 @@ export class ExpenseListComponent implements OnInit {
 
   deleteExpense(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
-    this.service.deleteExpenses(idsToDelete, false)
-      .subscribe(() => {
-          this.resetDeletionVariables();
-          this.getExpenses(this.lastEvent);
-          this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
-        }, (() => this.globalNotificationService.add(MESSAGES.ERROR))
-      );
-
+    this.service.deleteExpensesApi(idsToDelete, false);
   }
 
   resetDeletionVariables(): void {
-    this.displayDelete = false;
+    this.service.setModalVisibility(false);
     this.deletionText = '';
     this.selectedForDeletion = null;
     this.selectedExpenses = [];
   }
 
   displayDeleteMultiple() {
-    this.displayDelete = true;
-    this.deletionText = 'Are you sure you want to delete following expenses:' + this.selectedExpenses.map(ex => ex.title).join(', ') + ' ?';
+    // TODO investigate to have expense marked for deletion
+    this.service.setModalVisibility(true);
+    this.deletionText = 'Are you sure you want to delete following expenses$:' + this.selectedExpenses.map(ex => ex.title).join(', ') + ' ?';
   }
 
   displayDeleteRow(ex: Expense): void {
-    this.displayDelete = true;
+    // TODO investigate to have expense marked for deletion
+    this.service.setModalVisibility(true);
     this.selectedForDeletion = ex;
     this.deletionText = `Are you sure you want to delete ${this.selectedForDeletion.title} ?`;
   }
 
   deleteExpenseAndRates(): void {
     const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
-    this.service.deleteExpenses(idsToDelete, true)
-      .subscribe(() => {
-        this.resetDeletionVariables();
-        this.getExpenses(this.lastEvent);
-        this.globalNotificationService.add(MESSAGES.EXPENSE.DELETE_SINGLE);
-      }, (() => this.globalNotificationService.add(MESSAGES.ERROR)));
+    this.service.deleteExpensesApi(idsToDelete, true);
   }
 
   fetchAndDisplayRates(exp: Expense): void {
-    this.service.getRatesByExpenseId(exp.id).subscribe((resp: ServerResp<Rate[]>) => {
+    this.service.getRatesByExpenseIdApi(exp.id).subscribe((resp: ServerResp<Rate[]>) => {
       const width = resp.content.length > 0 ? '70%' : '30%';
       this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
         header: `${exp.title} - rates`,
@@ -205,45 +176,8 @@ export class ExpenseListComponent implements OnInit {
     this.categoryToAssign = null;
   }
 
-  mapToExpenseFilter(obj: any): ExpenseFilter {
-    const expenseFilter: ExpenseFilter = {};
-
-    if (obj.amount) {
-      obj.amountFrom = obj.amount[0];
-      obj.amountTo = obj.amount[1];
-      delete obj.amount;
-    }
-
-    if (obj.createdBetween) {
-      obj.createdFrom = moment(obj.createdBetween[0]).format('DD-MM-YYYY');
-      obj.createdTo = moment(obj.createdBetween[1]).format('DD-MM-YYYY');
-      delete obj.createdBetween;
-    }
-
-    if (obj.dueBetween) {
-      obj.dueDateFrom = moment(obj.dueBetween[0]).format('DD-MM-YYYY');
-      obj.dueDateTo = moment(obj.dueBetween[1]).format('DD-MM-YYYY');
-      delete obj.dueBetween;
-    }
-
-    if (obj.category) {
-      obj.categoryId = obj.category.id;
-      delete obj.category;
-    }
-
-    if (obj.tags) {
-      obj.tagIds = obj.tags.map(tag => tag.id);
-      delete obj.tags;
-    }
-
-    for (const key in obj) {
-      if (obj[key] !== null && typeof obj[key] !== 'undefined' && obj[key] !== '') {
-        expenseFilter[key] = obj[key];
-      }
-    }
-
-    return expenseFilter;
-
+  goToAddExpense() {
+    this.router.navigate(['expenses/add']);
   }
 }
 

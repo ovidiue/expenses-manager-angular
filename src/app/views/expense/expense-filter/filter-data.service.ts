@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
+
+import { Category } from '@models/category';
+import { Tag } from '@models/tag';
+import { CategoryService } from '@services/category.service';
+import { TagService } from '@services/tag.service';
 import { SelectItem } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
-
-import { Category } from '../../models/category';
-import { Tag } from '../../models/tag';
-import { CategoryService } from '../../services/category.service';
-import { TagService } from '../../services/tag.service';
 
 @Injectable({
   providedIn: 'root'

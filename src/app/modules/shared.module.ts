@@ -20,7 +20,7 @@ const importsExports = [
   imports: [
     ...importsExports,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({progressBar: true}),
+    ToastrModule.forRoot({progressBar: true, maxOpened: 1}),
   ],
   exports: [
     ...importsExports,

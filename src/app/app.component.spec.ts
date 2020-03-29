@@ -12,7 +12,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
-        ToastrModule.forRoot({progressBar: true}),
+        ToastrModule.forRoot({progressBar: true, maxOpened: 1}),
       ],
       declarations: [
         AppComponent,

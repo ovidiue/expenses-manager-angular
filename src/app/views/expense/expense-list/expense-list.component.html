@@ -12,7 +12,7 @@
         <div class="ui-g-1"></div>
         <div class="ui-g-10">
           <div class="ui-g-6">
-            <p-dropdown [options]="categories"
+            <p-dropdown [options]="categories$ | async"
                         [showClear]="true"
                         [(ngModel)]="categoryToAssign"
                         [placeholder]="'Select category'"
@@ -72,7 +72,7 @@
             <p-dialog [rtl]="true"
                       modal="true"
                       [closable]="false"
-                      [visible]="displayDelete"
+                      [visible]="displayDelete$ | async"
                       [header]="'Confirm DELETE'">
               <span>{{deletionText}}</span>
               <p>This action can not be undone!</p>
@@ -89,7 +89,7 @@
                         pButton
                         icon="pi pi-check"
                         label="Delete"
-                        (click)="displayDelete=true; deleteExpense()">
+                        (click)="deleteExpense()">
                 </button>
                 <button type="button"
                         [class]="'ui-button-danger ui-button-raised extra-danger'"
@@ -112,16 +112,16 @@
 
       </div>
       <div class="col">
-        <p-table [value]="expenses"
+        <p-table [paginator]="(expenses$ | async).length > 0"
                  [responsive]="true"
-                 [paginator]="expenses.length > 0"
+                 [totalRecords]="total$ | async"
                  [paginatorPosition]="tableDefaults.paginatorPosition"
                  [scrollable]="tableDefaults.scrollable"
                  [scrollHeight]="tableDefaults.scrollHeight"
                  [rowHover]="tableDefaults.rowHover"
                  [reorderableColumns]="tableDefaults.reorderableColumns"
                  [rows]="tableDefaults.defaultRows"
-                 [totalRecords]="tableOptions.totalTableRecords"
+                 [value]="expenses$ | async"
                  [loading]="tableDefaults.loading"
                  [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
                  [lazy]="true"
@@ -215,7 +215,7 @@
           </ng-template>
         </p-table>
         <div class="text-center font-weight-bold font-italic bg-light p-2"
-             *ngIf="!expenses.length">
+             *ngIf="!(expenses$ | async).length">
           {{tableDefaults.noData}}
         </div>
       </div>
