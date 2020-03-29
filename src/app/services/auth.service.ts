@@ -73,6 +73,10 @@ export class AuthService {
   }
 
   public getLoggedInStatus() {
+    // TODO find better solution
+    const token = localStorage.getItem('token');
+    this.isLoggedIn$.next(token !== null);
+
     return this.isLoggedIn$.asObservable();
   }
 
