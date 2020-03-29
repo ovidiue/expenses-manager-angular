@@ -179,5 +179,9 @@ export class ExpenseListComponent implements OnInit {
   goToAddExpense() {
     this.router.navigate(['expenses/add']);
   }
+
+  goToEditExpense(id: any) {
+    this.router.navigate(['expenses/edit', id]);
+  }
 }
 

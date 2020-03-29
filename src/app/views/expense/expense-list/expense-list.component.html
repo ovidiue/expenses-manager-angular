@@ -24,7 +24,7 @@
               <ng-template let-cat pTemplate="item">
                 <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
                   <span
-                      [ngStyle]="{background: cat.color, width: '50%', height: '100%', display:'inline-block'}"></span>
+                    [ngStyle]="{background: cat.color, width: '50%', height: '100%', display:'inline-block'}"></span>
                   <span style="font-size:14px;float:right;margin-top:4px">{{cat.label}}</span>
                 </div>
               </ng-template>
@@ -155,7 +155,7 @@
                      pTooltip="Click for detailed info"
                      (click)="selectedDescription=exp.description;op.toggle($event)">
                   {{exp.description.length > 15 ? (exp.description | slice:0:20) + '...' :
-                    exp.description}}
+                  exp.description}}
                 </div>
                 <ng-template #smallerDesc>
                   <div>
@@ -185,31 +185,10 @@
               <td>{{exp.payed}}</td>
 
               <td class="text-center">
-                <button pButton
-                        pTooltip="Edit"
-                        class="ui-button-info ui-button-raised"
-                        type="button"
-                        routerLink="edit/{{exp.id}}"
-                        icon="pi pi-pencil"
-                        iconPos="left">
-                </button>
-                <button pButton
-                        pTooltip="Delete"
-                        class="ui-button-danger ui-button-raised"
-                        type="button"
-                        (click)="displayDeleteRow(exp)"
-                        icon="pi pi-trash"
-                        iconPos="left">
-                </button>
-                <button *ngIf="exp.payed > 0"
-                        pTooltip="Display rates"
-                        pButton
-                        class="ui-button-secondary ui-button-raised"
-                        type="button"
-                        (click)="fetchAndDisplayRates(exp)"
-                        icon="pi pi-sitemap"
-                        iconPos="left">
-                </button>
+                <app-row-actions (clickDelete)="displayDeleteRow(exp)"
+                                 (clickEdit)="goToEditExpense(exp.id)"
+                                 (clickRates)="fetchAndDisplayRates(exp)"
+                                 [displayRates]="exp.payed > 0"></app-row-actions>
               </td>
             </tr>
           </ng-template>

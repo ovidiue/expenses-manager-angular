@@ -7,6 +7,7 @@ import { ExpenseDetailAddComponent } from './expense-detail/expense-detail-add.c
 import { ExpenseDetailEditComponent } from './expense-detail/expense-detail-edit.component';
 import { ExpenseFilterComponent } from './expense-filter/expense-filter.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
+import { AppRowActionsComponent } from './row-actions/row-actions.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ExpenseListComponent } from './expense-list/expense-list.component';
   ],
   declarations: [
     ExpenseListComponent,
+    AppRowActionsComponent,
     ExpenseDetailAddComponent,
     ExpenseDetailEditComponent,
     ExpenseFilterComponent,
