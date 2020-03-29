@@ -19,38 +19,12 @@
         <div class="col">
           <p-toolbar>
             <div class="ui-toolbar-group-right">
-              <p-dialog [closable]="false"
-                        [header]="'Confirm DELETE'"
-                        [rtl]="true"
-                        [visible]="displayDeleteModal"
-                        modal="true">
-                <span>{{deletionText}}</span>
-                <p>This action can not be undone!</p>
-                <p-footer class="three-button">
-                  <button (click)="resetDeletionVariables()"
-                          [class]="'ui-button-secondary float-left ui-button-secondary ui-button-raised'"
-                          icon="pi pi-times"
-                          label="Cancel"
-                          pButton
-                          type="button">
-                  </button>
-                  <button (click)="deleteCategory(false)"
-                          [class]="'ui-button-danger ui-button-raised'"
-                          icon="pi pi-check"
-                          label="Delete"
-                          pButton
-                          type="button">
-                  </button>
-                  <button (click)="deleteCategory(true)"
-                          [class]="'ui-button-danger ui-button-raised extra-danger'"
-                          icon="pi pi-check"
-                          label="Delete expenses too"
-                          pButton
-                          pTooltip="This will delete attached expenses, and the rates attached to those expenses!"
-                          type="button">
-                  </button>
-                </p-footer>
-              </p-dialog>
+              <app-dialog (clickCancel)="resetDeletionVariables()"
+                          (clickExtra)="deleteCategory(true)"
+                          (clickOk)="deleteCategory(false)"
+                          [message]="deletionText"
+                          [threeButtons]="true"
+                          [visible]="displayDeleteModal"></app-dialog>
               <button (click)="displayDeleteModal=true"
                       [disabled]="!selectedCategories.length"
                       class="ui-button-raised ui-button-danger"
@@ -109,7 +83,7 @@
                        pTooltip="Click for detailed info"
                        style="cursor:pointer;">
                     {{cat.description.length > 15 ? (cat.description | slice:0:20) + '...' :
-                      cat.description}}
+                    cat.description}}
                   </div>
                   <ng-template #smallerDesc>
                     <div>
