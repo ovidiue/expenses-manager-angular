@@ -10,6 +10,7 @@ import { DialogRatesComponent } from "@components/dialog-rates/dialog-rates.comp
 import { ExpenseCardListComponent } from "@components/expense-card-list/expense-card-list.component";
 import { ExpenseChartComponent } from "@components/expense-chart/expense-chart.component";
 import { HeaderComponent } from "@components/header/header.component";
+import { CoreModule } from "@core/core.module";
 
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
@@ -17,9 +18,9 @@ import { ErrorInterceptor } from "./interceptors/error.interceptor";
 import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { SharedModule } from "./modules/shared.module";
 import { CategoryModule } from "./views/category/category.module";
-import { DashboardComponent } from "./views/dashboard/dashboard.component";
+import { DashboardModule } from "./views/dashboard/dashboard.module";
 import { ExpenseModule } from "./views/expense/expense.module";
-import { LoginComponent } from "./views/login/login.component";
+import { LoginModule } from "./views/login/login.module";
 import { RateModule } from "./views/rate/rate.module";
 import { TagModule } from "./views/tag/tag.module";
 
@@ -27,16 +28,15 @@ import { TagModule } from "./views/tag/tag.module";
   declarations: [
     AppComponent,
     DialogRatesComponent,
-    DashboardComponent,
     ExpenseCardListComponent,
     CardViewComponent,
     CardViewListComponent,
     ExpenseChartComponent,
     ChartComponent,
-    LoginComponent,
     HeaderComponent
   ],
   imports: [
+    CoreModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
@@ -47,7 +47,9 @@ import { TagModule } from "./views/tag/tag.module";
     RateModule,
     TagModule,
     ExpenseModule,
-    SharedModule
+    SharedModule,
+    DashboardModule,
+    LoginModule
   ],
   entryComponents: [DialogRatesComponent],
   providers: [

@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { CoreModule } from "../../core/core.module";
 
 import { SharedModule } from "../../modules/shared.module";
 
@@ -9,7 +8,7 @@ import { TagDetailEditComponent } from "./tag-detail/tag-detail-edit.component";
 import { TagListComponent } from "./tag-list/tag-list.component";
 
 @NgModule({
-  imports: [SharedModule, CoreModule],
+  imports: [SharedModule],
   declarations: [TagListComponent, TagDetailAddComponent, TagDetailEditComponent],
   providers: [TagDataService]
 })

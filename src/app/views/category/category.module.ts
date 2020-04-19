@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { CoreModule } from "../../core/core.module";
 
 import { SharedModule } from "../../modules/shared.module";
 
@@ -9,7 +8,7 @@ import { CategoryDetailEditComponent } from "./category-detail/category-detail-e
 import { CategoryListComponent } from "./category-list/category-list.component";
 
 @NgModule({
-  imports: [SharedModule, CoreModule],
+  imports: [SharedModule],
   exports: [],
   declarations: [CategoryDetailEditComponent, CategoryListComponent, CategoryDetailAddComponent],
   providers: [CategoryDataService]
