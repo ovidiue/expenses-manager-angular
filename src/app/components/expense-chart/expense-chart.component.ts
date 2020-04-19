@@ -1,16 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { ExpenseChartDataService } from "@components/expense-chart/expense-chart-data.service";
+import { Component, OnInit } from '@angular/core';
+import { ExpenseChartDataService } from '@components/expense-chart/expense-chart-data.service';
 
 @Component({
-  selector: "app-expense-chart",
-  templateUrl: "./expense-chart.component.html",
-  styleUrls: ["./expense-chart.component.scss"]
+  selector: 'app-expense-chart',
+  templateUrl: './expense-chart.component.html',
+  styleUrls: ['./expense-chart.component.scss'],
 })
 export class ExpenseChartComponent implements OnInit {
   data: any;
 
-  constructor(private service: ExpenseChartDataService) {
-  }
+  constructor(private service: ExpenseChartDataService) {}
 
   ngOnInit() {
     this.service.getSimpleStats().subscribe((resp) => {

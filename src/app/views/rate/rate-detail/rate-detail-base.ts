@@ -1,12 +1,12 @@
-import { Location } from "@angular/common";
-import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { SubscriptionsBaseClass } from "@models/subscriptions-base.class";
-import { TABLE_DEFAULTS } from "@utils/table-options";
-import * as moment from "moment";
-import { Observable } from "rxjs";
+import { Location } from '@angular/common';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
 
-import { RateDetailService } from "./rate-detail.service";
+import { RateDetailService } from './rate-detail.service';
 
 export class RateDetailBase extends SubscriptionsBaseClass {
   expenses$: Observable<any[]>;
@@ -33,7 +33,7 @@ export class RateDetailBase extends SubscriptionsBaseClass {
       amount: new FormControl(null, Validators.required),
       payedOn: new FormControl(null, Validators.required),
       expense: new FormControl(null),
-      observation: new FormControl("")
+      observation: new FormControl(''),
     });
   }
 

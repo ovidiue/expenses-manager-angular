@@ -89,9 +89,9 @@
                     style="cursor: pointer;"
                   >
                     {{
-                    cat.description.length > 15
-                      ? (cat.description | slice: 0:20) + '...'
-                      : cat.description
+                      cat.description.length > 15
+                        ? (cat.description | slice: 0:20) + '...'
+                        : cat.description
                     }}
                   </div>
                   <ng-template #smallerDesc>

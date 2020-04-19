@@ -1,13 +1,13 @@
-import { NgModule } from "@angular/core";
-import { ShortFilterComponent } from "@components/short-filter/short-filter.component";
+import { NgModule } from '@angular/core';
+import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 
-import { SharedModule } from "../../modules/shared.module";
+import { SharedModule } from '../../modules/shared.module';
 
-import { ExpenseDetailAddComponent } from "./expense-detail/expense-detail-add.component";
-import { ExpenseDetailEditComponent } from "./expense-detail/expense-detail-edit.component";
-import { ExpenseFilterComponent } from "./expense-filter/expense-filter.component";
-import { ExpenseListComponent } from "./expense-list/expense-list.component";
-import { AppRowActionsComponent } from "./row-actions/row-actions.component";
+import { ExpenseDetailAddComponent } from './expense-detail/expense-detail-add.component';
+import { ExpenseDetailEditComponent } from './expense-detail/expense-detail-edit.component';
+import { ExpenseFilterComponent } from './expense-filter/expense-filter.component';
+import { ExpenseListComponent } from './expense-list/expense-list.component';
+import { AppRowActionsComponent } from './row-actions/row-actions.component';
 
 @NgModule({
   imports: [SharedModule],
@@ -17,8 +17,7 @@ import { AppRowActionsComponent } from "./row-actions/row-actions.component";
     ExpenseDetailAddComponent,
     ExpenseDetailEditComponent,
     ExpenseFilterComponent,
-    ShortFilterComponent
-  ]
+    ShortFilterComponent,
+  ],
 })
-export class ExpenseModule {
-}
+export class ExpenseModule {}

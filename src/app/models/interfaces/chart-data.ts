@@ -1,4 +1,4 @@
-import { ChartDataset } from "@models/interfaces/chart-dataset";
+import { ChartDataset } from '@models/interfaces/chart-dataset';
 
 export interface ChartData {
   labels: string[];

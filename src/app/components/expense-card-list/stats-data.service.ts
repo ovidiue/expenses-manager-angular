@@ -1,14 +1,13 @@
-import { Injectable } from "@angular/core";
-import { ExpenseService } from "@core/services";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { ExpenseService } from '@core/services';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export default class StatsDataService {
-  constructor(private expenseService: ExpenseService) {
-  }
+  constructor(private expenseService: ExpenseService) {}
 
   round(value: number): number {
     return Math.round(value * 100) / 100;
@@ -19,33 +18,33 @@ export default class StatsDataService {
       map((resp) => {
         return [
           {
-            key: "Number of expenses",
-            value: resp.noOfExpenses || ""
+            key: 'Number of expenses',
+            value: resp.noOfExpenses || '',
           },
           {
-            key: "Maximum value for expense",
-            value: this.round(resp.max) || ""
+            key: 'Maximum value for expense',
+            value: this.round(resp.max) || '',
           },
           {
-            key: "Lowest value for expense",
-            value: this.round(resp.min) || ""
+            key: 'Lowest value for expense',
+            value: this.round(resp.min) || '',
           },
           {
-            key: "Average non recurrent value",
-            value: this.round(resp.averageNonRecurrent) || ""
+            key: 'Average non recurrent value',
+            value: this.round(resp.averageNonRecurrent) || '',
           },
           {
-            key: "Average recurrent value",
-            value: this.round(resp.averageRecurrent) || ""
+            key: 'Average recurrent value',
+            value: this.round(resp.averageRecurrent) || '',
           },
           {
-            key: "Number of expenses partial payed",
-            value: this.round(resp.partialPayed) || ""
+            key: 'Number of expenses partial payed',
+            value: this.round(resp.partialPayed) || '',
           },
           {
-            key: " Number of expenses payed",
-            value: resp.payed || "-"
-          }
+            key: ' Number of expenses payed',
+            value: resp.payed || '-',
+          },
         ];
       })
     );

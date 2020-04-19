@@ -1,26 +1,25 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Category } from "@models/category";
-import { Card } from "@models/interfaces/card";
-import { ServerResp } from "@models/interfaces/server-resp";
-import { ApiPath } from "@utils/constants/api-paths";
-import mapTableParams from "@utils/map-rest-params";
-import { PathBuilder } from "@utils/path-builder";
-import { LazyLoadEvent } from "primeng/api";
-import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Category } from '@models/category';
+import { Card } from '@models/interfaces/card';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { ApiPath } from '@utils/constants/api-paths';
+import mapTableParams from '@utils/map-rest-params';
+import { PathBuilder } from '@utils/path-builder';
+import { LazyLoadEvent } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class CategoryService {
   private CATEGORIES_BASE_URL = PathBuilder.get(ApiPath.CATEGORIES);
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getAll(event: LazyLoadEvent = {}): Observable<ServerResp<Category>> {
     const params: HttpParams = mapTableParams(event);

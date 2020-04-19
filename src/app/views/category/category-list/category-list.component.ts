@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { Category } from "@models/category";
-import { fadeIn } from "@utils/animations/fadeIn";
-import { TABLE_DEFAULTS } from "@utils/table-options";
-import { ConfirmationService, LazyLoadEvent, MessageService } from "primeng/api";
-import { Observable } from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { Category } from '@models/category';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
 
-import { CategoryDataService } from "../category-data.service";
+import { CategoryDataService } from '../category-data.service';
 
 @Component({
-  selector: "app-categories",
-  templateUrl: "./category-list.component.html",
-  styleUrls: ["./categories.component.scss"],
+  selector: 'app-categories',
+  templateUrl: './category-list.component.html',
+  styleUrls: ['./categories.component.scss'],
   providers: [ConfirmationService, MessageService, CategoryDataService],
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class CategoryListComponent implements OnInit {
   categories$: Observable<Category[]>;
@@ -30,10 +30,10 @@ export class CategoryListComponent implements OnInit {
 
   tableOptions = {
     columns: [
-      { name: "Name", value: "name" },
-      { name: "Description", value: "description" },
-      { name: "Color", value: "color" }
-    ]
+      { name: 'Name', value: 'name' },
+      { name: 'Description', value: 'description' },
+      { name: 'Color', value: 'color' },
+    ],
   };
 
   constructor(private service: CategoryDataService) {

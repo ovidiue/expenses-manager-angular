@@ -1,21 +1,21 @@
-import { Injectable } from "@angular/core";
-import { ChartType } from "@models/enums/chart-type";
-import { Card } from "@models/interfaces/card";
-import { ChartData } from "@models/interfaces/chart-data";
-import reduceProperty from "@utils/reduce-property";
+import { Injectable } from '@angular/core';
+import { ChartType } from '@models/enums/chart-type';
+import { Card } from '@models/interfaces/card';
+import { ChartData } from '@models/interfaces/chart-data';
+import reduceProperty from '@utils/reduce-property';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class ChartDataService {
-  parseChartData(dataArr: Card[], chartType: ChartType, chartName: string = ""): ChartData {
+  parseChartData(dataArr: Card[], chartType: ChartType, chartName: string = ''): ChartData {
     if (!dataArr) {
       return null;
     }
 
     switch (chartType) {
       case ChartType.BAR:
-        return this.getBarData(dataArr, "name", "total", chartName);
+        return this.getBarData(dataArr, 'name', 'total', chartName);
       case ChartType.PIE:
-        return this.getPieData(dataArr, "name", "total", "color");
+        return this.getPieData(dataArr, 'name', 'total', 'color');
     }
   }
 
@@ -30,14 +30,14 @@ export class ChartDataService {
     const datasets = [
       {
         label: chartName,
-        backgroundColor: "#42A5F5",
-        borderColor: "#1E88E5",
-        data: reduceProperty(nonEmptyArr, keyData)
-      }
+        backgroundColor: '#42A5F5',
+        borderColor: '#1E88E5',
+        data: reduceProperty(nonEmptyArr, keyData),
+      },
     ];
     return {
       labels,
-      datasets
+      datasets,
     };
   }
 
@@ -56,9 +56,9 @@ export class ChartDataService {
       datasets: [
         {
           data,
-          backgroundColor
-        }
-      ]
+          backgroundColor,
+        },
+      ],
     };
   }
 }

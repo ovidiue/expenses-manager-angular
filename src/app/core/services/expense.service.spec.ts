@@ -1,16 +1,16 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 
-import { ExpenseService } from "./expense.service";
+import { ExpenseService } from './expense.service';
 
-describe("ExpenseService", () => {
+describe('ExpenseService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
     })
   );
 
-  it("should be created", () => {
+  it('should be created', () => {
     const service: ExpenseService = TestBed.get(ExpenseService);
     expect(service).toBeTruthy();
   });

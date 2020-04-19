@@ -1,26 +1,25 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Card } from "@models/interfaces/card";
-import { ServerResp } from "@models/interfaces/server-resp";
-import { Tag } from "@models/tag";
-import { ApiPath } from "@utils/constants/api-paths";
-import mapEventToRestParams from "@utils/map-rest-params";
-import { PathBuilder } from "@utils/path-builder";
-import { LazyLoadEvent } from "primeng/api";
-import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Card } from '@models/interfaces/card';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { Tag } from '@models/tag';
+import { ApiPath } from '@utils/constants/api-paths';
+import mapEventToRestParams from '@utils/map-rest-params';
+import { PathBuilder } from '@utils/path-builder';
+import { LazyLoadEvent } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class TagService {
   private TAGS_BASE_URL = PathBuilder.get(ApiPath.TAGS);
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getAll(event: LazyLoadEvent): Observable<ServerResp<Tag>> {
     let params: HttpParams;
@@ -37,7 +36,7 @@ export class TagService {
 
   delete(tagsIds: Tag[]) {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
-    tagsIds.forEach((id) => urlSearchParams.append("", id.toString()));
+    tagsIds.forEach((id) => urlSearchParams.append('', id.toString()));
     const url = this.TAGS_BASE_URL + '/delete';
 
     return this.http.post(url, tagsIds);

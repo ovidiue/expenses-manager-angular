@@ -1,25 +1,24 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { ServerResp } from "@models/interfaces/server-resp";
-import { Rate } from "@models/rate";
-import { ApiPath } from "@utils/constants/api-paths";
-import mapTableParams from "@utils/map-rest-params";
-import { PathBuilder } from "@utils/path-builder";
-import { LazyLoadEvent } from "primeng/api";
-import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { Rate } from '@models/rate';
+import { ApiPath } from '@utils/constants/api-paths';
+import mapTableParams from '@utils/map-rest-params';
+import { PathBuilder } from '@utils/path-builder';
+import { LazyLoadEvent } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class RateService {
   private RATES_BASE_URL = PathBuilder.get(ApiPath.RATES);
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getRates(event: LazyLoadEvent): Observable<any> {
     const params: HttpParams = mapTableParams(event);
@@ -48,7 +47,7 @@ export class RateService {
 
   deleteRates(rateIds: number[]): Observable<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
-    rateIds.forEach((id) => urlSearchParams.append("", id.toString()));
+    rateIds.forEach((id) => urlSearchParams.append('', id.toString()));
     const url = this.RATES_BASE_URL + '/delete';
 
     return this.http.post(url, rateIds);

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShortFilterComponent } from "./short-filter.component";
+import { ShortFilterComponent } from './short-filter.component';
 
 describe('ShortFilterComponent', () => {
   let component: ShortFilterComponent;
@@ -8,7 +8,7 @@ describe('ShortFilterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ShortFilterComponent]
+      declarations: [ShortFilterComponent],
     }).compileComponents();
   }));
 

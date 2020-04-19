@@ -1,18 +1,18 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { CategoryService } from "@core/services";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CategoryService } from '@core/services';
 
-import { Category } from "@models/category";
+import { Category } from '@models/category';
 
-import { MESSAGES } from "@utils/messages";
-import { TABLE_DEFAULTS } from "@utils/table-options";
+import { MESSAGES } from '@utils/messages';
+import { TABLE_DEFAULTS } from '@utils/table-options';
 
-import { ToastrService } from "ngx-toastr";
+import { ToastrService } from 'ngx-toastr';
 
-import { LazyLoadEvent } from "primeng/api";
+import { LazyLoadEvent } from 'primeng/api';
 
-import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, finalize, tap } from "rxjs/operators";
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
 export class CategoryDataService {
@@ -25,7 +25,7 @@ export class CategoryDataService {
     this._categories = new BehaviorSubject([]);
     this._total = new BehaviorSubject(0);
     this._loading = new BehaviorSubject<boolean>(false);
-    this._loadingMessage = new BehaviorSubject<string>("");
+    this._loadingMessage = new BehaviorSubject<string>('');
 
     this.loadFromServer(TABLE_DEFAULTS.query);
   }
@@ -36,7 +36,7 @@ export class CategoryDataService {
 
     return this.service.get(catId).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(`Failed getting category with id: ${catId}`, "Error");
+        this.toastr.error(`Failed getting category with id: ${catId}`, 'Error');
 
         return throwError(err);
       }),
@@ -57,12 +57,12 @@ export class CategoryDataService {
 
     return this.service.update(category).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(`'Failed updating category ${category.name}`, "Update");
+        this.toastr.error(`'Failed updating category ${category.name}`, 'Update');
 
         return throwError(err);
       }),
       tap(() => {
-        this.toastr.success("Success updating category", "Success");
+        this.toastr.success('Success updating category', 'Success');
       }),
       finalize(() => {
         this._loading.next(false);
@@ -77,12 +77,12 @@ export class CategoryDataService {
 
     return this.service.save(category).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(`Failed saving category ${category.name}`, "Fail");
+        this.toastr.error(`Failed saving category ${category.name}`, 'Fail');
 
         return throwError(err);
       }),
       tap(() => {
-        this.toastr.success(`Success saving new category ${category.name}`, "Save");
+        this.toastr.success(`Success saving new category ${category.name}`, 'Save');
       }),
       finalize(() => {
         this._loading.next(false);

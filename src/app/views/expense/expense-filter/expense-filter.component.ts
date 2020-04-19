@@ -1,14 +1,14 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
-import { SelectItem } from "primeng/api";
-import { Observable, Subscription } from "rxjs";
-import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { SelectItem } from 'primeng/api';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import FilterDataService from "./filter-data.service";
+import FilterDataService from './filter-data.service';
 
 @Component({
-  selector: "app-expense-filter",
-  templateUrl: "./expense-filter.component.html"
+  selector: 'app-expense-filter',
+  templateUrl: './expense-filter.component.html',
 })
 export class ExpenseFilterComponent implements OnInit, OnDestroy {
   categories$: Observable<SelectItem[]>;
@@ -24,12 +24,12 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
     this.tags$ = this.dataService.getTags();
 
     this.filterForm = new FormGroup({
-      title: new FormControl(""),
-      description: new FormControl(""),
-      category: new FormControl(""),
+      title: new FormControl(''),
+      description: new FormControl(''),
+      category: new FormControl(''),
       tags: new FormControl([]),
-      createdBetween: new FormControl(""),
-      dueBetween: new FormControl(""),
+      createdBetween: new FormControl(''),
+      dueBetween: new FormControl(''),
       recurrent: new FormControl(false),
       amount: new FormControl([0, 10000]),
     });

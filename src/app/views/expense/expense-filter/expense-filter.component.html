@@ -53,7 +53,7 @@
                   <span [ngStyle]="{ background: item.color }" class="selected-cat"> </span>
                   <span style="font-size: 14px; margin-left: 10px; margin-top: 4px;">{{
                     item.label
-                    }}</span>
+                  }}</span>
                 </ng-template>
                 <ng-template let-cat pTemplate="item">
                   <div class="ui-helper-clearfix" style="position: relative; height: 25px;">
@@ -67,7 +67,7 @@
                     ></span>
                     <span style="font-size: 14px; float: right; margin-top: 4px;">{{
                       cat.label
-                      }}</span>
+                    }}</span>
                   </div>
                 </ng-template>
               </p-dropdown>
@@ -94,7 +94,7 @@
                   <span
                     *ngIf="!value || value.length === 0"
                     class="ui-multiselected-empty-token ui-corner-all"
-                  >Select Tags</span
+                    >Select Tags</span
                   >
                 </ng-template>
                 <ng-template let-tag pTemplate="item">
@@ -147,7 +147,7 @@
           <div class="col">
             <div class="form-group">
               <label class="form-check-label" for="recurrent" style="display: block;"
-              >Recurrent</label
+                >Recurrent</label
               >
               <p-checkbox
                 [formControl]="filterForm.controls['recurrent']"
@@ -166,7 +166,7 @@
                   else labelSimple
                 "
                 for="amount"
-              >Amount {{ amountBetween[0] + ' - ' + amountBetween[1] }}</label
+                >Amount {{ amountBetween[0] + ' - ' + amountBetween[1] }}</label
               >
               <ng-template #labelSimple>
                 <label for="amount">Amount</label>

@@ -1,19 +1,19 @@
-import { Location } from "@angular/common";
-import { Component } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { RoutePaths } from "@models/enums/route-paths";
-import { fadeIn } from "@utils/animations/fadeIn";
+import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RoutePaths } from '@models/enums/route-paths';
+import { fadeIn } from '@utils/animations/fadeIn';
 
-import { TagDataService } from "../tag-data.service";
+import { TagDataService } from '../tag-data.service';
 
-import { TagDetailBase } from "./tag-detail-base";
+import { TagDetailBase } from './tag-detail-base';
 
 @Component({
-  selector: "app-tag-detail",
-  templateUrl: "./tag-detail.component.html",
-  styleUrls: ["./tag-detail.component.scss"],
-  animations: [fadeIn]
+  selector: 'app-tag-detail',
+  templateUrl: './tag-detail.component.html',
+  styleUrls: ['./tag-detail.component.scss'],
+  animations: [fadeIn],
 })
 export class TagDetailAddComponent extends TagDetailBase {
   nameExists = false;

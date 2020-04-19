@@ -1,21 +1,21 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { CategoryService, ExpenseService, RateService } from "@core/services";
-import { Category } from "@models/category";
-import { Expense } from "@models/expense";
-import { ExpenseFilter } from "@models/filters/expense-filter";
-import { ServerResp } from "@models/interfaces/server-resp";
-import { Rate } from "@models/rate";
-import { Tag } from "@models/tag";
-import { MESSAGES } from "@utils/messages";
-import * as moment from "moment";
-import { ToastrService } from "ngx-toastr";
-import { LazyLoadEvent } from "primeng/api";
-import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, finalize, map, tap } from "rxjs/operators";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CategoryService, ExpenseService, RateService } from '@core/services';
+import { Category } from '@models/category';
+import { Expense } from '@models/expense';
+import { ExpenseFilter } from '@models/filters/expense-filter';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { Rate } from '@models/rate';
+import { Tag } from '@models/tag';
+import { MESSAGES } from '@utils/messages';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { LazyLoadEvent } from 'primeng/api';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class ExpensesDataService {
   private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -31,8 +31,7 @@ export class ExpensesDataService {
     private readonly rateService: RateService,
     private readonly categoryService: CategoryService,
     private readonly toastr: ToastrService
-  ) {
-  }
+  ) {}
 
   getModalVisible() {
     return this.visibleModal$.asObservable();
@@ -51,7 +50,7 @@ export class ExpensesDataService {
       .getAll()
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, "Failed fetching categories");
+          this.toastr.error(err.message, 'Failed fetching categories');
 
           return throwError(err);
         })
@@ -132,7 +131,7 @@ export class ExpensesDataService {
           const msg = ids.length
             ? MESSAGES.EXPENSE.DELETE_MULTIPLE
             : MESSAGES.EXPENSE.DELETE_SINGLE;
-          this.toastr.success(msg, "Delete");
+          this.toastr.success(msg, 'Delete');
         }),
         finalize(() => {
           this.setLoading(false);

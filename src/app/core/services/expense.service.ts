@@ -1,26 +1,25 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Expense } from "@models/expense";
-import { ExpenseFilter } from "@models/filters/expense-filter";
-import { ServerResp } from "@models/interfaces/server-resp";
-import { ApiPath } from "@utils/constants/api-paths";
-import mapToRestParams from "@utils/map-rest-params";
-import { PathBuilder } from "@utils/path-builder";
-import { LazyLoadEvent } from "primeng/api";
-import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Expense } from '@models/expense';
+import { ExpenseFilter } from '@models/filters/expense-filter';
+import { ServerResp } from '@models/interfaces/server-resp';
+import { ApiPath } from '@utils/constants/api-paths';
+import mapToRestParams from '@utils/map-rest-params';
+import { PathBuilder } from '@utils/path-builder';
+import { LazyLoadEvent } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class ExpenseService {
   private EXPENSES_BASE_URL = PathBuilder.get(ApiPath.EXPENSES);
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getAll(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Observable<ServerResp<Expense>> {
     let params: HttpParams = mapToRestParams(event);

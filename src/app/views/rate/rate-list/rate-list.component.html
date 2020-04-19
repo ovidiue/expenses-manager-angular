@@ -131,9 +131,9 @@
                     style="cursor: pointer;"
                   >
                     {{
-                    rate.observation.length > 15
-                      ? (rate.observation | slice: 0:20) + '...'
-                      : rate.observation
+                      rate.observation.length > 15
+                        ? (rate.observation | slice: 0:20) + '...'
+                        : rate.observation
                     }}
                   </div>
                   <ng-template #smallerObs>

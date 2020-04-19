@@ -1,18 +1,18 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SharedModule } from "../../../modules/shared.module";
+import { SharedModule } from '../../../modules/shared.module';
 
-import { CategoryListComponent } from "./category-list.component";
+import { CategoryListComponent } from './category-list.component';
 
-describe("CategoriesComponent", () => {
+describe('CategoriesComponent', () => {
   let component: CategoryListComponent;
   let fixture: ComponentFixture<CategoryListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, HttpClientTestingModule],
-      declarations: [CategoryListComponent]
+      declarations: [CategoryListComponent],
     }).compileComponents();
   }));
 

@@ -1,21 +1,21 @@
-import { Location } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { RoutePaths } from "@models/enums/route-paths";
-import { Tag } from "@models/tag";
-import { fadeIn } from "@utils/animations/fadeIn";
-import { pluck, switchMap } from "rxjs/operators";
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RoutePaths } from '@models/enums/route-paths';
+import { Tag } from '@models/tag';
+import { fadeIn } from '@utils/animations/fadeIn';
+import { pluck, switchMap } from 'rxjs/operators';
 
-import { TagDataService } from "../tag-data.service";
+import { TagDataService } from '../tag-data.service';
 
-import { TagDetailBase } from "./tag-detail-base";
+import { TagDetailBase } from './tag-detail-base';
 
 @Component({
-  selector: "app-tag-detail",
-  templateUrl: "./tag-detail.component.html",
-  styleUrls: ["./tag-detail.component.scss"],
-  animations: [fadeIn]
+  selector: 'app-tag-detail',
+  templateUrl: './tag-detail.component.html',
+  styleUrls: ['./tag-detail.component.scss'],
+  animations: [fadeIn],
 })
 export class TagDetailEditComponent extends TagDetailBase implements OnInit {
   nameExists = false;

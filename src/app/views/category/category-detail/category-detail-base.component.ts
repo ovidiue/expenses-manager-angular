@@ -1,10 +1,10 @@
-import { Location } from "@angular/common";
-import { OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Location } from '@angular/common';
+import { OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { SubscriptionsBaseClass } from "@models/subscriptions-base.class";
+import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
 
-import { CategoryDataService } from "../category-data.service";
+import { CategoryDataService } from '../category-data.service';
 
 export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implements OnInit {
   protected pageTitle: string;
@@ -18,9 +18,9 @@ export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implemen
   constructor(protected location: Location, protected service: CategoryDataService) {
     super();
     this.categoryForm = new FormGroup({
-      name: new FormControl("", Validators.required),
-      description: new FormControl(""),
-      color: new FormControl("#B0AEB0")
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      color: new FormControl('#B0AEB0'),
     });
   }
 

@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrimengModule } from "../../modules/primeng.module";
+import { PrimengModule } from '../../modules/primeng.module';
 
-import { PageSpinnerComponent } from "./page-spinner.component";
+import { PageSpinnerComponent } from './page-spinner.component';
 
 describe('PageSpinnerComponent', () => {
   let component: PageSpinnerComponent;
@@ -11,7 +11,7 @@ describe('PageSpinnerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [PrimengModule],
-      declarations: [PageSpinnerComponent]
+      declarations: [PageSpinnerComponent],
     }).compileComponents();
   }));
 

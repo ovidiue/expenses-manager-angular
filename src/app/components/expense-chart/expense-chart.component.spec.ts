@@ -1,18 +1,18 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SharedModule } from "../../modules/shared.module";
+import { SharedModule } from '../../modules/shared.module';
 
-import { ExpenseChartComponent } from "./expense-chart.component";
+import { ExpenseChartComponent } from './expense-chart.component';
 
-describe("ExpenseChartComponent", () => {
+describe('ExpenseChartComponent', () => {
   let component: ExpenseChartComponent;
   let fixture: ComponentFixture<ExpenseChartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, HttpClientTestingModule],
-      declarations: [ExpenseChartComponent]
+      declarations: [ExpenseChartComponent],
     }).compileComponents();
   }));
 

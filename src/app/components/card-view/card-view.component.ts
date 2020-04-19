@@ -1,17 +1,15 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Card } from "@models/interfaces/card";
+import { Component, Input, OnInit } from '@angular/core';
+import { Card } from '@models/interfaces/card';
 
 @Component({
-  selector: "app-card-view",
-  templateUrl: "./card-view.component.html",
-  styleUrls: ["./card-view.component.scss"]
+  selector: 'app-card-view',
+  templateUrl: './card-view.component.html',
+  styleUrls: ['./card-view.component.scss'],
 })
 export class CardViewComponent implements OnInit {
   @Input() data: Card;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

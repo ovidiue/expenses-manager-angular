@@ -1,19 +1,19 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { TagService } from "@core/services";
-import { Tag } from "@models/tag";
-import { MESSAGES } from "@utils/messages";
-import { TABLE_DEFAULTS } from "@utils/table-options";
-import * as _ from "lodash";
-import { ToastrService } from "ngx-toastr";
-import { LazyLoadEvent } from "primeng/api";
-import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, finalize, tap } from "rxjs/operators";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { TagService } from '@core/services';
+import { Tag } from '@models/tag';
+import { MESSAGES } from '@utils/messages';
+import { TABLE_DEFAULTS } from '@utils/table-options';
+import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
+import { LazyLoadEvent } from 'primeng/api';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
 export class TagDataService {
   private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private _loadingMessage = new BehaviorSubject<string>("");
+  private _loadingMessage = new BehaviorSubject<string>('');
   private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<Number> = new BehaviorSubject(0);
 
@@ -29,7 +29,7 @@ export class TagDataService {
 
     return this.tagService.get(id).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, "Failed fetching tag");
+        this.toastr.error(err.message, 'Failed fetching tag');
 
         return throwError(err);
       }),
@@ -43,7 +43,7 @@ export class TagDataService {
   getTagByName(name: string): Observable<Tag> {
     return this.tagService.getByName(name).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, "Failed fetching tag");
+        this.toastr.error(err.message, 'Failed fetching tag');
 
         return throwError(err);
       })
@@ -56,12 +56,12 @@ export class TagDataService {
 
     return this.tagService.save(tag).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, "Failed saving tag");
+        this.toastr.error(err.message, 'Failed saving tag');
 
         return throwError(err);
       }),
       tap((resp) => {
-        this.toastr.success("", "Saved tag");
+        this.toastr.success('', 'Saved tag');
       }),
       finalize(() => {
         this.setLoading(false);
@@ -76,12 +76,12 @@ export class TagDataService {
 
     return this.tagService.update(tag).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, "Failed updating tag");
+        this.toastr.error(err.message, 'Failed updating tag');
 
         return throwError(err);
       }),
       tap((resp) => {
-        this.toastr.success("", "Updated tag");
+        this.toastr.success('', 'Updated tag');
       }),
       finalize(() => {
         this.setLoading(false);
@@ -103,7 +103,7 @@ export class TagDataService {
   }
 
   deleteTags(ids: Tag[]) {
-    const stringForm = ids.length > 1 ? "tags" : "tag";
+    const stringForm = ids.length > 1 ? 'tags' : 'tag';
     this.setLoading(true);
     this.setLoadingMessage(`Deleting ${stringForm}`);
 
@@ -111,7 +111,7 @@ export class TagDataService {
       .delete(ids)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error("Failed deleting", "Delete");
+          this.toastr.error('Failed deleting', 'Delete');
 
           return throwError(err);
         }),
@@ -166,7 +166,7 @@ export class TagDataService {
       .getAll(event)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error("Error getting tags", "Error");
+          this.toastr.error('Error getting tags', 'Error');
 
           return throwError(err);
         }),

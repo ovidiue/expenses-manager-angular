@@ -1,18 +1,18 @@
-import { Location } from "@angular/common";
-import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { SubscriptionsBaseClass } from "@models/subscriptions-base.class";
-import * as moment from "moment";
-import { SelectItem } from "primeng/api";
-import { Observable } from "rxjs";
+import { Location } from '@angular/common';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
+import * as moment from 'moment';
+import { SelectItem } from 'primeng/api';
+import { Observable } from 'rxjs';
 
-import { ExpenseDetailService } from "./expense-detail.service";
+import { ExpenseDetailService } from './expense-detail.service';
 
 export class ExpenseDetailBase extends SubscriptionsBaseClass {
   pageTitle: string;
   isFormSubmitted = false;
   expenseForm: FormGroup;
-  minDate = moment().startOf("day").toDate();
+  minDate = moment().startOf('day').toDate();
   tags$: Observable<SelectItem[]>;
   categories$: Observable<SelectItem[]>;
 

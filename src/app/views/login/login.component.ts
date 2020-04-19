@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from "@core/services";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '@core/services';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "login.component.html",
-  styleUrls: ["login.component.scss"]
+  selector: 'app-login',
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -15,8 +15,7 @@ export class LoginComponent implements OnInit {
 
   loading$ = this.authService.getLoadingState();
 
-  constructor(private readonly authService: AuthService) {
-  }
+  constructor(private readonly authService: AuthService) {}
 
   get password() {
     return this.loginForm.get('password');
@@ -28,8 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl("", Validators.required),
-      password: new FormControl("", Validators.required)
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     });
   }
 
