@@ -61,7 +61,9 @@ export class AuthService {
 
           return throwError(err);
         }),
-        tap((resp: { [token: string]: string }) => localStorage.setItem('token', resp.token)),
+        tap((resp: { [token: string]: string }) =>
+          localStorage.setItem('token', resp.token)
+        ),
         finalize(() => {
           this.setLoading(false);
         })
@@ -69,7 +71,7 @@ export class AuthService {
       .subscribe(() => {
         this.isLoggedIn$.next(true);
         this.toastr.success('Success logged in');
-        this.router.navigate(['home']);
+        this.router.navigate(['/home']);
       });
   }
 

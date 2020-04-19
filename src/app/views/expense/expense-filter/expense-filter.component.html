@@ -4,7 +4,10 @@
       <p-header>
         Filters
       </p-header>
-      <app-short-filter (removeFilter)="filterUpdate($event)" [filter]="filterForm.value">
+      <app-short-filter
+        (removeFilter)="filterUpdate($event)"
+        [filter]="filterForm.value"
+      >
       </app-short-filter>
       <form [formGroup]="filterForm">
         <div class="row">
@@ -50,13 +53,21 @@
                 name="category"
               >
                 <ng-template let-item pTemplate="selectedItem">
-                  <span [ngStyle]="{ background: item.color }" class="selected-cat"> </span>
-                  <span style="font-size: 14px; margin-left: 10px; margin-top: 4px;">{{
-                    item.label
-                  }}</span>
+                  <span
+                    [ngStyle]="{ background: item.color }"
+                    class="selected-cat"
+                  >
+                  </span>
+                  <span
+                    style="font-size: 14px; margin-left: 10px; margin-top: 4px;"
+                    >{{ item.label }}</span
+                  >
                 </ng-template>
                 <ng-template let-cat pTemplate="item">
-                  <div class="ui-helper-clearfix" style="position: relative; height: 25px;">
+                  <div
+                    class="ui-helper-clearfix"
+                    style="position: relative; height: 25px;"
+                  >
                     <span
                       [ngStyle]="{
                         background: cat.value.color,
@@ -65,9 +76,10 @@
                         display: 'inline-block'
                       }"
                     ></span>
-                    <span style="font-size: 14px; float: right; margin-top: 4px;">{{
-                      cat.label
-                    }}</span>
+                    <span
+                      style="font-size: 14px; float: right; margin-top: 4px;"
+                      >{{ cat.label }}</span
+                    >
                   </div>
                 </ng-template>
               </p-dropdown>
@@ -88,7 +100,10 @@
                     *ngFor="let val of value"
                     class="ui-multiselected-item-token ui-corner-all inlineb"
                   >
-                    <span [ngStyle]="{ background: val.color }" class="small-select-tag"></span>
+                    <span
+                      [ngStyle]="{ background: val.color }"
+                      class="small-select-tag"
+                    ></span>
                     <span>{{ val.name }}</span>
                   </div>
                   <span
@@ -98,8 +113,13 @@
                   >
                 </ng-template>
                 <ng-template let-tag pTemplate="item">
-                  <span [ngStyle]="{ background: tag.value.color }" class="select-tag"></span>
-                  <div style="font-size: 14px; float: right; margin-top: 4px;">{{ tag.label }}</div>
+                  <span
+                    [ngStyle]="{ background: tag.value.color }"
+                    class="select-tag"
+                  ></span>
+                  <div style="font-size: 14px; float: right; margin-top: 4px;">
+                    {{ tag.label }}
+                  </div>
                 </ng-template>
               </p-multiSelect>
             </div>
@@ -109,7 +129,9 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label style="display: block;" for="createdDate">Created Between</label>
+              <label style="display: block;" for="createdDate"
+                >Created Between</label
+              >
               <p-calendar
                 [inputStyle]="{ width: '100%' }"
                 [placeholder]="'Select \'to\' and \'from\' dates'"
@@ -146,7 +168,10 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label class="form-check-label" for="recurrent" style="display: block;"
+              <label
+                class="form-check-label"
+                for="recurrent"
+                style="display: block;"
                 >Recurrent</label
               >
               <p-checkbox
@@ -162,7 +187,8 @@
             <div class="form-group">
               <label
                 *ngIf="
-                  filterForm.controls['amount'] !== null && amountBetween.length > 0;
+                  filterForm.controls['amount'] !== null &&
+                    amountBetween.length > 0;
                   else labelSimple
                 "
                 for="amount"

@@ -7,7 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DashboardDataService {
-  constructor(private tagService: TagService, private categoriesService: CategoryService) {}
+  constructor(
+    private tagService: TagService,
+    private categoriesService: CategoryService
+  ) {}
 
   getTagStats(): Observable<Card[]> {
     return this.tagService.getStats();

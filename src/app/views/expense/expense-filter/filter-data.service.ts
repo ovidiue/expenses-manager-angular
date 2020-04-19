@@ -14,7 +14,10 @@ export default class FilterDataService {
   private readonly _categories: BehaviorSubject<SelectItem[]>;
   private readonly _tags: BehaviorSubject<SelectItem[]>;
 
-  constructor(private categoryService: CategoryService, private tagService: TagService) {
+  constructor(
+    private categoryService: CategoryService,
+    private tagService: TagService
+  ) {
     this._categories = new BehaviorSubject<SelectItem[]>([]);
     this._tags = new BehaviorSubject<SelectItem[]>([]);
 

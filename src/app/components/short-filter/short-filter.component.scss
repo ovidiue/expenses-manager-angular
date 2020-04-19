@@ -1,4 +1,9 @@
-@mixin border-radius($bottom-left: 5px, $top-left: 5px, $bottom-right: 5px, $top-right: 5px) {
+@mixin border-radius(
+  $bottom-left: 5px,
+  $top-left: 5px,
+  $bottom-right: 5px,
+  $top-right: 5px
+) {
   border-bottom-left-radius: $bottom-left;
   border-bottom-right-radius: $bottom-right;
   border-top-right-radius: $top-right;

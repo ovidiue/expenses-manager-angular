@@ -16,9 +16,15 @@ import { catchError, finalize, map, pluck, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ExpenseDetailService {
-  private _categories: BehaviorSubject<SelectItem[]> = new BehaviorSubject<SelectItem[]>([]);
-  private _tags: BehaviorSubject<SelectItem[]> = new BehaviorSubject<SelectItem[]>([]);
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _categories: BehaviorSubject<SelectItem[]> = new BehaviorSubject<
+    SelectItem[]
+  >([]);
+  private _tags: BehaviorSubject<SelectItem[]> = new BehaviorSubject<
+    SelectItem[]
+  >([]);
+  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(
     private expenseService: ExpenseService,
@@ -102,7 +108,9 @@ export class ExpenseDetailService {
           return throwError(err);
         }),
         pluck('content'),
-        map((tags: Tag[]) => tags.map((tag) => ({ label: tag.name, value: tag })))
+        map((tags: Tag[]) =>
+          tags.map((tag) => ({ label: tag.name, value: tag }))
+        )
       )
       .subscribe((tags: SelectItem[]) => this._tags.next(tags));
   }
@@ -117,7 +125,9 @@ export class ExpenseDetailService {
           return throwError(err);
         }),
         pluck('content'),
-        map((categories: Category[]) => categories.map((cat) => ({ label: cat.name, value: cat })))
+        map((categories: Category[]) =>
+          categories.map((cat) => ({ label: cat.name, value: cat }))
+        )
       )
       .subscribe((cats: SelectItem[]) => this._categories.next(cats));
   }

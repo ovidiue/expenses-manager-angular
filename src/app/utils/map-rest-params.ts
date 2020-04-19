@@ -15,7 +15,10 @@ export default (param: LazyLoadEvent): HttpParams => {
       params = params.append('page', (param.first / 10).toString());
     }
     if (param.sortField && param.sortOrder) {
-      params = params.append('sort', param.sortField + ',' + getSort(param.sortOrder));
+      params = params.append(
+        'sort',
+        param.sortField + ',' + getSort(param.sortOrder)
+      );
     }
   }
 

@@ -18,7 +18,9 @@ import { catchError, finalize, map, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ExpensesDataService {
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
   private expenses$ = new BehaviorSubject<Expense[]>([]);
   private categories$ = new BehaviorSubject<Category[]>([]);
   private tags$ = new BehaviorSubject<Tag[]>([]);
@@ -183,7 +185,11 @@ export class ExpensesDataService {
     }
 
     for (const key in obj) {
-      if (obj[key] !== null && typeof obj[key] !== 'undefined' && obj[key] !== '') {
+      if (
+        obj[key] !== null &&
+        typeof obj[key] !== 'undefined' &&
+        obj[key] !== ''
+      ) {
         expenseFilter[key] = obj[key];
       }
     }

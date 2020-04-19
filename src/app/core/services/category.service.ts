@@ -24,7 +24,9 @@ export class CategoryService {
   getAll(event: LazyLoadEvent = {}): Observable<ServerResp<Category>> {
     const params: HttpParams = mapTableParams(event);
 
-    return this.http.get<ServerResp<Category>>(this.CATEGORIES_BASE_URL, { params });
+    return this.http.get<ServerResp<Category>>(this.CATEGORIES_BASE_URL, {
+      params,
+    });
   }
 
   getCategories(event: LazyLoadEvent = null): Observable<Category[]> {

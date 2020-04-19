@@ -6,7 +6,11 @@ import reduceProperty from '@utils/reduce-property';
 
 @Injectable({ providedIn: 'root' })
 export class ChartDataService {
-  parseChartData(dataArr: Card[], chartType: ChartType, chartName: string = ''): ChartData {
+  parseChartData(
+    dataArr: Card[],
+    chartType: ChartType,
+    chartName: string = ''
+  ): ChartData {
     if (!dataArr) {
       return null;
     }

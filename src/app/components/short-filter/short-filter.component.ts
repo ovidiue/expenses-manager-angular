@@ -30,7 +30,8 @@ export class ShortFilterComponent implements OnChanges {
           const object: any = {};
           switch (key) {
             case 'amount':
-              object.label = 'Amount between: ' + obj[key][0] + '-' + obj[key][1];
+              object.label =
+                'Amount between: ' + obj[key][0] + '-' + obj[key][1];
               object.value = 'amount';
               break;
             case 'category':
@@ -69,7 +70,8 @@ export class ShortFilterComponent implements OnChanges {
               break;
             case 'tags':
               if (obj[key].length) {
-                object.label = 'Tags: ' + obj[key].map((el) => el.name).concat();
+                object.label =
+                  'Tags: ' + obj[key].map((el) => el.name).concat();
                 object.value = 'tags';
               }
               break;

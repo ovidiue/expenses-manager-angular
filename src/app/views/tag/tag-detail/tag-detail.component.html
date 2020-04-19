@@ -16,7 +16,9 @@
             <div class="form-group">
               <label for="name">Name</label>
               <input
-                [ngClass]="{ 'is-invalid': name.errors && isSubmitted === true }"
+                [ngClass]="{
+                  'is-invalid': name.errors && isSubmitted === true
+                }"
                 class="form-control"
                 formControlName="name"
                 id="name"
@@ -24,7 +26,10 @@
                 required
                 type="text"
               />
-              <div *ngIf="name.errors && isSubmitted === true" class="invalid-feedback">
+              <div
+                *ngIf="name.errors && isSubmitted === true"
+                class="invalid-feedback"
+              >
                 <div *ngIf="name.errors.required">Name is required</div>
               </div>
               <div
@@ -58,14 +63,20 @@
               >
               </p-colorPicker>
               <div
-                [ngStyle]="{ background: tagFormControls.controls['color'].value }"
+                [ngStyle]="{
+                  background: tagFormControls.controls['color'].value
+                }"
                 class="preview-block"
               ></div>
             </div>
             <hr />
             <div>
-              <button class="btn btn-primary float-right" type="submit">Save</button>
-              <button (click)="goBack($event)" class="btn btn-secondary">Cancel</button>
+              <button class="btn btn-primary float-right" type="submit">
+                Save
+              </button>
+              <button (click)="goBack($event)" class="btn btn-secondary">
+                Cancel
+              </button>
             </div>
           </form>
         </div>

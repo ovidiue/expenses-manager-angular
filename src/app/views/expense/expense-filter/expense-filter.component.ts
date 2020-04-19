@@ -48,6 +48,8 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
   }
 
   filterUpdate(val: any) {
-    val !== null ? this.filterForm.controls[val].reset() : this.filterForm.reset();
+    val !== null
+      ? this.filterForm.controls[val].reset()
+      : this.filterForm.reset();
   }
 }

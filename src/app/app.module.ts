@@ -35,7 +35,7 @@ import { TagModule } from './views/tag/tag.module';
     ExpenseChartComponent,
     ChartComponent,
     HeaderComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     CoreModule,

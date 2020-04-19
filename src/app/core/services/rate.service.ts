@@ -32,7 +32,11 @@ export class RateService {
     return this.http.post(url, rate, httpOptions);
   }
 
-  update(rate: Rate, initialExpenseId?: string, initialRateAmount?: string): Observable<any> {
+  update(
+    rate: Rate,
+    initialExpenseId?: string,
+    initialRateAmount?: string
+  ): Observable<any> {
     const url = this.RATES_BASE_URL + '/update';
     let params: HttpParams = new HttpParams();
     if (initialExpenseId) {

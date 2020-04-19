@@ -1,5 +1,8 @@
 <ng-container
-  *ngIf="{ pageData: pageData$ | async, expenses: expenses$ | async } as pageDataValues"
+  *ngIf="{
+    pageData: pageData$ | async,
+    expenses: expenses$ | async
+  } as pageDataValues"
 >
   <div class="container" [@fadeIn]>
     <div class="page-title">
@@ -110,7 +113,10 @@
                 <th style="width: 3em;">
                   <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th *ngFor="let col of tableOptions.columns" [pSortableColumn]="col.value">
+                <th
+                  *ngFor="let col of tableOptions.columns"
+                  [pSortableColumn]="col.value"
+                >
                   {{ col.name }}
                   <p-sortIcon [field]="col.value"></p-sortIcon>
                 </th>
@@ -125,8 +131,13 @@
                 <td>{{ rate.amount }}</td>
                 <td>
                   <div
-                    (click)="selectedObservation = rate.observation; op.toggle($event)"
-                    *ngIf="rate.observation && rate.observation.length > 15; else smallerObs"
+                    (click)="
+                      selectedObservation = rate.observation; op.toggle($event)
+                    "
+                    *ngIf="
+                      rate.observation && rate.observation.length > 15;
+                      else smallerObs
+                    "
                     pTooltip="Click for detailed info"
                     style="cursor: pointer;"
                   >

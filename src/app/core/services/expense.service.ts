@@ -21,7 +21,10 @@ export class ExpenseService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): Observable<ServerResp<Expense>> {
+  getAll(
+    event: LazyLoadEvent,
+    expenseFilter?: ExpenseFilter
+  ): Observable<ServerResp<Expense>> {
     let params: HttpParams = mapToRestParams(event);
     for (const key in expenseFilter) {
       if (expenseFilter.hasOwnProperty(key)) {
@@ -29,7 +32,9 @@ export class ExpenseService {
       }
     }
 
-    return this.http.get<ServerResp<Expense>>(this.EXPENSES_BASE_URL, { params });
+    return this.http.get<ServerResp<Expense>>(this.EXPENSES_BASE_URL, {
+      params,
+    });
   }
 
   save(expense: Expense): Observable<any> {

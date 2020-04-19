@@ -6,7 +6,8 @@ import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
 
 import { CategoryDataService } from '../category-data.service';
 
-export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implements OnInit {
+export class CategoryDetailBaseComponent extends SubscriptionsBaseClass
+  implements OnInit {
   protected pageTitle: string;
   protected nameExists = false;
   protected categoryForm: FormGroup;
@@ -15,7 +16,10 @@ export class CategoryDetailBaseComponent extends SubscriptionsBaseClass implemen
   loading$ = this.service.getLoading();
   spinnerMessage$ = this.service.getLoadingMessage();
 
-  constructor(protected location: Location, protected service: CategoryDataService) {
+  constructor(
+    protected location: Location,
+    protected service: CategoryDataService
+  ) {
     super();
     this.categoryForm = new FormGroup({
       name: new FormControl('', Validators.required),

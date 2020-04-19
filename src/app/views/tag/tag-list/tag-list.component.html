@@ -92,7 +92,10 @@
                 <th style="width: 3em;">
                   <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th *ngFor="let col of tableOptions.columns" [pSortableColumn]="col.value">
+                <th
+                  *ngFor="let col of tableOptions.columns"
+                  [pSortableColumn]="col.value"
+                >
                   {{ col.name }}
                   <p-sortIcon [field]="col.value"></p-sortIcon>
                 </th>
@@ -107,8 +110,13 @@
                 <td>{{ tag.name }}</td>
                 <td>
                   <div
-                    (click)="selectedDescription = tag.description; op.toggle($event)"
-                    *ngIf="tag.description && tag.description.length > 15; else smallerDesc"
+                    (click)="
+                      selectedDescription = tag.description; op.toggle($event)
+                    "
+                    *ngIf="
+                      tag.description && tag.description.length > 15;
+                      else smallerDesc
+                    "
                     pTooltip="Click for detailed info"
                     style="cursor: pointer;"
                   >
@@ -125,7 +133,10 @@
                   </ng-template>
                 </td>
                 <td>
-                  <div [ngStyle]="{ background: tag.color }" class="table-cell-color"></div>
+                  <div
+                    [ngStyle]="{ background: tag.color }"
+                    class="table-cell-color"
+                  ></div>
                 </td>
                 <td class="text-center">
                   <button

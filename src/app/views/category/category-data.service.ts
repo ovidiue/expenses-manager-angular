@@ -57,7 +57,10 @@ export class CategoryDataService {
 
     return this.service.update(category).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(`'Failed updating category ${category.name}`, 'Update');
+        this.toastr.error(
+          `'Failed updating category ${category.name}`,
+          'Update'
+        );
 
         return throwError(err);
       }),
@@ -82,7 +85,10 @@ export class CategoryDataService {
         return throwError(err);
       }),
       tap(() => {
-        this.toastr.success(`Success saving new category ${category.name}`, 'Save');
+        this.toastr.success(
+          `Success saving new category ${category.name}`,
+          'Save'
+        );
       }),
       finalize(() => {
         this._loading.next(false);
@@ -90,7 +96,10 @@ export class CategoryDataService {
     );
   }
 
-  public deleteCategory(ids: number[], withExpense: boolean): Observable<number[]> {
+  public deleteCategory(
+    ids: number[],
+    withExpense: boolean
+  ): Observable<number[]> {
     this._loading.next(true);
 
     return this.service.delete(ids, withExpense).pipe(
@@ -100,7 +109,9 @@ export class CategoryDataService {
       }),
       tap((deletedCategories: number[]) => {
         const categories = this._categories.getValue();
-        const updatedCategories = categories.filter((el) => !deletedCategories.includes(el.id));
+        const updatedCategories = categories.filter(
+          (el) => !deletedCategories.includes(el.id)
+        );
         const newTotal = this._total.getValue() - ids.length;
         this._total.next(newTotal);
         this._categories.next(updatedCategories);

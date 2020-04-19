@@ -29,7 +29,10 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void {
     this._data.subscribe((data: Card[]) => {
-      return (this.parsedData = this.service.parseChartData(data, this.chartType));
+      return (this.parsedData = this.service.parseChartData(
+        data,
+        this.chartType
+      ));
     });
   }
 }

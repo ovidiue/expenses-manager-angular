@@ -13,7 +13,12 @@ describe('CategoryDetailAddComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, SharedModule, ReactiveFormsModule],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        SharedModule,
+        ReactiveFormsModule,
+      ],
       declarations: [CategoryDetailAddComponent],
     }).compileComponents();
   }));

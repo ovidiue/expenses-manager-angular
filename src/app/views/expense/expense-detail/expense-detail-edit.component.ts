@@ -18,7 +18,8 @@ import { ExpenseDetailService } from './expense-detail.service';
   providers: [MessageService],
   animations: [fadeIn],
 })
-export class ExpenseDetailEditComponent extends ExpenseDetailBase implements OnInit {
+export class ExpenseDetailEditComponent extends ExpenseDetailBase
+  implements OnInit {
   pageTitle: string;
 
   constructor(

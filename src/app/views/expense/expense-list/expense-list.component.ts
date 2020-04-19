@@ -25,8 +25,8 @@ import { ExpensesDataService } from './expenses-data.service';
     ConfirmationService,
     MessageService,
     DialogService,
-    DynamicDialogConfig
-  ]
+    DynamicDialogConfig,
+  ],
 })
 export class ExpenseListComponent implements OnInit {
   expenses$: Observable<Expense[]> = this.service.getExpenses();
@@ -179,8 +179,8 @@ export class ExpenseListComponent implements OnInit {
           header: `${exp.title} - rates`,
           width,
           data: {
-            resp
-          }
+            resp,
+          },
         });
       });
   }
@@ -192,10 +192,10 @@ export class ExpenseListComponent implements OnInit {
   }
 
   goToAddExpense() {
-    this.router.navigate(['add']);
+    this.router.navigate(['add'], { relativeTo: this.route });
   }
 
   goToEditExpense(id: any) {
-    this.router.navigate(['edit', id]);
+    this.router.navigate(['edit', id], { relativeTo: this.route });
   }
 }

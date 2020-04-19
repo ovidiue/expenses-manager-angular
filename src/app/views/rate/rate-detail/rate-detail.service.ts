@@ -12,7 +12,9 @@ import { catchError, finalize, map, pluck, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class RateDetailService {
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(
     private rateService: RateService,

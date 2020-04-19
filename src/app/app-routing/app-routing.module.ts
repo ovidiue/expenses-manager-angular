@@ -4,21 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from '../views/category';
 import { DashboardComponent } from '../views/dashboard';
-import { ExpenseDetailAddComponent } from '../views/expense/expense-detail/expense-detail-add.component';
-import { ExpenseDetailEditComponent } from '../views/expense/expense-detail/expense-detail-edit.component';
-import { ExpenseListComponent } from '../views/expense/expense-list/expense-list.component';
-import { LoginComponent } from '../views/login/login.component';
-import { MainComponent } from '../views/main/main.component';
-import { RateDetailAddComponent } from '../views/rate/rate-detail/rate-detail-add.component';
-import { RateDetailEditComponent } from '../views/rate/rate-detail/rate-detail-edit.component';
-import { RateListComponent } from '../views/rate/rate-list/rate-list.component';
-import { TagDetailAddComponent } from '../views/tag/tag-detail/tag-detail-add.component';
-import { TagDetailEditComponent } from '../views/tag/tag-detail/tag-detail-edit.component';
-import { TagListComponent } from '../views/tag/tag-list/tag-list.component';
+import { ExpenseDetailAddComponent, ExpenseDetailEditComponent, ExpenseListComponent } from '../views/expense';
+import { LoginComponent } from '../views/login';
+import { MainComponent } from '../views/main';
+import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } from '../views/rate';
+import { TagDetailAddComponent, TagDetailEditComponent, TagListComponent } from '../views/tag';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', redirectTo: 'home/expenses', pathMatch: 'full' },
+  { path: 'home', redirectTo: 'home/expenses' },
   {
     path: 'home',
     component: MainComponent,
@@ -27,56 +21,56 @@ export const routes: Routes = [
       {
         path: 'expenses',
         data: {
-          displayName: 'Expenses'
+          displayName: 'Expenses',
         },
         children: [
           { path: '', component: ExpenseListComponent },
           { path: 'add', component: ExpenseDetailAddComponent },
-          { path: 'edit/:id', component: ExpenseDetailEditComponent }
-        ]
+          { path: 'edit/:id', component: ExpenseDetailEditComponent },
+        ],
       },
       {
         path: 'rates',
         data: {
-          displayName: 'Rates'
+          displayName: 'Rates',
         },
         children: [
           { path: '', component: RateListComponent },
           { path: 'add', component: RateDetailAddComponent },
-          { path: 'edit/:id', component: RateDetailEditComponent }
-        ]
+          { path: 'edit/:id', component: RateDetailEditComponent },
+        ],
       },
       {
         path: 'categories',
         data: {
-          displayName: 'Categories'
+          displayName: 'Categories',
         },
         children: [
           { path: '', component: CategoryListComponent },
           { path: 'add', component: CategoryDetailAddComponent },
-          { path: 'edit/:id', component: CategoryDetailEditComponent }
-        ]
+          { path: 'edit/:id', component: CategoryDetailEditComponent },
+        ],
       },
       {
         path: 'tags',
         data: {
-          displayName: 'Tags'
+          displayName: 'Tags',
         },
         children: [
           { path: '', component: TagListComponent },
           { path: 'add', component: TagDetailAddComponent },
-          { path: 'edit/:id', component: TagDetailEditComponent }
-        ]
+          { path: 'edit/:id', component: TagDetailEditComponent },
+        ],
       },
       {
         path: 'dashboard',
         data: {
-          displayName: 'Dashboard'
+          displayName: 'Dashboard',
         },
-        component: DashboardComponent
-      }
-    ]
-  }
+        component: DashboardComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({

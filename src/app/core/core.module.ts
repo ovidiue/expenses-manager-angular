@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  imports: [HttpClientModule, ToastrModule.forRoot({ progressBar: true, maxOpened: 1 })],
+  imports: [
+    HttpClientModule,
+    ToastrModule.forRoot({ progressBar: true, maxOpened: 1 }),
+  ],
   exports: [HttpClientModule, ToastrModule],
 })
 export class CoreModule {}

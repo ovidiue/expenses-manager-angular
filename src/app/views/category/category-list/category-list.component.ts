@@ -58,13 +58,17 @@ export class CategoryListComponent implements OnInit {
     const idsToDelete = this.selectedForDeletion
       ? [this.selectedForDeletion.id]
       : this.selectedCategories.map((cat) => cat.id);
-    this.service.deleteCategory(idsToDelete, withExpenses).subscribe((deleted) => {
-      this.resetDeletionVariables();
-    });
+    this.service
+      .deleteCategory(idsToDelete, withExpenses)
+      .subscribe((deleted) => {
+        this.resetDeletionVariables();
+      });
   }
 
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
-    this.service.getCategories(event).subscribe(() => (this.tableDefaults.loading = false));
+    this.service
+      .getCategories(event)
+      .subscribe(() => (this.tableDefaults.loading = false));
   }
 }

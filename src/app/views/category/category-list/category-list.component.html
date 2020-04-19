@@ -68,7 +68,10 @@
                 <th style="width: 3em;">
                   <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th *ngFor="let col of tableOptions.columns" [pSortableColumn]="col.value">
+                <th
+                  *ngFor="let col of tableOptions.columns"
+                  [pSortableColumn]="col.value"
+                >
                   {{ col.name }}
                   <p-sortIcon [field]="col.value"></p-sortIcon>
                 </th>
@@ -83,8 +86,13 @@
                 <td>{{ cat.name }}</td>
                 <td>
                   <div
-                    (click)="selectedDescription = cat.description; op.toggle($event)"
-                    *ngIf="cat.description && cat.description.length > 15; else smallerDesc"
+                    (click)="
+                      selectedDescription = cat.description; op.toggle($event)
+                    "
+                    *ngIf="
+                      cat.description && cat.description.length > 15;
+                      else smallerDesc
+                    "
                     pTooltip="Click for detailed info"
                     style="cursor: pointer;"
                   >
@@ -101,7 +109,10 @@
                   </ng-template>
                 </td>
                 <td>
-                  <div [ngStyle]="{ background: cat.color }" class="table-cell-color"></div>
+                  <div
+                    [ngStyle]="{ background: cat.color }"
+                    class="table-cell-color"
+                  ></div>
                 </td>
                 <td class="text-center">
                   <button
@@ -113,7 +124,9 @@
                     type="button"
                   ></button>
                   <button
-                    (click)="selectedForDeletion = cat; displayDeleteModal = true"
+                    (click)="
+                      selectedForDeletion = cat; displayDeleteModal = true
+                    "
                     class="ui-button-danger"
                     icon="pi pi-trash"
                     iconPos="left"

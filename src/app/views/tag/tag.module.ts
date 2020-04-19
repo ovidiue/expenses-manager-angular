@@ -9,7 +9,11 @@ import { TagListComponent } from './tag-list/tag-list.component';
 
 @NgModule({
   imports: [SharedModule],
-  declarations: [TagListComponent, TagDetailAddComponent, TagDetailEditComponent],
+  declarations: [
+    TagListComponent,
+    TagDetailAddComponent,
+    TagDetailEditComponent,
+  ],
   providers: [TagDataService],
 })
 export class TagModule {}

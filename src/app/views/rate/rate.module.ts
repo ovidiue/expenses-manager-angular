@@ -8,6 +8,10 @@ import { RateListComponent } from './rate-list/rate-list.component';
 
 @NgModule({
   imports: [SharedModule],
-  declarations: [RateListComponent, RateDetailAddComponent, RateDetailEditComponent],
+  declarations: [
+    RateListComponent,
+    RateDetailAddComponent,
+    RateDetailEditComponent,
+  ],
 })
 export class RateModule {}

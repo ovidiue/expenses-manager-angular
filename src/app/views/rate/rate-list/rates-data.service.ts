@@ -16,7 +16,9 @@ export class RatesDataService {
   private _rates: BehaviorSubject<Rate[]> = new BehaviorSubject([]);
   private _expenses: BehaviorSubject<Expense[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<Number> = new BehaviorSubject(0);
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor(
     private rateService: RateService,
@@ -29,7 +31,10 @@ export class RatesDataService {
 
   getData(event: LazyLoadEvent) {
     this.loadServerData(event);
-    return combineLatest([this._rates.asObservable(), this._total.asObservable()]).pipe(
+    return combineLatest([
+      this._rates.asObservable(),
+      this._total.asObservable(),
+    ]).pipe(
       map(([rates, total]) => ({
         rates,
         total,
@@ -63,7 +68,9 @@ export class RatesDataService {
         finalize(() => this.setLoadingState(false))
       )
       .subscribe((respIds) => {
-        const remainingRates = this._rates.getValue().filter((rate) => !respIds.includes(rate.id));
+        const remainingRates = this._rates
+          .getValue()
+          .filter((rate) => !respIds.includes(rate.id));
         this._rates.next(remainingRates);
         const newTotalValue = Number(this._total.getValue()) - respIds.length;
         this._total.next(newTotalValue);

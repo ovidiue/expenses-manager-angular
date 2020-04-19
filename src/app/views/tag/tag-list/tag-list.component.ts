@@ -32,7 +32,10 @@ export class TagListComponent implements OnInit {
 
   selectedDescription = '';
 
-  constructor(private service: TagDataService, private confirmationService: ConfirmationService) {}
+  constructor(
+    private service: TagDataService,
+    private confirmationService: ConfirmationService
+  ) {}
 
   ngOnInit() {
     this.tags$ = this.service.getTags(TABLE_DEFAULTS.query);

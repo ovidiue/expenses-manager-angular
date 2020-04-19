@@ -10,7 +10,9 @@
             <label for="title">Title</label>
             <input
               [ngClass]="{
-                'is-invalid': title.invalid && (title.dirty || title.touched || isFormSubmitted)
+                'is-invalid':
+                  title.invalid &&
+                  (title.dirty || title.touched || isFormSubmitted)
               }"
               class="form-control"
               formControlName="title"
@@ -20,17 +22,24 @@
               type="text"
             />
             <div
-              *ngIf="title.invalid && (title.dirty || title.touched || isFormSubmitted)"
+              *ngIf="
+                title.invalid &&
+                (title.dirty || title.touched || isFormSubmitted)
+              "
               class="invalid-feedback"
             >
-              <div *ngIf="title.errors.required && isFormSubmitted">Title is required</div>
+              <div *ngIf="title.errors.required && isFormSubmitted">
+                Title is required
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label for="amount">Amount</label>
             <input
               [ngClass]="{
-                'is-invalid': amount.invalid && (amount.dirty || amount.touched || isFormSubmitted)
+                'is-invalid':
+                  amount.invalid &&
+                  (amount.dirty || amount.touched || isFormSubmitted)
               }"
               aria-describedby="amount"
               class="form-control"
@@ -41,10 +50,15 @@
               type="text"
             />
             <div
-              *ngIf="amount.invalid && (amount.dirty || amount.touched || isFormSubmitted)"
+              *ngIf="
+                amount.invalid &&
+                (amount.dirty || amount.touched || isFormSubmitted)
+              "
               class="invalid-feedback"
             >
-              <div *ngIf="amount.errors.required && isFormSubmitted">Amount is required</div>
+              <div *ngIf="amount.errors.required && isFormSubmitted">
+                Amount is required
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -59,7 +73,11 @@
             </textarea>
           </div>
           <div class="form-group">
-            <p-checkbox binary="true" formControlName="recurrent" label="Recurrent"></p-checkbox>
+            <p-checkbox
+              binary="true"
+              formControlName="recurrent"
+              label="Recurrent"
+            ></p-checkbox>
           </div>
           <div class="form-group">
             <label for="dueDate">Due date</label>
@@ -86,13 +104,20 @@
               id="category"
             >
               <ng-template let-item pTemplate="selectedItem">
-                <span [ngStyle]="{ background: item.value.color }" class="selected-cat"></span>
-                <span style="font-size: 14px; margin-left: 10px; margin-top: 4px;">{{
-                  item.label
-                }}</span>
+                <span
+                  [ngStyle]="{ background: item.value.color }"
+                  class="selected-cat"
+                ></span>
+                <span
+                  style="font-size: 14px; margin-left: 10px; margin-top: 4px;"
+                  >{{ item.label }}</span
+                >
               </ng-template>
               <ng-template let-cat pTemplate="item">
-                <div class="ui-helper-clearfix" style="position: relative; height: 25px;">
+                <div
+                  class="ui-helper-clearfix"
+                  style="position: relative; height: 25px;"
+                >
                   <span
                     [ngStyle]="{
                       background: cat.value.color,
@@ -101,9 +126,10 @@
                       display: 'inline-block'
                     }"
                   ></span>
-                  <span style="font-size: 14px; float: right; margin-top: 4px;">{{
-                    cat.label
-                  }}</span>
+                  <span
+                    style="font-size: 14px; float: right; margin-top: 4px;"
+                    >{{ cat.label }}</span
+                  >
                 </div>
               </ng-template>
             </p-dropdown>
@@ -121,7 +147,10 @@
                   *ngFor="let val of value"
                   class="ui-multiselected-item-token ui-corner-all inlineb"
                 >
-                  <span [ngStyle]="{ background: val.color }" class="small-select-tag"></span>
+                  <span
+                    [ngStyle]="{ background: val.color }"
+                    class="small-select-tag"
+                  ></span>
                   <span>{{ val.name }}</span>
                 </div>
                 <span
@@ -131,15 +160,24 @@
                 >
               </ng-template>
               <ng-template let-tag pTemplate="item">
-                <span [ngStyle]="{ background: tag.value.color }" class="select-tag"></span>
-                <div style="font-size: 14px; float: right; margin-top: 4px;">{{ tag.label }}</div>
+                <span
+                  [ngStyle]="{ background: tag.value.color }"
+                  class="select-tag"
+                ></span>
+                <div style="font-size: 14px; float: right; margin-top: 4px;">
+                  {{ tag.label }}
+                </div>
               </ng-template>
             </p-multiSelect>
           </div>
           <hr />
           <div>
-            <button type="submit" class="btn btn-primary float-right">Save</button>
-            <button (click)="goBack($event)" class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary float-right">
+              Save
+            </button>
+            <button (click)="goBack($event)" class="btn btn-secondary">
+              Cancel
+            </button>
           </div>
         </form>
       </div>

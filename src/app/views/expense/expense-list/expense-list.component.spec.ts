@@ -15,7 +15,11 @@ describe('ExpensesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
-      declarations: [ExpenseListComponent, ExpenseFilterComponent, ShortFilterComponent],
+      declarations: [
+        ExpenseListComponent,
+        ExpenseFilterComponent,
+        ShortFilterComponent,
+      ],
     }).compileComponents();
   }));
 

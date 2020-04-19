@@ -12,14 +12,19 @@ import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
 export class TagDataService {
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
   private _loadingMessage = new BehaviorSubject<string>('');
   private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<Number> = new BehaviorSubject(0);
 
   private event: LazyLoadEvent;
 
-  constructor(private tagService: TagService, private readonly toastr: ToastrService) {
+  constructor(
+    private tagService: TagService,
+    private readonly toastr: ToastrService
+  ) {
     this.loadInitialData(TABLE_DEFAULTS.query);
   }
 
@@ -127,7 +132,8 @@ export class TagDataService {
         () => {
           let tags = this._tags.getValue();
           tags = tags.filter((tag) => !ids.includes(tag));
-          const updatedTotal = parseInt(this._total.getValue().toFixed(), 10) - 1;
+          const updatedTotal =
+            parseInt(this._total.getValue().toFixed(), 10) - 1;
           this._total.next(updatedTotal);
           this._tags.next(tags);
         },

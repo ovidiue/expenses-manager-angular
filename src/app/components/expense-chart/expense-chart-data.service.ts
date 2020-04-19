@@ -54,8 +54,12 @@ export class ExpenseChartDataService {
     const result = [];
     const sum = 0;
     for (const key in obj) {
-      const total = obj[key].map((e) => e.amount).reduce((sum, e) => (sum += e), sum);
-      const totalPayed = obj[key].map((e) => e.payed).reduce((sum, e) => (sum += e), sum);
+      const total = obj[key]
+        .map((e) => e.amount)
+        .reduce((sum, e) => (sum += e), sum);
+      const totalPayed = obj[key]
+        .map((e) => e.payed)
+        .reduce((sum, e) => (sum += e), sum);
       const newObj = {
         total: this.round(total),
         totalPayed: this.round(totalPayed),

@@ -17,7 +17,8 @@ import { CategoryDetailBaseComponent } from './category-detail-base.component';
   styleUrls: ['./category-detail.component.scss'],
   animations: [fadeIn],
 })
-export class CategoryDetailEditComponent extends CategoryDetailBaseComponent implements OnInit {
+export class CategoryDetailEditComponent extends CategoryDetailBaseComponent
+  implements OnInit {
   constructor(
     protected location: Location,
     protected router: Router,
