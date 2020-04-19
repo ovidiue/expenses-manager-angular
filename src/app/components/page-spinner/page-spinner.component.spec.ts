@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrimengModule } from '../../modules/primeng.module';
+import { PrimengModule } from '@shared/primeng.module';
 
 import { PageSpinnerComponent } from './page-spinner.component';
 

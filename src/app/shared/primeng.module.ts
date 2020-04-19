@@ -20,7 +20,7 @@ import {
   TabMenuModule,
   TabViewModule,
   ToolbarModule,
-  TooltipModule,
+  TooltipModule
 } from 'primeng';
 import { CalendarModule } from 'primeng/calendar';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { CategoryDataService } from './category-data.service';
 import { CategoryDetailAddComponent } from './category-detail/category-detail-add.component';

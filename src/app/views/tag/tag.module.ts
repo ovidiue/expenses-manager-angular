@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { TagDataService } from './tag-data.service';
 import { TagDetailAddComponent } from './tag-detail/tag-detail-add.component';

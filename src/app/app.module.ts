@@ -11,16 +11,17 @@ import { ExpenseCardListComponent } from '@components/expense-card-list/expense-
 import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
 import { HeaderComponent } from '@components/header/header.component';
 import { CoreModule } from '@core/core.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { SharedModule } from './modules/shared.module';
 import { CategoryModule } from './views/category/category.module';
 import { DashboardModule } from './views/dashboard/dashboard.module';
 import { ExpenseModule } from './views/expense/expense.module';
 import { LoginModule } from './views/login/login.module';
+import { MainComponent } from './views/main/main.component';
 import { RateModule } from './views/rate/rate.module';
 import { TagModule } from './views/tag/tag.module';
 
@@ -34,6 +35,7 @@ import { TagModule } from './views/tag/tag.module';
     ExpenseChartComponent,
     ChartComponent,
     HeaderComponent,
+    MainComponent
   ],
   imports: [
     CoreModule,

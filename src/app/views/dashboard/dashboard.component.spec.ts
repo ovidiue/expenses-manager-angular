@@ -6,7 +6,7 @@ import { ChartComponent } from '@components/chart/chart.component';
 import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
 import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { DashboardComponent } from './dashboard.component';
 

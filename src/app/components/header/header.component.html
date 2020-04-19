@@ -1,7 +1,7 @@
 <nav>
   <div class="navigation">
     <ul>
-      <ng-container *ngFor="let route of navigationRoutes">
+      <ng-container *ngFor="let route of navigationRoutes[2].children">
         <li *ngIf="route.data?.displayName">
           <a [routerLink]="route.path" routerLinkActive="active"> {{ route.data.displayName }} </a>
         </li>

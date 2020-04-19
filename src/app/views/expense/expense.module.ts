@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 import { ExpenseDetailAddComponent } from './expense-detail/expense-detail-add.component';
 import { ExpenseDetailEditComponent } from './expense-detail/expense-detail-edit.component';

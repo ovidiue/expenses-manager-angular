@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
 import { Category } from '@models/category';
 import { Expense } from '@models/expense';
@@ -21,7 +21,12 @@ import { ExpensesDataService } from './expenses-data.service';
   templateUrl: './expense-list.component.html',
   styleUrls: ['./expense-list.component.scss'],
   animations: [fadeIn],
-  providers: [ConfirmationService, MessageService, DialogService, DynamicDialogConfig],
+  providers: [
+    ConfirmationService,
+    MessageService,
+    DialogService,
+    DynamicDialogConfig
+  ]
 })
 export class ExpenseListComponent implements OnInit {
   expenses$: Observable<Expense[]> = this.service.getExpenses();
@@ -65,7 +70,8 @@ export class ExpenseListComponent implements OnInit {
     private router: Router,
     private service: ExpensesDataService,
     public dialogService: DialogService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -165,16 +171,18 @@ export class ExpenseListComponent implements OnInit {
   }
 
   fetchAndDisplayRates(exp: Expense): void {
-    this.service.getRatesByExpenseIdApi(exp.id).subscribe((resp: ServerResp<Rate[]>) => {
-      const width = resp.content.length > 0 ? '70%' : '30%';
-      this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
-        header: `${exp.title} - rates`,
-        width,
-        data: {
-          resp,
-        },
+    this.service
+      .getRatesByExpenseIdApi(exp.id)
+      .subscribe((resp: ServerResp<Rate[]>) => {
+        const width = resp.content.length > 0 ? '70%' : '30%';
+        this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
+          header: `${exp.title} - rates`,
+          width,
+          data: {
+            resp
+          }
+        });
       });
-    });
   }
 
   resetAssignVariables(): void {
@@ -184,10 +192,10 @@ export class ExpenseListComponent implements OnInit {
   }
 
   goToAddExpense() {
-    this.router.navigate(['expenses/add']);
+    this.router.navigate(['add']);
   }
 
   goToEditExpense(id: any) {
-    this.router.navigate(['expenses/edit', id]);
+    this.router.navigate(['edit', id]);
   }
 }
