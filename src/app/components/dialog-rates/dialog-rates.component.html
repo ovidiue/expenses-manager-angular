@@ -1,4 +1,4 @@
-<div class="ui-g" *ngIf="rates.length > 0;else addTemplate">
+<div *ngIf="rates.length > 0; else addTemplate" class="ui-g">
   <p-table [value]="rates">
     <ng-template pTemplate="header">
       <tr>
@@ -9,9 +9,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-rate>
       <tr [pSelectableRow]="rate">
-        <td>{{rate.amount}}</td>
-        <td>{{rate.creationDate | date}}</td>
-        <td>{{rate.payedOn | date}}</td>
+        <td>{{ rate.amount }}</td>
+        <td>{{ rate.creationDate | date }}</td>
+        <td>{{ rate.payedOn | date }}</td>
       </tr>
     </ng-template>
   </p-table>
@@ -20,4 +20,3 @@
   <h4 class="mb-3">No rates available</h4>
   <div class="modal-bottom-button" (click)="goToAddRate()">Add new rate</div>
 </ng-template>
-

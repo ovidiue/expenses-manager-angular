@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataService } from '@components/chart/chart-data.service';
-import { ChartType } from '@models/enums/chart-type';
-import { Card } from '@models/interfaces/card';
-import { ChartData } from '@models/interfaces/chart-data';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Input, OnInit } from "@angular/core";
+import { ChartDataService } from "@components/chart/chart-data.service";
+import { ChartType } from "@models/enums/chart-type";
+import { Card } from "@models/interfaces/card";
+import { ChartData } from "@models/interfaces/chart-data";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
-  selector: 'app-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  selector: "app-chart",
+  templateUrl: "./chart.component.html",
+  styleUrls: ["./chart.component.scss"]
 })
 export class ChartComponent implements OnInit {
   @Input() chartType: ChartType;
@@ -29,9 +29,8 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._data
-    .subscribe((data: Card[]) => {
-      return this.parsedData = this.service.parseChartData(data, this.chartType);
+    this._data.subscribe((data: Card[]) => {
+      return (this.parsedData = this.service.parseChartData(data, this.chartType));
     });
   }
 }

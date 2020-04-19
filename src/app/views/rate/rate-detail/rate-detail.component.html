@@ -1,69 +1,77 @@
 <div class="container" [@fadeIn]>
   <div class="page-title mb-5">
-    <h3>{{pageTitle}}</h3>
+    <h3>{{ pageTitle }}</h3>
   </div>
   <div class="row mb-5">
     <div class="col">
       <div class="form-wrapper">
-        <form (ngSubmit)="onSubmit()"
-              [formGroup]="rateFormControls">
+        <form (ngSubmit)="onSubmit()" [formGroup]="rateFormControls">
           <div class="form-group">
             <label for="amount">Amount</label>
-            <input type="text"
-                   class="form-control"
-                   id="amount"
-                   [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
-                   required
-                   name="amount"
-                   placeholder="Enter amount"
-                   formControlName="amount">
+            <input
+              [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
+              class="form-control"
+              formControlName="amount"
+              id="amount"
+              name="amount"
+              placeholder="Enter amount"
+              required
+              type="text"
+            />
             <div *ngIf="isSubmitted && amount.errors" class="invalid-feedback">
               <div *ngIf="amount.errors.required">Amount is required</div>
             </div>
           </div>
           <div class="form-group">
             <label for="payedOn">Payed On</label>
-            <p-calendar formControlName="payedOn"
-                        id="payedOn"
-                        class="block"
-                        [required]="true"
-                        [showIcon]="true"
-                        [monthNavigator]="true"
-                        [yearNavigator]="true"
-                        [maxDate]="maxDate"
-                        name="payedOn"
-                        yearRange="2000:2030"
-                        showButtonBar="true">
+            <p-calendar
+              [maxDate]="maxDate"
+              [monthNavigator]="true"
+              [required]="true"
+              [showIcon]="true"
+              [yearNavigator]="true"
+              class="block"
+              formControlName="payedOn"
+              id="payedOn"
+              name="payedOn"
+              showButtonBar="true"
+              yearRange="2000:2030"
+            >
             </p-calendar>
-            <div *ngIf="isSubmitted && payedOn.invalid"
-                 class="invalid-feedback"
-                 style="display: block;">
+            <div
+              *ngIf="isSubmitted && payedOn.invalid"
+              class="invalid-feedback"
+              style="display: block;"
+            >
               <div *ngIf="payedOn.errors">Date is required</div>
             </div>
           </div>
           <div class="form-group">
             <label for="expense">Expense</label>
-            <p-dropdown id="expense"
-                        name="expense"
-                        class="block"
-                        [options]="expenses$ | async"
-                        formControlName="expense"
-                        [showClear]="true"
-                        [placeholder]="'Select expense'"
-                        [style]="{'width':'50%'}">
+            <p-dropdown
+              [options]="expenses$ | async"
+              [placeholder]="'Select expense'"
+              [showClear]="true"
+              [style]="{ width: '50%' }"
+              class="block"
+              formControlName="expense"
+              id="expense"
+              name="expense"
+            >
             </p-dropdown>
           </div>
           <div class="form-group">
             <label for="observation">Observation</label>
-            <textarea rows="7"
-                      class="form-control"
-                      id="observation"
-                      name="observation"
-                      placeholder="Observation"
-                      formControlName="observation"
+            <textarea
+              class="form-control"
+              formControlName="observation"
+              id="observation"
+              name="observation"
+              placeholder="Observation"
+              rows="7"
             ></textarea>
           </div>
-          <hr>
+          <hr/>
           <div>
             <button type="submit" class="btn btn-primary float-right">Save</button>
             <button (click)="goBack($event)" class="btn btn-secondary">Cancel</button>
@@ -71,9 +79,5 @@
         </form>
       </div>
     </div>
-
   </div>
-
-
 </div>
-

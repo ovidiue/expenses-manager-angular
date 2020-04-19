@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-  selector: 'app-row-actions',
-  templateUrl: './row-actions.component.html',
-  styleUrls: ['./row-actions.component.scss']
+  selector: "app-row-actions",
+  templateUrl: "./row-actions.component.html",
+  styleUrls: ["./row-actions.component.scss"]
 })
 export class AppRowActionsComponent {
   @Input() link;
@@ -11,5 +11,4 @@ export class AppRowActionsComponent {
   @Output() clickEdit = new EventEmitter();
   @Output() clickDelete = new EventEmitter();
   @Output() clickRates = new EventEmitter();
-
 }

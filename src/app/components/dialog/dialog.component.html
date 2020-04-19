@@ -1,32 +1,37 @@
-<p-dialog [closable]="false"
-          [header]="'Confirm DELETE'"
-          [rtl]="true"
-          [visible]="visible"
-          modal="true">
-  <span>{{message}}</span>
+<p-dialog
+  [closable]="false"
+  [header]="'Confirm DELETE'"
+  [rtl]="true"
+  [visible]="visible"
+  modal="true"
+>
+  <span>{{ message }}</span>
   <p>This action can not be undone!</p>
   <p-footer class="three-button">
-    <button (click)="visible = false; clickCancel.emit()"
-            [class]="'ui-button-secondary float-left ui-button-secondary ui-button-raised'"
-            icon="pi pi-times"
-            label="Cancel"
-            pButton
-            type="button">
-    </button>
-    <button (click)="clickOk.emit()"
-            [class]="'ui-button-danger ui-button-raised'"
-            [label]="okLabel"
-            icon="pi pi-check"
-            pButton
-            type="button">
-    </button>
-    <button (click)="clickExtra.emit()"
-            *ngIf="threeButtons"
-            [class]="'ui-button-danger ui-button-raised extra-danger'"
-            [label]="extraLabel"
-            icon="pi pi-check"
-            pButton
-            type="button">
-    </button>
+    <button
+      (click)="visible = false; clickCancel.emit()"
+      [class]="'ui-button-secondary float-left ui-button-secondary ui-button-raised'"
+      icon="pi pi-times"
+      label="Cancel"
+      pButton
+      type="button"
+    ></button>
+    <button
+      (click)="clickOk.emit()"
+      [class]="'ui-button-danger ui-button-raised'"
+      [label]="okLabel"
+      icon="pi pi-check"
+      pButton
+      type="button"
+    ></button>
+    <button
+      (click)="clickExtra.emit()"
+      *ngIf="threeButtons"
+      [class]="'ui-button-danger ui-button-raised extra-danger'"
+      [label]="extraLabel"
+      icon="pi pi-check"
+      pButton
+      type="button"
+    ></button>
   </p-footer>
 </p-dialog>

@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Expense } from '@models/expense';
-import { Rate } from '@models/rate';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { Expense } from "@models/expense";
+import { Rate } from "@models/rate";
+import { fadeIn } from "@utils/animations/fadeIn";
+import { TABLE_DEFAULTS } from "@utils/table-options";
+import { ConfirmationService, LazyLoadEvent, MessageService } from "primeng/api";
+import { Observable } from "rxjs";
 
-import { RatesDataService } from './rates-data.service';
+import { RatesDataService } from "./rates-data.service";
 
 @Component({
-  selector: 'app-rates',
-  templateUrl: './rate-list.component.html',
-  styleUrls: ['./rate-list.component.scss'],
+  selector: "app-rates",
+  templateUrl: "./rate-list.component.html",
+  styleUrls: ["./rate-list.component.scss"],
   providers: [ConfirmationService, MessageService, RatesDataService],
   animations: [fadeIn]
 })
 export class RateListComponent implements OnInit {
-
   pageData$: Observable<any>;
   expenses$: Observable<Expense[]>;
 
@@ -27,11 +26,11 @@ export class RateListComponent implements OnInit {
 
   tableOptions = {
     columns: [
-      {name: 'Amount', value: 'amount'},
-      {name: 'Observation', value: 'observation'},
-      {name: 'Creation Date', value: 'creationDate'},
-      {name: 'Payed On', value: 'payedOn'},
-      {name: 'Expense', value: 'expense'}
+      { name: "Amount", value: "amount" },
+      { name: "Observation", value: "observation" },
+      { name: "Creation Date", value: "creationDate" },
+      { name: "Payed On", value: "payedOn" },
+      { name: "Expense", value: "expense" }
     ]
   };
 
@@ -41,7 +40,7 @@ export class RateListComponent implements OnInit {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private service: RatesDataService,
+    private service: RatesDataService
   ) {
   }
 
@@ -69,10 +68,10 @@ export class RateListComponent implements OnInit {
 
   confirmDeletion() {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete these rates?',
+      message: "Are you sure that you want to delete these rates?",
       accept: () => {
         // TODO check map warning
-        const ids = this.selectedRates.map(el => el.id);
+        const ids = this.selectedRates.map((el) => el.id);
         this.service.deleteRates(ids);
       }
     });
@@ -86,5 +85,4 @@ export class RateListComponent implements OnInit {
       }
     });
   }
-
 }

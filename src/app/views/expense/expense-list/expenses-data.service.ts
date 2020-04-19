@@ -1,21 +1,21 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { CategoryService, ExpenseService, RateService } from '@core/services';
-import { Category } from '@models/category';
-import { Expense } from '@models/expense';
-import { ExpenseFilter } from '@models/filters/expense-filter';
-import { ServerResp } from '@models/interfaces/server-resp';
-import { Rate } from '@models/rate';
-import { Tag } from '@models/tag';
-import { MESSAGES } from '@utils/messages';
-import * as moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
-import { LazyLoadEvent } from 'primeng/api';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, map, tap } from 'rxjs/operators';
+import { HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { CategoryService, ExpenseService, RateService } from "@core/services";
+import { Category } from "@models/category";
+import { Expense } from "@models/expense";
+import { ExpenseFilter } from "@models/filters/expense-filter";
+import { ServerResp } from "@models/interfaces/server-resp";
+import { Rate } from "@models/rate";
+import { Tag } from "@models/tag";
+import { MESSAGES } from "@utils/messages";
+import * as moment from "moment";
+import { ToastrService } from "ngx-toastr";
+import { LazyLoadEvent } from "primeng/api";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, finalize, map, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ExpensesDataService {
   private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -47,12 +47,15 @@ export class ExpensesDataService {
   }
 
   fetchCategoriesApi() {
-    this.categoryService.getAll()
-      .pipe(catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, 'Failed fetching categories');
+    this.categoryService
+      .getAll()
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this.toastr.error(err.message, "Failed fetching categories");
 
-        return throwError(err);
-      }))
+          return throwError(err);
+        })
+      )
       .subscribe((resp) => {
         this.categories$.next(resp.content);
       });
@@ -62,19 +65,21 @@ export class ExpensesDataService {
     this.setLoading(true);
     this.event = event;
 
-    this.expenseService.getAll(event, expenseFilter)
+    this.expenseService
+      .getAll(event, expenseFilter)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
 
           return throwError(err);
         }),
-        map((resp) => ({data: resp.content, total: resp.totalElements})),
+        map((resp) => ({ data: resp.content, total: resp.totalElements })),
         finalize(() => this.setLoading(false))
-      ).subscribe(result => {
-      this.expenses$.next(result.data);
-      this.total$.next(result.total);
-    });
+      )
+      .subscribe((result) => {
+        this.expenses$.next(result.data);
+        this.total$.next(result.total);
+      });
   }
 
   getExpenses() {
@@ -96,7 +101,8 @@ export class ExpensesDataService {
   setCategoryApi(expIds: number[], catId: number) {
     this.setLoading(true);
 
-    this.expenseService.setCategory(expIds, catId)
+    this.expenseService
+      .setCategory(expIds, catId)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
@@ -105,7 +111,7 @@ export class ExpensesDataService {
         }),
         finalize(() => this.setLoading(false))
       )
-      .subscribe(resp => {
+      .subscribe((resp) => {
         this.fetchExpensesApi(this.event);
       });
   }
@@ -114,7 +120,8 @@ export class ExpensesDataService {
     this.setLoading(true);
     this.setModalVisibility(true);
 
-    this.expenseService.delete(ids, withRates)
+    this.expenseService
+      .delete(ids, withRates)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
@@ -122,8 +129,10 @@ export class ExpensesDataService {
           return throwError(err);
         }),
         tap((resp) => {
-          const msg = ids.length ? MESSAGES.EXPENSE.DELETE_MULTIPLE : MESSAGES.EXPENSE.DELETE_SINGLE;
-          this.toastr.success(msg, 'Delete');
+          const msg = ids.length
+            ? MESSAGES.EXPENSE.DELETE_MULTIPLE
+            : MESSAGES.EXPENSE.DELETE_SINGLE;
+          this.toastr.success(msg, "Delete");
         }),
         finalize(() => {
           this.setLoading(false);
@@ -134,14 +143,13 @@ export class ExpensesDataService {
   }
 
   getRatesByExpenseIdApi(id: number): Observable<ServerResp<Rate[]>> {
-    return this.rateService.getRatesByExpenseId(id)
-      .pipe(
-        catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, MESSAGES.ERROR);
+    return this.rateService.getRatesByExpenseId(id).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.toastr.error(err.message, MESSAGES.ERROR);
 
-          return throwError(err);
-        }),
-      );
+        return throwError(err);
+      })
+    );
   }
 
   mapToExpenseFilter(obj: any): ExpenseFilter {
@@ -171,7 +179,7 @@ export class ExpensesDataService {
     }
 
     if (obj.tags) {
-      obj.tagIds = obj.tags.map(tag => tag.id);
+      obj.tagIds = obj.tags.map((tag) => tag.id);
       delete obj.tags;
     }
 
@@ -182,7 +190,6 @@ export class ExpensesDataService {
     }
 
     return expenseFilter;
-
   }
 
   private setLoading(state: boolean): void {

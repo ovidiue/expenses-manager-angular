@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from "../../modules/shared.module";
 
-import { ChartComponent } from './chart.component';
+import { ChartComponent } from "./chart.component";
 
 describe('ChartComponent', () => {
   let component: ChartComponent;
@@ -12,8 +12,7 @@ describe('ChartComponent', () => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [ChartComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

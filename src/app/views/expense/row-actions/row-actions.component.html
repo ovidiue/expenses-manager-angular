@@ -1,25 +1,28 @@
-<button (click)="clickEdit.emit()"
-        class="ui-button-info ui-button-raised"
-        icon="pi pi-pencil"
-        iconPos="left"
-        pButton
-        pTooltip="Edit"
-        type="button">
-</button>
-<button (click)="clickDelete.emit()"
-        class="ui-button-danger ui-button-raised"
-        icon="pi pi-trash"
-        iconPos="left"
-        pButton
-        pTooltip="Delete"
-        type="button">
-</button>
-<button (click)="clickRates.emit()"
-        *ngIf="displayRates"
-        class="ui-button-secondary ui-button-raised"
-        icon="pi pi-sitemap"
-        iconPos="left"
-        pButton
-        pTooltip="Display rates"
-        type="button">
-</button>
+<button
+  (click)="clickEdit.emit()"
+  class="ui-button-info ui-button-raised"
+  icon="pi pi-pencil"
+  iconPos="left"
+  pButton
+  pTooltip="Edit"
+  type="button"
+></button>
+<button
+  (click)="clickDelete.emit()"
+  class="ui-button-danger ui-button-raised"
+  icon="pi pi-trash"
+  iconPos="left"
+  pButton
+  pTooltip="Delete"
+  type="button"
+></button>
+<button
+  (click)="clickRates.emit()"
+  *ngIf="displayRates"
+  class="ui-button-secondary ui-button-raised"
+  icon="pi pi-sitemap"
+  iconPos="left"
+  pButton
+  pTooltip="Display rates"
+  type="button"
+></button>

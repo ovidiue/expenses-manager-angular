@@ -1,4 +1,4 @@
 export enum ChartType {
-  BAR = 'bar',
-  PIE = 'pie'
+  BAR = "bar",
+  PIE = "pie",
 }

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import * as moment from 'moment';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core";
+import * as moment from "moment";
 
 @Component({
-  selector: 'app-short-filter',
-  templateUrl: './short-filter.component.html',
-  styleUrls: ['./short-filter.component.scss']
+  selector: "app-short-filter",
+  templateUrl: "./short-filter.component.html",
+  styleUrls: ["./short-filter.component.scss"]
 })
 export class ShortFilterComponent implements OnChanges {
   @Input() filter: any;
@@ -34,23 +34,29 @@ export class ShortFilterComponent implements OnChanges {
               object.label = 'Amount between: ' + obj[key][0] + '-' + obj[key][1];
               object.value = 'amount';
               break;
-            case 'category':
-              object.label = 'Category: ' + obj[key].name;
-              object.value = 'category';
+            case "category":
+              object.label = "Category: " + obj[key].name;
+              object.value = "category";
               break;
-            case 'createdBetween':
-              object.label = 'Created between: ' + moment(obj[key][0]).format('L') + ' - ' +
-                  moment(obj[key][1]).format('L');
-              object.value = 'createdBetween';
+            case "createdBetween":
+              object.label =
+                "Created between: " +
+                moment(obj[key][0]).format("L") +
+                " - " +
+                moment(obj[key][1]).format("L");
+              object.value = "createdBetween";
               break;
-            case 'dueBetween':
-              object.label = 'Due between: ' + moment(obj[key][0]).format('L') + ' - ' +
-                  moment(obj[key][1]).format('L');
-              object.value = 'dueBetween';
+            case "dueBetween":
+              object.label =
+                "Due between: " +
+                moment(obj[key][0]).format("L") +
+                " - " +
+                moment(obj[key][1]).format("L");
+              object.value = "dueBetween";
               break;
-            case 'title':
-              object.label = 'Title contains: ' + obj[key];
-              object.value = 'title';
+            case "title":
+              object.label = "Title contains: " + obj[key];
+              object.value = "title";
               break;
             case 'description':
               object.label = 'Description contains: ' + obj[key];
@@ -64,8 +70,8 @@ export class ShortFilterComponent implements OnChanges {
               break;
             case 'tags':
               if (obj[key].length) {
-                object.label = 'Tags: ' + obj[key].map(el => el.name).concat();
-                object.value = 'tags';
+                object.label = "Tags: " + obj[key].map((el) => el.name).concat();
+                object.value = "tags";
               }
               break;
           }

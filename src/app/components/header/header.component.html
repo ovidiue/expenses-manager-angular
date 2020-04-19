@@ -3,9 +3,7 @@
     <ul>
       <ng-container *ngFor="let route of navigationRoutes">
         <li *ngIf="route.data?.displayName">
-          <a [routerLink]="route.path"
-             routerLinkActive="active"> {{route.data.displayName}}
-          </a>
+          <a [routerLink]="route.path" routerLinkActive="active"> {{ route.data.displayName }} </a>
         </li>
       </ng-container>
     </ul>

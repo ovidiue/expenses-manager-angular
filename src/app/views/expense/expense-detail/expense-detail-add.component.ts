@@ -1,17 +1,17 @@
-import { Location } from '@angular/common';
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RoutePaths } from '@models/enums/route-paths';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { MessageService } from 'primeng/api';
+import { Location } from "@angular/common";
+import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { RoutePaths } from "@models/enums/route-paths";
+import { fadeIn } from "@utils/animations/fadeIn";
+import { MessageService } from "primeng/api";
 
-import { ExpenseDetailBase } from './expense-detail-base';
-import { ExpenseDetailService } from './expense-detail.service';
+import { ExpenseDetailBase } from "./expense-detail-base";
+import { ExpenseDetailService } from "./expense-detail.service";
 
 @Component({
-  selector: 'app-expense-detail',
-  templateUrl: './expense-detail.component.html',
-  styleUrls: ['./expense-detail.component.scss'],
+  selector: "app-expense-detail",
+  templateUrl: "./expense-detail.component.html",
+  styleUrls: ["./expense-detail.component.scss"],
   providers: [MessageService],
   animations: [fadeIn]
 })
@@ -32,12 +32,8 @@ export class ExpenseDetailAddComponent extends ExpenseDetailBase {
       return;
     }
 
-    this.service
-      .saveExpense(this.expenseForm.value)
-      .subscribe(() => {
-          this.router.navigate([RoutePaths.EXPENSE_LISTING]);
-        },
-      );
+    this.service.saveExpense(this.expenseForm.value).subscribe(() => {
+      this.router.navigate([RoutePaths.EXPENSE_LISTING]);
+    });
   }
-
 }

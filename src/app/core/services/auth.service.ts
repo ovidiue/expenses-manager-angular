@@ -1,17 +1,17 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiPath } from '@utils/constants/api-paths';
-import { PathBuilder } from '@utils/path-builder';
-import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { ApiPath } from "@utils/constants/api-paths";
+import { PathBuilder } from "@utils/path-builder";
+import { ToastrService } from "ngx-toastr";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, finalize, tap } from "rxjs/operators";
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 export class AuthService {
   private AUTHENTICATE_BASE_URL = PathBuilder.get(ApiPath.AUTHENTICATE);
   private REGISTER_BASE_URL = PathBuilder.get(ApiPath.REGISTER);
@@ -32,10 +32,11 @@ export class AuthService {
   register(username: string, password: string) {
     this.setLoading(true);
 
-    return this.http.post(this.REGISTER_BASE_URL, {username, password}, httpOptions)
+    return this.http
+      .post(this.REGISTER_BASE_URL, { username, password }, httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, 'Register Failed');
+          this.toastr.error(err.message, "Register Failed");
 
           return throwError(err);
         }),
@@ -53,14 +54,15 @@ export class AuthService {
   authenticate(username: string, password: string) {
     this.setLoading(true);
 
-    return this.http.post(this.AUTHENTICATE_BASE_URL, {username, password}, httpOptions)
+    return this.http
+      .post(this.AUTHENTICATE_BASE_URL, { username, password }, httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, 'Login Failed');
+          this.toastr.error(err.message, "Login Failed");
 
           return throwError(err);
         }),
-        tap((resp: { [token: string]: string }) => localStorage.setItem('token', resp.token)),
+        tap((resp: { [token: string]: string }) => localStorage.setItem("token", resp.token)),
         finalize(() => {
           this.setLoading(false);
         })
@@ -89,5 +91,4 @@ export class AuthService {
   private setLoading(state: boolean) {
     this.isLoading$.next(state);
   }
-
 }

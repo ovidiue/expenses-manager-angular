@@ -1,11 +1,11 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from "../../modules/shared.module";
 
-import { ExpenseCardListComponent } from './expense-card-list.component';
+import { ExpenseCardListComponent } from "./expense-card-list.component";
 
-describe('ExpenseCardListComponent', () => {
+describe("ExpenseCardListComponent", () => {
   let component: ExpenseCardListComponent;
   let fixture: ComponentFixture<ExpenseCardListComponent>;
 
@@ -13,8 +13,7 @@ describe('ExpenseCardListComponent', () => {
     TestBed.configureTestingModule({
       imports: [SharedModule, HttpClientTestingModule],
       declarations: [ExpenseCardListComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

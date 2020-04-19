@@ -1,20 +1,20 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RoutePaths } from '@models/enums/route-paths';
-import { Rate } from '@models/rate';
-import { fadeIn } from '@utils/animations/fadeIn';
-import * as moment from 'moment';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { Location } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { RoutePaths } from "@models/enums/route-paths";
+import { Rate } from "@models/rate";
+import { fadeIn } from "@utils/animations/fadeIn";
+import * as moment from "moment";
+import { map, pluck, switchMap } from "rxjs/operators";
 
-import { RateDetailBase } from './rate-detail-base';
-import { RateDetailService } from './rate-detail.service';
+import { RateDetailBase } from "./rate-detail-base";
+import { RateDetailService } from "./rate-detail.service";
 
 @Component({
-  selector: 'app-rate-detail',
-  templateUrl: './rate-detail.component.html',
-  styleUrls: ['./rate-detail.component.scss'],
+  selector: "app-rate-detail",
+  templateUrl: "./rate-detail.component.html",
+  styleUrls: ["./rate-detail.component.scss"],
   animations: [fadeIn]
 })
 export class RateDetailEditComponent extends RateDetailBase implements OnInit {
@@ -64,9 +64,8 @@ export class RateDetailEditComponent extends RateDetailBase implements OnInit {
 
     this.service
       .updateRate(this.rateFormControls.value, this.initialExpenseId, null)
-      .subscribe(
-        () => {
-          this.router.navigate([RoutePaths.RATES_LISTING]);
-        });
+      .subscribe(() => {
+        this.router.navigate([RoutePaths.RATES_LISTING]);
+      });
   }
 }

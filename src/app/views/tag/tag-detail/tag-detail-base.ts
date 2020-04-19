@@ -1,10 +1,10 @@
-import { Location } from '@angular/common';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
-import { Tag } from '@models/tag';
-import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+import { Location } from "@angular/common";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { SubscriptionsBaseClass } from "@models/subscriptions-base.class";
+import { Tag } from "@models/tag";
+import { debounceTime, distinctUntilChanged, filter, switchMap } from "rxjs/operators";
 
-import { TagDataService } from '../tag-data.service';
+import { TagDataService } from "../tag-data.service";
 
 export class TagDetailBase extends SubscriptionsBaseClass {
   pageTitle: string;
@@ -15,15 +15,12 @@ export class TagDetailBase extends SubscriptionsBaseClass {
   private spinnerMessage$ = this.service.getLoadingMessage();
   private loading$ = this.service.getLoadingState();
 
-  constructor(
-    protected location: Location,
-    protected service: TagDataService
-  ) {
+  constructor(protected location: Location, protected service: TagDataService) {
     super();
     this.tagFormControls = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      color: new FormControl('lightgray')
+      name: new FormControl("", Validators.required),
+      description: new FormControl(""),
+      color: new FormControl("lightgray")
     });
 
     this.name.valueChanges
@@ -31,7 +28,7 @@ export class TagDetailBase extends SubscriptionsBaseClass {
         debounceTime(300),
         distinctUntilChanged(),
         filter((value: string) => value.length > 0),
-        switchMap((value: string) => this.service.getTagByName(value)),
+        switchMap((value: string) => this.service.getTagByName(value))
       )
       .subscribe((tag: Tag | null) => {
         if (this.initialName) {
@@ -50,5 +47,4 @@ export class TagDetailBase extends SubscriptionsBaseClass {
     event.preventDefault();
     this.location.back();
   }
-
 }

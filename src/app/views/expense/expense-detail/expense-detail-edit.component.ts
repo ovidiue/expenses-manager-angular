@@ -1,20 +1,20 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RoutePaths } from '@models/enums/route-paths';
-import { Expense } from '@models/expense';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { MessageService } from 'primeng/api';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { Location } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { RoutePaths } from "@models/enums/route-paths";
+import { Expense } from "@models/expense";
+import { fadeIn } from "@utils/animations/fadeIn";
+import { MessageService } from "primeng/api";
+import { map, pluck, switchMap } from "rxjs/operators";
 
-import { ExpenseDetailBase } from './expense-detail-base';
-import { ExpenseDetailService } from './expense-detail.service';
+import { ExpenseDetailBase } from "./expense-detail-base";
+import { ExpenseDetailService } from "./expense-detail.service";
 
 @Component({
-  selector: 'app-expense-detail',
-  templateUrl: './expense-detail.component.html',
-  styleUrls: ['./expense-detail.component.scss'],
+  selector: "app-expense-detail",
+  templateUrl: "./expense-detail.component.html",
+  styleUrls: ["./expense-detail.component.scss"],
   providers: [MessageService],
   animations: [fadeIn]
 })
@@ -49,7 +49,7 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase implements OnI
             tags: exp.tags,
             recurrent: exp.recurrent,
             id: exp.id
-          })),
+          }))
         )
         .subscribe((expense: Expense) => this.expenseForm.setValue(expense))
     );
@@ -62,12 +62,8 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase implements OnI
       return;
     }
 
-    this.service
-      .updateExpense(this.expenseForm.value)
-      .subscribe(() => {
-          this.router.navigate([RoutePaths.EXPENSE_LISTING]);
-        },
-      );
+    this.service.updateExpense(this.expenseForm.value).subscribe(() => {
+      this.router.navigate([RoutePaths.EXPENSE_LISTING]);
+    });
   }
-
 }

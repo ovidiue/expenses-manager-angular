@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Category } from '@models/category';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { Category } from "@models/category";
+import { fadeIn } from "@utils/animations/fadeIn";
+import { TABLE_DEFAULTS } from "@utils/table-options";
+import { ConfirmationService, LazyLoadEvent, MessageService } from "primeng/api";
+import { Observable } from "rxjs";
 
-import { CategoryDataService } from '../category-data.service';
+import { CategoryDataService } from "../category-data.service";
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './category-list.component.html',
-  styleUrls: ['./categories.component.scss'],
+  selector: "app-categories",
+  templateUrl: "./category-list.component.html",
+  styleUrls: ["./categories.component.scss"],
   providers: [ConfirmationService, MessageService, CategoryDataService],
   animations: [fadeIn]
 })
 export class CategoryListComponent implements OnInit {
-
   categories$: Observable<Category[]>;
   total$: Observable<number>;
   loading$: Observable<boolean>;
@@ -31,15 +30,13 @@ export class CategoryListComponent implements OnInit {
 
   tableOptions = {
     columns: [
-      {name: 'Name', value: 'name'},
-      {name: 'Description', value: 'description'},
-      {name: 'Color', value: 'color'}
+      { name: "Name", value: "name" },
+      { name: "Description", value: "description" },
+      { name: "Color", value: "color" }
     ]
   };
 
-  constructor(
-    private service: CategoryDataService,
-  ) {
+  constructor(private service: CategoryDataService) {
     this.loading$ = this.service.getLoading();
     this.categories$ = this.service.getCategories(TABLE_DEFAULTS.query);
     this.total$ = this.service.getTotal();
@@ -58,17 +55,16 @@ export class CategoryListComponent implements OnInit {
   }
 
   deleteCategory(withExpenses: boolean): void {
-    const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedCategories
-      .map(cat => cat.id);
-    this.service.deleteCategory(idsToDelete, withExpenses)
-      .subscribe((deleted) => {
-        this.resetDeletionVariables();
-      });
+    const idsToDelete = this.selectedForDeletion
+      ? [this.selectedForDeletion.id]
+      : this.selectedCategories.map((cat) => cat.id);
+    this.service.deleteCategory(idsToDelete, withExpenses).subscribe((deleted) => {
+      this.resetDeletionVariables();
+    });
   }
 
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
-    this.service.getCategories(event)
-      .subscribe(() => this.tableDefaults.loading = false);
+    this.service.getCategories(event).subscribe(() => (this.tableDefaults.loading = false));
   }
 }

@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { AuthService } from '@core/services';
+import { Component } from "@angular/core";
+import { AuthService } from "@core/services";
 
-import { routes } from '../../app-routing/app-routing.module';
+import { routes } from "../../app-routing/app-routing.module";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent {
   isLoggedIn$ = this.authService.getLoggedInStatus();
@@ -18,5 +18,4 @@ export class HeaderComponent {
   logout() {
     this.authService.logout();
   }
-
 }

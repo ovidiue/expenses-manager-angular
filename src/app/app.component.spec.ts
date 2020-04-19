@@ -1,23 +1,20 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HeaderComponent } from '@components/header/header.component';
-import { ToastrModule } from 'ngx-toastr';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { async, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { HeaderComponent } from "@components/header/header.component";
+import { ToastrModule } from "ngx-toastr";
 
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 
-describe('AppComponent', () => {
+describe("AppComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
-        ToastrModule.forRoot({progressBar: true, maxOpened: 1}),
+        ToastrModule.forRoot({ progressBar: true, maxOpened: 1 })
       ],
-      declarations: [
-        AppComponent,
-        HeaderComponent
-      ],
+      declarations: [AppComponent, HeaderComponent]
     }).compileComponents();
   }));
 

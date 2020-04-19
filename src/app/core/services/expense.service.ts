@@ -1,20 +1,20 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Expense } from '@models/expense';
-import { ExpenseFilter } from '@models/filters/expense-filter';
-import { ServerResp } from '@models/interfaces/server-resp';
-import { ApiPath } from '@utils/constants/api-paths';
-import mapToRestParams from '@utils/map-rest-params';
-import { PathBuilder } from '@utils/path-builder';
-import { LazyLoadEvent } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Expense } from "@models/expense";
+import { ExpenseFilter } from "@models/filters/expense-filter";
+import { ServerResp } from "@models/interfaces/server-resp";
+import { ApiPath } from "@utils/constants/api-paths";
+import mapToRestParams from "@utils/map-rest-params";
+import { PathBuilder } from "@utils/path-builder";
+import { LazyLoadEvent } from "primeng/api";
+import { Observable } from "rxjs";
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ExpenseService {
   private EXPENSES_BASE_URL = PathBuilder.get(ApiPath.EXPENSES);
@@ -30,7 +30,7 @@ export class ExpenseService {
       }
     }
 
-    return this.http.get<ServerResp<Expense>>(this.EXPENSES_BASE_URL, {params});
+    return this.http.get<ServerResp<Expense>>(this.EXPENSES_BASE_URL, { params });
   }
 
   save(expense: Expense): Observable<any> {
@@ -44,7 +44,7 @@ export class ExpenseService {
     params = params.append('ratesToo', withRates.toString());
     const url = this.EXPENSES_BASE_URL + '/delete';
 
-    return this.http.post(url, expenseIds, {params});
+    return this.http.post(url, expenseIds, { params });
   }
 
   get(exId: number): Observable<Expense> {

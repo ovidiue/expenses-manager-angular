@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '@core/services';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "@core/services";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss']
+  selector: "app-login",
+  templateUrl: "login.component.html",
+  styleUrls: ["login.component.scss"]
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
+      username: new FormControl("", Validators.required),
+      password: new FormControl("", Validators.required)
     });
   }
 
@@ -39,12 +39,12 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const {username, password} = this.loginForm.value;
+    const { username, password } = this.loginForm.value;
     this.authService.authenticate(username, password);
   }
 
   register() {
-    const {username, password} = this.loginForm.value;
+    const { username, password } = this.loginForm.value;
     this.authService.register(username, password);
   }
 }

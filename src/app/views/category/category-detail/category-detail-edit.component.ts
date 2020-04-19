@@ -1,24 +1,23 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from '@models/category';
-import { RoutePaths } from '@models/enums/route-paths';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { pluck, switchMap } from 'rxjs/operators';
+import { Location } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Category } from "@models/category";
+import { RoutePaths } from "@models/enums/route-paths";
+import { fadeIn } from "@utils/animations/fadeIn";
+import { pluck, switchMap } from "rxjs/operators";
 
-import { CategoryDataService } from '../category-data.service';
+import { CategoryDataService } from "../category-data.service";
 
-import { CategoryDetailBaseComponent } from './category-detail-base.component';
+import { CategoryDetailBaseComponent } from "./category-detail-base.component";
 
 @Component({
-  selector: 'app-category-detail',
-  templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.scss'],
+  selector: "app-category-detail",
+  templateUrl: "./category-detail.component.html",
+  styleUrls: ["./category-detail.component.scss"],
   animations: [fadeIn]
 })
 export class CategoryDetailEditComponent extends CategoryDetailBaseComponent implements OnInit {
-
   constructor(
     protected location: Location,
     protected router: Router,
@@ -55,9 +54,8 @@ export class CategoryDetailEditComponent extends CategoryDetailBaseComponent imp
       return;
     }
 
-    this.service.updateCategory(this.categoryForm.value)
-      .subscribe(() => {
-        this.router.navigate([RoutePaths.CATEGORY_LISTING]);
-      });
+    this.service.updateCategory(this.categoryForm.value).subscribe(() => {
+      this.router.navigate([RoutePaths.CATEGORY_LISTING]);
+    });
   }
 }

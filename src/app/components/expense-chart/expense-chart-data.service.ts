@@ -1,44 +1,41 @@
-import { Injectable } from '@angular/core';
-import { ExpenseService } from '@core/services';
-import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { ExpenseService } from "@core/services";
+import * as moment from "moment";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 export class ExpenseChartDataService {
-
   constructor(private service: ExpenseService) {
   }
 
   getSimpleStats(): Observable<any> {
-    return this.service.getSimpleExpenses()
-    .pipe(
-        map(resp => {
-              const parsed = this.getArrFromObj(this.groupBy(resp, 'month'));
-              const labels = this.extractData(parsed, 'month');
-              const dataSet1 = this.extractData(parsed, 'total');
-              const dataSet2 = this.extractData(parsed, 'totalPayed');
-              const data = {
-                labels,
-                datasets: [
-                  {
-                    data: dataSet1,
-                    label: 'Total',
-                    backgroundColor: '#42A5F5',
-                    borderColor: '#1E88E5',
-                  },
-                  {
-                    data: dataSet2,
-                    label: 'Payed',
-                    backgroundColor: '#9CCC65',
-                    borderColor: '#7CB342',
-                  }
-                ]
-              };
-
-          return data;
+    return this.service.getSimpleExpenses().pipe(
+      map((resp) => {
+        const parsed = this.getArrFromObj(this.groupBy(resp, "month"));
+        const labels = this.extractData(parsed, "month");
+        const dataSet1 = this.extractData(parsed, "total");
+        const dataSet2 = this.extractData(parsed, "totalPayed");
+        const data = {
+          labels,
+          datasets: [
+            {
+              data: dataSet1,
+              label: "Total",
+              backgroundColor: "#42A5F5",
+              borderColor: "#1E88E5"
+            },
+            {
+              data: dataSet2,
+              label: "Payed",
+              backgroundColor: "#9CCC65",
+              borderColor: "#7CB342"
             }
-        )
+          ]
+        };
+
+        return data;
+      })
     );
   }
 
@@ -58,9 +55,8 @@ export class ExpenseChartDataService {
     const result = [];
     const sum = 0;
     for (const key in obj) {
-      const total = obj[key].map(e => e.amount).reduce((sum, e) => sum += e, sum);
-      const totalPayed = obj[key].map(e => e.payed).reduce((sum, e) => sum += e,
-          sum);
+      const total = obj[key].map((e) => e.amount).reduce((sum, e) => (sum += e), sum);
+      const totalPayed = obj[key].map((e) => e.payed).reduce((sum, e) => (sum += e), sum);
       const newObj = {
         total: this.round(total),
         totalPayed: this.round(totalPayed),
@@ -68,10 +64,9 @@ export class ExpenseChartDataService {
       };
 
       result.push(newObj);
-
     }
 
-    result.forEach(el => el.month = moment(el.month).format('MMMM'));
+    result.forEach((el) => (el.month = moment(el.month).format("MMMM")));
 
     return result;
   }

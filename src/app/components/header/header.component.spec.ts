@@ -1,20 +1,23 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ToastrModule } from 'ngx-toastr';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { ToastrModule } from "ngx-toastr";
 
-import { HeaderComponent } from './header.component';
+import { HeaderComponent } from "./header.component";
 
-describe('HeaderComponent', () => {
+describe("HeaderComponent", () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, ToastrModule.forRoot({progressBar: true})],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        ToastrModule.forRoot({ progressBar: true })
+      ],
       declarations: [HeaderComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

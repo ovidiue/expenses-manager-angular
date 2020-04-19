@@ -1,5 +1,5 @@
-import { OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
 
 export class SubscriptionsBaseClass implements OnDestroy {
   subscriptions: Subscription[] = [];
@@ -7,5 +7,4 @@ export class SubscriptionsBaseClass implements OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach((el: Subscription) => el.unsubscribe());
   }
-
 }

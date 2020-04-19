@@ -1,16 +1,16 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
-import { CardViewComponent } from '@components/card-view/card-view.component';
-import { ChartComponent } from '@components/chart/chart.component';
-import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
-import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { CardViewListComponent } from "@components/card-view-list/card-view-list.component";
+import { CardViewComponent } from "@components/card-view/card-view.component";
+import { ChartComponent } from "@components/chart/chart.component";
+import { ExpenseCardListComponent } from "@components/expense-card-list/expense-card-list.component";
+import { ExpenseChartComponent } from "@components/expense-chart/expense-chart.component";
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from "../../modules/shared.module";
 
-import { DashboardComponent } from './dashboard.component';
+import { DashboardComponent } from "./dashboard.component";
 
-describe('DashboardComponent', () => {
+describe("DashboardComponent", () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
@@ -25,8 +25,7 @@ describe('DashboardComponent', () => {
         ChartComponent,
         CardViewComponent
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

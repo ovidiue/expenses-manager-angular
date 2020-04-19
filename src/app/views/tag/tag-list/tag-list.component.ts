@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Tag } from '@models/tag';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { Tag } from "@models/tag";
+import { fadeIn } from "@utils/animations/fadeIn";
+import { TABLE_DEFAULTS } from "@utils/table-options";
+import { ConfirmationService, LazyLoadEvent, MessageService } from "primeng/api";
+import { Observable } from "rxjs";
 
-import { TagDataService } from '../tag-data.service';
+import { TagDataService } from "../tag-data.service";
 
 @Component({
-  selector: 'app-tags',
-  templateUrl: './tag-list.component.html',
-  styleUrls: ['./tag-list.component.scss'],
+  selector: "app-tags",
+  templateUrl: "./tag-list.component.html",
+  styleUrls: ["./tag-list.component.scss"],
   providers: [ConfirmationService, MessageService, TagDataService],
   animations: [fadeIn]
 })
@@ -24,18 +24,15 @@ export class TagListComponent implements OnInit {
 
   tableOptions = {
     columns: [
-      {name: 'Name', value: 'name'},
-      {name: 'Description', value: 'description'},
-      {name: 'Color', value: 'color'}
+      { name: "Name", value: "name" },
+      { name: "Description", value: "description" },
+      { name: "Color", value: "color" }
     ]
   };
 
   selectedDescription = '';
 
-  constructor(
-    private service: TagDataService,
-    private confirmationService: ConfirmationService
-  ) {
+  constructor(private service: TagDataService, private confirmationService: ConfirmationService) {
   }
 
   ngOnInit() {
@@ -50,7 +47,7 @@ export class TagListComponent implements OnInit {
 
   confirmDeletion() {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete these tags?',
+      message: "Are you sure that you want to delete these tags?",
       accept: () => {
         this.service.deleteTags(this.selectedTags);
       }

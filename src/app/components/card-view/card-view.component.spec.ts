@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SharedModule } from '../../modules/shared.module';
+import { SharedModule } from "../../modules/shared.module";
 
-import { CardViewComponent } from './card-view.component';
+import { CardViewComponent } from "./card-view.component";
 
-describe('CardViewComponent', () => {
+describe("CardViewComponent", () => {
   let testHostComponent: TestHostComponent;
   let testHostFixture: ComponentFixture<TestHostComponent>;
 
@@ -13,8 +13,7 @@ describe('CardViewComponent', () => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [CardViewComponent, TestHostComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -29,14 +28,14 @@ describe('CardViewComponent', () => {
   });
 
   @Component({
-    selector: 'app-host-component',
+    selector: "app-host-component",
     template: `
       <app-card-view [data]="testData"></app-card-view>`
   })
   class TestHostComponent {
     testData = {
-      name: 'test',
-      color: 'RED',
+      name: "test",
+      color: "RED",
       payed: 2,
       total: 4,
       min: 1,

@@ -5,7 +5,7 @@
   border-top-left-radius: $top-left;
 }
 
-$action-transition-time: .3s;
+$action-transition-time: 0.3s;
 $gray-border-color: #c8c8c8;
 $orange: darkorange;
 $gray: #626a71;
@@ -45,7 +45,6 @@ $gray: #626a71;
       }
     }
   }
-
 }
 
 .clear {

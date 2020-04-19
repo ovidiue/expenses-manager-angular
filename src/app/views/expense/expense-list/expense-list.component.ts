@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
-import { Category } from '@models/category';
-import { Expense } from '@models/expense';
-import { ExpenseFilter } from '@models/filters/expense-filter';
-import { ServerResp } from '@models/interfaces/server-resp';
-import { Rate } from '@models/rate';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { MESSAGES } from '@utils/messages';
-import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ToastrService } from 'ngx-toastr';
-import { DialogService, DynamicDialogConfig } from 'primeng';
-import { ConfirmationService, LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { DialogRatesComponent } from "@components/dialog-rates/dialog-rates.component";
+import { Category } from "@models/category";
+import { Expense } from "@models/expense";
+import { ExpenseFilter } from "@models/filters/expense-filter";
+import { ServerResp } from "@models/interfaces/server-resp";
+import { Rate } from "@models/rate";
+import { fadeIn } from "@utils/animations/fadeIn";
+import { MESSAGES } from "@utils/messages";
+import { TABLE_DEFAULTS } from "@utils/table-options";
+import { ToastrService } from "ngx-toastr";
+import { DialogService, DynamicDialogConfig } from "primeng";
+import { ConfirmationService, LazyLoadEvent, MenuItem, MessageService } from "primeng/api";
+import { Observable } from "rxjs";
 
-import { ExpensesDataService } from './expenses-data.service';
+import { ExpensesDataService } from "./expenses-data.service";
 
 @Component({
-  selector: 'app-expenses',
-  templateUrl: './expense-list.component.html',
-  styleUrls: ['./expense-list.component.scss'],
+  selector: "app-expenses",
+  templateUrl: "./expense-list.component.html",
+  styleUrls: ["./expense-list.component.scss"],
   animations: [fadeIn],
   providers: [ConfirmationService, MessageService, DialogService, DynamicDialogConfig]
 })
@@ -43,15 +43,15 @@ export class ExpenseListComponent implements OnInit {
   tableOptions = {
     totalTableRecords: 0,
     columns: [
-      {name: 'Title', value: 'title'},
-      {name: 'Amount', value: 'amount'},
-      {name: 'Description', value: 'description'},
-      {name: 'Recurrent', value: 'recurrent'},
-      {name: 'Created On', value: 'createdOn'},
-      {name: 'Due Date', value: 'dueDate'},
-      {name: 'Category', value: 'category'},
-      {name: 'Tags', value: 'tags'},
-      {name: 'Payed', value: 'payed'}
+      { name: "Title", value: "title" },
+      { name: "Amount", value: "amount" },
+      { name: "Description", value: "description" },
+      { name: "Recurrent", value: "recurrent" },
+      { name: "Created On", value: "createdOn" },
+      { name: "Due Date", value: "dueDate" },
+      { name: "Category", value: "category" },
+      { name: "Tags", value: "tags" },
+      { name: "Payed", value: "payed" }
     ],
     actions: <MenuItem[]>[]
   };
@@ -65,7 +65,8 @@ export class ExpenseListComponent implements OnInit {
     private router: Router,
     private service: ExpensesDataService,
     public dialogService: DialogService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService
+  ) {
   }
 
   ngOnInit() {
@@ -76,7 +77,7 @@ export class ExpenseListComponent implements OnInit {
   instantiateTableActions(): void {
     this.tableOptions.actions = [
       {
-        label: 'Delete Selection',
+        label: "Delete Selection",
         command: () => {
           if (!this.areRowsSelected()) {
             this.toastr.warning(MESSAGES.NO_ROWS_SELECTED);
@@ -87,7 +88,7 @@ export class ExpenseListComponent implements OnInit {
         }
       },
       {
-        label: 'Assign Category',
+        label: "Assign Category",
         command: () => {
           if (!this.areRowsSelected()) {
             this.toastr.warning(MESSAGES.NO_ROWS_SELECTED);
@@ -114,7 +115,7 @@ export class ExpenseListComponent implements OnInit {
   }
 
   assignNewCategory(): void {
-    const expensesIds = this.selectedExpenses.map(exp => exp.id);
+    const expensesIds = this.selectedExpenses.map((exp) => exp.id);
     this.service.setCategoryApi(expensesIds, this.categoryToAssign.id);
     this.resetAssignVariables();
   }
@@ -123,12 +124,14 @@ export class ExpenseListComponent implements OnInit {
     if (this.selectedForDeletion) {
       return this.selectedForDeletion.payed > 0;
     } else {
-      return this.selectedExpenses.filter(ex => ex.payed > 0).length > 0;
+      return this.selectedExpenses.filter((ex) => ex.payed > 0).length > 0;
     }
   }
 
   deleteExpense(): void {
-    const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
+    const idsToDelete = this.selectedForDeletion
+      ? [this.selectedForDeletion.id]
+      : this.selectedExpenses.map((ex) => ex.id);
     this.service.deleteExpensesApi(idsToDelete, false);
   }
 
@@ -142,7 +145,10 @@ export class ExpenseListComponent implements OnInit {
   displayDeleteMultiple() {
     // TODO investigate to have expense marked for deletion
     this.service.setModalVisibility(true);
-    this.deletionText = 'Are you sure you want to delete following expenses$:' + this.selectedExpenses.map(ex => ex.title).join(', ') + ' ?';
+    this.deletionText =
+      "Are you sure you want to delete following expenses$:" +
+      this.selectedExpenses.map((ex) => ex.title).join(", ") +
+      " ?";
   }
 
   displayDeleteRow(ex: Expense): void {
@@ -153,7 +159,9 @@ export class ExpenseListComponent implements OnInit {
   }
 
   deleteExpenseAndRates(): void {
-    const idsToDelete = this.selectedForDeletion ? [this.selectedForDeletion.id] : this.selectedExpenses.map(ex => ex.id);
+    const idsToDelete = this.selectedForDeletion
+      ? [this.selectedForDeletion.id]
+      : this.selectedExpenses.map((ex) => ex.id);
     this.service.deleteExpensesApi(idsToDelete, true);
   }
 
@@ -184,4 +192,3 @@ export class ExpenseListComponent implements OnInit {
     this.router.navigate(['expenses/edit', id]);
   }
 }
-

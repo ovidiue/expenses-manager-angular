@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
 import {
   AccordionModule,
   ButtonModule,
@@ -21,12 +21,12 @@ import {
   TabViewModule,
   ToolbarModule,
   TooltipModule
-} from 'primeng';
-import { CalendarModule } from 'primeng/calendar';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+} from "primeng";
+import { CalendarModule } from "primeng/calendar";
+import { DynamicDialogModule } from "primeng/dynamicdialog";
 
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { TableModule } from "primeng/table";
+import { ToastModule } from "primeng/toast";
 
 const importsAndExports = [
   TableModule,
@@ -38,7 +38,9 @@ const importsAndExports = [
   DropdownModule,
   MultiSelectModule,
   OverlayPanelModule,
-  ScrollPanelModule, SidebarModule, SplitButtonModule,
+  ScrollPanelModule,
+  SidebarModule,
+  SplitButtonModule,
   ToolbarModule,
   TooltipModule,
   ChipsModule,

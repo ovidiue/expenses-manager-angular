@@ -1,19 +1,19 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ServerResp } from '@models/interfaces/server-resp';
-import { Rate } from '@models/rate';
-import { ApiPath } from '@utils/constants/api-paths';
-import mapTableParams from '@utils/map-rest-params';
-import { PathBuilder } from '@utils/path-builder';
-import { LazyLoadEvent } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { ServerResp } from "@models/interfaces/server-resp";
+import { Rate } from "@models/rate";
+import { ApiPath } from "@utils/constants/api-paths";
+import mapTableParams from "@utils/map-rest-params";
+import { PathBuilder } from "@utils/path-builder";
+import { LazyLoadEvent } from "primeng/api";
+import { Observable } from "rxjs";
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class RateService {
   private RATES_BASE_URL = PathBuilder.get(ApiPath.RATES);
@@ -24,7 +24,7 @@ export class RateService {
   getRates(event: LazyLoadEvent): Observable<any> {
     const params: HttpParams = mapTableParams(event);
 
-    return this.http.get(this.RATES_BASE_URL, {params});
+    return this.http.get(this.RATES_BASE_URL, { params });
   }
 
   save(rate: Rate): Observable<any> {
@@ -43,12 +43,12 @@ export class RateService {
       params = params.append('initialRateAmount', initialRateAmount.toString());
     }
 
-    return this.http.put(url, rate, {params});
+    return this.http.put(url, rate, { params });
   }
 
   deleteRates(rateIds: number[]): Observable<any> {
     const urlSearchParams: URLSearchParams = new URLSearchParams();
-    rateIds.forEach(id => urlSearchParams.append('', id.toString()));
+    rateIds.forEach((id) => urlSearchParams.append("", id.toString()));
     const url = this.RATES_BASE_URL + '/delete';
 
     return this.http.post(url, rateIds);
@@ -71,7 +71,7 @@ export class RateService {
     let params: HttpParams = new HttpParams();
     params = params.append('expId', id.toString());
 
-    return this.http.get<ServerResp<Rate[]>>(url, {params});
+    return this.http.get<ServerResp<Rate[]>>(url, { params });
   }
 
   getRatesByExpenseIds(id: number[], event: LazyLoadEvent): Observable<any> {
@@ -79,6 +79,6 @@ export class RateService {
     let params: HttpParams = mapTableParams(event);
     params = params.append('expenseIds', id.toString());
 
-    return this.http.get<Rate[]>(url, {params});
+    return this.http.get<Rate[]>(url, { params });
   }
 }
