@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CoreModule } from '../../core/core.module';
 
 import { SharedModule } from '../../modules/shared.module';
 
@@ -8,7 +9,8 @@ import { RateListComponent } from './rate-list/rate-list.component';
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   declarations: [
     RateListComponent,

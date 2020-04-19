@@ -1,9 +1,28 @@
-.pi-sign-out {
-  color: white;
-  transition-duration: .4s;
-  cursor: pointer;
+@import './src/styles/custom';
 
-  &:hover {
-    color: orange;
+ul {
+  display: flex;
+  list-style: none;
+  background: $gray-100;
+  padding: $spacer;
+  justify-content: space-between;
+  font-weight: bold;
+
+  li {
+    padding: $spacer / 2;
+    color: $primary;
+    justify-content: space-between;
+    font-size: $font-size-lg;
+
+    &:hover {
+      background: $primary;
+      border-radius: $border-radius;
+      transition: .3s;
+
+      a {
+        color: $white;
+        text-decoration: none;
+      }
+    }
   }
 }

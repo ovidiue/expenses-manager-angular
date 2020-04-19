@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ShortFilterComponent } from '@components/short-filter/short-filter.component';
+import { CoreModule } from '../../core/core.module';
 
 import { SharedModule } from '../../modules/shared.module';
 
@@ -12,6 +13,7 @@ import { AppRowActionsComponent } from './row-actions/row-actions.component';
 @NgModule({
   imports: [
     SharedModule,
+    CoreModule
   ],
   declarations: [
     ExpenseListComponent,

@@ -1,3 +1,5 @@
+@import './src/styles/custom';
+
 button {
   margin: 0 5px;
 }
@@ -38,6 +40,7 @@ button {
 
 p-sidebar {
   z-index: 1100;
+
   &.top-sidebar {
     background: black;
 
@@ -45,5 +48,10 @@ p-sidebar {
       height: auto;
     }
   }
+}
+
+:host {
+  color: $primary;
+  background: $secondary;
 }
 

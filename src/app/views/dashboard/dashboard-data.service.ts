@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
+import { CategoryService, TagService } from '@core/services';
 import { Card } from '@models/interfaces/card';
-import { CategoryService } from '@services/category.service';
-import { TagService } from '@services/tag.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class DashboardDataService {
   constructor(
-      private tagService: TagService,
-      private categoriesService: CategoryService
+    private tagService: TagService,
+    private categoriesService: CategoryService
   ) {
   }
 

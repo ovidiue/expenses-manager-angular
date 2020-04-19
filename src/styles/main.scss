@@ -1,6 +1,2 @@
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import '~ngx-toastr/toastr';
-@import 'helper/helper';
-@import 'layout/navbar';
-@import 'components/components';
-@import 'general';
+@import 'custom';
+@import '~ngx-toastr/toastr.css';

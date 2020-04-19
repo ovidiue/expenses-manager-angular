@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ExpenseService } from '@services/expense.service';
+import { ExpenseService } from '@core/services';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

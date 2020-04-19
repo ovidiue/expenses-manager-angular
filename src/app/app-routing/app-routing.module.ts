@@ -17,11 +17,14 @@ import { TagDetailAddComponent } from '../views/tag/tag-detail/tag-detail-add.co
 import { TagDetailEditComponent } from '../views/tag/tag-detail/tag-detail-edit.component';
 import { TagListComponent } from '../views/tag/tag-list/tag-list.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {path: '', redirectTo: '/expenses', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {
     path: 'expenses',
+    data: {
+      displayName: 'Expenses'
+    },
     canActivate: [AuthGuard],
     children: [
       {path: '', component: ExpenseListComponent},
@@ -31,6 +34,9 @@ const routes: Routes = [
   },
   {
     path: 'rates',
+    data: {
+      displayName: 'Rates'
+    },
     children: [
       {path: '', component: RateListComponent},
       {path: 'add', component: RateDetailAddComponent},
@@ -39,6 +45,9 @@ const routes: Routes = [
   },
   {
     path: 'categories',
+    data: {
+      displayName: 'Categories'
+    },
     children: [
       {path: '', component: CategoryListComponent},
       {path: 'add', component: CategoryDetailAddComponent},
@@ -47,6 +56,9 @@ const routes: Routes = [
   },
   {
     path: 'tags',
+    data: {
+      displayName: 'Tags'
+    },
     children: [
       {path: '', component: TagListComponent},
       {path: 'add', component: TagDetailAddComponent},
@@ -55,6 +67,9 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    data: {
+      displayName: 'Dashboard'
+    },
     component: DashboardComponent,
   }
 ];

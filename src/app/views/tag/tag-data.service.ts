@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TagService } from '@core/services';
 import { Tag } from '@models/tag';
-import { TagService } from '@services/tag.service';
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as _ from 'lodash';

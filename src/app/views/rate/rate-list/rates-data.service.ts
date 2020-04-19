@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ExpenseService, RateService } from '@core/services';
 import { Expense } from '@models/expense';
 import { Rate } from '@models/rate';
-import { ExpenseService } from '@services/expense.service';
-import { RateService } from '@services/rate.service';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ToastrService } from 'ngx-toastr';
 import { LazyLoadEvent } from 'primeng/api';
@@ -63,6 +62,7 @@ export class RatesDataService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Failed deleting rates');
+
           return throwError(err);
         }),
         finalize(() => this.setLoadingState(false))
@@ -73,6 +73,7 @@ export class RatesDataService {
         const newTotalValue = Number(this._total.getValue()) - respIds.length;
         this._total.next(newTotalValue);
         this.toastr.success('', 'Deleted rates');
+
         return respIds;
       });
   }

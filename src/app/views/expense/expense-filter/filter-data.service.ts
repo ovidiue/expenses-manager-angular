@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { CategoryService, TagService } from '@core/services';
 
 import { Category } from '@models/category';
 import { Tag } from '@models/tag';
-import { CategoryService } from '@services/category.service';
-import { TagService } from '@services/tag.service';
 import { SelectItem } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
@@ -16,8 +15,8 @@ export default class FilterDataService {
   private readonly _tags: BehaviorSubject<SelectItem[]>;
 
   constructor(
-      private categoryService: CategoryService,
-      private tagService: TagService,
+    private categoryService: CategoryService,
+    private tagService: TagService,
   ) {
     this._categories = new BehaviorSubject<SelectItem[]>([]);
     this._tags = new BehaviorSubject<SelectItem[]>([]);
@@ -36,20 +35,20 @@ export default class FilterDataService {
 
   private loadCategories() {
     this.categoryService.getAll(null)
-    .pipe(
+      .pipe(
         pluck('content'),
-    )
-    .subscribe((resp: Category[]) => {
-      const mapped = resp.map(el => ({label: el.name, value: el}));
-      this._categories.next(mapped);
-    });
+      )
+      .subscribe((resp: Category[]) => {
+        const mapped = resp.map(el => ({label: el.name, value: el}));
+        this._categories.next(mapped);
+      });
   }
 
   private loadTags() {
     this.tagService.getAll(null)
-    .pipe(
+      .pipe(
         pluck('content')
-    )
-    .subscribe((resp: Tag[]) => this._tags.next(resp.map(el => ({label: el.name, value: el}))));
+      )
+      .subscribe((resp: Tag[]) => this._tags.next(resp.map(el => ({label: el.name, value: el}))));
   }
 }

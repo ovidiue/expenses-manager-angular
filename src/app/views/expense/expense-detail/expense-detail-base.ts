@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
-import { GlobalNotificationService } from '@services/global-notification.service';
 import * as moment from 'moment';
 import { SelectItem } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -20,7 +19,6 @@ export class ExpenseDetailBase extends SubscriptionsBaseClass {
   constructor(
     protected location: Location,
     protected router: Router,
-    protected globalNotificationService: GlobalNotificationService,
     protected service: ExpenseDetailService,
     protected route: ActivatedRoute
   ) {
@@ -53,6 +51,5 @@ export class ExpenseDetailBase extends SubscriptionsBaseClass {
     event.preventDefault();
     this.location.back();
   }
-
 
 }

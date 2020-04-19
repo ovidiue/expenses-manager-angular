@@ -19,10 +19,18 @@
       "dom"
     ],
     "paths": {
-      "@utils/*": ["./src/app/utils/*"],
-      "@services/*": ["./src/app/services/*"],
-      "@models/*": ["./src/app/models/*"],
-      "@components/*": ["./src/app/components/*"]
+      "@utils/*": [
+        "./src/app/utils/*"
+      ],
+      "@models/*": [
+        "./src/app/models/*"
+      ],
+      "@components/*": [
+        "./src/app/components/*"
+      ],
+      "@core/*": [
+        "./src/app/core/*"
+      ]
     }
   }
 }

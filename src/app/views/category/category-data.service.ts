@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CategoryService } from '@core/services';
 
 import { Category } from '@models/category';
-
-import { CategoryService } from '@services/category.service';
 
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
