@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from '@core/main';
+import { MainComponent } from '@core/main/main.component';
 
 import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from '../category';
 import { DashboardComponent } from '../dashboard';
