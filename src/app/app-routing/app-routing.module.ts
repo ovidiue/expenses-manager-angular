@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MainComponent } from '@core/main';
 
 import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from '../category';
 import { DashboardComponent } from '../dashboard';
 import { ExpenseDetailAddComponent, ExpenseDetailEditComponent, ExpenseListComponent } from '../expense';
 import { AuthGuard } from '../guards/auth.guard';
 import { LoginComponent } from '../login';
-import { MainComponent } from '../main';
 import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } from '../rate';
 import { TagDetailAddComponent, TagDetailEditComponent, TagListComponent } from '../tag';
 

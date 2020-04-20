@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataService } from '@components/chart/chart-data.service';
 import { ChartType } from '@models/enums/chart-type';
 import { Card } from '@models/interfaces/card';
 import { ChartData } from '@models/interfaces/chart-data';
 import { BehaviorSubject } from 'rxjs';
+
+import { ChartDataService } from './chart-data.service';
 
 @Component({
   selector: 'app-chart',

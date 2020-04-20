@@ -25,9 +25,6 @@
       "@models/*": [
         "./src/app/models/*"
       ],
-      "@components/*": [
-        "./src/app/components/*"
-      ],
       "@core/*": [
         "./src/app/core/*"
       ],

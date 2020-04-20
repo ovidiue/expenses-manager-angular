@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
 import { Category } from '@models/category';
 import { Expense } from '@models/expense';
 import { ExpenseFilter } from '@models/filters/expense-filter';
 import { ServerResp } from '@models/interfaces/server-resp';
 import { Rate } from '@models/rate';
+import { DialogRatesComponent } from '@shared/components';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';

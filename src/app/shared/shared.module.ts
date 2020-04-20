@@ -2,23 +2,48 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { DialogComponent } from '@components/dialog/dialog.component';
-import { PageSpinnerComponent } from '@components/page-spinner/page-spinner.component';
+import {
+  CardViewComponent,
+  CardViewListComponent,
+  ChartComponent,
+  DialogComponent,
+  DialogRatesComponent,
+  ExpenseCardListComponent,
+  ExpenseChartComponent,
+  PageSpinnerComponent,
+  ShortFilterComponent
+} from '@shared/components';
 
 import { PrimengModule } from './primeng.module';
 
 const importsExports = [
   FormsModule,
-  RouterModule,
   ReactiveFormsModule,
   PrimengModule,
   CommonModule,
 ];
 
 @NgModule({
-  imports: [...importsExports, BrowserAnimationsModule],
-  exports: [...importsExports, PageSpinnerComponent, DialogComponent],
-  declarations: [PageSpinnerComponent, DialogComponent],
+  imports: [BrowserAnimationsModule, PrimengModule, CommonModule],
+  exports: [
+    ...importsExports,
+    PageSpinnerComponent,
+    DialogComponent,
+    ShortFilterComponent,
+    ExpenseCardListComponent,
+    ExpenseChartComponent,
+  ],
+  declarations: [
+    PageSpinnerComponent,
+    DialogComponent,
+    DialogRatesComponent,
+    ExpenseCardListComponent,
+    CardViewComponent,
+    CardViewListComponent,
+    ExpenseChartComponent,
+    ChartComponent,
+    ShortFilterComponent,
+  ],
+  entryComponents: [DialogRatesComponent],
 })
 export class SharedModule {}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ExpenseChartDataService } from '@components/expense-chart/expense-chart-data.service';
+
+import { ExpenseChartDataService } from './expense-chart-data.service';
 
 @Component({
   selector: 'app-expense-chart',

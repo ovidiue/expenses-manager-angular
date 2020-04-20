@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import StatsDataService from '@components/expense-card-list/stats-data.service';
+
+import StatsDataService from './stats-data.service';
 
 @Component({
   selector: 'app-expense-card-list',

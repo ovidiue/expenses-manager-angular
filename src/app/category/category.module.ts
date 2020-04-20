@@ -8,7 +8,6 @@ import { CategoryListComponent } from './category-list/category-list.component';
 
 @NgModule({
   imports: [SharedModule],
-  exports: [],
   declarations: [
     CategoryDetailEditComponent,
     CategoryListComponent,
