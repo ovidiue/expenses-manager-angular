@@ -26,6 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               disableTimeOut: true,
             })
             .onHidden.subscribe((a) => {
+              // TODO fix session ended notification keep showing up
               this.authService.logout();
             });
         }
