@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from '../category';
+import { DashboardComponent } from '../dashboard';
+import { ExpenseDetailAddComponent, ExpenseDetailEditComponent, ExpenseListComponent } from '../expense';
 import { AuthGuard } from '../guards/auth.guard';
-import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from '../views/category';
-import { DashboardComponent } from '../views/dashboard';
-import { ExpenseDetailAddComponent, ExpenseDetailEditComponent, ExpenseListComponent } from '../views/expense';
-import { LoginComponent } from '../views/login';
-import { MainComponent } from '../views/main';
-import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } from '../views/rate';
-import { TagDetailAddComponent, TagDetailEditComponent, TagListComponent } from '../views/tag';
+import { LoginComponent } from '../login';
+import { MainComponent } from '../main';
+import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } from '../rate';
+import { TagDetailAddComponent, TagDetailEditComponent, TagListComponent } from '../tag';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

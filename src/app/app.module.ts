@@ -15,15 +15,15 @@ import { SharedModule } from '@shared/shared.module';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
+import { CategoryModule } from './category/category.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { ExpenseModule } from './expense/expense.module';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { CategoryModule } from './views/category/category.module';
-import { DashboardModule } from './views/dashboard/dashboard.module';
-import { ExpenseModule } from './views/expense/expense.module';
-import { LoginModule } from './views/login/login.module';
-import { MainComponent } from './views/main/main.component';
-import { RateModule } from './views/rate/rate.module';
-import { TagModule } from './views/tag/tag.module';
+import { LoginModule } from './login/login.module';
+import { MainComponent } from './main';
+import { RateModule } from './rate/rate.module';
+import { TagModule } from './tag/tag.module';
 
 @NgModule({
   declarations: [
