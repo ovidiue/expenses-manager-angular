@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Card } from '@models/interfaces/card.interface';
-import { ServerResp } from '@models/interfaces/server-resp.interface';
-import { Tag } from '@models/tag.interface';
+import { Card, ServerResp, Tag } from '@models/interfaces';
 import { ApiPath } from '@utils/constants/api-paths';
 import mapEventToRestParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';

@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Category } from '@models/category.interface';
-import { Card } from '@models/interfaces/card.interface';
-import { ServerResp } from '@models/interfaces/server-resp.interface';
+import { Card, Category, ServerResp } from '@models/interfaces';
 import { ApiPath } from '@utils/constants/api-paths';
 import mapTableParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';
