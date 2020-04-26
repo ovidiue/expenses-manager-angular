@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartType } from '@models/enums/chart-type';
-import { Card } from '@models/interfaces/card';
-import { ChartData } from '@models/interfaces/chart-data';
+import { ChartType } from '@models/enums';
+import { Card, ChartData } from '@models/interfaces';
 import { BehaviorSubject } from 'rxjs';
 
 import { ChartDataService } from './chart-data.service';

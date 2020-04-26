@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Rate } from '@models/rate';
+import { Rate } from '@models/rate.interface';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng';
 
 @Component({

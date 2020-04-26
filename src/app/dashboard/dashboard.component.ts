@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType } from '@models/enums/chart-type';
-import { Card } from '@models/interfaces/card';
+import { ChartType } from '@models/enums';
+import { Card } from '@models/interfaces';
 import { Observable } from 'rxjs';
 
 import { DashboardDataService } from './dashboard-data.service';

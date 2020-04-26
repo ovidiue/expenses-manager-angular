@@ -2,8 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from '@models/category';
-import { RoutePaths } from '@models/enums/route-paths';
+import { Category } from '@models/category.interface';
+import { RoutePaths } from '@models/enums/route-paths.enum';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { pluck, switchMap } from 'rxjs/operators';
 

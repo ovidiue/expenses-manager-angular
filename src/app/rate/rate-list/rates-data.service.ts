@@ -1,8 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ExpenseService, RateService } from '@core/services';
-import { Expense } from '@models/expense';
-import { Rate } from '@models/rate';
+import { Expense, Rate } from '@models/interfaces';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ToastrService } from 'ngx-toastr';
 import { LazyLoadEvent } from 'primeng/api';
@@ -31,6 +30,7 @@ export class RatesDataService {
 
   getData(event: LazyLoadEvent) {
     this.loadServerData(event);
+
     return combineLatest([
       this._rates.asObservable(),
       this._total.asObservable(),
@@ -48,6 +48,7 @@ export class RatesDataService {
 
   getRates(event: LazyLoadEvent): Observable<Rate[]> {
     this.loadServerData(event);
+
     return this._rates.asObservable();
   }
 
@@ -57,6 +58,7 @@ export class RatesDataService {
 
   deleteRates(ids: number[]) {
     this.setLoadingState(true);
+
     return this.rateService
       .deleteRates(ids)
       .pipe(
@@ -91,6 +93,7 @@ export class RatesDataService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Load rates failed');
+
           return throwError(err);
         }),
         finalize(() => this.setLoadingState(false))
@@ -109,6 +112,7 @@ export class RatesDataService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, 'Failed fetching expenses');
+
           return throwError(err);
         }),
         finalize(() => this.setLoadingState(false))

@@ -1,9 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CategoryService, ExpenseService, TagService } from '@core/services';
-import { Category } from '@models/category';
-import { Expense } from '@models/expense';
-import { Tag } from '@models/tag';
+import { Category, Expense, Tag } from '@models/interfaces';
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as moment from 'moment';

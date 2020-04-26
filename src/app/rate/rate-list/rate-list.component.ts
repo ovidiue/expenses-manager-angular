@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Expense } from '@models/expense';
-import { Rate } from '@models/rate';
+import { Expense, Rate } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';

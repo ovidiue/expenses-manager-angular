@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ServerResp } from '@models/interfaces/server-resp';
-import { Rate } from '@models/rate';
+import { ServerResp } from '@models/interfaces/server-resp.interface';
+import { Rate } from '@models/rate.interface';
 import { ApiPath } from '@utils/constants/api-paths';
 import mapTableParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';

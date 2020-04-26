@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Expense } from '@models/expense';
-import { ExpenseFilter } from '@models/filters/expense-filter';
-import { ServerResp } from '@models/interfaces/server-resp';
+import { Expense } from '@models/expense.interface';
+import { ExpenseFilter } from '@models/filters/expense-filter.interface';
+import { ServerResp } from '@models/interfaces/server-resp.interface';
 import { ApiPath } from '@utils/constants/api-paths';
 import mapToRestParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';

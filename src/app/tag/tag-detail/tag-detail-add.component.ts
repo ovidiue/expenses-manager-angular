@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoutePaths } from '@models/enums/route-paths';
+import { RoutePaths } from '@models/enums/route-paths.enum';
 import { fadeIn } from '@utils/animations/fadeIn';
 
 import { TagDataService } from '../tag-data.service';

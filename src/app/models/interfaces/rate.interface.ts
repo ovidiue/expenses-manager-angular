@@ -1,4 +1,4 @@
-import { Expense } from './expense';
+import { Expense } from './expense.interface';
 
 export interface Rate {
   amount: number;

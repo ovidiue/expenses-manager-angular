@@ -1,8 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ExpenseService, RateService } from '@core/services';
-import { Expense } from '@models/expense';
-import { Rate } from '@models/rate';
+import { Expense, Rate } from '@models/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { LazyLoadEvent } from 'primeng/api';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';

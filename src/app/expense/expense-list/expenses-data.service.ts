@@ -1,12 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CategoryService, ExpenseService, RateService } from '@core/services';
-import { Category } from '@models/category';
-import { Expense } from '@models/expense';
-import { ExpenseFilter } from '@models/filters/expense-filter';
-import { ServerResp } from '@models/interfaces/server-resp';
-import { Rate } from '@models/rate';
-import { Tag } from '@models/tag';
+import { Category, Expense, ExpenseFilter, Rate, ServerResp, Tag } from '@models/interfaces';
 import { MESSAGES } from '@utils/messages';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';

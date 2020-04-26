@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Card } from '@models/interfaces/card';
+import { Card } from '@models/interfaces/card.interface';
 
 @Component({
   selector: 'app-card-view-list',

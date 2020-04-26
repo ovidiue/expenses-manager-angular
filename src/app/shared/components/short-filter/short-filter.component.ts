@@ -82,6 +82,7 @@ export class ShortFilterComponent implements OnChanges {
         }
       }
     }
+
     return result;
   }
 

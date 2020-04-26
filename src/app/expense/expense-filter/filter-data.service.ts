@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CategoryService, TagService } from '@core/services';
+import { Category, Tag } from '@models/interfaces';
 
-import { Category } from '@models/category';
-import { Tag } from '@models/tag';
 import { SelectItem } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';

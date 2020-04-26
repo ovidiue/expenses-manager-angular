@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CategoryService, TagService } from '@core/services';
-import { Card } from '@models/interfaces/card';
+import { Card } from '@models/interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({

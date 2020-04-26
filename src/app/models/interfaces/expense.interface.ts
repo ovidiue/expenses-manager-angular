@@ -1,5 +1,5 @@
-import { Category } from './category';
-import { Tag } from './tag';
+import { Category } from './category.interface';
+import { Tag } from './tag.interface';
 
 export interface Expense {
   title: string;

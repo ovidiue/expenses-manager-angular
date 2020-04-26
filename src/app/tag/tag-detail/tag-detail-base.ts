@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Tag } from '@models/interfaces';
 import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
-import { Tag } from '@models/tag';
 import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 
 import { TagDataService } from '../tag-data.service';
