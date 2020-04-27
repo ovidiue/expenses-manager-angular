@@ -3,6 +3,13 @@
     <h3>Expenses</h3>
   </div>
 
+  Expense card list
+  <div class="expense-grid" *ngIf="expenses$ | async as expenses">
+    <div class="expense-holder" *ngFor="let expense of expenses">
+      <app-expense-card [expense]="expense"></app-expense-card>
+    </div>
+  </div>
+
   <div class="row">
     <p-sidebar
       [(visible)]="displaySidebar"

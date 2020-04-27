@@ -1,0 +1,92 @@
+@import './src/styles/custom';
+
+.content {
+  transition: 0.3s;
+  cursor: pointer;
+
+  &-wrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  &-show {
+    position: absolute;
+    max-width: 50%;
+    background: white;
+    padding: 1rem;
+    z-index: 1;
+    box-shadow: 0 1rem 1rem $gray-500;
+  }
+
+  &.tip:hover {
+    background: black;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+}
+
+.header {
+  .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .main,
+    .amount {
+      font-size: 2rem;
+    }
+
+    .amount {
+      font-weight: bold;
+      float: right;
+    }
+
+    .main {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .date {
+      font-size: $font-size-sm;
+    }
+
+    .actions {
+      .edit,
+      .delete {
+        padding: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          background: $primary;
+          color: $white;
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+}
+
+.info {
+  span {
+    float: right;
+    font-weight: bold;
+  }
+}

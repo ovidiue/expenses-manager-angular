@@ -55,3 +55,39 @@ p-sidebar {
   color: $primary;
   background: $secondary;
 }
+
+////////////////////////////////////////
+.page-title {
+  font-size: 6rem;
+  color: $gray-200;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.expense {
+  &-grid {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-flow: wrap;
+  }
+
+  &-holder {
+    box-shadow: 0 0 0.4rem $gray-500;
+    border: 1px solid transparent;
+    flex: 0 1 32%;
+    min-width: 0;
+    padding: 1rem;
+
+    margin-bottom: $spacer;
+
+    &:hover {
+      transition: 0.3s;
+      box-shadow: 0.5rem 0.5rem 1rem $gray-500;
+      border: 1px solid lightgray;
+      border-radius: 5px;
+    }
+  }
+}
