@@ -19,13 +19,14 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.error.message === 'Unauthorized') {
+          this.toastr.clear();
           this.toastr
             .warning('You have been loggedOut', 'Session ended', {
               closeButton: true,
               progressBar: false,
               disableTimeOut: true,
             })
-            .onHidden.subscribe((a) => {
+            .onTap.subscribe((a) => {
               // TODO fix session ended notification keep showing up
               this.authService.logout();
             });
