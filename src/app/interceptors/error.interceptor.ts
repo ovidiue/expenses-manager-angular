@@ -29,6 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             .onTap.subscribe((a) => {
               // TODO fix session ended notification keep showing up
               this.authService.logout();
+              this.toastr.clear();
             });
         }
 
