@@ -12,7 +12,7 @@ import { TagDetailAddComponent, TagDetailEditComponent, TagListComponent } from 
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', redirectTo: 'home/expenses' },
+  { path: '', redirectTo: 'home/expenses', pathMatch: 'full' },
   {
     path: 'home',
     component: MainComponent,
