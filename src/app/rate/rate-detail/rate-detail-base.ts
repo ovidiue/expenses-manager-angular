@@ -1,24 +1,28 @@
 import { Location } from '@angular/common';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubscriptionsBaseClass } from '@models/subscriptions-base.class';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { RateDetailService } from './rate-detail.service';
+import { takeUntil } from 'rxjs/operators';
+import { OnDestroy } from '@angular/core';
 
-export class RateDetailBase extends SubscriptionsBaseClass {
+export class RateDetailBase implements OnDestroy {
   expenses$: Observable<any[]>;
-
   isSubmitted = false;
   pageTitle: string;
   nameExists = false;
   maxDate = moment().toDate();
   expenses: any[];
   rateFormControls: FormGroup;
-
-  // TODO: on edit, expense doesn't preselect previous value
+  private _destroy$ = new Subject();
 
   constructor(
     protected location: Location,
@@ -26,8 +30,6 @@ export class RateDetailBase extends SubscriptionsBaseClass {
     protected service: RateDetailService,
     protected route: ActivatedRoute
   ) {
-    super();
-
     this.expenses$ = this.service.getExpenses(TABLE_DEFAULTS.maxSize);
     this.rateFormControls = new FormGroup({
       amount: new FormControl(null, Validators.required),
@@ -37,6 +39,8 @@ export class RateDetailBase extends SubscriptionsBaseClass {
     });
   }
 
+  // TODO: on edit, expense doesn't preselect previous value
+
   get amount(): AbstractControl {
     return this.rateFormControls.get('amount');
   }
@@ -45,11 +49,19 @@ export class RateDetailBase extends SubscriptionsBaseClass {
     return this.rateFormControls.get('payedOn');
   }
 
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
   checkName($event): void {
     const name = $event.target.value;
-    this.service.getRateByName(name).subscribe((resp) => {
-      this.nameExists = !!resp;
-    });
+    this.service
+      .getRateByName(name)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((resp) => {
+        this.nameExists = !!resp;
+      });
   }
 
   goBack(event: any) {
