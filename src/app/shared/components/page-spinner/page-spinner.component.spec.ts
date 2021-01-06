@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PrimengModule } from '@shared/primeng.module';
 
@@ -8,7 +8,7 @@ describe('PageSpinnerComponent', () => {
   let component: PageSpinnerComponent;
   let fixture: ComponentFixture<PageSpinnerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [PrimengModule],
       declarations: [PageSpinnerComponent],

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ShortFilterComponent } from './short-filter.component';
 
@@ -6,7 +6,7 @@ describe('ShortFilterComponent', () => {
   let component: ShortFilterComponent;
   let fixture: ComponentFixture<ShortFilterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ShortFilterComponent],
     }).compileComponents();

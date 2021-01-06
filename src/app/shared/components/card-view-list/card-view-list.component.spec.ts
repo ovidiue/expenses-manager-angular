@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CardViewComponent } from '@components/card-view/card-view.component';
 
 import { SharedModule } from '@shared/shared.module';
@@ -9,7 +9,7 @@ describe('CardViewListComponent', () => {
   let component: CardViewListComponent;
   let fixture: ComponentFixture<CardViewListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule],
       declarations: [CardViewListComponent, CardViewComponent],

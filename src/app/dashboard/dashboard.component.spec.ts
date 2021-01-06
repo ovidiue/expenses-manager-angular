@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
 import { CardViewComponent } from '@components/card-view/card-view.component';
 import { ChartComponent } from '@components/chart/chart.component';
@@ -14,7 +14,7 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, HttpClientTestingModule],
       declarations: [

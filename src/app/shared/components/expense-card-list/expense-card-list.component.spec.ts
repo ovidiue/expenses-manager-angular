@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -9,7 +9,7 @@ describe('ExpenseCardListComponent', () => {
   let component: ExpenseCardListComponent;
   let fixture: ComponentFixture<ExpenseCardListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, HttpClientTestingModule],
       declarations: [ExpenseCardListComponent],
