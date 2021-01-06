@@ -1,1 +1,1 @@
-export const BASE_PATH = 'http://localhost:8080';
+export const BASE_PATH = 'http://localhost:3000';

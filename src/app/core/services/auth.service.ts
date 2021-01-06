@@ -46,7 +46,7 @@ export class AuthService {
       .subscribe(() => {
         this.isLoggedIn$.next(true);
         this.toastr.success('Register Success');
-        this.router.navigate(['expenses']);
+        this.router.navigate(['/home']);
       });
   }
 

@@ -19,6 +19,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path:'',
+        redirectTo: 'expenses',
+        pathMatch: 'full'
+      },
+      {
         path: 'expenses',
         data: {
           displayName: 'Expenses',
