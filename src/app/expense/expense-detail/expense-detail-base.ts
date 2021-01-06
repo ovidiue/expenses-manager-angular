@@ -11,15 +11,16 @@ import { SelectItem } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
 
 import { ExpenseDetailService } from './expense-detail.service';
+import { OnDestroy } from '@angular/core';
 
-export class ExpenseDetailBase {
+export class ExpenseDetailBase implements OnDestroy {
   pageTitle: string;
   isFormSubmitted = false;
   expenseForm: FormGroup;
   minDate = moment().startOf('day').toDate();
   tags$: Observable<SelectItem[]>;
   categories$: Observable<SelectItem[]>;
-  private _destroy$ = new Subject();
+  protected _destroy$ = new Subject();
 
   constructor(
     protected location: Location,
@@ -47,6 +48,11 @@ export class ExpenseDetailBase {
 
   get amount(): AbstractControl {
     return this.expenseForm.get('amount');
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   goBack(event: any) {

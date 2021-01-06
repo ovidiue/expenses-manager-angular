@@ -15,7 +15,7 @@ export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
   protected categoryForm: FormGroup;
   protected isSubmitted: boolean;
   protected initialName: string;
-  private _destroy$ = new Subject();
+  protected _destroy$ = new Subject();
 
   constructor(
     protected location: Location,
@@ -34,6 +34,7 @@ export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._destroy$.next();
+    this._destroy$.complete();
   }
 
   ngOnInit() {

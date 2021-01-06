@@ -1,21 +1,32 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SharedModule } from '@shared/shared.module';
-
 import { ExpenseDetailAddComponent } from './expense-detail-add.component';
+import { ExpenseDetailService } from './expense-detail.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('ExpenseDetailComponent', () => {
+class MockExpenseService {
+  getTags = jasmine.createSpy('getTags');
+  getCategories = jasmine.createSpy('getCategories');
+}
+
+describe('ExpenseDetailAddComponent', () => {
   let component: ExpenseDetailAddComponent;
   let fixture: ComponentFixture<ExpenseDetailAddComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
-      declarations: [ExpenseDetailAddComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [BrowserAnimationsModule, RouterTestingModule],
+        declarations: [ExpenseDetailAddComponent],
+        providers: [
+          { provide: ExpenseDetailService, useClass: MockExpenseService },
+        ],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ExpenseDetailAddComponent);

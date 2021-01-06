@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Tag } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
-import { pluck, switchMap } from 'rxjs/operators';
+import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 
 import { TagDataService } from '../tag-data.service';
 
@@ -34,17 +34,16 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
 
   ngOnInit(): void {
     this.tagFormControls.addControl('id', new FormControl(null));
-    this.subscriptions.push(
-      this.route.params
-        .pipe(
-          pluck('id'),
-          switchMap((id: number) => this.service.getTag(id))
-        )
-        .subscribe((tag: Tag) => {
-          this.tagFormControls.setValue(tag);
-          this.initialName = tag.name;
-        })
-    );
+    this.route.params
+      .pipe(
+        takeUntil(this._destroy$),
+        pluck('id'),
+        switchMap((id: number) => this.service.getTag(id))
+      )
+      .subscribe((tag: Tag) => {
+        this.tagFormControls.setValue(tag);
+        this.initialName = tag.name;
+      });
   }
 
   onSubmit() {

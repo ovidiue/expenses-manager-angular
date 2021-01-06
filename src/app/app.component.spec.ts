@@ -1,22 +1,25 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HeaderComponent } from '@components/header/header.component';
+
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
+import { HeaderComponent } from '@core/header/header.component';
 
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
-        ToastrModule.forRoot({ progressBar: true, maxOpened: 1 }),
-      ],
-      declarations: [AppComponent, HeaderComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule,
+          HttpClientTestingModule,
+          ToastrModule.forRoot({ progressBar: true, maxOpened: 1 }),
+        ],
+        declarations: [AppComponent, HeaderComponent],
+      }).compileComponents();
+    })
+  );
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);

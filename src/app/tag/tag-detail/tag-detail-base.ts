@@ -19,7 +19,7 @@ export class TagDetailBase implements OnDestroy {
   tagFormControls: FormGroup;
   initialName: string;
   protected isSubmitted = false;
-  private _destroy$ = new Subject();
+  protected _destroy$ = new Subject();
   private spinnerMessage$ = this.service.getLoadingMessage();
   private loading$ = this.service.getLoadingState();
 

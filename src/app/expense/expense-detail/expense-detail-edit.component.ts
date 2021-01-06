@@ -6,7 +6,7 @@ import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Expense } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { MessageService } from 'primeng/api';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { map, pluck, switchMap, takeUntil } from 'rxjs/operators';
 
 import { ExpenseDetailBase } from './expense-detail-base';
 import { ExpenseDetailService } from './expense-detail.service';
@@ -36,24 +36,23 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase
   ngOnInit() {
     this.expenseForm.addControl('id', new FormControl(null));
 
-    this.subscriptions.push(
-      this.route.params
-        .pipe(
-          pluck('id'),
-          switchMap((id: number) => this.service.getExpense(id)),
-          map((exp: Expense) => ({
-            title: exp.title,
-            amount: exp.amount,
-            description: exp.description,
-            dueDate: exp.dueDate,
-            category: exp.category,
-            tags: exp.tags,
-            recurrent: exp.recurrent,
-            id: exp.id,
-          }))
-        )
-        .subscribe((expense: Expense) => this.expenseForm.setValue(expense))
-    );
+    this.route.params
+      .pipe(
+        takeUntil(this._destroy$),
+        pluck('id'),
+        switchMap((id: number) => this.service.getExpense(id)),
+        map((exp: Expense) => ({
+          title: exp.title,
+          amount: exp.amount,
+          description: exp.description,
+          dueDate: exp.dueDate,
+          category: exp.category,
+          tags: exp.tags,
+          recurrent: exp.recurrent,
+          id: exp.id,
+        }))
+      )
+      .subscribe((expense: Expense) => this.expenseForm.setValue(expense));
   }
 
   onSubmit() {
@@ -63,8 +62,11 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase
       return;
     }
 
-    this.service.updateExpense(this.expenseForm.value).subscribe(() => {
-      this.router.navigate([RoutePaths.EXPENSE_LISTING]);
-    });
+    this.service
+      .updateExpense(this.expenseForm.value)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this.router.navigate([RoutePaths.EXPENSE_LISTING]);
+      });
   }
 }

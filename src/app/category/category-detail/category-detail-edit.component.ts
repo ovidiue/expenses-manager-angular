@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Category } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
-import { pluck, switchMap } from 'rxjs/operators';
+import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 
 import { CategoryDataService } from '../category-data.service';
 
@@ -36,17 +36,16 @@ export class CategoryDetailEditComponent extends CategoryDetailBaseComponent
   ngOnInit() {
     this.categoryForm.addControl('id', new FormControl(null));
 
-    this.subscriptions.push(
-      this.route.params
-        .pipe(
-          pluck('id'),
-          switchMap((id: number) => this.service.getCategory(id))
-        )
-        .subscribe((category: Category) => {
-          this.initialName = category.name;
-          this.categoryForm.setValue(category);
-        })
-    );
+    this.route.params
+      .pipe(
+        takeUntil(this._destroy$),
+        pluck('id'),
+        switchMap((id: number) => this.service.getCategory(id))
+      )
+      .subscribe((category: Category) => {
+        this.initialName = category.name;
+        this.categoryForm.setValue(category);
+      });
   }
 
   onSubmit() {
