@@ -1,0 +1,10 @@
+@import './src/styles/custom';
+
+:host {
+  display: block;
+}
+
+.error {
+  color: $red;
+  display: block;
+}

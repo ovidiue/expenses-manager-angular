@@ -1,0 +1,11 @@
+@import './src/styles/custom';
+
+:host {
+  display: block;
+}
+
+label {
+  color: $primary;
+  display: block;
+  margin-bottom: $spacer / 3;
+}
