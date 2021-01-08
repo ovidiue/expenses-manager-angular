@@ -11,10 +11,12 @@ import {
   ExpenseCardListComponent,
   ExpenseChartComponent,
   PageSpinnerComponent,
-  ShortFilterComponent
+  ShortFilterComponent,
 } from '@shared/components';
 
 import { PrimengModule } from './primeng.module';
+import { LabelComponent } from '@shared/components/label/label.component';
+import { ErrorComponent } from '@shared/components/error/error.component';
 
 const importsExports = [
   FormsModule,
@@ -32,6 +34,8 @@ const importsExports = [
     ShortFilterComponent,
     ExpenseCardListComponent,
     ExpenseChartComponent,
+    LabelComponent,
+    ErrorComponent,
   ],
   declarations: [
     PageSpinnerComponent,
@@ -43,6 +47,8 @@ const importsExports = [
     ExpenseChartComponent,
     ChartComponent,
     ShortFilterComponent,
+    LabelComponent,
+    ErrorComponent,
   ],
   entryComponents: [DialogRatesComponent],
 })

@@ -53,7 +53,7 @@ export class ExpensesDataService {
         })
       )
       .subscribe((resp) => {
-        this.categories$.next(resp.content);
+        this.categories$.next(resp.data);
       });
   }
 
@@ -69,7 +69,7 @@ export class ExpensesDataService {
 
           return throwError(err);
         }),
-        map((resp) => ({ data: resp.content, total: resp.totalElements })),
+        map((resp) => ({ data: resp.data, total: resp.total })),
         finalize(() => this.setLoading(false))
       )
       .subscribe((result) => {

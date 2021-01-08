@@ -163,9 +163,9 @@ export class CategoryDataService {
         })
       )
       .subscribe((resp) => {
-        const { content, totalElements } = resp;
-        this._categories.next(content);
-        this._total.next(totalElements);
+        const { data, total } = resp;
+        this._categories.next(data);
+        this._total.next(total);
       });
   }
 }

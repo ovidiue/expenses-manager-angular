@@ -7,44 +7,45 @@
       <div class="form-wrapper">
         <form (ngSubmit)="onSubmit()" [formGroup]="rateFormControls">
           <div class="form-group">
-            <label for="amount">Amount</label>
-            <input
-              [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
-              class="form-control"
-              formControlName="amount"
-              id="amount"
-              name="amount"
-              placeholder="Enter amount"
-              required
-              type="text"
-            />
-            <div *ngIf="isSubmitted && amount.errors" class="invalid-feedback">
-              <div *ngIf="amount.errors.required">Amount is required</div>
-            </div>
+            <app-label text="Amount">
+              <input
+                [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
+                class="form-control"
+                formControlName="amount"
+                id="amount"
+                name="amount"
+                placeholder="Enter amount"
+                required
+                type="text"
+              />
+            </app-label>
+            <app-error
+              text="Amount is required"
+              *ngIf="isSubmitted && amount.errors && amount.errors.required"
+            ></app-error>
           </div>
           <div class="form-group">
             <label for="payedOn">Payed On</label>
-            <p-calendar
-              [maxDate]="maxDate"
-              [monthNavigator]="true"
-              [required]="true"
-              [showIcon]="true"
-              [yearNavigator]="true"
-              class="block"
-              formControlName="payedOn"
-              id="payedOn"
-              name="payedOn"
-              showButtonBar="true"
-              yearRange="2000:2030"
-            >
-            </p-calendar>
-            <div
+            <app-label text="Payed On">
+              <p-calendar
+                [maxDate]="maxDate"
+                [monthNavigator]="true"
+                [required]="true"
+                [showIcon]="true"
+                [yearNavigator]="true"
+                class="block"
+                formControlName="payedOn"
+                id="payedOn"
+                name="payedOn"
+                showButtonBar="true"
+                yearRange="2000:2030"
+              >
+              </p-calendar>
+            </app-label>
+            <app-error
+              text="Date is required"
               *ngIf="isSubmitted && payedOn.invalid"
-              class="invalid-feedback"
-              style="display: block;"
-            >
-              <div *ngIf="payedOn.errors">Date is required</div>
-            </div>
+            ></app-error>
           </div>
           <div class="form-group">
             <label for="expense">Expense</label>

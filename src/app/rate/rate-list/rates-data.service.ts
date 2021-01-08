@@ -117,7 +117,7 @@ export class RatesDataService {
         }),
         finalize(() => this.setLoadingState(false))
       )
-      .subscribe((resp) => this._expenses.next(resp.content));
+      .subscribe((resp) => this._expenses.next(resp.data));
   }
 
   public getLoadingState(): Observable<boolean> {

@@ -1,6 +1,6 @@
 export enum RoutePaths {
-  TAG_LISTING = 'tags',
-  CATEGORY_LISTING = 'categories',
-  RATES_LISTING = 'rates',
-  EXPENSE_LISTING = 'expenses',
+  TAG_LISTING = 'home/tags',
+  CATEGORY_LISTING = 'home/categories',
+  RATES_LISTING = 'home/rates',
+  EXPENSE_LISTING = 'home/expenses',
 }

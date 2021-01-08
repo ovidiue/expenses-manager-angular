@@ -1,5 +1,5 @@
 export interface ServerResp<T> {
-  content: T[];
-  totalElements: number;
+  data: T[];
+  total: number;
   length: number;
 }

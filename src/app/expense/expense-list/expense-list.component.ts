@@ -170,7 +170,7 @@ export class ExpenseListComponent implements OnInit {
     this.service
       .getRatesByExpenseIdApi(exp.id)
       .subscribe((resp: ServerResp<Rate[]>) => {
-        const width = resp.content.length > 0 ? '70%' : '30%';
+        const width = resp.data.length > 0 ? '70%' : '30%';
         this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
           header: `${exp.title} - rates`,
           width,

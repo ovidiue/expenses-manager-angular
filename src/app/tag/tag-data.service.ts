@@ -181,8 +181,8 @@ export class TagDataService {
         })
       )
       .subscribe((resp) => {
-        this._tags.next(resp.content);
-        this._total.next(resp.totalElements);
+        this._tags.next(resp.data);
+        this._total.next(resp.total);
       });
   }
 }

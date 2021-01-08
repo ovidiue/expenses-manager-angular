@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 
 export class TagDetailBase implements OnDestroy {
-  pageTitle: string;
+  pageTitle: string = '';
   nameExists: boolean;
   tagFormControls: FormGroup;
   initialName: string;

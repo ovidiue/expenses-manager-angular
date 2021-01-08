@@ -13,7 +13,12 @@ const importsAndExports = [HttpClientModule, AppRoutingModule];
   imports: [
     ...importsAndExports,
     CommonModule,
-    ToastrModule.forRoot({ progressBar: true, maxOpened: 1 }),
+    ToastrModule.forRoot({
+      progressBar: true,
+      maxOpened: 1,
+      closeButton: true,
+      extendedTimeOut: 1
+    }),
   ],
   exports: [...importsAndExports],
   declarations: [MainComponent, HeaderComponent],

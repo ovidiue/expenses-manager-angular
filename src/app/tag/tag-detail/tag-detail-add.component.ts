@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { fadeIn } from '@utils/animations/fadeIn';
@@ -8,6 +7,7 @@ import { fadeIn } from '@utils/animations/fadeIn';
 import { TagDataService } from '../tag-data.service';
 
 import { TagDetailBase } from './tag-detail-base';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tag-detail',
@@ -17,7 +17,6 @@ import { TagDetailBase } from './tag-detail-base';
 })
 export class TagDetailAddComponent extends TagDetailBase {
   nameExists = false;
-  tagFormControls: FormGroup;
 
   constructor(
     protected location: Location,
@@ -26,7 +25,7 @@ export class TagDetailAddComponent extends TagDetailBase {
     protected route: ActivatedRoute
   ) {
     super(location, service);
-    this.pageTitle = 'Add Rate';
+    this.pageTitle = 'Add Tag';
   }
 
   onSubmit() {
@@ -34,8 +33,11 @@ export class TagDetailAddComponent extends TagDetailBase {
     if (this.tagFormControls.invalid || this.nameExists) {
       return;
     }
-    this.service.saveTag(this.tagFormControls.value).subscribe(() => {
-      this.router.navigate([RoutePaths.TAG_LISTING]);
-    });
+    this.service
+      .saveTag(this.tagFormControls.value)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this.router.navigate([RoutePaths.TAG_LISTING]);
+      });
   }
 }
