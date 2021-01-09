@@ -19,7 +19,6 @@ import { TagDetailBase } from './tag-detail-base';
 })
 export class TagDetailEditComponent extends TagDetailBase implements OnInit {
   nameExists = false;
-  tagFormControls: FormGroup;
 
   constructor(
     protected location: Location,

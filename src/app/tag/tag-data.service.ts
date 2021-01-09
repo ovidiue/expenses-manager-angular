@@ -107,13 +107,13 @@ export class TagDataService {
     return _.isEqual(event, this.event);
   }
 
-  deleteTags(ids: Tag[]) {
-    const stringForm = ids.length > 1 ? 'tags' : 'tag';
+  deleteTags(tags: Tag[]) {
+    const stringForm = tags.length > 1 ? 'tags' : 'tag';
     this.setLoading(true);
     this.setLoadingMessage(`Deleting ${stringForm}`);
 
     return this.tagService
-      .delete(ids)
+      .delete(tags)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           this.toastr.error('Failed deleting', 'Delete');
@@ -131,7 +131,7 @@ export class TagDataService {
       .subscribe(
         () => {
           let tags = this._tags.getValue();
-          tags = tags.filter((tag) => !ids.includes(tag));
+          tags = tags.filter((tag) => !tags.includes(tag));
           const updatedTotal =
             parseInt(this._total.getValue().toFixed(), 10) - 1;
           this._total.next(updatedTotal);

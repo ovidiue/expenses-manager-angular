@@ -32,12 +32,12 @@ export class TagService {
     return this.http.post(url, tag, httpOptions);
   }
 
-  delete(tagsIds: Tag[]) {
-    const urlSearchParams: URLSearchParams = new URLSearchParams();
-    tagsIds.forEach((id) => urlSearchParams.append('', id.toString()));
+  //TODO change implementation by sending ids
+  delete(tags: Tag[]) {
     const url = this.TAGS_BASE_URL + '/delete';
+    const options = { body: tags };
 
-    return this.http.post(url, tagsIds);
+    return this.http.delete(url, options as any);
   }
 
   get(catId: number): Observable<Tag> {
@@ -59,7 +59,7 @@ export class TagService {
   }
 
   update(tag: Tag) {
-    const url = this.TAGS_BASE_URL + '/update';
+    const url = this.TAGS_BASE_URL;
 
     return this.http.put(url, tag, httpOptions);
   }
