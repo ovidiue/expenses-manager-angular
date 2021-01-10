@@ -98,7 +98,7 @@ export class CategoryDataService {
   public deleteCategory(
     ids: number[],
     withExpense: boolean
-  ): Observable<number[]> {
+  ): Observable<any[]> {
     this._loading.next(true);
 
     return this.service.delete(ids, withExpense).pipe(
@@ -106,16 +106,25 @@ export class CategoryDataService {
         this.toastr.error(err.message, MESSAGES.ERROR);
         return throwError(err);
       }),
-      tap((deletedCategories) => {
-        console.log('categories delete response', deletedCategories);
+      tap((deletedCategories: Category[]) => {
         const categories = this._categories.getValue();
-        const updatedCategories = categories.filter(
-          (el) => !deletedCategories.includes(el.id)
-        );
+
+        const filteredCategories = categories.reduce((acc, curr) => {
+          if (!deletedCategories.find((el) => el.id === curr.id)) {
+            acc.push(curr);
+          }
+
+          return acc;
+        }, [] as Category[]);
+
         const newTotal = this._total.getValue() - ids.length;
         this._total.next(newTotal);
-        this._categories.next(updatedCategories);
-        this.toastr.success(MESSAGES.CATEGORY.DELETED_MULTIPLE, ids.toString());
+        this._categories.next(filteredCategories);
+
+        this.toastr.success(
+          MESSAGES.CATEGORY.DELETED_MULTIPLE,
+          ids.length.toString()
+        );
       }),
       finalize(() => {
         this._loading.next(false);
