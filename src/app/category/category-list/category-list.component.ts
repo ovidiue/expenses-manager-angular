@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import {
+  ConfirmationService,
+  LazyLoadEvent,
+  MessageService,
+} from 'primeng/api';
 import { Observable } from 'rxjs';
 
 import { CategoryDataService } from '../category-data.service';

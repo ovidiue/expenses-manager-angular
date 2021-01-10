@@ -39,16 +39,16 @@ export class CategoryService {
     return this.http.post(url, category, httpOptions);
   }
 
-  delete(categoryIds: number[], withExpenses: boolean): Observable<number[]> {
+  delete(categoryIds: number[], withExpenses: boolean): Observable<any> {
     let params: HttpParams = new HttpParams();
-    params = params.append('withExpenses', withExpenses.toString());
-    const url = this.CATEGORIES_BASE_URL + '/delete';
+    params = params.append('expenses', withExpenses.toString());
+    const url = this.CATEGORIES_BASE_URL;
 
-    return this.http.post<number[]>(url, categoryIds, { params });
+    return this.http.delete<any>(url, { body: categoryIds, params } as any);
   }
 
   get(catId: number): Observable<Category> {
-    const url = this.CATEGORIES_BASE_URL + '/' + catId;
+    const url = this.CATEGORIES_BASE_URL + '/category/' + catId;
 
     return this.http.get<Category>(url);
   }

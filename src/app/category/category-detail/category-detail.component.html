@@ -14,50 +14,51 @@
         <div class="form-wrapper">
           <form (ngSubmit)="onSubmit()" [formGroup]="categoryForm">
             <div class="form-group">
-              <label for="name">Name</label>
-              <input
-                (change)="checkName($event)"
-                [ngClass]="{ 'is-invalid': name.errors && isSubmitted }"
-                class="form-control"
-                formControlName="name"
-                id="name"
-                placeholder="Enter name"
-                required
-                type="text"
-              />
-              <div *ngIf="name.errors && isSubmitted" class="invalid-feedback">
-                <div *ngIf="name.errors.required">Name is required</div>
-              </div>
-              <div
+              <app-label text="Name">
+                <input
+                  (change)="checkName($event)"
+                  [ngClass]="{ 'is-invalid': name.errors && isSubmitted }"
+                  class="form-control"
+                  formControlName="name"
+                  id="name"
+                  placeholder="Enter name"
+                  required
+                  type="text"
+                />
+              </app-label>
+              <app-error
+                text="Name is required"
+                *ngIf="name.errors && isSubmitted && name.errors.required"
+              ></app-error>
+              <app-error
+                text="Name already exists. Please choose another name!"
                 *ngIf="nameExists"
-                class="invalid-feedback"
-                style="display: block;"
-              >
-                <div>Name already exists. Please choose another name!</div>
-              </div>
+              ></app-error>
             </div>
             <div class="form-group">
-              <label for="description">Description</label>
-              <textarea
-                class="form-control"
-                formControlName="description"
-                id="description"
-                placeholder="Description"
-                rows="7"
-              ></textarea>
+              <app-label text="Description">
+                <textarea
+                  class="form-control"
+                  formControlName="description"
+                  id="description"
+                  placeholder="Description"
+                  rows="7"
+                ></textarea>
+              </app-label>
             </div>
 
             <div class="form-group">
-              <label class="block">Color</label>
-              <p-colorPicker
-                [inline]="true"
-                class="test"
-                formControlName="color"
-              ></p-colorPicker>
-              <div
-                [ngStyle]="{ background: categoryForm.get('color').value }"
-                class="preview-block"
-              ></div>
+              <app-label text="Color">
+                <p-colorPicker
+                  [inline]="true"
+                  class="test"
+                  formControlName="color"
+                ></p-colorPicker>
+                <div
+                  [ngStyle]="{ background: categoryForm.get('color').value }"
+                  class="preview-block"
+                ></div>
+              </app-label>
             </div>
             <hr />
             <div>

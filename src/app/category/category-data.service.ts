@@ -106,7 +106,8 @@ export class CategoryDataService {
         this.toastr.error(err.message, MESSAGES.ERROR);
         return throwError(err);
       }),
-      tap((deletedCategories: number[]) => {
+      tap((deletedCategories) => {
+        console.log('categories delete response', deletedCategories);
         const categories = this._categories.getValue();
         const updatedCategories = categories.filter(
           (el) => !deletedCategories.includes(el.id)

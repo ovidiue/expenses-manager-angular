@@ -3,13 +3,13 @@
     <h3>Categories</h3>
   </div>
 
-  <ng-container *ngIf="categories$ | async as categories">
-    <app-page-spinner [displaySpinner]="loading$ | async"></app-page-spinner>
+  <app-page-spinner [displaySpinner]="loading$ | async"></app-page-spinner>
 
-    <div *ngIf="categories.length" class="row">
+  <ng-container *ngIf="categories$ | async as categories">
+    <div class="row">
       <p-overlayPanel #op>
         <p-scrollPanel [style]="{ width: '300px', height: '200px' }">
-          <div style="padding: 1em; line-height: 1.5;">
+          <div style="padding: 1em; line-height: 1.5">
             {{ selectedDescription }}
           </div>
         </p-scrollPanel>
@@ -65,7 +65,7 @@
           >
             <ng-template pTemplate="header">
               <tr>
-                <th style="width: 3em;">
+                <th style="width: 3em">
                   <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th
@@ -94,7 +94,7 @@
                       else smallerDesc
                     "
                     pTooltip="Click for detailed info"
-                    style="cursor: pointer;"
+                    style="cursor: pointer"
                   >
                     {{
                       cat.description.length > 15
