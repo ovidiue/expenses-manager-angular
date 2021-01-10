@@ -60,13 +60,13 @@
                   value="selectedColor"
                 >
                 </p-colorPicker>
+                <div
+                  [ngStyle]="{
+                    background: tagFormControls.controls['color'].value
+                  }"
+                  class="preview-block"
+                ></div>
               </app-label>
-              <div
-                [ngStyle]="{
-                  background: tagFormControls.controls['color'].value
-                }"
-                class="preview-block"
-              ></div>
             </div>
             <hr />
             <div>
