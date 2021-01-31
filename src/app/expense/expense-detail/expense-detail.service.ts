@@ -6,20 +6,17 @@ import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { SelectItem } from 'primeng/api';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, map, pluck, tap } from 'rxjs/operators';
+import { catchError, finalize, pluck, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExpenseDetailService {
-  private _categories: BehaviorSubject<SelectItem[]> = new BehaviorSubject<
-    SelectItem[]
+  private _categories: BehaviorSubject<Category[]> = new BehaviorSubject<
+    Category[]
   >([]);
-  private _tags: BehaviorSubject<SelectItem[]> = new BehaviorSubject<
-    SelectItem[]
-  >([]);
+  private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject<Tag[]>([]);
   private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -56,11 +53,11 @@ export class ExpenseDetailService {
     );
   }
 
-  getTags(): Observable<SelectItem[]> {
+  getTags(): Observable<Tag[]> {
     return this._tags.asObservable();
   }
 
-  getCategories(): Observable<SelectItem[]> {
+  getCategories(): Observable<Category[]> {
     return this._categories.asObservable();
   }
 
@@ -105,12 +102,9 @@ export class ExpenseDetailService {
 
           return throwError(err);
         }),
-        pluck('content'),
-        map((tags: Tag[]) =>
-          tags.map((tag) => ({ label: tag.name, value: tag }))
-        )
+        pluck('content')
       )
-      .subscribe((tags: SelectItem[]) => this._tags.next(tags));
+      .subscribe((tags: Tag[]) => this._tags.next(tags));
   }
 
   private loadCategories() {
@@ -122,11 +116,8 @@ export class ExpenseDetailService {
 
           return throwError(err);
         }),
-        pluck('content'),
-        map((categories: Category[]) =>
-          categories.map((cat) => ({ label: cat.name, value: cat }))
-        )
+        pluck('content')
       )
-      .subscribe((cats: SelectItem[]) => this._categories.next(cats));
+      .subscribe((cats: Category[]) => this._categories.next(cats));
   }
 }

@@ -2,19 +2,19 @@ import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { SelectItem } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
 
 import { ExpenseDetailService } from './expense-detail.service';
 import { OnDestroy } from '@angular/core';
+import { Category, Tag } from '@models/interfaces';
 
 export class ExpenseDetailBase implements OnDestroy {
   pageTitle: string;
   isFormSubmitted = false;
   expenseForm: FormGroup;
   minDate = moment().startOf('day').toDate();
-  tags$: Observable<SelectItem[]>;
-  categories$: Observable<SelectItem[]>;
+  tags$: Observable<Tag[]>;
+  categories$: Observable<Category[]>;
   protected _destroy$ = new Subject();
 
   constructor(

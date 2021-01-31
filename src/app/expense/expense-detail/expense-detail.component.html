@@ -72,12 +72,7 @@
             </app-label>
           </div>
           <div class="form-group">
-            <p-checkbox
-              binary="true"
-              formControlName="recurrent"
-              label="Recurrent"
-            ></p-checkbox>
-            <mat-checkbox color="primary">
+            <mat-checkbox color="primary" formControlName="recurrent">
               Recurrent
             </mat-checkbox>
           </div>
@@ -105,81 +100,34 @@
             </app-label>
           </div>
           <div class="form-group">
-            <label for="category">Category</label>
-            <p-dropdown
-              [options]="categories$ | async"
-              [placeholder]="'Select category'"
-              [showClear]="true"
-              [style]="{ width: '50%' }"
-              formControlName="category"
-              id="category"
-            >
-              <ng-template let-item pTemplate="selectedItem">
-                <span
-                  [ngStyle]="{ background: item.value.color }"
-                  class="selected-cat"
-                ></span>
-                <span
-                  style="font-size: 14px; margin-left: 10px; margin-top: 4px"
-                  >{{ item.label }}</span
+            <app-label text="Category">
+              <mat-form-field appearance="standard">
+                <mat-select
+                  placeholder="Select category"
+                  formControlName="category"
                 >
-              </ng-template>
-              <ng-template let-cat pTemplate="item">
-                <div
-                  class="ui-helper-clearfix"
-                  style="position: relative; height: 25px"
-                >
-                  <span
-                    [ngStyle]="{
-                      background: cat.value.color,
-                      width: '50%',
-                      height: '100%',
-                      display: 'inline-block'
-                    }"
-                  ></span>
-                  <span
-                    style="font-size: 14px; float: right; margin-top: 4px"
-                    >{{ cat.label }}</span
+                  <mat-option>None</mat-option>
+                  <mat-option
+                    *ngFor="let cat of categories$ | async"
+                    [value]="cat"
                   >
-                </div>
-              </ng-template>
-            </p-dropdown>
+                    {{ cat.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </app-label>
           </div>
           <div class="form-group">
-            <label for="tags">Tags</label>
-            <p-multiSelect
-              [options]="tags$ | async"
-              [style]="{ width: '50%' }"
-              formControlName="tags"
-              id="tags"
-            >
-              <ng-template let-value pTemplate="selectedItems">
-                <div
-                  *ngFor="let val of value"
-                  class="ui-multiselected-item-token ui-corner-all inlineb"
-                >
-                  <span
-                    [ngStyle]="{ background: val.color }"
-                    class="small-select-tag"
-                  ></span>
-                  <span>{{ val.name }}</span>
-                </div>
-                <span
-                  *ngIf="!value || value.length === 0"
-                  class="ui-multiselected-empty-token ui-corner-all"
-                  >Choose</span
-                >
-              </ng-template>
-              <ng-template let-tag pTemplate="item">
-                <span
-                  [ngStyle]="{ background: tag.value.color }"
-                  class="select-tag"
-                ></span>
-                <div style="font-size: 14px; float: right; margin-top: 4px">
-                  {{ tag.label }}
-                </div>
-              </ng-template>
-            </p-multiSelect>
+            <app-label text="Tags">
+              <mat-form-field appearance="standard">
+                <mat-select placeholder="Select tags" formControlName="tags" multiple>
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+                    {{ tag.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </app-label>
           </div>
           <hr />
           <div>
