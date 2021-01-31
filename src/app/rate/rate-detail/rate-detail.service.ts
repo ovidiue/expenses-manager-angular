@@ -83,7 +83,7 @@ export class RateDetailService {
         return throwError(err);
       }),
       pluck('content'),
-      map((exp: Expense[]) => exp.map((el) => ({ label: el.title, value: el })))
+      map((exp: Expense[]) => exp.map((el) => ({ label: el.name, value: el })))
     );
   }
 

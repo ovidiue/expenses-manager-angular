@@ -17,16 +17,23 @@ import {
 import { PrimengModule } from './primeng.module';
 import { LabelComponent } from '@shared/components/label/label.component';
 import { ErrorComponent } from '@shared/components/error/error.component';
+import { MaterialModule } from '@shared/material.module';
 
 const importsExports = [
   FormsModule,
   ReactiveFormsModule,
   PrimengModule,
+  MaterialModule,
   CommonModule,
 ];
 
 @NgModule({
-  imports: [BrowserAnimationsModule, PrimengModule, CommonModule],
+  imports: [
+    BrowserAnimationsModule,
+    PrimengModule,
+    CommonModule,
+    MaterialModule,
+  ],
   exports: [
     ...importsExports,
     PageSpinnerComponent,

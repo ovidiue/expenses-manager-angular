@@ -7,70 +7,69 @@
       <div class="form-wrapper">
         <form (ngSubmit)="onSubmit()" [formGroup]="expenseForm">
           <div class="form-group">
-            <label for="title">Title</label>
-            <input
-              [ngClass]="{
-                'is-invalid':
-                  title.invalid &&
-                  (title.dirty || title.touched || isFormSubmitted)
-              }"
-              class="form-control"
-              formControlName="title"
-              id="title"
-              placeholder="Enter title"
-              required
-              type="text"
-            />
-            <div
+            <app-label text="Name">
+              <input
+                [ngClass]="{
+                  'is-invalid':
+                    name.invalid &&
+                    (name.dirty || name.touched || isFormSubmitted)
+                }"
+                class="form-control"
+                formControlName="name"
+                id="title"
+                placeholder="Enter name"
+                required
+                type="text"
+              />
+            </app-label>
+            <app-error
+              text="Title is required"
               *ngIf="
-                title.invalid &&
-                (title.dirty || title.touched || isFormSubmitted)
+                name.invalid &&
+                (name.dirty || name.touched || isFormSubmitted) &&
+                name.errors.required &&
+                isFormSubmitted
               "
-              class="invalid-feedback"
-            >
-              <div *ngIf="title.errors.required && isFormSubmitted">
-                Title is required
-              </div>
-            </div>
+            ></app-error>
           </div>
           <div class="form-group">
-            <label for="amount">Amount</label>
-            <input
-              [ngClass]="{
-                'is-invalid':
-                  amount.invalid &&
-                  (amount.dirty || amount.touched || isFormSubmitted)
-              }"
-              aria-describedby="amount"
-              class="form-control"
-              formControlName="amount"
-              id="amount"
-              placeholder="Enter amount"
-              required
-              type="text"
-            />
-            <div
+            <app-label text="Amount">
+              <input
+                [ngClass]="{
+                  'is-invalid':
+                    amount.invalid &&
+                    (amount.dirty || amount.touched || isFormSubmitted)
+                }"
+                aria-describedby="amount"
+                class="form-control"
+                formControlName="amount"
+                id="amount"
+                placeholder="Enter amount"
+                required
+                type="text"
+              />
+            </app-label>
+            <app-error
+              text="Amount is required"
               *ngIf="
                 amount.invalid &&
-                (amount.dirty || amount.touched || isFormSubmitted)
+                (amount.dirty || amount.touched || isFormSubmitted) &&
+                amount.errors.required &&
+                isFormSubmitted
               "
-              class="invalid-feedback"
-            >
-              <div *ngIf="amount.errors.required && isFormSubmitted">
-                Amount is required
-              </div>
-            </div>
+            ></app-error>
           </div>
           <div class="form-group">
-            <label for="description">Description</label>
-            <textarea
-              class="form-control"
-              formControlName="description"
-              id="description"
-              placeholder="Description"
-              rows="7"
-            >
-            </textarea>
+            <app-label text="Description">
+              <textarea
+                class="form-control"
+                formControlName="description"
+                id="description"
+                placeholder="Description"
+                rows="7"
+              >
+              </textarea>
+            </app-label>
           </div>
           <div class="form-group">
             <p-checkbox
@@ -78,20 +77,32 @@
               formControlName="recurrent"
               label="Recurrent"
             ></p-checkbox>
+            <mat-checkbox color="primary">
+              Recurrent
+            </mat-checkbox>
           </div>
           <div class="form-group">
-            <label for="dueDate">Due date</label>
-            <p-calendar
-              [minDate]="minDate"
-              [monthNavigator]="true"
-              [showIcon]="true"
-              [yearNavigator]="true"
-              formControlName="dueDate"
-              id="dueDate"
-              showButtonBar="true"
-              yearRange="2000:2030"
-            >
-            </p-calendar>
+            <app-label text="Due Date">
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  placeholder="Choose a date"
+                  [min]="minDate"
+                  formControlName="dueDate"
+                  disabled
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  #picker
+                  startView="month"
+                  disabled="false"
+                ></mat-datepicker>
+              </mat-form-field>
+            </app-label>
           </div>
           <div class="form-group">
             <label for="category">Category</label>
@@ -109,14 +120,14 @@
                   class="selected-cat"
                 ></span>
                 <span
-                  style="font-size: 14px; margin-left: 10px; margin-top: 4px;"
+                  style="font-size: 14px; margin-left: 10px; margin-top: 4px"
                   >{{ item.label }}</span
                 >
               </ng-template>
               <ng-template let-cat pTemplate="item">
                 <div
                   class="ui-helper-clearfix"
-                  style="position: relative; height: 25px;"
+                  style="position: relative; height: 25px"
                 >
                   <span
                     [ngStyle]="{
@@ -127,7 +138,7 @@
                     }"
                   ></span>
                   <span
-                    style="font-size: 14px; float: right; margin-top: 4px;"
+                    style="font-size: 14px; float: right; margin-top: 4px"
                     >{{ cat.label }}</span
                   >
                 </div>
@@ -164,7 +175,7 @@
                   [ngStyle]="{ background: tag.value.color }"
                   class="select-tag"
                 ></span>
-                <div style="font-size: 14px; float: right; margin-top: 4px;">
+                <div style="font-size: 14px; float: right; margin-top: 4px">
                   {{ tag.label }}
                 </div>
               </ng-template>

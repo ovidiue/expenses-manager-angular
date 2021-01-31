@@ -148,7 +148,7 @@ export class ExpenseListComponent implements OnInit {
     this.service.setModalVisibility(true);
     this.deletionText =
       'Are you sure you want to delete following expenses$:' +
-      this.selectedExpenses.map((ex) => ex.title).join(', ') +
+      this.selectedExpenses.map((ex) => ex.name).join(', ') +
       ' ?';
   }
 
@@ -156,7 +156,7 @@ export class ExpenseListComponent implements OnInit {
     // TODO investigate to have expense marked for deletion
     this.service.setModalVisibility(true);
     this.selectedForDeletion = ex;
-    this.deletionText = `Are you sure you want to delete ${this.selectedForDeletion.title} ?`;
+    this.deletionText = `Are you sure you want to delete ${this.selectedForDeletion.name} ?`;
   }
 
   deleteExpenseAndRates(): void {
@@ -172,7 +172,7 @@ export class ExpenseListComponent implements OnInit {
       .subscribe((resp: ServerResp<Rate[]>) => {
         const width = resp.data.length > 0 ? '70%' : '30%';
         this.dialogService.open(DialogRatesComponent, <DynamicDialogConfig>{
-          header: `${exp.title} - rates`,
+          header: `${exp.name} - rates`,
           width,
           data: {
             resp,

@@ -25,22 +25,27 @@
             ></app-error>
           </div>
           <div class="form-group">
-            <label for="payedOn">Payed On</label>
             <app-label text="Payed On">
-              <p-calendar
-                [maxDate]="maxDate"
-                [monthNavigator]="true"
-                [required]="true"
-                [showIcon]="true"
-                [yearNavigator]="true"
-                class="block"
-                formControlName="payedOn"
-                id="payedOn"
-                name="payedOn"
-                showButtonBar="true"
-                yearRange="2000:2030"
-              >
-              </p-calendar>
+              <!--TODO add datepicker clear button-->
+              <mat-form-field>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  placeholder="Choose a date"
+                  [max]="maxDate"
+                  formControlName="payedOn"
+                  disabled
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  #picker
+                  startView="month"
+                  disabled="false"
+                ></mat-datepicker>
+              </mat-form-field>
             </app-label>
             <app-error
               text="Date is required"
@@ -48,29 +53,34 @@
             ></app-error>
           </div>
           <div class="form-group">
-            <label for="expense">Expense</label>
-            <p-dropdown
-              [options]="expenses$ | async"
-              [placeholder]="'Select expense'"
-              [showClear]="true"
-              [style]="{ width: '50%' }"
-              class="block"
-              formControlName="expense"
-              id="expense"
-              name="expense"
-            >
-            </p-dropdown>
+            <app-label text="Expense">
+              <mat-form-field appearance="standard">
+                <mat-select
+                  placeholder="Select expense"
+                  formControlName="expense"
+                >
+                  <mat-option>None</mat-option>
+                  <mat-option
+                    *ngFor="let expense of expenses"
+                    [value]="expense"
+                  >
+                    {{ expense.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </app-label>
           </div>
           <div class="form-group">
-            <label for="observation">Observation</label>
-            <textarea
-              class="form-control"
-              formControlName="observation"
-              id="observation"
-              name="observation"
-              placeholder="Observation"
-              rows="7"
-            ></textarea>
+            <app-label text="Observation">
+              <textarea
+                class="form-control"
+                formControlName="observation"
+                id="observation"
+                name="observation"
+                placeholder="Observation"
+                rows="7"
+              ></textarea>
+            </app-label>
           </div>
           <hr />
           <div>

@@ -42,7 +42,7 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase
         pluck('id'),
         switchMap((id: number) => this.service.getExpense(id)),
         map((exp: Expense) => ({
-          title: exp.title,
+          name: exp.name,
           amount: exp.amount,
           description: exp.description,
           dueDate: exp.dueDate,

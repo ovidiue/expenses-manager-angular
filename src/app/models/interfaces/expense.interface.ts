@@ -2,7 +2,7 @@ import { Category } from './category.interface';
 import { Tag } from './tag.interface';
 
 export interface Expense {
-  title: string;
+  name: string;
   description: string;
   recurrent: boolean;
   amount: number;

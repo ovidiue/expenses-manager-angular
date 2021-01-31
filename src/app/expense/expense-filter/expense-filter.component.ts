@@ -24,7 +24,7 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
     this.tags$ = this.dataService.getTags();
 
     this.filterForm = new FormGroup({
-      title: new FormControl(''),
+      name: new FormControl(''),
       description: new FormControl(''),
       category: new FormControl(''),
       tags: new FormControl([]),

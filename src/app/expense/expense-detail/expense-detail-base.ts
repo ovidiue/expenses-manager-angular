@@ -1,10 +1,5 @@
 import { Location } from '@angular/common';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { SelectItem } from 'primeng/api';
@@ -29,7 +24,7 @@ export class ExpenseDetailBase implements OnDestroy {
     protected route: ActivatedRoute
   ) {
     this.expenseForm = new FormGroup({
-      title: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required),
       description: new FormControl(''),
       recurrent: new FormControl(false),
@@ -42,8 +37,8 @@ export class ExpenseDetailBase implements OnDestroy {
     this.categories$ = this.service.getCategories();
   }
 
-  get title(): AbstractControl {
-    return this.expenseForm.get('title');
+  get name(): AbstractControl {
+    return this.expenseForm.get('name');
   }
 
   get amount(): AbstractControl {
