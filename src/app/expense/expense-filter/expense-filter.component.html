@@ -1,9 +1,7 @@
 <div class="table-filters mt-3">
   <p-accordion>
     <p-accordionTab header="Filters">
-      <p-header>
-        Filters
-      </p-header>
+      <p-header> Filters </p-header>
       <app-short-filter
         (removeFilter)="filterUpdate($event)"
         [filter]="filterForm.value"
@@ -40,88 +38,41 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="category" style="display: block;">
-                Category
-              </label>
-              <p-dropdown
-                [options]="categories$ | async"
-                [placeholder]="'Select category'"
-                [showClear]="true"
-                [style]="{ width: '100%' }"
-                formControlName="category"
-                id="category"
-                name="category"
-              >
-                <ng-template let-item pTemplate="selectedItem">
-                  <span
-                    [ngStyle]="{ background: item.color }"
-                    class="selected-cat"
+              <app-label text="Category">
+                <mat-form-field appearance="standard">
+                  <mat-select
+                    placeholder="Select category"
+                    formControlName="category"
+                    multiple
                   >
-                  </span>
-                  <span
-                    style="font-size: 14px; margin-left: 10px; margin-top: 4px;"
-                    >{{ item.label }}</span
-                  >
-                </ng-template>
-                <ng-template let-cat pTemplate="item">
-                  <div
-                    class="ui-helper-clearfix"
-                    style="position: relative; height: 25px;"
-                  >
-                    <span
-                      [ngStyle]="{
-                        background: cat.value.color,
-                        width: '50%',
-                        height: '100%',
-                        display: 'inline-block'
-                      }"
-                    ></span>
-                    <span
-                      style="font-size: 14px; float: right; margin-top: 4px;"
-                      >{{ cat.label }}</span
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let cat of categories$ | async"
+                      [value]="cat"
                     >
-                  </div>
-                </ng-template>
-              </p-dropdown>
+                      {{ cat.title }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </app-label>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
-              <label style="display: block;" for="tags">Tags</label>
-              <p-multiSelect
-                [options]="tags$ | async"
-                [style]="{ width: '100%' }"
-                formControlName="tags"
-                id="tags"
-                name="tags"
-              >
-                <ng-template let-value pTemplate="selectedItems">
-                  <div
-                    *ngFor="let val of value"
-                    class="ui-multiselected-item-token ui-corner-all inlineb"
+              <app-label text="Tags">
+                <mat-form-field appearance="standard">
+                  <mat-select
+                    placeholder="Select tags"
+                    formControlName="tags"
+                    multiple
                   >
-                    <span
-                      [ngStyle]="{ background: val.color }"
-                      class="small-select-tag"
-                    ></span>
-                    <span>{{ val.name }}</span>
-                  </div>
-                  <span
-                    *ngIf="!value || value.length === 0"
-                    class="ui-multiselected-empty-token ui-corner-all"
-                    >Select Tags</span
-                  >
-                </ng-template>
-                <ng-template let-tag pTemplate="item">
-                  <span
-                    [ngStyle]="{ background: tag.value.color }"
-                    class="select-tag"
-                  ></span>
-                  <div style="font-size: 14px; float: right; margin-top: 4px;">
-                    {{ tag.label }}
-                  </div>
-                </ng-template>
-              </p-multiSelect>
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+                      {{ tag.title }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </app-label>
             </div>
           </div>
         </div>
@@ -129,38 +80,36 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label style="display: block;" for="createdDate"
-                >Created Between</label
-              >
-              <p-calendar
-                [inputStyle]="{ width: '100%' }"
-                [placeholder]="'Select \'to\' and \'from\' dates'"
-                [readonlyInput]="true"
-                [style]="{ width: '100%' }"
-                formControlName="createdBetween"
-                id="createdDate"
-                name="createdDate"
-                selectionMode="range"
-                showButtonBar="true"
-              >
-              </p-calendar>
+              <app-label text="Created Between">
+                <mat-form-field appearance="fill">
+                  <mat-date-range-input [rangePicker]="pickerCreation">
+                    <input matStartDate placeholder="Start date" />
+                    <input matEndDate placeholder="End date" />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerCreation"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #pickerCreation></mat-date-range-picker>
+                </mat-form-field>
+              </app-label>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
-              <label style="display: block;" for="dueDate">Due Between</label>
-              <p-calendar
-                [inputStyle]="{ width: '100%' }"
-                [placeholder]="'Select \'to\' and \'from\' dates'"
-                [readonlyInput]="true"
-                [style]="{ width: '100%' }"
-                formControlName="dueBetween"
-                id="dueDate"
-                name="dueDate"
-                selectionMode="range"
-                showButtonBar="true"
-              >
-              </p-calendar>
+              <app-label text="Due Between">
+                <mat-form-field appearance="fill">
+                  <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" />
+                    <input matEndDate placeholder="End date" />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+              </app-label>
             </div>
           </div>
         </div>
@@ -168,19 +117,9 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label
-                class="form-check-label"
-                for="recurrent"
-                style="display: block;"
-                >Recurrent</label
-              >
-              <p-checkbox
-                [formControl]="filterForm.controls['recurrent']"
-                binary="true"
-                id="recurrent"
-                name="recurrent"
-              >
-              </p-checkbox>
+              <mat-checkbox color="primary" formControlName="recurrent">
+                Recurrent
+              </mat-checkbox>
             </div>
           </div>
           <div class="col">
