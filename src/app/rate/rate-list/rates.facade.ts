@@ -11,7 +11,7 @@ import { catchError, finalize, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class RatesDataService {
+export class RatesFacade {
   private _rates: BehaviorSubject<Rate[]> = new BehaviorSubject([]);
   private _expenses: BehaviorSubject<Expense[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<Number> = new BehaviorSubject(0);

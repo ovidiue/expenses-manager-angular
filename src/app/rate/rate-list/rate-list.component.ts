@@ -5,13 +5,13 @@ import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
-import { RatesDataService } from './rates-data.service';
+import { RatesFacade } from './rates.facade';
 
 @Component({
   selector: 'app-rates',
   templateUrl: './rate-list.component.html',
   styleUrls: ['./rate-list.component.scss'],
-  providers: [ConfirmationService, MessageService, RatesDataService],
+  providers: [ConfirmationService, MessageService, RatesFacade],
   animations: [fadeIn],
 })
 export class RateListComponent implements OnInit {
@@ -39,17 +39,17 @@ export class RateListComponent implements OnInit {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private service: RatesDataService
+    private ratesFacade: RatesFacade
   ) {}
 
   ngOnInit() {
-    this.pageData$ = this.service.getData(TABLE_DEFAULTS.query);
-    this.expenses$ = this.service.getExpenses();
+    this.pageData$ = this.ratesFacade.getData(TABLE_DEFAULTS.query);
+    this.expenses$ = this.ratesFacade.getExpenses();
   }
 
   clearExpenseFilter(): void {
     this.selectedExpenses = [];
-    this.service.getRates(this.lastEvent);
+    this.ratesFacade.getRates(this.lastEvent);
   }
 
   filterTable($event) {
@@ -58,9 +58,9 @@ export class RateListComponent implements OnInit {
     const expenses = $event.value;
     /*if (expenses.length) {
       const ids = expenses.map(ex => ex.id);
-      this.service.getRatesByExpenseIds(ids, this.lastEvent).subscribe(rates => this.pageData$.rates = rates);
+      this.ratesFacade.getRatesByExpenseIds(ids, this.lastEvent).subscribe(rates => this.pageData$.rates = rates);
     } else {
-      this.service.getRates(TABLE_DEFAULTS.query);
+      this.ratesFacade.getRates(TABLE_DEFAULTS.query);
     }*/
   }
 
@@ -70,7 +70,7 @@ export class RateListComponent implements OnInit {
       accept: () => {
         // TODO check map warning
         const ids = this.selectedRates.map((el) => el.id);
-        this.service.deleteRates(ids);
+        this.ratesFacade.deleteRates(ids);
       },
     });
   }
@@ -79,7 +79,7 @@ export class RateListComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${rate.amount} ?`,
       accept: () => {
-        this.service.deleteRates([rate.id]);
+        this.ratesFacade.deleteRates([rate.id]);
       },
     });
   }
