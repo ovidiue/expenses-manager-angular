@@ -99,9 +99,9 @@ export class RatesFacade {
         finalize(() => this.setLoadingState(false))
       )
       .subscribe((resp) => {
-        const { content, totalElements } = resp;
-        this._rates.next(content);
-        this._total.next(totalElements);
+        const { data, total } = resp;
+        this._rates.next(data);
+        this._total.next(total);
       });
   }
 
