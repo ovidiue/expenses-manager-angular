@@ -13,7 +13,7 @@
       <p-overlayPanel #op>
         <p-scrollPanel [style]="{ width: '300px', height: '200px' }">
           <div style="padding: 1em; line-height: 1.5;">
-            {{ selectedObservation }}
+            {{ selectedDescription }}
           </div>
         </p-scrollPanel>
       </p-overlayPanel>
@@ -132,24 +132,24 @@
                 <td>
                   <div
                     (click)="
-                      selectedObservation = rate.observation; op.toggle($event)
+                      selectedDescription = rate.description; op.toggle($event)
                     "
                     *ngIf="
-                      rate.observation && rate.observation.length > 15;
+                      rate.description && rate.description.length > 15;
                       else smallerObs
                     "
                     pTooltip="Click for detailed info"
                     style="cursor: pointer;"
                   >
                     {{
-                      rate.observation.length > 15
-                        ? (rate.observation | slice: 0:20) + '...'
-                        : rate.observation
+                      rate.description.length > 15
+                        ? (rate.description | slice: 0:20) + '...'
+                        : rate.description
                     }}
                   </div>
                   <ng-template #smallerObs>
                     <div>
-                      {{ rate.observation }}
+                      {{ rate.description }}
                     </div>
                   </ng-template>
                 </td>

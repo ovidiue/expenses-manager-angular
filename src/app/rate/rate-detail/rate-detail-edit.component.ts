@@ -44,7 +44,7 @@ export class RateDetailEditComponent extends RateDetailBase implements OnInit {
           id: rate.id,
           amount: rate.amount,
           payedOn: moment(rate.payedOn).toDate(),
-          observation: rate.observation,
+          description: rate.description,
           expense: rate.expense,
         }))
       )

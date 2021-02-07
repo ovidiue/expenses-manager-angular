@@ -1,10 +1,5 @@
 import { Location } from '@angular/common';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as moment from 'moment';
@@ -35,7 +30,7 @@ export class RateDetailBase implements OnDestroy {
       amount: new FormControl(null, Validators.required),
       payedOn: new FormControl(null, Validators.required),
       expense: new FormControl(null),
-      observation: new FormControl(''),
+      description: new FormControl(''),
     });
   }
 

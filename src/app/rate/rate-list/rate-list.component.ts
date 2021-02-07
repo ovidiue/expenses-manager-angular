@@ -26,14 +26,14 @@ export class RateListComponent implements OnInit {
   tableOptions = {
     columns: [
       { name: 'Amount', value: 'amount' },
-      { name: 'Observation', value: 'observation' },
+      { name: 'Description', value: 'description' },
       { name: 'Creation Date', value: 'creationDate' },
       { name: 'Payed On', value: 'payedOn' },
       { name: 'Expense', value: 'expense' },
     ],
   };
 
-  selectedObservation = '';
+  selectedDescription = '';
 
   lastEvent: LazyLoadEvent;
 
