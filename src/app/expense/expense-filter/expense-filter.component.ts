@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
@@ -16,8 +16,8 @@ export class ExpenseFilterComponent implements OnInit, OnDestroy {
 
   @Output() filterChange = new EventEmitter<any>();
   private formSubscription: Subscription;
-  private filterForm: FormGroup;
-  private amountBetween: number[] = [0, 10000];
+  filterForm: FormGroup;
+  amountBetween: number[] = [0, 10000];
 
   constructor(private readonly dataService: FilterDataService) {
     this.categories$ = this.dataService.getCategories();

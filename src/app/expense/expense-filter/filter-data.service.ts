@@ -4,7 +4,7 @@ import { Category, Tag } from '@models/interfaces';
 
 import { SelectItem } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +35,7 @@ export default class FilterDataService {
   private loadCategories() {
     this.categoryService
       .getAll(null)
-      .pipe(pluck('content'))
+      .pipe(map((result) => result.data))
       .subscribe((resp: Category[]) => {
         const mapped = resp.map((el) => ({ label: el.name, value: el }));
         this._categories.next(mapped);
@@ -45,7 +45,7 @@ export default class FilterDataService {
   private loadTags() {
     this.tagService
       .getAll(null)
-      .pipe(pluck('content'))
+      .pipe(map((result) => result.data))
       .subscribe((resp: Tag[]) =>
         this._tags.next(resp.map((el) => ({ label: el.name, value: el })))
       );
