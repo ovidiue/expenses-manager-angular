@@ -1,13 +1,7 @@
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Tag } from '@models/interfaces';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  switchMap,
-  takeUntil,
-} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, } from 'rxjs/operators';
 
 import { TagDataService } from '../tag-data.service';
 import { Subject } from 'rxjs';
@@ -18,10 +12,10 @@ export class TagDetailBase implements OnDestroy {
   nameExists: boolean;
   tagFormControls: FormGroup;
   initialName: string;
-  protected isSubmitted = false;
+  isSubmitted = false;
   protected _destroy$ = new Subject();
-  private spinnerMessage$ = this.service.getLoadingMessage();
-  private loading$ = this.service.getLoadingState();
+  spinnerMessage$ = this.service.getLoadingMessage();
+  loading$ = this.service.getLoadingState();
 
   constructor(protected location: Location, protected service: TagDataService) {
     this.tagFormControls = new FormGroup({

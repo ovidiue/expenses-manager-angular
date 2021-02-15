@@ -82,13 +82,14 @@
             </app-label>
           </div>
           <hr />
-          <div>
-            <button type="submit" class="btn btn-primary float-right">
-              Save
-            </button>
-            <button (click)="goBack($event)" class="btn btn-secondary">
-              Cancel
-            </button>
+          <div class="actions">
+            <button
+              (click)="goBack($event)"
+              app-button
+              text="Cancel"
+              bType="secondary"
+            ></button>
+            <button app-button text="Save"></button>
           </div>
         </form>
       </div>

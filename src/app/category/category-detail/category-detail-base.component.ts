@@ -10,10 +10,10 @@ import { takeUntil } from 'rxjs/operators';
 export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
   loading$ = this.service.getLoading();
   spinnerMessage$ = this.service.getLoadingMessage();
-  protected pageTitle: string;
-  protected nameExists = false;
-  protected categoryForm: FormGroup;
-  protected isSubmitted: boolean;
+  pageTitle: string;
+  nameExists = false;
+  categoryForm: FormGroup;
+  isSubmitted: boolean;
   protected initialName: string;
   protected _destroy$ = new Subject();
 

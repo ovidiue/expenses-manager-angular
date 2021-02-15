@@ -6,6 +6,7 @@
   display: block;
 }
 
-button {
-  min-width: 150px;
+.actions {
+  display: flex;
+  justify-content: space-between;
 }
