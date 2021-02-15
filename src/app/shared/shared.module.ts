@@ -18,6 +18,7 @@ import { PrimengModule } from './primeng.module';
 import { LabelComponent } from '@shared/components/label/label.component';
 import { ErrorComponent } from '@shared/components/error/error.component';
 import { MaterialModule } from '@shared/material.module';
+import { ButtonComponent } from '@shared/components/button/button/button.component';
 
 const importsExports = [
   FormsModule,
@@ -43,6 +44,7 @@ const importsExports = [
     ExpenseChartComponent,
     LabelComponent,
     ErrorComponent,
+    ButtonComponent,
   ],
   declarations: [
     PageSpinnerComponent,
@@ -56,6 +58,7 @@ const importsExports = [
     ShortFilterComponent,
     LabelComponent,
     ErrorComponent,
+    ButtonComponent
   ],
   entryComponents: [DialogRatesComponent],
 })

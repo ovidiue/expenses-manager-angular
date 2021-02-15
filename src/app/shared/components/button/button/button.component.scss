@@ -1,0 +1,46 @@
+@import 'src/styles/variables';
+
+:host {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 0;
+
+  &:active,
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    font-weight: bold;
+
+    .label {
+      text-shadow: 0 1px 5px white;
+      transition: 0.4s;
+    }
+  }
+
+  .label {
+    color: white;
+  }
+
+  &-type {
+    &--main {
+      background: $primary;
+      box-shadow: 2px 3px 5px $primary;
+    }
+
+    &--secondary {
+      background: gray;
+      box-shadow: 2px 3px 5px gray;
+    }
+  }
+}
