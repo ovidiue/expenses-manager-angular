@@ -69,12 +69,12 @@ export class ExpensesDataService {
 
           return throwError(err);
         }),
-        map((resp) => ({ data: resp.data, total: resp.total })),
+        map((resp) => ({ data: resp.data || [], total: resp.total || 0 })),
         finalize(() => this.setLoading(false))
       )
       .subscribe((result) => {
         this.expenses$.next(result.data);
-        this.total$.next(result.total);
+        this.total$.next(result.total || 0);
       });
   }
 

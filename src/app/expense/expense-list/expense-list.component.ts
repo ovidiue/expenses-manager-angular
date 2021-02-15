@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category, Expense, ExpenseFilter, Rate, ServerResp } from '@models/interfaces';
+import { Category, Expense, ExpenseFilter, Rate, ServerResp, } from '@models/interfaces';
 import { DialogRatesComponent } from '@shared/components';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { MESSAGES } from '@utils/messages';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService, DynamicDialogConfig } from 'primeng';
-import { ConfirmationService, LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MenuItem, MessageService, } from 'primeng/api';
 import { Observable } from 'rxjs';
 
 import { ExpensesDataService } from './expenses-data.service';
@@ -44,7 +44,7 @@ export class ExpenseListComponent implements OnInit {
   tableOptions = {
     totalTableRecords: 0,
     columns: [
-      { name: 'Title', value: 'title' },
+      { name: 'Name', value: 'name' },
       { name: 'Amount', value: 'amount' },
       { name: 'Description', value: 'description' },
       { name: 'Recurrent', value: 'recurrent' },
