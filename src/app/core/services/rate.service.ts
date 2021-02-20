@@ -57,7 +57,7 @@ export class RateService {
   }
 
   get(rateId: number): Observable<any> {
-    const url = this.RATES_BASE_URL + '/' + rateId;
+    const url = this.RATES_BASE_URL + '/rate/' + rateId;
 
     return this.http.get(url);
   }

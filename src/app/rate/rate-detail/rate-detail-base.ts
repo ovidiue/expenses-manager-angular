@@ -29,7 +29,7 @@ export class RateDetailBase implements OnDestroy {
     this.rateFormControls = new FormGroup({
       amount: new FormControl(null, Validators.required),
       payedOn: new FormControl(null, Validators.required),
-      expense: new FormControl(null),
+      /*expense: new FormControl(null),*/
       description: new FormControl(''),
     });
   }
