@@ -7,7 +7,7 @@ import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, pluck, tap } from 'rxjs/operators';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -102,7 +102,7 @@ export class ExpenseDetailService {
 
           return throwError(err);
         }),
-        pluck('content')
+        map((resp) => resp.data)
       )
       .subscribe((tags: Tag[]) => this._tags.next(tags));
   }
@@ -116,7 +116,7 @@ export class ExpenseDetailService {
 
           return throwError(err);
         }),
-        pluck('content')
+        map((resp) => resp.data)
       )
       .subscribe((cats: Category[]) => this._categories.next(cats));
   }

@@ -85,7 +85,6 @@
                   placeholder="Choose a date"
                   [min]="minDate"
                   formControlName="dueDate"
-                  disabled
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -111,7 +110,7 @@
                     *ngFor="let cat of categories$ | async"
                     [value]="cat"
                   >
-                    {{ cat.title }}
+                    {{ cat.name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -126,8 +125,8 @@
                   multiple
                 >
                   <mat-option>None</mat-option>
-                  <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
-                    {{ tag.title }}
+                  <mat-option *ngFor="let tag of tags$ | async" [value]="tag.id">
+                    {{ tag.name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
