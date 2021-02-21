@@ -1,63 +1,66 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CategoryService, ExpenseService, RateService } from '@core/services';
-import { Category, Expense, ExpenseFilter, Rate, ServerResp, Tag } from '@models/interfaces';
+import { ExpenseService, RateService } from '@core/services';
+import { Expense, ExpenseFilter, Rate, ServerResp } from '@models/interfaces';
 import { MESSAGES } from '@utils/messages';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { LazyLoadEvent } from 'primeng/api';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
+import { CategoryFacade } from '../category/category.facade';
+import { TagFacade } from '../tag/tag.facade';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ExpensesDataService {
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-  private expenses$ = new BehaviorSubject<Expense[]>([]);
-  private categories$ = new BehaviorSubject<Category[]>([]);
-  private tags$ = new BehaviorSubject<Tag[]>([]);
-  private total$ = new BehaviorSubject<number>(0);
-  private visibleModal$ = new BehaviorSubject<boolean>(false);
+export class ExpenseFacade {
+  categories$ = this.categoryFacade.categories$;
+  tags$ = this.tagFacade.tags$;
+  private _visibleModal$ = new BehaviorSubject<boolean>(false);
   private event: LazyLoadEvent = null;
 
   constructor(
     private readonly expenseService: ExpenseService,
     private readonly rateService: RateService,
-    private readonly categoryService: CategoryService,
+    private readonly categoryFacade: CategoryFacade,
+    private readonly tagFacade: TagFacade,
     private readonly toastr: ToastrService
   ) {}
 
+  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+
+  get loading$() {
+    return this._loading$.asObservable();
+  }
+
+  private _expenses$ = new BehaviorSubject<Expense[]>([]);
+
+  get expenses$() {
+    return this._expenses$.asObservable();
+  }
+
+  private _total$ = new BehaviorSubject<number>(0);
+
+  get total$() {
+    return this._total$.asObservable();
+  }
+
+  get isModalVisible$() {
+    return this._visibleModal$.asObservable();
+  }
+
   getModalVisible() {
-    return this.visibleModal$.asObservable();
+    return this._visibleModal$.asObservable();
   }
 
   setModalVisibility(value: boolean) {
-    this.visibleModal$.next(value);
+    this._visibleModal$.next(value);
   }
 
-  public getLoadingState(): Observable<boolean> {
-    return this._loading.asObservable();
-  }
-
-  fetchCategoriesApi() {
-    this.categoryService
-      .getAll()
-      .pipe(
-        catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, 'Failed fetching categories');
-
-          return throwError(err);
-        })
-      )
-      .subscribe((resp) => {
-        this.categories$.next(resp.data);
-      });
-  }
-
-  fetchExpensesApi(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): void {
+  getExpenses(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): void {
     this.setLoading(true);
     this.event = event;
 
@@ -73,25 +76,9 @@ export class ExpensesDataService {
         finalize(() => this.setLoading(false))
       )
       .subscribe((result) => {
-        this.expenses$.next(result.data);
-        this.total$.next(result.total || 0);
+        this._expenses$.next(result.data);
+        this._total$.next(result.total || 0);
       });
-  }
-
-  getExpenses() {
-    return this.expenses$.asObservable();
-  }
-
-  getTags() {
-    return this.tags$.asObservable();
-  }
-
-  getCategories() {
-    return this.categories$.asObservable();
-  }
-
-  getTotal() {
-    return this.total$.asObservable();
   }
 
   setCategoryApi(expIds: number[], catId: number) {
@@ -108,7 +95,7 @@ export class ExpensesDataService {
         finalize(() => this.setLoading(false))
       )
       .subscribe((resp) => {
-        this.fetchExpensesApi(this.event);
+        this.getExpenses(this.event);
       });
   }
 
@@ -135,7 +122,7 @@ export class ExpensesDataService {
           this.setModalVisibility(false);
         })
       )
-      .subscribe(() => this.fetchExpensesApi(this.event));
+      .subscribe(() => this.getExpenses(this.event));
   }
 
   getRatesByExpenseIdApi(id: number): Observable<ServerResp<Rate[]>> {
@@ -192,7 +179,57 @@ export class ExpensesDataService {
     return expenseFilter;
   }
 
+  saveExpense(expense: Expense) {
+    this._loading$.next(true);
+
+    return this.expenseService.save(expense).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.toastr.error(err.message, MESSAGES.ERROR);
+
+        return throwError(err);
+      }),
+      tap(() => {
+        this.toastr.success(MESSAGES.EXPENSE.ADD, 'Expense');
+      }),
+      finalize(() => this._loading$.next(false))
+    );
+  }
+
+  getExpense(id: number) {
+    this._loading$.next(true);
+
+    return this.expenseService.get(id).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.toastr.error(err.message, MESSAGES.ERROR);
+
+        return throwError(err);
+      }),
+      tap((exp: Expense) => {
+        if (exp.dueDate) {
+          exp.dueDate = moment(exp.dueDate).toDate();
+        }
+      }),
+      finalize(() => this._loading$.next(false))
+    );
+  }
+
+  updateExpense(expense: Expense) {
+    this._loading$.next(true);
+
+    return this.expenseService.update(expense).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.toastr.error(err.message, MESSAGES.ERROR);
+
+        return throwError(err);
+      }),
+      tap((resp) => {
+        this.toastr.success(MESSAGES.EXPENSE.UPDATE, 'Expense');
+      }),
+      finalize(() => this._loading$.next(false))
+    );
+  }
+
   private setLoading(state: boolean): void {
-    this._loading.next(state);
+    this._loading$.next(state);
   }
 }

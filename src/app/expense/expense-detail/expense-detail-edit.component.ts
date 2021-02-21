@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
 import { map, pluck, switchMap, takeUntil } from 'rxjs/operators';
 
 import { ExpenseDetailBase } from './expense-detail-base';
-import { ExpenseDetailService } from './expense-detail.service';
+import { ExpenseFacade } from '../expense.facade';
 
 @Component({
   selector: 'app-expense-detail',
@@ -18,17 +18,18 @@ import { ExpenseDetailService } from './expense-detail.service';
   providers: [MessageService],
   animations: [fadeIn],
 })
-export class ExpenseDetailEditComponent extends ExpenseDetailBase
+export class ExpenseDetailEditComponent
+  extends ExpenseDetailBase
   implements OnInit {
   pageTitle: string;
 
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: ExpenseDetailService,
+    protected expenseFacade: ExpenseFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, router, service, route);
+    super(location, router, expenseFacade, route);
 
     this.pageTitle = 'Edit expense';
   }
@@ -40,7 +41,7 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase
       .pipe(
         takeUntil(this._destroy$),
         pluck('id'),
-        switchMap((id: number) => this.service.getExpense(id)),
+        switchMap((id: number) => this.expenseFacade.getExpense(id)),
         map((exp: Expense) => ({
           name: exp.name,
           amount: exp.amount,
@@ -62,7 +63,7 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase
       return;
     }
 
-    this.service
+    this.expenseFacade
       .updateExpense(this.expenseForm.value)
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {

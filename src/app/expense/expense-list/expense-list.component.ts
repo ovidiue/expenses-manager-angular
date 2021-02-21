@@ -8,9 +8,8 @@ import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService, DynamicDialogConfig } from 'primeng';
 import { ConfirmationService, LazyLoadEvent, MenuItem, MessageService, } from 'primeng/api';
-import { Observable } from 'rxjs';
 
-import { ExpensesDataService } from './expenses-data.service';
+import { ExpenseFacade } from '../expense.facade';
 
 @Component({
   selector: 'app-expenses',
@@ -25,18 +24,18 @@ import { ExpensesDataService } from './expenses-data.service';
   ],
 })
 export class ExpenseListComponent implements OnInit {
-  expenses$: Observable<Expense[]> = this.service.getExpenses();
+  expenses$ = this.expenseFacade.expenses$;
   selectedExpenses: Expense[] = [];
 
-  displayDelete$ = this.service.getModalVisible();
+  displayDelete$ = this.expenseFacade.getModalVisible();
   deletionText = '';
   selectedForDeletion: Expense;
 
   selectedDescription = '';
   displaySidebar = false;
 
-  categories$ = this.service.getCategories();
-  tags$ = this.service.getTags();
+  categories$ = this.expenseFacade.categories$;
+  tags$ = this.expenseFacade.tags$;
   categoryToAssign: Category;
 
   tableDefaults = TABLE_DEFAULTS;
@@ -60,11 +59,11 @@ export class ExpenseListComponent implements OnInit {
   lastEvent: LazyLoadEvent;
 
   expenseFilter: ExpenseFilter;
-  total$ = this.service.getTotal();
+  total$ = this.expenseFacade.total$;
 
   constructor(
     private router: Router,
-    private service: ExpensesDataService,
+    private expenseFacade: ExpenseFacade,
     public dialogService: DialogService,
     private toastr: ToastrService,
     private route: ActivatedRoute
@@ -72,7 +71,6 @@ export class ExpenseListComponent implements OnInit {
 
   ngOnInit() {
     this.instantiateTableActions();
-    this.service.fetchCategoriesApi();
   }
 
   instantiateTableActions(): void {
@@ -107,17 +105,17 @@ export class ExpenseListComponent implements OnInit {
   }
 
   searchValues($event: any): void {
-    this.expenseFilter = this.service.mapToExpenseFilter($event);
-    this.service.fetchExpensesApi(this.lastEvent, this.expenseFilter);
+    this.expenseFilter = this.expenseFacade.mapToExpenseFilter($event);
+    this.expenseFacade.getExpenses(this.lastEvent, this.expenseFilter);
   }
 
   getExpenses(event: LazyLoadEvent): void {
-    this.service.fetchExpensesApi(event, this.expenseFilter);
+    this.expenseFacade.getExpenses(event, this.expenseFilter);
   }
 
   assignNewCategory(): void {
     const expensesIds = this.selectedExpenses.map((exp) => exp.id);
-    this.service.setCategoryApi(expensesIds, this.categoryToAssign.id);
+    this.expenseFacade.setCategoryApi(expensesIds, this.categoryToAssign.id);
     this.resetAssignVariables();
   }
 
@@ -133,11 +131,11 @@ export class ExpenseListComponent implements OnInit {
     const idsToDelete = this.selectedForDeletion
       ? [this.selectedForDeletion.id]
       : this.selectedExpenses.map((ex) => ex.id);
-    this.service.deleteExpensesApi(idsToDelete, false);
+    this.expenseFacade.deleteExpensesApi(idsToDelete, false);
   }
 
   resetDeletionVariables(): void {
-    this.service.setModalVisibility(false);
+    this.expenseFacade.setModalVisibility(false);
     this.deletionText = '';
     this.selectedForDeletion = null;
     this.selectedExpenses = [];
@@ -145,7 +143,7 @@ export class ExpenseListComponent implements OnInit {
 
   displayDeleteMultiple() {
     // TODO investigate to have expense marked for deletion
-    this.service.setModalVisibility(true);
+    this.expenseFacade.setModalVisibility(true);
     this.deletionText =
       'Are you sure you want to delete following expenses$:' +
       this.selectedExpenses.map((ex) => ex.name).join(', ') +
@@ -154,7 +152,7 @@ export class ExpenseListComponent implements OnInit {
 
   displayDeleteRow(ex: Expense): void {
     // TODO investigate to have expense marked for deletion
-    this.service.setModalVisibility(true);
+    this.expenseFacade.setModalVisibility(true);
     this.selectedForDeletion = ex;
     this.deletionText = `Are you sure you want to delete ${this.selectedForDeletion.name} ?`;
   }
@@ -163,11 +161,11 @@ export class ExpenseListComponent implements OnInit {
     const idsToDelete = this.selectedForDeletion
       ? [this.selectedForDeletion.id]
       : this.selectedExpenses.map((ex) => ex.id);
-    this.service.deleteExpensesApi(idsToDelete, true);
+    this.expenseFacade.deleteExpensesApi(idsToDelete, true);
   }
 
   fetchAndDisplayRates(exp: Expense): void {
-    this.service
+    this.expenseFacade
       .getRatesByExpenseIdApi(exp.id)
       .subscribe((resp: ServerResp<Rate[]>) => {
         const width = resp.data.length > 0 ? '70%' : '30%';

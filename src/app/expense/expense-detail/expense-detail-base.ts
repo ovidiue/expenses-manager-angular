@@ -3,10 +3,9 @@ import { AbstractControl, FormControl, FormGroup, Validators, } from '@angular/f
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
-
-import { ExpenseDetailService } from './expense-detail.service';
 import { OnDestroy } from '@angular/core';
 import { Category, Tag } from '@models/interfaces';
+import { ExpenseFacade } from '../expense.facade';
 
 export class ExpenseDetailBase implements OnDestroy {
   pageTitle: string;
@@ -20,7 +19,7 @@ export class ExpenseDetailBase implements OnDestroy {
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: ExpenseDetailService,
+    protected expenseFacade: ExpenseFacade,
     protected route: ActivatedRoute
   ) {
     this.expenseForm = new FormGroup({
@@ -33,8 +32,8 @@ export class ExpenseDetailBase implements OnDestroy {
       tags: new FormControl([]),
     });
 
-    this.tags$ = this.service.getTags();
-    this.categories$ = this.service.getCategories();
+    this.tags$ = this.expenseFacade.tags$;
+    this.categories$ = this.expenseFacade.categories$;
   }
 
   get name(): AbstractControl {

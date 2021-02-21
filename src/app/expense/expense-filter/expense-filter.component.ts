@@ -1,28 +1,23 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
-import FilterDataService from './filter-data.service';
-import { Category, Tag } from '@models/interfaces';
+import { ExpenseFacade } from '../expense.facade';
 
 @Component({
   selector: 'app-expense-filter',
   templateUrl: './expense-filter.component.html',
 })
 export class ExpenseFilterComponent implements OnInit, OnDestroy {
-  categories$: Observable<Category[]>;
-  tags$: Observable<Tag[]>;
+  categories$ = this.expenseFacade.categories$;
+  tags$ = this.expenseFacade.tags$;
 
   @Output() filterChange = new EventEmitter<any>();
-  private formSubscription: Subscription;
   filterForm: FormGroup;
   amountBetween: number[] = [0, 10000];
+  private formSubscription: Subscription;
 
-  constructor(private readonly dataService: FilterDataService) {
-    this.categories$ = this.dataService.getCategories();
-    this.tags$ = this.dataService.getTags();
-
+  constructor(private readonly expenseFacade: ExpenseFacade) {
     this.filterForm = new FormGroup({
       name: new FormControl(''),
       description: new FormControl(''),

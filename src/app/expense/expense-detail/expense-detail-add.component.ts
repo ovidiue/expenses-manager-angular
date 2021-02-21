@@ -6,7 +6,7 @@ import { fadeIn } from '@utils/animations/fadeIn';
 import { MessageService } from 'primeng/api';
 
 import { ExpenseDetailBase } from './expense-detail-base';
-import { ExpenseDetailService } from './expense-detail.service';
+import { ExpenseFacade } from '../expense.facade';
 
 @Component({
   selector: 'app-expense-detail',
@@ -19,10 +19,10 @@ export class ExpenseDetailAddComponent extends ExpenseDetailBase {
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: ExpenseDetailService,
+    protected expenseFacade: ExpenseFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, router, service, route);
+    super(location, router, expenseFacade, route);
   }
 
   onSubmit() {
@@ -32,7 +32,7 @@ export class ExpenseDetailAddComponent extends ExpenseDetailBase {
       return;
     }
 
-    this.service.saveExpense(this.expenseForm.value).subscribe(() => {
+    this.expenseFacade.saveExpense(this.expenseForm.value).subscribe(() => {
       this.router.navigate([RoutePaths.EXPENSE_LISTING]);
     });
   }

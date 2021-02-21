@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ExpenseDetailAddComponent } from './expense-detail-add.component';
-import { ExpenseDetailService } from './expense-detail.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExpenseFacade } from '../expense.facade';
 
 class MockExpenseService {
   getTags = jasmine.createSpy('getTags');
@@ -20,9 +20,7 @@ describe('ExpenseDetailAddComponent', () => {
       TestBed.configureTestingModule({
         imports: [BrowserAnimationsModule, RouterTestingModule],
         declarations: [ExpenseDetailAddComponent],
-        providers: [
-          { provide: ExpenseDetailService, useClass: MockExpenseService },
-        ],
+        providers: [{ provide: ExpenseFacade, useClass: MockExpenseService }],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     })
