@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '@shared/shared.module';
 
-import { TagDataService } from './tag-data.service';
+import { TagFacade } from './tag.facade';
 import { TagDetailAddComponent } from './tag-detail/tag-detail-add.component';
 import { TagDetailEditComponent } from './tag-detail/tag-detail-edit.component';
 import { TagListComponent } from './tag-list/tag-list.component';
@@ -14,6 +14,6 @@ import { TagListComponent } from './tag-list/tag-list.component';
     TagDetailAddComponent,
     TagDetailEditComponent,
   ],
-  providers: [TagDataService],
+  providers: [TagFacade],
 })
 export class TagModule {}

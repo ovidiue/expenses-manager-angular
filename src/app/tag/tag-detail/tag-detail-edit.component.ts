@@ -1,13 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Tag } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 
-import { TagDataService } from '../tag-data.service';
+import { TagFacade } from '../tag.facade';
 
 import { TagDetailBase } from './tag-detail-base';
 
@@ -23,10 +23,10 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: TagDataService,
+    protected tagFacade: TagFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, service);
+    super(location, tagFacade);
 
     this.pageTitle = 'Edit Rate';
   }
@@ -37,7 +37,7 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
       .pipe(
         takeUntil(this._destroy$),
         pluck('id'),
-        switchMap((id: number) => this.service.getTag(id))
+        switchMap((id: number) => this.tagFacade.getTag(id))
       )
       .subscribe((tag: Tag) => {
         this.tagFormControls.setValue(tag);
@@ -50,7 +50,7 @@ export class TagDetailEditComponent extends TagDetailBase implements OnInit {
     if (this.tagFormControls.invalid || this.nameExists) {
       return;
     }
-    this.service.update(this.tagFormControls.value).subscribe(() => {
+    this.tagFacade.update(this.tagFormControls.value).subscribe(() => {
       this.router.navigate([RoutePaths.TAG_LISTING]);
     });
   }

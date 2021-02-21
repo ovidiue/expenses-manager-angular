@@ -69,7 +69,6 @@
         </div>
         <div class="col">
           <p-table
-            (onLazyLoad)="getTags($event)"
             [(selection)]="selectedTags"
             [lazy]="true"
             [loading]="tableDefaults.loading"

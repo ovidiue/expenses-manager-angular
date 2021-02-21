@@ -2,22 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Tag } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { ConfirmationService, LazyLoadEvent, MessageService, } from 'primeng/api';
 
-import { TagDataService } from '../tag-data.service';
+import { TagFacade } from '../tag.facade';
 
 @Component({
   selector: 'app-tags',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
-  providers: [ConfirmationService, MessageService, TagDataService],
+  providers: [ConfirmationService, MessageService, TagFacade],
   animations: [fadeIn],
 })
 export class TagListComponent implements OnInit {
-  tags$: Observable<Tag[]>;
-  total$: Observable<number>;
-  loading$: Observable<boolean> = this.service.getLoadingState();
+  tags$ = this.tagFacade.tags$;
+  total$ = this.tagFacade.total$;
+  loading$ = this.tagFacade.loading$;
 
   selectedTags: Tag[] = [];
   tableDefaults = TABLE_DEFAULTS;
@@ -33,25 +32,24 @@ export class TagListComponent implements OnInit {
   selectedDescription = '';
 
   constructor(
-    private service: TagDataService,
+    private tagFacade: TagFacade,
     private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
-    this.tags$ = this.service.getTags(TABLE_DEFAULTS.query);
-    this.total$ = this.service.getTotal();
+    this.getTags(null);
   }
 
   getTags(event: LazyLoadEvent) {
     // TODO inspect fetching tags mechanism
-    this.service.getTags(event);
+    this.tagFacade.getTags(event);
   }
 
   confirmDeletion() {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete these tags?',
       accept: () => {
-        this.service.deleteTags(this.selectedTags);
+        this.tagFacade.deleteTags(this.selectedTags);
       },
     });
   }
@@ -60,7 +58,7 @@ export class TagListComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Are you sure you want to delete ${tag.name} ?`,
       accept: () => {
-        this.service.deleteTags([tag]);
+        this.tagFacade.deleteTags([tag]);
       },
     });
   }

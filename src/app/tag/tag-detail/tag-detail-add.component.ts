@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { fadeIn } from '@utils/animations/fadeIn';
 
-import { TagDataService } from '../tag-data.service';
+import { TagFacade } from '../tag.facade';
 
 import { TagDetailBase } from './tag-detail-base';
 import { takeUntil } from 'rxjs/operators';
@@ -21,10 +21,10 @@ export class TagDetailAddComponent extends TagDetailBase {
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: TagDataService,
+    protected tagFacade: TagFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, service);
+    super(location, tagFacade);
     this.pageTitle = 'Add Tag';
   }
 
@@ -33,7 +33,7 @@ export class TagDetailAddComponent extends TagDetailBase {
     if (this.tagFormControls.invalid || this.nameExists) {
       return;
     }
-    this.service
+    this.tagFacade
       .saveTag(this.tagFormControls.value)
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {

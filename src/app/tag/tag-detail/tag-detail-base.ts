@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Tag } from '@models/interfaces';
 import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, } from 'rxjs/operators';
 
-import { TagDataService } from '../tag-data.service';
+import { TagFacade } from '../tag.facade';
 import { Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 
@@ -13,11 +13,10 @@ export class TagDetailBase implements OnDestroy {
   tagFormControls: FormGroup;
   initialName: string;
   isSubmitted = false;
+  loading$ = this.tagFacade.loading$;
   protected _destroy$ = new Subject();
-  spinnerMessage$ = this.service.getLoadingMessage();
-  loading$ = this.service.getLoadingState();
 
-  constructor(protected location: Location, protected service: TagDataService) {
+  constructor(protected location: Location, protected tagFacade: TagFacade) {
     this.tagFormControls = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl(''),
@@ -30,7 +29,7 @@ export class TagDetailBase implements OnDestroy {
         debounceTime(300),
         distinctUntilChanged(),
         filter((value: string) => value.length > 0),
-        switchMap((value: string) => this.service.getTagByName(value))
+        switchMap((value: string) => this.tagFacade.getTagByName(value))
       )
       .subscribe((tag: Tag | null) => {
         if (this.initialName) {

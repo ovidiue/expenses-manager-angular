@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { TagService } from '@core/services';
 import { Tag } from '@models/interfaces';
 import { MESSAGES } from '@utils/messages';
-import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { LazyLoadEvent } from 'primeng/api';
@@ -11,26 +10,34 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
-export class TagDataService {
+export class TagFacade {
   private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
   private _loadingMessage = new BehaviorSubject<string>('');
   private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<Number> = new BehaviorSubject(0);
-
   private event: LazyLoadEvent;
 
   constructor(
     private tagService: TagService,
     private readonly toastr: ToastrService
-  ) {
-    this.loadInitialData(TABLE_DEFAULTS.query);
+  ) {}
+
+  get loading$() {
+    return this._loading.asObservable();
+  }
+
+  get tags$() {
+    return this._tags.asObservable();
+  }
+
+  get total$() {
+    return this._total.asObservable();
   }
 
   getTag(id: number) {
     this.setLoading(true);
-    this.setLoadingMessage(`Fetching tag with id ${id}`);
 
     return this.tagService.get(id).pipe(
       catchError((err: HttpErrorResponse) => {
@@ -40,7 +47,6 @@ export class TagDataService {
       }),
       finalize(() => {
         this.setLoading(false);
-        this.clearLoadingMessage();
       })
     );
   }
@@ -57,7 +63,6 @@ export class TagDataService {
 
   saveTag(tag: Tag) {
     this.setLoading(true);
-    this.setLoadingMessage(`Saving tag ${tag.name}`);
 
     return this.tagService.save(tag).pipe(
       catchError((err: HttpErrorResponse) => {
@@ -70,14 +75,12 @@ export class TagDataService {
       }),
       finalize(() => {
         this.setLoading(false);
-        this.clearLoadingMessage();
       })
     );
   }
 
   update(tag: Tag) {
     this.setLoading(true);
-    this.setLoadingMessage(`Updating tag ${tag.name}`);
 
     return this.tagService.update(tag).pipe(
       catchError((err: HttpErrorResponse) => {
@@ -90,17 +93,8 @@ export class TagDataService {
       }),
       finalize(() => {
         this.setLoading(false);
-        this.clearLoadingMessage();
       })
     );
-  }
-
-  public getLoadingState(): Observable<boolean> {
-    return this._loading.asObservable();
-  }
-
-  public getLoadingMessage(): Observable<string> {
-    return this._loadingMessage.asObservable();
   }
 
   isSameEvent(event: LazyLoadEvent): boolean {
@@ -110,7 +104,6 @@ export class TagDataService {
   deleteTags(tags: Tag[]) {
     const stringForm = tags.length > 1 ? 'tags' : 'tag';
     this.setLoading(true);
-    this.setLoadingMessage(`Deleting ${stringForm}`);
 
     return this.tagService
       .delete(tags)
@@ -125,7 +118,6 @@ export class TagDataService {
         }),
         finalize(() => {
           this.setLoading(false);
-          this.clearLoadingMessage();
         })
       )
       .subscribe(
@@ -141,32 +133,7 @@ export class TagDataService {
       );
   }
 
-  public getTags(event: LazyLoadEvent): Observable<any> {
-    if (!this.isSameEvent(event)) {
-      this.event = event;
-      this.loadInitialData(event);
-    }
-
-    return this._tags.asObservable();
-  }
-
-  public getTotal(): Observable<any> {
-    return this._total.asObservable();
-  }
-
-  private setLoadingMessage(value: string) {
-    this._loadingMessage.next(value);
-  }
-
-  private clearLoadingMessage() {
-    this.setLoadingMessage('');
-  }
-
-  private setLoading(state: boolean): void {
-    this._loading.next(state);
-  }
-
-  private loadInitialData(event: LazyLoadEvent) {
+  getTags(event: LazyLoadEvent) {
     this.setLoading(true);
     this.tagService
       .getAll(event)
@@ -184,5 +151,9 @@ export class TagDataService {
         this._tags.next(resp.data);
         this._total.next(resp.total);
       });
+  }
+
+  private setLoading(state: boolean): void {
+    this._loading.next(state);
   }
 }
