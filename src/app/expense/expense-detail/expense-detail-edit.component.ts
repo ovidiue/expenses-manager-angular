@@ -46,8 +46,8 @@ export class ExpenseDetailEditComponent extends ExpenseDetailBase
           amount: exp.amount,
           description: exp.description,
           dueDate: exp.dueDate,
-          category: exp.category,
-          tags: exp.tags,
+          category: exp.category || {},
+          tags: exp.tags || [],
           recurrent: exp.recurrent,
           id: exp.id,
         }))

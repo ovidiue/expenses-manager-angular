@@ -50,7 +50,7 @@ export class ExpenseService {
   }
 
   get(exId: number): Observable<Expense> {
-    const url = this.EXPENSES_BASE_URL + '/' + exId;
+    const url = this.EXPENSES_BASE_URL + '/expense/' + exId;
 
     return this.http.get<Expense>(url);
   }
