@@ -5,7 +5,7 @@ import { RoutePaths } from '@models/enums/route-paths.enum';
 import { fadeIn } from '@utils/animations/fadeIn';
 
 import { RateDetailBase } from './rate-detail-base';
-import { RateDetailService } from './rate-detail.service';
+import { RatesFacade } from '../rates.facade';
 
 @Component({
   selector: 'app-rate-detail',
@@ -19,10 +19,10 @@ export class RateDetailAddComponent extends RateDetailBase {
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: RateDetailService,
+    protected ratesFacade: RatesFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, router, service, route);
+    super(location, router, ratesFacade, route);
 
     this.pageTitle = 'Add rate';
   }
@@ -33,7 +33,7 @@ export class RateDetailAddComponent extends RateDetailBase {
       return;
     }
 
-    this.service.saveRate(this.rateFormControls.value).subscribe(() => {
+    this.ratesFacade.saveRate(this.rateFormControls.value).subscribe(() => {
       this.router.navigate([RoutePaths.RATES_LISTING]);
     });
   }

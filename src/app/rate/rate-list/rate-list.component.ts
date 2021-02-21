@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Expense, Rate } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService, } from 'primeng/api';
 import { Observable } from 'rxjs';
 
-import { RatesFacade } from './rates.facade';
+import { RatesFacade } from '../rates.facade';
+import { ExpenseService } from '@core/services';
 
 @Component({
   selector: 'app-rates',
@@ -15,7 +16,7 @@ import { RatesFacade } from './rates.facade';
   animations: [fadeIn],
 })
 export class RateListComponent implements OnInit {
-  pageData$: Observable<any>;
+  rates$ = this.ratesFacade.rates$;
   expenses$: Observable<Expense[]>;
 
   selectedExpenses: Expense[] = [];
@@ -36,15 +37,16 @@ export class RateListComponent implements OnInit {
   selectedDescription = '';
 
   lastEvent: LazyLoadEvent;
+  total$ = this.ratesFacade.total$;
 
   constructor(
     private confirmationService: ConfirmationService,
-    private ratesFacade: RatesFacade
+    private ratesFacade: RatesFacade,
+    private expensesFacade: ExpenseService
   ) {}
 
   ngOnInit() {
-    this.pageData$ = this.ratesFacade.getData(TABLE_DEFAULTS.query);
-    this.expenses$ = this.ratesFacade.getExpenses();
+    this.getData(null);
   }
 
   clearExpenseFilter(): void {
@@ -85,6 +87,6 @@ export class RateListComponent implements OnInit {
   }
 
   getData($event: any) {
-    this.ratesFacade.getData($event);
+    this.ratesFacade.getRates($event);
   }
 }

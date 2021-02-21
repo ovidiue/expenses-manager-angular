@@ -1,13 +1,11 @@
 import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TABLE_DEFAULTS } from '@utils/table-options';
 import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
-
-import { RateDetailService } from './rate-detail.service';
 import { takeUntil } from 'rxjs/operators';
 import { OnDestroy } from '@angular/core';
+import { RatesFacade } from '../rates.facade';
 
 export class RateDetailBase implements OnDestroy {
   expenses$: Observable<any[]>;
@@ -22,10 +20,9 @@ export class RateDetailBase implements OnDestroy {
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: RateDetailService,
+    protected ratesFacade: RatesFacade,
     protected route: ActivatedRoute
   ) {
-    this.expenses$ = this.service.getExpenses(TABLE_DEFAULTS.maxSize);
     this.rateFormControls = new FormGroup({
       amount: new FormControl(null, Validators.required),
       payedOn: new FormControl(null, Validators.required),
@@ -51,7 +48,7 @@ export class RateDetailBase implements OnDestroy {
 
   checkName($event): void {
     const name = $event.target.value;
-    this.service
+    this.ratesFacade
       .getRateByName(name)
       .pipe(takeUntil(this._destroy$))
       .subscribe((resp) => {
