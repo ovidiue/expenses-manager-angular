@@ -2,14 +2,14 @@ import { Location } from '@angular/common';
 import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { CategoryDataService } from '../category-data.service';
+import { CategoryFacade } from '../category.facade';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive()
 export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
-  loading$ = this.service.getLoading();
-  spinnerMessage$ = this.service.getLoadingMessage();
+  loading$ = this.categoryFacade.loading$;
+  spinnerMessage$ = this.categoryFacade.loadingMsg$;
   pageTitle: string;
   nameExists = false;
   categoryForm: FormGroup;
@@ -19,7 +19,7 @@ export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
 
   constructor(
     protected location: Location,
-    protected service: CategoryDataService
+    protected categoryFacade: CategoryFacade
   ) {
     this.categoryForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -45,7 +45,7 @@ export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
 
   checkName($event): void {
     const name = $event.target.value;
-    this.service
+    this.categoryFacade
       .getCategoryByName(name)
       .pipe(takeUntil(this._destroy$))
       .subscribe((resp) => {

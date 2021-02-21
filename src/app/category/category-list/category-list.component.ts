@@ -2,26 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { TABLE_DEFAULTS } from '@utils/table-options';
-import {
-  ConfirmationService,
-  LazyLoadEvent,
-  MessageService,
-} from 'primeng/api';
-import { Observable } from 'rxjs';
+import { ConfirmationService, LazyLoadEvent, MessageService, } from 'primeng/api';
 
-import { CategoryDataService } from '../category-data.service';
+import { CategoryFacade } from '../category.facade';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './category-list.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [ConfirmationService, MessageService, CategoryDataService],
+  providers: [ConfirmationService, MessageService, CategoryFacade],
   animations: [fadeIn],
 })
 export class CategoryListComponent implements OnInit {
-  categories$: Observable<Category[]>;
-  total$: Observable<number>;
-  loading$: Observable<boolean>;
+  categories$ = this.categoryFacade.categories$;
+  total$ = this.categoryFacade.total$;
+  loading$ = this.categoryFacade.loading$;
 
   selectedCategories: Category[] = [];
 
@@ -40,10 +35,8 @@ export class CategoryListComponent implements OnInit {
     ],
   };
 
-  constructor(private service: CategoryDataService) {
-    this.loading$ = this.service.getLoading();
-    this.categories$ = this.service.getCategories(TABLE_DEFAULTS.query);
-    this.total$ = this.service.getTotal();
+  constructor(private categoryFacade: CategoryFacade) {
+    this.categoryFacade.getCategories(null);
   }
 
   ngOnInit() {
@@ -62,7 +55,7 @@ export class CategoryListComponent implements OnInit {
     const idsToDelete = this.selectedForDeletion
       ? [this.selectedForDeletion.id]
       : this.selectedCategories.map((cat) => cat.id);
-    this.service
+    this.categoryFacade
       .deleteCategory(idsToDelete, withExpenses)
       .subscribe((deleted) => {
         this.resetDeletionVariables();
@@ -71,8 +64,6 @@ export class CategoryListComponent implements OnInit {
 
   getCategories(event: LazyLoadEvent): void {
     this.tableDefaults.loading = true;
-    this.service
-      .getCategories(event)
-      .subscribe(() => (this.tableDefaults.loading = false));
+    this.categoryFacade.getCategories(event);
   }
 }

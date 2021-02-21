@@ -7,7 +7,7 @@ import { Category } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
 import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 
-import { CategoryDataService } from '../category-data.service';
+import { CategoryFacade } from '../category.facade';
 
 import { CategoryDetailBaseComponent } from './category-detail-base.component';
 
@@ -22,10 +22,10 @@ export class CategoryDetailEditComponent extends CategoryDetailBaseComponent
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: CategoryDataService,
+    protected categoryFacade: CategoryFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, service);
+    super(location, categoryFacade);
     this.pageTitle = 'Edit Category';
   }
 
@@ -40,7 +40,7 @@ export class CategoryDetailEditComponent extends CategoryDetailBaseComponent
       .pipe(
         takeUntil(this._destroy$),
         pluck('id'),
-        switchMap((id: number) => this.service.getCategory(id))
+        switchMap((id: number) => this.categoryFacade.getCategory(id))
       )
       .subscribe((category: Category) => {
         this.initialName = category.name;
@@ -54,7 +54,7 @@ export class CategoryDetailEditComponent extends CategoryDetailBaseComponent
       return;
     }
 
-    this.service.updateCategory(this.categoryForm.value).subscribe(() => {
+    this.categoryFacade.updateCategory(this.categoryForm.value).subscribe(() => {
       this.router.navigate([RoutePaths.CATEGORY_LISTING]);
     });
   }

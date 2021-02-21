@@ -46,10 +46,8 @@
         </div>
         <div class="col">
           <p-table
-            (onLazyLoad)="getCategories($event)"
             [(selection)]="selectedCategories"
             [lazy]="true"
-            [loading]="tableDefaults.loading"
             [paginatorPosition]="tableDefaults.paginatorPosition"
             [paginator]="categories.length > 0"
             [reorderableColumns]="tableDefaults.reorderableColumns"

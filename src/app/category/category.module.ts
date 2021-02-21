@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 
-import { CategoryDataService } from './category-data.service';
+import { CategoryFacade } from './category.facade';
 import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from './index';
 
 @NgModule({
@@ -11,6 +11,6 @@ import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListCo
     CategoryListComponent,
     CategoryDetailAddComponent,
   ],
-  providers: [CategoryDataService],
+  providers: [CategoryFacade],
 })
 export class CategoryModule {}

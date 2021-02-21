@@ -4,7 +4,6 @@ import { CategoryService } from '@core/services';
 import { Category } from '@models/interfaces';
 
 import { MESSAGES } from '@utils/messages';
-import { TABLE_DEFAULTS } from '@utils/table-options';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,23 +13,43 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
-export class CategoryDataService {
-  private readonly _categories: BehaviorSubject<Category[]>;
-  private _total: BehaviorSubject<number>;
-  private _loading: BehaviorSubject<boolean>;
-  private _loadingMessage: BehaviorSubject<string>;
+export class CategoryFacade {
+  private readonly _categories$: BehaviorSubject<
+    Category[]
+  > = new BehaviorSubject([]);
+  private _loadingMessage$: BehaviorSubject<string> = new BehaviorSubject<string>(
+    ''
+  );
 
-  constructor(private service: CategoryService, private toastr: ToastrService) {
-    this._categories = new BehaviorSubject([]);
-    this._total = new BehaviorSubject(0);
-    this._loading = new BehaviorSubject<boolean>(false);
-    this._loadingMessage = new BehaviorSubject<string>('');
+  constructor(
+    private service: CategoryService,
+    private toastr: ToastrService
+  ) {}
 
-    this.loadFromServer(TABLE_DEFAULTS.query);
+  get categories$() {
+    return this._categories$.asObservable();
+  }
+
+  private _total$: BehaviorSubject<number> = new BehaviorSubject(0);
+
+  get total$() {
+    return this._total$.asObservable();
+  }
+
+  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+
+  get loading$() {
+    return this._loading$.asObservable();
+  }
+
+  get loadingMsg$() {
+    return this._loadingMessage$.asObservable();
   }
 
   getCategory(catId: number): Observable<Category> {
-    this._loading.next(true);
+    this._loading$.next(true);
     this.setMessage(`Fetching category with id ${catId}`);
 
     return this.service.get(catId).pipe(
@@ -40,8 +59,8 @@ export class CategoryDataService {
         return throwError(err);
       }),
       finalize(() => {
-        this._loading.next(false);
-        this.clearMessage();
+        this._loading$.next(false);
+        this.setMessage('');
       })
     );
   }
@@ -51,7 +70,7 @@ export class CategoryDataService {
   }
 
   updateCategory(category: Category): Observable<any> {
-    this._loading.next(true);
+    this._loading$.next(true);
     this.setMessage(`Updating category ${category.name}`);
 
     return this.service.update(category).pipe(
@@ -67,14 +86,14 @@ export class CategoryDataService {
         this.toastr.success('Success updating category', 'Success');
       }),
       finalize(() => {
-        this._loading.next(false);
-        this.clearMessage();
+        this._loading$.next(false);
+        this.setMessage('');
       })
     );
   }
 
   saveCategory(category: Category): Observable<any> {
-    this._loading.next(true);
+    this._loading$.next(true);
     this.setMessage(`Saving category ${category.name}`);
 
     return this.service.save(category).pipe(
@@ -90,7 +109,7 @@ export class CategoryDataService {
         );
       }),
       finalize(() => {
-        this._loading.next(false);
+        this._loading$.next(false);
       })
     );
   }
@@ -99,7 +118,7 @@ export class CategoryDataService {
     ids: number[],
     withExpense: boolean
   ): Observable<any[]> {
-    this._loading.next(true);
+    this._loading$.next(true);
 
     return this.service.delete(ids, withExpense).pipe(
       catchError((err: HttpErrorResponse) => {
@@ -107,7 +126,7 @@ export class CategoryDataService {
         return throwError(err);
       }),
       tap((deletedCategories: Category[]) => {
-        const categories = this._categories.getValue();
+        const categories = this._categories$.getValue();
 
         const filteredCategories = categories.reduce((acc, curr) => {
           if (!deletedCategories.find((el) => el.id === curr.id)) {
@@ -117,9 +136,9 @@ export class CategoryDataService {
           return acc;
         }, [] as Category[]);
 
-        const newTotal = this._total.getValue() - ids.length;
-        this._total.next(newTotal);
-        this._categories.next(filteredCategories);
+        const newTotal = this._total$.getValue() - ids.length;
+        this._total$.next(newTotal);
+        this._categories$.next(filteredCategories);
 
         this.toastr.success(
           MESSAGES.CATEGORY.DELETED_MULTIPLE,
@@ -127,39 +146,13 @@ export class CategoryDataService {
         );
       }),
       finalize(() => {
-        this._loading.next(false);
+        this._loading$.next(false);
       })
     );
   }
 
-  public getTotal(): Observable<number> {
-    return this._total.asObservable();
-  }
-
-  public getCategories(event: LazyLoadEvent): Observable<Category[]> {
-    this.loadFromServer(event);
-
-    return this._categories.asObservable();
-  }
-
-  public getLoading(): Observable<boolean> {
-    return this._loading.asObservable();
-  }
-
-  public getLoadingMessage(): Observable<string> {
-    return this._loadingMessage.asObservable();
-  }
-
-  private setMessage(msg: string) {
-    this._loadingMessage.next(msg);
-  }
-
-  private clearMessage() {
-    this.setMessage('');
-  }
-
-  private loadFromServer(event: LazyLoadEvent): void {
-    this._loading.next(true);
+  getCategories(event: LazyLoadEvent): void {
+    this._loading$.next(true);
     this.service
       .getAll(event)
       .pipe(
@@ -169,13 +162,17 @@ export class CategoryDataService {
           return throwError(err);
         }),
         finalize(() => {
-          this._loading.next(false);
+          this._loading$.next(false);
         })
       )
       .subscribe((resp) => {
         const { data, total } = resp;
-        this._categories.next(data);
-        this._total.next(total);
+        this._categories$.next(data);
+        this._total$.next(total);
       });
+  }
+
+  private setMessage(msg: string) {
+    this._loadingMessage$.next(msg);
   }
 }

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { fadeIn } from '@utils/animations/fadeIn';
 
-import { CategoryDataService } from '../category-data.service';
+import { CategoryFacade } from '../category.facade';
 
 import { CategoryDetailBaseComponent } from './category-detail-base.component';
 
@@ -19,10 +19,10 @@ export class CategoryDetailAddComponent extends CategoryDetailBaseComponent
   constructor(
     protected location: Location,
     protected router: Router,
-    protected service: CategoryDataService,
+    protected categoryFacade: CategoryFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, service);
+    super(location, categoryFacade);
     this.pageTitle = 'Create category';
   }
 
@@ -36,7 +36,7 @@ export class CategoryDetailAddComponent extends CategoryDetailBaseComponent
       return;
     }
 
-    this.service.saveCategory(this.categoryForm.value).subscribe(() => {
+    this.categoryFacade.saveCategory(this.categoryForm.value).subscribe(() => {
       this.router.navigate([RoutePaths.CATEGORY_LISTING]);
     });
   }
