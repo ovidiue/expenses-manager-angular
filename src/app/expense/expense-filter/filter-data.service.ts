@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CategoryService, TagService } from '@core/services';
 import { Category, Tag } from '@models/interfaces';
-
-import { SelectItem } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,25 +8,25 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export default class FilterDataService {
-  private readonly _categories: BehaviorSubject<SelectItem[]>;
-  private readonly _tags: BehaviorSubject<SelectItem[]>;
+  private readonly _categories: BehaviorSubject<Category[]>;
+  private readonly _tags: BehaviorSubject<Tag[]>;
 
   constructor(
     private categoryService: CategoryService,
     private tagService: TagService
   ) {
-    this._categories = new BehaviorSubject<SelectItem[]>([]);
-    this._tags = new BehaviorSubject<SelectItem[]>([]);
+    this._categories = new BehaviorSubject<Category[]>([]);
+    this._tags = new BehaviorSubject<Tag[]>([]);
 
     this.loadCategories();
     this.loadTags();
   }
 
-  getCategories(): Observable<SelectItem[]> {
+  getCategories(): Observable<Category[]> {
     return this._categories.asObservable();
   }
 
-  getTags(): Observable<SelectItem[]> {
+  getTags(): Observable<Tag[]> {
     return this._tags.asObservable();
   }
 
@@ -37,8 +35,7 @@ export default class FilterDataService {
       .getAll(null)
       .pipe(map((result) => result.data))
       .subscribe((resp: Category[]) => {
-        const mapped = resp.map((el) => ({ label: el.name, value: el }));
-        this._categories.next(mapped);
+        this._categories.next(resp);
       });
   }
 
@@ -46,8 +43,6 @@ export default class FilterDataService {
     this.tagService
       .getAll(null)
       .pipe(map((result) => result.data))
-      .subscribe((resp: Tag[]) =>
-        this._tags.next(resp.map((el) => ({ label: el.name, value: el })))
-      );
+      .subscribe((resp: Tag[]) => this._tags.next(resp));
   }
 }
