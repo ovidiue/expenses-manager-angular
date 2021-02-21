@@ -69,16 +69,10 @@ export class RatesFacade {
         }),
         finalize(() => this.setLoadingState(false))
       )
-      .subscribe((respIds) => {
-        const remainingRates = this._rates
-          .getValue()
-          .filter((rate) => !respIds.includes(rate.id));
-        this._rates.next(remainingRates);
-        const newTotalValue = Number(this._total.getValue()) - respIds.length;
-        this._total.next(newTotalValue);
+      .subscribe(() => {
         this.toastr.success('', 'Deleted rates');
 
-        return respIds;
+        this.loadServerData(null);
       });
   }
 

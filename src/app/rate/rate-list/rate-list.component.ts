@@ -83,4 +83,8 @@ export class RateListComponent implements OnInit {
       },
     });
   }
+
+  getData($event: any) {
+    this.ratesFacade.getData($event);
+  }
 }

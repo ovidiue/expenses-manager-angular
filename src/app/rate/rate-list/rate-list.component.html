@@ -91,7 +91,7 @@
         </div>
         <div class="col">
           <p-table
-            (onLazyLoad)="service.getData($event)"
+            (onLazyLoad)="getData($event)"
             [(selection)]="selectedRates"
             [lazy]="true"
             [loading]="tableDefaults.loading"
