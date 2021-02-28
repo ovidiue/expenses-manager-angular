@@ -1,7 +1,6 @@
 <div
   class="button"
-  [class.button-type--main]="bType === 'main'"
-  [class.button-type--secondary]="bType === 'secondary'"
+  [ngClass]="'button-type--'+bType"
 >
   <span class="label">{{ text }}</span>
 </div>

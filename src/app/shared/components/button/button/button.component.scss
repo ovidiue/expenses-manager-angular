@@ -1,4 +1,6 @@
-@import 'src/styles/variables';
+@import 'custom';
+
+$dark-translucent: rgba(0, 0, 0, 0.2);
 
 :host {
   position: relative;
@@ -18,15 +20,7 @@
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: center;
-
-  &:hover {
-    font-weight: bold;
-
-    .label {
-      text-shadow: 0 1px 5px white;
-      transition: 0.4s;
-    }
-  }
+  box-shadow: 2px 3px 5px gray;
 
   .label {
     color: white;
@@ -34,13 +28,18 @@
 
   &-type {
     &--main {
-      background: $primary;
-      box-shadow: 2px 3px 5px $primary;
+      background: $green-light;
+      @include fill($dark-translucent, 100%);
     }
 
     &--secondary {
-      background: gray;
-      box-shadow: 2px 3px 5px gray;
+      background: $gray-600;
+      @include fill($dark-translucent, 100%);
+    }
+
+    &--warning {
+      background: $red;
+      @include fill($dark-translucent, 100%);
     }
   }
 }

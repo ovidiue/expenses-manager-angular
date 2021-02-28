@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent  {
 
   @Input() text = '';
-  @Input() bType: 'main' | 'secondary' = 'main';
+  @Input() bType: 'main' | 'secondary' | 'warning' = 'main';
 
 }
