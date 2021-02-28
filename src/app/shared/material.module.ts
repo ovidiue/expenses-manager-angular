@@ -12,10 +12,12 @@ const importsAndExports = [
   MatInputModule,
   MatFormFieldModule,
   MatOptionModule,
+  MatCheckboxModule,
+  MatSelectModule,
 ];
 
 @NgModule({
-  imports: [...importsAndExports, MatCheckboxModule],
-  exports: [...importsAndExports, MatSelectModule, MatCheckboxModule],
+  imports: [...importsAndExports],
+  exports: [...importsAndExports],
 })
 export class MaterialModule {}

@@ -19,6 +19,7 @@ import { LabelComponent } from '@shared/components/label/label.component';
 import { ErrorComponent } from '@shared/components/error/error.component';
 import { MaterialModule } from '@shared/material.module';
 import { ButtonComponent } from '@shared/components/button/button/button.component';
+import { CdkModule } from '@shared/cdk.module';
 
 const importsExports = [
   FormsModule,
@@ -26,6 +27,7 @@ const importsExports = [
   PrimengModule,
   MaterialModule,
   CommonModule,
+  CdkModule
 ];
 
 @NgModule({
