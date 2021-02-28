@@ -1,0 +1,38 @@
+table {
+  width: 100%;
+  .header-row {
+    background: $green-light;
+    color: $white;
+    th {
+      padding: $spacer;
+    }
+  }
+
+  .body-row {
+    &:nth-child(even) {
+      background: $gray-100;
+    }
+
+    &:nth-child(odd) {
+      background: darken($gray-100, 5%);
+    }
+
+    &:hover {
+      background: $gray-400;
+      box-shadow: 0 0 4px $gray-700;
+      transition: 0.1s;
+      transform: scale(1.002);
+    }
+
+    td {
+      padding: $spacer-sm $spacer;
+    }
+  }
+
+  .actions {
+    display: flex;
+    button {
+      width: auto;
+    }
+  }
+}
