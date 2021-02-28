@@ -5,6 +5,24 @@ import { TABLE_DEFAULTS } from '@utils/table-options';
 import { ConfirmationService, LazyLoadEvent, MessageService, } from 'primeng/api';
 
 import { TagFacade } from '../tag.facade';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
+
+export class TagDataSource extends DataSource<Tag> {
+  /** Stream of data that is provided to the table. */
+  data = this.tagFacade.tags$;
+
+  constructor(private readonly tagFacade: TagFacade) {
+    super();
+  }
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Tag[]> {
+    return this.data;
+  }
+
+  disconnect() {}
+}
 
 @Component({
   selector: 'app-tags',
@@ -17,6 +35,9 @@ export class TagListComponent implements OnInit {
   tags$ = this.tagFacade.tags$;
   total$ = this.tagFacade.total$;
   loading$ = this.tagFacade.loading$;
+
+  displayedColumns: string[] = ['name', 'description', 'color', 'actions'];
+  dataSource = new TagDataSource(this.tagFacade);
 
   selectedTags: Tag[] = [];
   tableDefaults = TABLE_DEFAULTS;
@@ -61,5 +82,9 @@ export class TagListComponent implements OnInit {
         this.tagFacade.deleteTags([tag]);
       },
     });
+  }
+
+  edit(item: Tag) {
+    console.log('item', item);
   }
 }

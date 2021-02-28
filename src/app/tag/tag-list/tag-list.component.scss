@@ -1,11 +1,19 @@
-button {
-  margin: 0 5px;
-}
+@import 'custom';
+@import 'components/table';
 
-.table-cell-color {
-  width: 100%;
-  height: 30px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+.tags {
+  &-title {
+    font-size: 6rem;
+    color: $gray-200;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+  }
+
+  .table-actions {
+    display: flex;
+    width: 50%;
+    margin-bottom: $spacer-lg;
+  }
 }
