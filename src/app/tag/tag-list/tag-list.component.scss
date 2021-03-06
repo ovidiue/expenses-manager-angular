@@ -11,9 +11,13 @@
     z-index: 1;
   }
 
-  .table-actions {
+  &-actions {
     display: flex;
-    width: 50%;
     margin-bottom: $spacer-lg;
+    justify-content: flex-end;
+
+    &--button {
+      width: 10rem;
+    }
   }
 }

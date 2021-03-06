@@ -7,10 +7,9 @@
     <app-page-spinner [displaySpinner]="loading"></app-page-spinner>
   </ng-container>
   <ng-template #table>
-    <div class="table-actions">
-      <button appButton routerLink="add">Add</button>
-      <button appButton bType="warning" (click)="confirmDeletion()">
-        Delete
+    <div class="tags-actions">
+      <button appButton routerLink="add" class="tags-actions--button">
+        Add tag
       </button>
     </div>
     <table cdk-table [dataSource]="dataSource" class="table">
