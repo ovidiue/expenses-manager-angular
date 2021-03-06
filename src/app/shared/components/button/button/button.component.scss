@@ -11,10 +11,26 @@ $dark-translucent: rgba(0, 0, 0, 0.2);
   box-shadow: 2px 3px 5px gray;
   padding: 0.5rem 1rem;
 
+  &[disabled] {
+    opacity: 0.5;
+
+    &:after,
+    &:before {
+      content: none;
+    }
+  }
+
+  // TODO check refactor without !important
   &:active,
   &:focus {
-    border: none;
-    outline: none;
+    border: none !important;
+    outline: none !important;
+  }
+
+  &:active {
+    background: $black;
+    transition: $transition-base;
+    box-shadow: 0 0 5px $green;
   }
 
   &--main {
