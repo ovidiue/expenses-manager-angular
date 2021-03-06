@@ -8,9 +8,9 @@
   </ng-container>
   <ng-template #table>
     <div class="table-actions">
-      <button app-button routerLink="add" text="Add"></button>
+      <button appButton routerLink="add" text="Add"></button>
       <button
-        app-button
+        appButton
         bType="warning"
         text="Delete"
         (click)="confirmDeletion()"
@@ -47,13 +47,13 @@
         <td cdk-cell *cdkCellDef="let element">
           <div class="actions">
             <button
-              app-button
+              appButton
               text="Edit"
               (click)="edit(element)"
               routerLink="edit/{{ element.id }}"
             ></button>
             <button
-              app-button
+              appButton
               text="Delete"
               bType="warning"
               (click)="confirmDeletion()"
