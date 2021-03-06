@@ -5,11 +5,9 @@ $dark-translucent: rgba(0, 0, 0, 0.2);
 .app-button {
   position: relative;
   display: block;
-  width: 100%;
   border: none;
   color: white;
   box-shadow: 2px 3px 5px gray;
-  padding: 0.5rem 1rem;
 
   &[disabled] {
     opacity: 0.5;
@@ -33,18 +31,39 @@ $dark-translucent: rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 5px $green;
   }
 
+  &--regular {
+    width: 100%;
+    @include fill($dark-translucent, 100%);
+
+    .content {
+      padding: 0.5rem 1rem;
+      display: block;
+    }
+  }
+
+  &--fab {
+    width: 3rem !important;
+    height: 3rem !important;
+    line-height: 3 !important;
+    border-radius: 50% !important;
+
+    @include fill($dark-translucent, 100%, 50%);
+
+    .icon {
+      line-height: 0;
+      display: block;
+    }
+  }
+
   &--main {
     background: $green-light;
-    @include fill($dark-translucent, 100%);
   }
 
   &--secondary {
     background: $gray-600;
-    @include fill($dark-translucent, 100%);
   }
 
   &--warning {
     background: $red;
-    @include fill($dark-translucent, 100%);
   }
 }
