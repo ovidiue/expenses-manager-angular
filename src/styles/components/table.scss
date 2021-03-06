@@ -30,9 +30,15 @@ table {
   }
 
   .actions {
-    display: flex;
-    button {
-      width: auto;
+    width: 10rem;
+
+    .app-button {
+      display: inline-table;
+      margin-right: 1rem;
+    }
+
+    .app-button:last-child {
+      margin-right: 0;
     }
   }
 }

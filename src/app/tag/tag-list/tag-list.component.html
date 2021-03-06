@@ -40,19 +40,23 @@
       <!-- Actions Column -->
       <ng-container cdkColumnDef="actions">
         <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
-        <td cdk-cell *cdkCellDef="let element">
-          <div class="actions">
-            <button
-              appButton
-              (click)="edit(element)"
-              routerLink="edit/{{ element.id }}"
-            >
-              Edit
-            </button>
-            <button appButton bType="warning" (click)="confirmDeletion()">
-              Delete
-            </button>
-          </div>
+        <td cdk-cell *cdkCellDef="let element" class="actions">
+          <button
+            appButton
+            bShape="fab"
+            (click)="edit(element)"
+            routerLink="edit/{{ element.id }}"
+          >
+            <svg-icon key="edit" size="lg"></svg-icon>
+          </button>
+          <button
+            appButton
+            bType="warning"
+            bShape="fab"
+            (click)="confirmDeletion()"
+          >
+            <svg-icon key="delete" size="lg"></svg-icon>
+          </button>
         </td>
       </ng-container>
 
