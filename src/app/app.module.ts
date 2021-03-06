@@ -11,6 +11,10 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LoginModule } from './login/login.module';
 import { RateModule } from './rate/rate.module';
 import { TagModule } from './tag/tag.module';
+import { SvgIconsModule } from '@ngneat/svg-icon';
+import { appCloseIcon } from './svg/close';
+import { appDeleteIcon } from './svg/delete';
+import { appEditIcon } from './svg/edit';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +26,9 @@ import { TagModule } from './tag/tag.module';
     ExpenseModule,
     DashboardModule,
     LoginModule,
+    SvgIconsModule.forRoot({
+      icons: [appCloseIcon, appDeleteIcon, appEditIcon],
+    }),
   ],
 
   providers: [
