@@ -2,44 +2,33 @@
 
 $dark-translucent: rgba(0, 0, 0, 0.2);
 
-:host {
+.app-button {
   position: relative;
   display: block;
   width: 100%;
   border: none;
-  padding: 0;
+  color: white;
+  box-shadow: 2px 3px 5px gray;
+  padding: 0.5rem 1rem;
 
   &:active,
   &:focus {
     border: none;
     outline: none;
   }
-}
 
-.button {
-  padding: 0.5rem 1rem;
-  display: flex;
-  justify-content: center;
-  box-shadow: 2px 3px 5px gray;
-
-  .label {
-    color: white;
+  &--main {
+    background: $green-light;
+    @include fill($dark-translucent, 100%);
   }
 
-  &-type {
-    &--main {
-      background: $green-light;
-      @include fill($dark-translucent, 100%);
-    }
+  &--secondary {
+    background: $gray-600;
+    @include fill($dark-translucent, 100%);
+  }
 
-    &--secondary {
-      background: $gray-600;
-      @include fill($dark-translucent, 100%);
-    }
-
-    &--warning {
-      background: $red;
-      @include fill($dark-translucent, 100%);
-    }
+  &--warning {
+    background: $red;
+    @include fill($dark-translucent, 100%);
   }
 }
