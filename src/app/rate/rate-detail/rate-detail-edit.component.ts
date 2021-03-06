@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Rate } from '@models/interfaces';
 import { fadeIn } from '@utils/animations/fadeIn';
-import * as moment from 'moment';
 import { map, pluck, switchMap } from 'rxjs/operators';
 
 import { RateDetailBase } from './rate-detail-base';
@@ -43,7 +42,7 @@ export class RateDetailEditComponent extends RateDetailBase implements OnInit {
         map((rate: Rate) => ({
           id: rate.id,
           amount: rate.amount,
-          payedOn: moment(rate.payedOn).toDate(),
+          payedOn: rate.payedOn,
           description: rate.description,
           expense: rate.expense || {},
         }))

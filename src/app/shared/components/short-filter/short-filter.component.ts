@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import * as moment from 'moment';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-short-filter',
@@ -41,17 +41,17 @@ export class ShortFilterComponent implements OnChanges {
             case 'createdBetween':
               object.label =
                 'Created between: ' +
-                moment(obj[key][0]).format('L') +
+                DateTime.fromISO(obj[key][0]).toFormat('L') +
                 ' - ' +
-                moment(obj[key][1]).format('L');
+                DateTime.fromISO(obj[key][1]).toFormat('L');
               object.value = 'createdBetween';
               break;
             case 'dueBetween':
               object.label =
                 'Due between: ' +
-                moment(obj[key][0]).format('L') +
+                DateTime.fromISO(obj[key][0]).toFormat('L') +
                 ' - ' +
-                moment(obj[key][1]).format('L');
+                DateTime.fromISO(obj[key][1]).toFormat('L');
               object.value = 'dueBetween';
               break;
             case 'title':

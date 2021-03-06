@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { Category, Tag } from '@models/interfaces';
@@ -11,7 +10,7 @@ export class ExpenseDetailBase implements OnDestroy {
   pageTitle: string;
   isFormSubmitted = false;
   expenseForm: FormGroup;
-  minDate = moment().startOf('day').toDate();
+  minDate = new Date();
   tags$: Observable<Tag[]>;
   categories$: Observable<Category[]>;
   protected _destroy$ = new Subject();

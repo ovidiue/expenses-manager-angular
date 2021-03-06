@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OnDestroy } from '@angular/core';
@@ -12,7 +11,7 @@ export class RateDetailBase implements OnDestroy {
   isSubmitted = false;
   pageTitle: string;
   nameExists = false;
-  maxDate = moment().toDate();
+  maxDate = new Date();
   expenses: any[];
   rateFormControls: FormGroup;
   private _destroy$ = new Subject();

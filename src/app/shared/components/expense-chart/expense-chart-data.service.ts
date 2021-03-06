@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ExpenseService } from '@core/services';
-import * as moment from 'moment';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -68,8 +68,6 @@ export class ExpenseChartDataService {
 
       result.push(newObj);
     }
-
-    result.forEach((el) => (el.month = moment(el.month).format('MMMM')));
 
     return result;
   }

@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { ExpenseService, RateService } from '@core/services';
 import { Expense, ExpenseFilter, Rate, ServerResp } from '@models/interfaces';
 import { MESSAGES } from '@utils/messages';
-import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { LazyLoadEvent } from 'primeng/api';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { CategoryFacade } from '../category/category.facade';
 import { TagFacade } from '../tag/tag.facade';
+import { DateTime } from 'luxon';
 
 @Injectable({
   providedIn: 'root',
@@ -145,14 +145,22 @@ export class ExpenseFacade {
     }
 
     if (obj.createdBetween) {
-      obj.createdFrom = moment(obj.createdBetween[0]).format('DD-MM-YYYY');
-      obj.createdTo = moment(obj.createdBetween[1]).format('DD-MM-YYYY');
+      obj.createdFrom = DateTime.fromJSDate(obj.createdBetween[0]).toFormat(
+        'DD-MM-YYYY'
+      );
+      obj.createdTo = DateTime.fromJSDate(obj.createdBetween[1]).toFormat(
+        'DD-MM-YYYY'
+      );
       delete obj.createdBetween;
     }
 
     if (obj.dueBetween) {
-      obj.dueDateFrom = moment(obj.dueBetween[0]).format('DD-MM-YYYY');
-      obj.dueDateTo = moment(obj.dueBetween[1]).format('DD-MM-YYYY');
+      obj.dueDateFrom = DateTime.fromJSDate(obj.dueBetween[0]).toFormat(
+        'DD-MM-YYYY'
+      );
+      obj.dueDateTo = DateTime.fromJSDate(obj.dueBetween[1]).toFormat(
+        'DD-MM-YYYY'
+      );
       delete obj.dueBetween;
     }
 
@@ -203,11 +211,6 @@ export class ExpenseFacade {
         this.toastr.error(err.message, MESSAGES.ERROR);
 
         return throwError(err);
-      }),
-      tap((exp: Expense) => {
-        if (exp.dueDate) {
-          exp.dueDate = moment(exp.dueDate).toDate();
-        }
       }),
       finalize(() => this._loading$.next(false))
     );
