@@ -55,9 +55,7 @@
           <div class="form-group">
             <app-label text="Expense">
               <mat-form-field appearance="standard">
-                <mat-select
-                  placeholder="Select expense"
-                >
+                <mat-select placeholder="Select expense">
                   <mat-option>None</mat-option>
                   <mat-option
                     *ngFor="let expense of expenses"
@@ -80,15 +78,12 @@
               ></textarea>
             </app-label>
           </div>
-          <hr/>
+          <hr />
           <div class="actions">
-            <button
-              (click)="goBack($event)"
-              appButton
-              text="Cancel"
-              bType="secondary"
-            ></button>
-            <button appButton text="Save"></button>
+            <button (click)="goBack($event)" appButton bType="secondary">
+              Cancel
+            </button>
+            <button appButton>Save</button>
           </div>
         </form>
       </div>

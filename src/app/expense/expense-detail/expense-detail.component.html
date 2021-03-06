@@ -125,7 +125,10 @@
                   multiple
                 >
                   <mat-option>None</mat-option>
-                  <mat-option *ngFor="let tag of tags$ | async" [value]="tag.id">
+                  <mat-option
+                    *ngFor="let tag of tags$ | async"
+                    [value]="tag.id"
+                  >
                     {{ tag.name }}
                   </mat-option>
                 </mat-select>
@@ -134,13 +137,10 @@
           </div>
           <hr />
           <div class="actions">
-            <button
-              (click)="goBack($event)"
-              appButton
-              bType="secondary"
-              text="Cancel"
-            ></button>
-            <button appButton text="Save"></button>
+            <button (click)="goBack($event)" appButton bType="secondary">
+              Cancel
+            </button>
+            <button appButton>Save</button>
           </div>
         </form>
       </div>

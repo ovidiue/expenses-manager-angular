@@ -70,13 +70,10 @@
             </div>
             <hr />
             <div class="actions">
-              <button
-                appButton
-                (click)="goBack($event)"
-                bType="secondary"
-                text="Cancel"
-              ></button>
-              <button appButton text="Save"></button>
+              <button appButton (click)="goBack($event)" bType="secondary">
+                Cancel
+              </button>
+              <button appButton>Save</button>
             </div>
           </form>
         </div>
