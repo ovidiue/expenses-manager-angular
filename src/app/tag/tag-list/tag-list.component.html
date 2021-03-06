@@ -30,11 +30,9 @@
       <!-- Color Column -->
       <ng-container cdkColumnDef="color">
         <th cdk-header-cell *cdkHeaderCellDef>Color</th>
-        <td
-          cdk-cell
-          *cdkCellDef="let element"
-          [style.background]="element.color"
-        ></td>
+        <td cdk-cell *cdkCellDef="let element">
+          <div [style.background]="element.color" class="color"></div>
+        </td>
       </ng-container>
 
       <!-- Actions Column -->
