@@ -7,6 +7,8 @@ import { ConfirmationService, LazyLoadEvent, MessageService, } from 'primeng/api
 import { TagFacade } from '../tag.facade';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { OverlayService } from '@shared/modal/overlay.service';
+import { TagDetailAddComponent } from '../tag-detail/tag-detail-add.component';
 
 export class TagDataSource extends DataSource<Tag> {
   /** Stream of data that is provided to the table. */
@@ -54,7 +56,8 @@ export class TagListComponent implements OnInit {
 
   constructor(
     private tagFacade: TagFacade,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private readonly overlayService: OverlayService
   ) {}
 
   ngOnInit() {
@@ -67,11 +70,9 @@ export class TagListComponent implements OnInit {
   }
 
   confirmDeletion() {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete these tags?',
-      accept: () => {
-        this.tagFacade.deleteTags(this.selectedTags);
-      },
+    const overlayRef = this.overlayService.open(TagDetailAddComponent, null);
+    overlayRef.afterClosed$.subscribe((res) => {
+      console.log('modal res', res);
     });
   }
 

@@ -20,6 +20,7 @@ import { ErrorComponent } from '@shared/components/error/error.component';
 import { MaterialModule } from '@shared/material.module';
 import { ButtonComponent } from '@shared/components/button/button/button.component';
 import { CdkModule } from '@shared/cdk.module';
+import { OverlayComponent } from '@shared/modal/overlay.component';
 
 const importsExports = [
   FormsModule,
@@ -60,7 +61,8 @@ const importsExports = [
     ShortFilterComponent,
     LabelComponent,
     ErrorComponent,
-    ButtonComponent
+    ButtonComponent,
+    OverlayComponent
   ],
   entryComponents: [DialogRatesComponent],
 })
