@@ -148,7 +148,7 @@
               <td>{{ rate.creationDate | date }}</td>
               <td>{{ rate.payedOn | date }}</td>
               <td>
-                <span *ngIf="rate.expense">{{ rate.expense.title }}</span>
+                <span *ngIf="rate.expense">{{ rate.expense.name }}</span>
               </td>
               <td class="text-center">
                 <button

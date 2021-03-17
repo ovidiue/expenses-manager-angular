@@ -1,15 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ExpenseService, RateService } from '@core/services';
-import { Expense, ExpenseFilter, Rate, ServerResp } from '@models/interfaces';
-import { MESSAGES } from '@utils/messages';
-import { ToastrService } from 'ngx-toastr';
-import { LazyLoadEvent } from 'primeng/api';
+
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
+
+import { LazyLoadEvent } from 'primeng/api';
+
+import { Expense, ExpenseFilter, Rate, ServerResp } from '@models/interfaces';
+
+import { MESSAGES } from '@utils/messages';
+
 import { CategoryFacade } from '../category/category.facade';
 import { TagFacade } from '../tag/tag.facade';
+
+import { ExpenseService, RateService } from '@core/services';
 import { DateTime } from 'luxon';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +32,9 @@ export class ExpenseFacade {
     private readonly categoryFacade: CategoryFacade,
     private readonly tagFacade: TagFacade,
     private readonly toastr: ToastrService
-  ) {}
+  ) {
+    this.getExpenses(null);
+  }
 
   private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
@@ -94,7 +102,7 @@ export class ExpenseFacade {
         }),
         finalize(() => this.setLoading(false))
       )
-      .subscribe((resp) => {
+      .subscribe(() => {
         this.getExpenses(this.event);
       });
   }
@@ -111,7 +119,7 @@ export class ExpenseFacade {
 
           return throwError(err);
         }),
-        tap((resp) => {
+        tap(() => {
           const msg = ids.length
             ? MESSAGES.EXPENSE.DELETE_MULTIPLE
             : MESSAGES.EXPENSE.DELETE_SINGLE;
@@ -225,7 +233,7 @@ export class ExpenseFacade {
 
         return throwError(err);
       }),
-      tap((resp) => {
+      tap(() => {
         this.toastr.success(MESSAGES.EXPENSE.UPDATE, 'Expense');
       }),
       finalize(() => this._loading$.next(false))

@@ -55,10 +55,14 @@
           <div class="form-group">
             <app-label text="Expense">
               <mat-form-field appearance="standard">
-                <mat-select placeholder="Select expense">
+                <mat-select
+                  [compareWith]="compareExpenses"
+                  placeholder="Select expense"
+                  formControlName="expense"
+                >
                   <mat-option>None</mat-option>
                   <mat-option
-                    *ngFor="let expense of expenses"
+                    *ngFor="let expense of expenses$ | async"
                     [value]="expense"
                   >
                     {{ expense.name }}

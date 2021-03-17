@@ -1,11 +1,14 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { RoutePaths } from '@models/enums/route-paths.enum';
+
 import { fadeIn } from '@utils/animations/fadeIn';
 
-import { RateDetailBase } from './rate-detail-base';
+import { ExpenseFacade } from '../../expense/expense.facade';
 import { RatesFacade } from '../rates.facade';
+import { RateDetailBase } from './rate-detail-base';
 
 @Component({
   selector: 'app-rate-detail',
@@ -20,9 +23,10 @@ export class RateDetailAddComponent extends RateDetailBase {
     protected location: Location,
     protected router: Router,
     protected ratesFacade: RatesFacade,
+    protected expenseFacade: ExpenseFacade,
     protected route: ActivatedRoute
   ) {
-    super(location, router, ratesFacade, route);
+    super(location, router, ratesFacade, expenseFacade, route);
 
     this.pageTitle = 'Add rate';
   }

@@ -2,13 +2,17 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { map, switchMap } from 'rxjs/operators';
+
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Rate } from '@models/interfaces';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { map, pluck, switchMap } from 'rxjs/operators';
 
-import { RateDetailBase } from './rate-detail-base';
+import { fadeIn } from '@utils/animations/fadeIn';
+
+import { ExpenseFacade } from '../../expense/expense.facade';
 import { RatesFacade } from '../rates.facade';
+import { RateDetailBase } from './rate-detail-base';
 
 @Component({
   selector: 'app-rate-detail',
@@ -23,21 +27,20 @@ export class RateDetailEditComponent extends RateDetailBase implements OnInit {
     protected location: Location,
     protected router: Router,
     protected ratesFacade: RatesFacade,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    protected expenseFacade: ExpenseFacade
   ) {
-    super(location, router, ratesFacade, route);
+    super(location, router, ratesFacade, expenseFacade, route);
 
     this.pageTitle = 'Edit rate';
   }
-
-  // TODO: on edit, expense doesn't preselect previous value
 
   ngOnInit(): void {
     this.rateFormControls.addControl('id', new FormControl(null));
 
     this.route.params
       .pipe(
-        pluck('id'),
+        map((params) => params.id),
         switchMap((id: number) => this.ratesFacade.getRate(id)),
         map((rate: Rate) => ({
           id: rate.id,
