@@ -125,10 +125,7 @@
                   multiple
                 >
                   <mat-option>None</mat-option>
-                  <mat-option
-                    *ngFor="let tag of tags$ | async"
-                    [value]="tag.id"
-                  >
+                  <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
                     {{ tag.name }}
                   </mat-option>
                 </mat-select>

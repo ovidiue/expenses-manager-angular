@@ -1,12 +1,17 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoutePaths } from '@models/enums/route-paths.enum';
-import { fadeIn } from '@utils/animations/fadeIn';
+
 import { MessageService } from 'primeng/api';
 
-import { ExpenseDetailBase } from './expense-detail-base';
+import { RoutePaths } from '@models/enums/route-paths.enum';
+
+import { fadeIn } from '@utils/animations/fadeIn';
+
+import { CategoryFacade } from '../../category/category.facade';
+import { TagFacade } from '../../tag/tag.facade';
 import { ExpenseFacade } from '../expense.facade';
+import { ExpenseDetailBase } from './expense-detail-base';
 
 @Component({
   selector: 'app-expense-detail',
@@ -20,9 +25,11 @@ export class ExpenseDetailAddComponent extends ExpenseDetailBase {
     protected location: Location,
     protected router: Router,
     protected expenseFacade: ExpenseFacade,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    protected tagFacade: TagFacade,
+    protected categoryFacade: CategoryFacade
   ) {
-    super(location, router, expenseFacade, route);
+    super(location, router, expenseFacade, route, tagFacade, categoryFacade);
   }
 
   onSubmit() {
