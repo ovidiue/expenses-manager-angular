@@ -1,13 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TagService } from '@core/services';
-import { Tag } from '@models/interfaces';
-import { MESSAGES } from '@utils/messages';
-import * as _ from 'lodash';
-import { ToastrService } from 'ngx-toastr';
-import { LazyLoadEvent } from 'primeng/api';
+
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
+
+import { LazyLoadEvent } from 'primeng/api';
+
+import { Tag } from '@models/interfaces';
+
+import { MESSAGES } from '@utils/messages';
+
+import { TagService } from '@core/services';
+import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class TagFacade {
@@ -22,7 +27,9 @@ export class TagFacade {
   constructor(
     private tagService: TagService,
     private readonly toastr: ToastrService
-  ) {}
+  ) {
+    this.getTags(null);
+  }
 
   get loading$() {
     return this._loading.asObservable();

@@ -1,16 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CategoryService } from '@core/services';
+
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
+
+import { LazyLoadEvent } from 'primeng/api';
+
 import { Category } from '@models/interfaces';
 
 import { MESSAGES } from '@utils/messages';
 
+import { CategoryService } from '@core/services';
 import { ToastrService } from 'ngx-toastr';
-
-import { LazyLoadEvent } from 'primeng/api';
-
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
 export class CategoryFacade {
@@ -21,10 +22,9 @@ export class CategoryFacade {
     ''
   );
 
-  constructor(
-    private service: CategoryService,
-    private toastr: ToastrService
-  ) {}
+  constructor(private service: CategoryService, private toastr: ToastrService) {
+    this.getCategories(null);
+  }
 
   get categories$() {
     return this._categories$.asObservable();
@@ -123,6 +123,7 @@ export class CategoryFacade {
     return this.service.delete(ids, withExpense).pipe(
       catchError((err: HttpErrorResponse) => {
         this.toastr.error(err.message, MESSAGES.ERROR);
+
         return throwError(err);
       }),
       tap((deletedCategories: Category[]) => {
