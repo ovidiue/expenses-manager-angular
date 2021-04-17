@@ -2,6 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { PrimengModule } from './primeng.module';
+
+import { SvgIconsModule } from '@ngneat/svg-icon';
+import { CdkModule } from '@shared/cdk.module';
 import {
   CardViewComponent,
   CardViewListComponent,
@@ -13,13 +18,11 @@ import {
   PageSpinnerComponent,
   ShortFilterComponent,
 } from '@shared/components';
-
-import { PrimengModule } from './primeng.module';
-import { LabelComponent } from '@shared/components/label/label.component';
-import { ErrorComponent } from '@shared/components/error/error.component';
-import { MaterialModule } from '@shared/material.module';
 import { ButtonComponent } from '@shared/components/button/button/button.component';
-import { CdkModule } from '@shared/cdk.module';
+import { ErrorComponent } from '@shared/components/error/error.component';
+import { LabelComponent } from '@shared/components/label/label.component';
+import { MaterialModule } from '@shared/material.module';
+import { OverlayComponent } from '@shared/modal/overlay.component';
 
 const importsExports = [
   FormsModule,
@@ -27,7 +30,7 @@ const importsExports = [
   PrimengModule,
   MaterialModule,
   CommonModule,
-  CdkModule
+  CdkModule,
 ];
 
 @NgModule({
@@ -36,6 +39,7 @@ const importsExports = [
     PrimengModule,
     CommonModule,
     MaterialModule,
+    SvgIconsModule,
   ],
   exports: [
     ...importsExports,
@@ -60,7 +64,8 @@ const importsExports = [
     ShortFilterComponent,
     LabelComponent,
     ErrorComponent,
-    ButtonComponent
+    ButtonComponent,
+    OverlayComponent,
   ],
   entryComponents: [DialogRatesComponent],
 })
