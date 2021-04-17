@@ -14,7 +14,7 @@ import { TagService } from '@core/services';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TagFacade {
   private _loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false

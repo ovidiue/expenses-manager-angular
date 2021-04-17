@@ -31,7 +31,6 @@ export class TagDataSource extends DataSource<Tag> {
   selector: 'app-tags',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
-  providers: [TagFacade],
   animations: [fadeIn],
 })
 export class TagListComponent implements OnInit {

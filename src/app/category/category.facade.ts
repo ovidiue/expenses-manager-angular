@@ -13,7 +13,7 @@ import { MESSAGES } from '@utils/messages';
 import { CategoryService } from '@core/services';
 import { ToastrService } from 'ngx-toastr';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CategoryFacade {
   private readonly _categories$: BehaviorSubject<
     Category[]

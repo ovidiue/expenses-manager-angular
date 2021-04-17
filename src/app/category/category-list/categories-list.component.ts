@@ -3,11 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import {
-  ConfirmationService,
-  LazyLoadEvent,
-  MessageService,
-} from 'primeng/api';
+import { LazyLoadEvent } from 'primeng/api';
 
 import { Category } from '@models/interfaces';
 
@@ -19,12 +15,11 @@ import { CategoryFacade } from '../category.facade';
 import { OverlayService } from '@shared/modal/overlay.service';
 
 export class TagDataSource extends DataSource<Category> {
-  /** Stream of data that is provided to the table. */
-  data = this.categoryFacade.categories$;
-
   constructor(private readonly categoryFacade: CategoryFacade) {
     super();
   }
+  /** Stream of data that is provided to the table. */
+  data = this.categoryFacade.categories$;
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Category[]> {
@@ -38,7 +33,6 @@ export class TagDataSource extends DataSource<Category> {
   selector: 'app-categories',
   templateUrl: './categories-list.component.html',
   styleUrls: ['./categories-list.component.scss'],
-  providers: [ConfirmationService, MessageService, CategoryFacade],
   animations: [fadeIn],
 })
 export class CategoriesListComponent implements OnInit {
