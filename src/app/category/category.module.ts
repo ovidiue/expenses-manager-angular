@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@shared/shared.module';
 
 import { CategoryFacade } from './category.facade';
-import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from './index';
+import {
+  CategoriesListComponent,
+  CategoryDetailAddComponent,
+  CategoryDetailEditComponent,
+} from './index';
+
+import { SvgIconsModule } from '@ngneat/svg-icon';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  imports: [SharedModule],
+  imports: [SharedModule, SvgIconsModule],
   declarations: [
     CategoryDetailEditComponent,
-    CategoryListComponent,
+    CategoriesListComponent,
     CategoryDetailAddComponent,
   ],
   providers: [CategoryFacade],

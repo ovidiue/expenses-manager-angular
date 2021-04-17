@@ -1,15 +1,15 @@
-<div class="tags" [@fadeIn]>
-  <div class="tags-title">
-    <h3>Tags</h3>
+<div class="categories" [@fadeIn]>
+  <div class="categories-title">
+    <h3>Categories</h3>
   </div>
 
   <ng-container *ngIf="loading$ | async as loading; else table">
     <app-page-spinner [displaySpinner]="loading"></app-page-spinner>
   </ng-container>
   <ng-template #table>
-    <div class="tags-actions">
-      <button appButton routerLink="add" class="tags-actions--button">
-        Add tag
+    <div class="categories-actions">
+      <button appButton routerLink="add" class="categories-actions--button">
+        Add category
       </button>
     </div>
     <table cdk-table [dataSource]="dataSource" class="table">
@@ -39,11 +39,7 @@
       <ng-container cdkColumnDef="actions">
         <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
         <td cdk-cell *cdkCellDef="let element" class="actions">
-          <button
-            appButton
-            bShape="fab"
-            routerLink="edit/{{ element.id }}"
-          >
+          <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
             <svg-icon key="edit" size="lg"></svg-icon>
           </button>
           <button

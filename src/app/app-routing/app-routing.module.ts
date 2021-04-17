@@ -1,14 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from '@core/main/main.component';
 
-import { CategoryDetailAddComponent, CategoryDetailEditComponent, CategoryListComponent } from '../category';
+import {
+  CategoriesListComponent,
+  CategoryDetailAddComponent,
+  CategoryDetailEditComponent,
+} from '../category';
 import { DashboardComponent } from '../dashboard';
-import { ExpenseDetailAddComponent, ExpenseDetailEditComponent, ExpenseListComponent } from '../expense';
+import {
+  ExpenseDetailAddComponent,
+  ExpenseDetailEditComponent,
+  ExpenseListComponent,
+} from '../expense';
 import { AuthGuard } from '../guards/auth.guard';
 import { LoginComponent } from '../login';
-import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } from '../rate';
-import { TagDetailAddComponent, TagDetailEditComponent, TagListComponent } from '../tag';
+import {
+  RateDetailAddComponent,
+  RateDetailEditComponent,
+  RateListComponent,
+} from '../rate';
+import {
+  TagDetailAddComponent,
+  TagDetailEditComponent,
+  TagListComponent,
+} from '../tag';
+
+import { MainComponent } from '@core/main/main.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,9 +36,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path:'',
+        path: '',
         redirectTo: 'expenses',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'expenses',
@@ -51,7 +68,7 @@ export const routes: Routes = [
           displayName: 'Categories',
         },
         children: [
-          { path: '', component: CategoryListComponent },
+          { path: '', component: CategoriesListComponent },
           { path: 'add', component: CategoryDetailAddComponent },
           { path: 'edit/:id', component: CategoryDetailEditComponent },
         ],

@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { ConfirmationService, MessageService } from 'primeng/api';
-
 import { Tag } from '@models/interfaces';
 
 import { fadeIn } from '@utils/animations/fadeIn';
@@ -33,7 +31,7 @@ export class TagDataSource extends DataSource<Tag> {
   selector: 'app-tags',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
-  providers: [ConfirmationService, MessageService, TagFacade],
+  providers: [TagFacade],
   animations: [fadeIn],
 })
 export class TagListComponent implements OnInit {
@@ -44,7 +42,6 @@ export class TagListComponent implements OnInit {
 
   constructor(
     private tagFacade: TagFacade,
-    private confirmationService: ConfirmationService,
     private readonly overlayService: OverlayService
   ) {}
 
@@ -64,9 +61,5 @@ export class TagListComponent implements OnInit {
         });
       }
     });
-  }
-
-  edit(item: Tag) {
-    console.log('item', item);
   }
 }
