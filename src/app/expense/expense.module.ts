@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@shared/shared.module';
 
 import { ExpenseCardComponent } from './expense-card/expense-card.component';
 import {
@@ -7,11 +6,14 @@ import {
   ExpenseDetailAddComponent,
   ExpenseDetailEditComponent,
   ExpenseFilterComponent,
-  ExpenseListComponent
+  ExpenseListComponent,
 } from './index';
 
+import { SvgIconsModule } from '@ngneat/svg-icon';
+import { SharedModule } from '@shared/shared.module';
+
 @NgModule({
-  imports: [SharedModule],
+  imports: [SharedModule, SvgIconsModule],
   declarations: [
     ExpenseListComponent,
     AppRowActionsComponent,

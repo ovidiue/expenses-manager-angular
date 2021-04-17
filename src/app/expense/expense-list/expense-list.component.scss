@@ -1,93 +1,23 @@
 @import 'custom';
+@import 'components/table';
 
-button {
-  margin: 0 5px;
-}
-
-.bottom-bradius {
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-  margin: 0px 4px;
-  display: inline-block;
-
-  &:first-child {
-    margin-left: 0;
+.expenses {
+  &-title {
+    font-size: 6rem;
+    color: $gray-200;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
   }
 
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.body .ui-button.ui-state-default.ui-button-warning,
-body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default {
-  position: absolute;
-  transform: translate(-50%, -20%);
-  font-size: 10px;
-}
-
-.inlineb {
-  display: inline-block;
-  min-width: 100px;
-}
-
-.selected-cat {
-  width: 50%;
-  height: 20px;
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-p-sidebar {
-  z-index: 1100;
-
-  &.top-sidebar {
-    background: black;
-
-    &.ui-sidebar-top {
-      height: auto;
-    }
-  }
-}
-
-:host {
-  color: $primary;
-  background: $secondary;
-}
-
-////////////////////////////////////////
-.page-title {
-  font-size: 6rem;
-  color: $gray-200;
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 1;
-}
-
-.expense {
-  &-grid {
+  &-actions {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
-    flex-flow: wrap;
-  }
+    margin-bottom: $spacer-lg;
+    justify-content: flex-end;
 
-  &-holder {
-    box-shadow: 0 0 0.4rem $gray-500;
-    border: 1px solid transparent;
-    flex: 0 1 32%;
-    min-width: 0;
-    padding: 1rem;
-
-    margin-bottom: $spacer;
-
-    &:hover {
-      transition: 0.3s;
-      box-shadow: 0.5rem 0.5rem 1rem $gray-500;
-      border: 1px solid lightgray;
-      border-radius: 5px;
+    &--button {
+      width: 10rem;
     }
   }
 }

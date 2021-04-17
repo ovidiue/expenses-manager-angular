@@ -1,238 +1,110 @@
-<div class="container" [@fadeIn]>
-  <div class="page-title">
+<div class="expenses" [@fadeIn]>
+  <div class="expenses-title">
     <h3>Expenses</h3>
   </div>
 
-  Expense card list
-  <div class="expense-grid" *ngIf="expenses$ | async as expenses">
-    <div class="expense-holder" *ngFor="let expense of expenses">
-      <app-expense-card [expense]="expense"></app-expense-card>
+  <ng-container *ngIf="loading$ | async as loading; else table">
+    <app-page-spinner [displaySpinner]="loading"></app-page-spinner>
+  </ng-container>
+  <ng-template #table>
+    <div class="expenses-actions">
+      <button appButton routerLink="add" class="expenses-actions--button">
+        Add expense
+      </button>
     </div>
-  </div>
+    <table cdk-table [dataSource]="dataSource" class="table">
+      <!-- Name Column -->
+      <ng-container cdkColumnDef="name">
+        <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+        <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
+      </ng-container>
 
-  <div class="row">
-    <p-sidebar
-      [(visible)]="displaySidebar"
-      position="top"
-      [styleClass]="'top-sidebar'"
-    >
-      <div class="ui-g">
-        <div class="ui-g-12 ui-g-offset-1">
-          <h2>Category</h2>
-        </div>
-        <div class="ui-g-1"></div>
-        <div class="ui-g-10">
-          <div class="ui-g-6">
-            <p-dropdown
-              [(ngModel)]="categoryToAssign"
-              [options]="categories$ | async"
-              [placeholder]="'Select category'"
-              [showClear]="true"
-              [style]="{ width: '100%' }"
-            >
-              <ng-template let-item pTemplate="selectedItem">
-                <span
-                  [ngStyle]="{ background: item.color }"
-                  class="selected-cat"
-                ></span>
-                <span
-                  style="font-size: 14px; margin-left: 10px; margin-top: 4px;"
-                  >{{ item.label }}</span
-                >
-              </ng-template>
-              <ng-template let-cat pTemplate="item">
-                <div
-                  class="ui-helper-clearfix"
-                  style="position: relative; height: 25px;"
-                >
-                  <span
-                    [ngStyle]="{
-                      background: cat.color,
-                      width: '50%',
-                      height: '100%',
-                      display: 'inline-block'
-                    }"
-                  ></span>
-                  <span
-                    style="font-size: 14px; float: right; margin-top: 4px;"
-                    >{{ cat.label }}</span
-                  >
-                </div>
-              </ng-template>
-            </p-dropdown>
-          </div>
-          <div class="ui-g-6">
-            <button
-              (click)="resetAssignVariables()"
-              class="ui-button-raised ui-button-secondary"
-              label="Cancel"
-              pButton
-              type="button"
-            ></button>
-            <button
-              (click)="assignNewCategory()"
-              class="ui-button-raised ui-button-success"
-              label="Save"
-              pButton
-              type="button"
-            ></button>
-          </div>
-        </div>
-        <div class="ui-g-1"></div>
-      </div>
-    </p-sidebar>
+      <!-- Description Column -->
+      <ng-container cdkColumnDef="amount">
+        <th cdk-header-cell *cdkHeaderCellDef>Amount</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.amount }}
+        </td>
+      </ng-container>
 
-    <p-overlayPanel #op>
-      <p-scrollPanel [style]="{ width: '300px', height: '200px' }">
-        <div style="padding: 1em; line-height: 1.5;">
-          {{ selectedDescription }}
-        </div>
-      </p-scrollPanel>
-    </p-overlayPanel>
-    <!--TABLE FILTERS START-->
-    <app-expense-filter
-      (filterChange)="searchValues($event)"
-      class="col"
-    ></app-expense-filter>
-    <!--TABLE FILTERS END-->
+      <ng-container cdkColumnDef="description">
+        <th cdk-header-cell *cdkHeaderCellDef>Description</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.description }}
+        </td>
+      </ng-container>
 
-    <div class="table-wrapper mt-5 mb-5">
-      <div class="col">
-        <p-toolbar>
-          <div class="ui-toolbar-group-right">
-            <app-dialog
-              (clickCancel)="service.setModalVisibility(false)"
-              (clickExtra)="deleteExpenseAndRates()"
-              (clickOk)="deleteExpense()"
-              [message]="deletionText"
-              [threeButtons]="decideVisibilityAccordingToPayedField()"
-              [visible]="displayDelete$ | async"
-            ></app-dialog>
-            <p-splitButton
-              (onClick)="goToAddExpense()"
-              [model]="tableOptions.actions"
-              class="ui-button-raised"
-              icon="pi pi-file"
-              label="Add Expense"
-            >
-            </p-splitButton>
-          </div>
-        </p-toolbar>
-      </div>
-      <div class="col">
-        <p-table
-          (onLazyLoad)="getExpenses($event)"
-          [(selection)]="selectedExpenses"
-          [lazy]="true"
-          [loading]="tableDefaults.loading"
-          [paginatorPosition]="tableDefaults.paginatorPosition"
-          [paginator]="(expenses$ | async).length > 0"
-          [reorderableColumns]="tableDefaults.reorderableColumns"
-          [responsive]="true"
-          [rowHover]="tableDefaults.rowHover"
-          [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
-          [rows]="tableDefaults.defaultRows"
-          [scrollHeight]="tableDefaults.scrollHeight"
-          [scrollable]="tableDefaults.scrollable"
-          [sortField]="'createdOn'"
-          [sortOrder]="-1"
-          [totalRecords]="total$ | async"
-          [value]="expenses$ | async"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="width: 3em;">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-              </th>
-              <th
-                *ngFor="let col of tableOptions.columns"
-                [pSortableColumn]="col.value"
-              >
-                {{ col.name }}
-                <p-sortIcon [field]="col.value"></p-sortIcon>
-              </th>
-              <th class="actions-width">Actions</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-exp>
-            <tr [pSelectableRow]="exp">
-              <td>
-                <p-tableCheckbox [value]="exp"></p-tableCheckbox>
-              </td>
-              <td>{{ exp.name }}</td>
-              <td>{{ exp.amount }}</td>
-              <td>
-                <div
-                  (click)="
-                    selectedDescription = exp.description; op.toggle($event)
-                  "
-                  *ngIf="
-                    exp.description && exp.description.length > 15;
-                    else smallerDesc
-                  "
-                  pTooltip="Click for detailed info"
-                  style="cursor: pointer;"
-                >
-                  {{
-                    exp.description.length > 15
-                      ? (exp.description | slice: 0:20) + '...'
-                      : exp.description
-                  }}
-                </div>
-                <ng-template #smallerDesc>
-                  <div>
-                    {{ exp.description }}
-                  </div>
-                </ng-template>
-              </td>
-              <td>{{ exp.recurrent }}</td>
-              <td>{{ exp.createdOn | date }}</td>
-              <td>{{ exp.dueDate | date }}</td>
-              <td>
-                <span
-                  *ngIf="exp.category && exp.category.name"
-                  [ngStyle]="{
-                    'border-bottom': '8px solid' + exp.category.color
-                  }"
-                  class="bottom-bradius"
-                >
-                  {{ exp.category.name }}
-                </span>
-              </td>
-              <td>
-                <div
-                  *ngIf="exp.tags && exp.tags.length"
-                  style="display: inline-block;"
-                >
-                  <span
-                    *ngFor="let tag of exp.tags"
-                    [ngStyle]="{ 'border-bottom': '8px solid' + tag.color }"
-                    class="bottom-bradius"
-                  >
-                    {{ tag.name }}
-                  </span>
-                </div>
-              </td>
-              <td>{{ exp.payed }}</td>
+      <ng-container cdkColumnDef="recurrent">
+        <th cdk-header-cell *cdkHeaderCellDef>Recurrent</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.recurrent }}
+        </td>
+      </ng-container>
 
-              <td class="text-center">
-                <app-row-actions
-                  (clickDelete)="displayDeleteRow(exp)"
-                  (clickEdit)="goToEditExpense(exp.id)"
-                  (clickRates)="fetchAndDisplayRates(exp)"
-                  [displayRates]="exp.payed > 0"
-                ></app-row-actions>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-        <div
-          *ngIf="!(expenses$ | async).length"
-          class="text-center font-weight-bold font-italic bg-light p-2"
-        >
-          {{ tableDefaults.noData }}
-        </div>
-      </div>
-    </div>
-  </div>
+      <ng-container cdkColumnDef="createdOn">
+        <th cdk-header-cell *cdkHeaderCellDef>Created on</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.createdOn | date }}
+        </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="dueDate">
+        <th cdk-header-cell *cdkHeaderCellDef>Due date</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.dueDate | date }}
+        </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="category">
+        <th cdk-header-cell *cdkHeaderCellDef>Category</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.category?.name }}
+        </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="tags">
+        <th cdk-header-cell *cdkHeaderCellDef>Tags</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.tags }}
+        </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="payed">
+        <th cdk-header-cell *cdkHeaderCellDef>Payed</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.payed }}
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container cdkColumnDef="actions">
+        <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+        <td cdk-cell *cdkCellDef="let element" class="actions">
+          <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
+            <svg-icon key="edit" size="lg"></svg-icon>
+          </button>
+          <button
+            appButton
+            bType="warning"
+            bShape="fab"
+            (click)="showDeleteDialog(element)"
+          >
+            <svg-icon key="delete" size="lg"></svg-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr
+        class="header-row"
+        cdk-header-row
+        *cdkHeaderRowDef="tableColumns"
+      ></tr>
+
+      <tr
+        class="body-row"
+        cdk-row
+        *cdkRowDef="let row; columns: tableColumns"
+      ></tr>
+    </table>
+  </ng-template>
 </div>
