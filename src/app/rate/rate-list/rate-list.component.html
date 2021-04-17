@@ -1,183 +1,81 @@
-<div class="container" [@fadeIn]>
-  <div class="page-title">
+<div class="rates" [@fadeIn]>
+  <div class="rates-title">
     <h3>Rates</h3>
   </div>
 
-  <div class="row">
-    <p-overlayPanel #op>
-      <p-scrollPanel [style]="{ width: '300px', height: '200px' }">
-        <div style="padding: 1em; line-height: 1.5">
-          {{ selectedDescription }}
-        </div>
-      </p-scrollPanel>
-    </p-overlayPanel>
-    <div class="table-wrapper mt-5 mb-5">
-      <div class="col">
-        <p-toolbar>
-          <div class="ui-toolbar-group-left">
-            <p-multiSelect
-              (onChange)="filterTable($event)"
-              [(ngModel)]="selectedExpenses"
-              [defaultLabel]="'Select expenses'"
-              [filterPlaceHolder]="'Type to filter'"
-              [optionLabel]="'title'"
-              [options]="expenses$ | async"
-              [panelStyle]="{ minWidth: '200px' }"
-            >
-            </p-multiSelect>
-            <button
-              (click)="clearExpenseFilter()"
-              [hidden]="!selectedExpenses.length"
-              class="clear-filters ui-button-raised ui-button-rounded ui-button-warning"
-              icon="pi pi-times"
-              pButton
-              pTooltip="Clear filters"
-              type="button"
-            ></button>
-          </div>
-          <div class="ui-toolbar-group-right">
-            <p-confirmDialog
-              #cd
-              [acceptButtonStyleClass]="'ui-button-danger'"
-              [acceptLabel]="'Delete'"
-              [closable]="false"
-              [header]="'Confirm DELETE'"
-              [rejectButtonStyleClass]="'ui-button-secondary'"
-              [rejectLabel]="'Cancel'"
-              [style]="{ width: '425px' }"
-            >
-              <p-footer class="two-button">
-                <button
-                  (click)="cd.reject()"
-                  [class]="'ui-button-secondary float-left'"
-                  icon="pi pi-times"
-                  label="Cancel"
-                  pButton
-                  type="button"
-                ></button>
-                <button
-                  (click)="cd.accept()"
-                  [class]="'ui-button-danger'"
-                  icon="pi pi-check"
-                  label="Delete"
-                  pButton
-                  type="button"
-                ></button>
-              </p-footer>
-            </p-confirmDialog>
-            <button
-              (click)="confirmDeletion()"
-              [disabled]="!selectedRates.length"
-              class="ui-button-raised ui-button-danger"
-              label="Delete"
-              pButton
-              type="button"
-            ></button>
-            <button
-              class="ui-button-raised"
-              label="Add Rate"
-              pButton
-              routerLink="add"
-              type="button"
-            ></button>
-          </div>
-        </p-toolbar>
-      </div>
-      <div class="col">
-        <p-table
-          [(selection)]="selectedRates"
-          [lazy]="true"
-          [paginatorPosition]="tableDefaults.paginatorPosition"
-          [paginator]="(rates$ | async).length > 0"
-          [reorderableColumns]="tableDefaults.reorderableColumns"
-          [rowHover]="tableDefaults.rowHover"
-          [rowsPerPageOptions]="tableDefaults.rowsPerPageOptions"
-          [rows]="tableDefaults.defaultRows"
-          [scrollHeight]="tableDefaults.scrollHeight"
-          [scrollable]="tableDefaults.scrollable"
-          [sortField]="'creationDate'"
-          [sortOrder]="-1"
-          [totalRecords]="total$ | async"
-          [value]="rates$ | async"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="width: 3em">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-              </th>
-              <th
-                *ngFor="let col of tableOptions.columns"
-                [pSortableColumn]="col.value"
-              >
-                {{ col.name }}
-                <p-sortIcon [field]="col.value"></p-sortIcon>
-              </th>
-              <th class="actions-width">Actions</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-rate>
-            <tr [pSelectableRow]="rate">
-              <td>
-                <p-tableCheckbox [value]="rate"></p-tableCheckbox>
-              </td>
-              <td>{{ rate.amount }}</td>
-              <td>
-                <div
-                  (click)="
-                    selectedDescription = rate.description; op.toggle($event)
-                  "
-                  *ngIf="
-                    rate.description && rate.description.length > 15;
-                    else smallerObs
-                  "
-                  pTooltip="Click for detailed info"
-                  style="cursor: pointer"
-                >
-                  {{
-                    rate.description.length > 15
-                      ? (rate.description | slice: 0:20) + '...'
-                      : rate.description
-                  }}
-                </div>
-                <ng-template #smallerObs>
-                  <div>
-                    {{ rate.description }}
-                  </div>
-                </ng-template>
-              </td>
-              <td>{{ rate.creationDate | date }}</td>
-              <td>{{ rate.payedOn | date }}</td>
-              <td>
-                <span *ngIf="rate.expense">{{ rate.expense.name }}</span>
-              </td>
-              <td class="text-center">
-                <button
-                  class="ui-button-info"
-                  icon="pi pi-pencil"
-                  iconPos="left"
-                  pButton
-                  routerLink="edit/{{ rate.id }}"
-                  type="button"
-                ></button>
-                <button
-                  (click)="onDelete(rate)"
-                  class="ui-button-danger"
-                  icon="pi pi-trash"
-                  iconPos="left"
-                  pButton
-                  type="button"
-                ></button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-        <div
-          *ngIf="!(rates$ | async).length"
-          class="text-center font-weight-bold font-italic bg-light p-2"
-        >
-          {{ tableDefaults.noData }}
-        </div>
-      </div>
+  <ng-container *ngIf="loading$ | async as loading; else table">
+    <app-page-spinner [displaySpinner]="loading"></app-page-spinner>
+  </ng-container>
+  <ng-template #table>
+    <div class="rates-actions">
+      <button appButton routerLink="add" class="rates-actions--button">
+        Add rate
+      </button>
     </div>
-  </div>
+    <table cdk-table [dataSource]="dataSource" class="table">
+      <!-- Name Column -->
+      <ng-container cdkColumnDef="amount">
+        <th cdk-header-cell *cdkHeaderCellDef>Amount</th>
+        <td cdk-cell *cdkCellDef="let element">{{ element.amount }}</td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container cdkColumnDef="description">
+        <th cdk-header-cell *cdkHeaderCellDef>Description</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.description }}
+        </td>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container cdkColumnDef="creationDate">
+        <th cdk-header-cell *cdkHeaderCellDef>Creation date</th>
+        <td cdk-cell *cdkCellDef="let element">{{ element.creationDate }}</td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="payedOn">
+        <th cdk-header-cell *cdkHeaderCellDef>Payed on</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.payedOn | date }}
+        </td>
+      </ng-container>
+
+      <ng-container cdkColumnDef="expense">
+        <th cdk-header-cell *cdkHeaderCellDef>Expense</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.expense.name }}
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container cdkColumnDef="actions">
+        <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+        <td cdk-cell *cdkCellDef="let element" class="actions">
+          <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
+            <svg-icon key="edit" size="lg"></svg-icon>
+          </button>
+          <button
+            appButton
+            bType="warning"
+            bShape="fab"
+            (click)="showDeleteDialog(element)"
+          >
+            <svg-icon key="delete" size="lg"></svg-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr
+        class="header-row"
+        cdk-header-row
+        *cdkHeaderRowDef="tableColumns"
+      ></tr>
+
+      <tr
+        class="body-row"
+        cdk-row
+        *cdkRowDef="let row; columns: tableColumns"
+      ></tr>
+    </table>
+  </ng-template>
 </div>

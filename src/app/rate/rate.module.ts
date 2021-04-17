@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
+import { SvgIconsModule } from '@ngneat/svg-icon';
 import { SharedModule } from '@shared/shared.module';
 
 import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } from './index';
 
 @NgModule({
-  imports: [SharedModule],
+  imports: [SharedModule, SvgIconsModule],
   declarations: [
     RateListComponent,
     RateDetailAddComponent,

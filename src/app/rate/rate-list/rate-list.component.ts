@@ -1,92 +1,70 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
-import { Expense, Rate } from '@models/interfaces';
-import { fadeIn } from '@utils/animations/fadeIn';
-import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService, } from 'primeng/api';
+
 import { Observable } from 'rxjs';
 
+import { Rate } from '@models/interfaces';
+
+import { fadeIn } from '@utils/animations/fadeIn';
+
 import { RatesFacade } from '../rates.facade';
-import { ExpenseService } from '@core/services';
+
+import { OverlayService } from '@shared/modal/overlay.service';
+
+export class RateDataSource extends DataSource<Rate> {
+  /** Stream of data that is provided to the table. */
+  data = this.ratesFacade.rates$;
+
+  constructor(private readonly ratesFacade: RatesFacade) {
+    super();
+  }
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Rate[]> {
+    return this.data;
+  }
+
+  disconnect() {}
+}
 
 @Component({
   selector: 'app-rates',
   templateUrl: './rate-list.component.html',
   styleUrls: ['./rate-list.component.scss'],
-  providers: [ConfirmationService, MessageService, RatesFacade],
   animations: [fadeIn],
 })
 export class RateListComponent implements OnInit {
-  rates$ = this.ratesFacade.rates$;
-  expenses$: Observable<Expense[]>;
+  tableColumns: string[] = [
+    'amount',
+    'description',
+    'creationDate',
+    'payedOn',
+    'expense',
+    'actions',
+  ];
+  dataSource = new RateDataSource(this.ratesFacade);
 
-  selectedExpenses: Expense[] = [];
-  selectedRates: Rate[] = [];
-
-  tableDefaults = TABLE_DEFAULTS;
-
-  tableOptions = {
-    columns: [
-      { name: 'Amount', value: 'amount' },
-      { name: 'Description', value: 'description' },
-      { name: 'Creation Date', value: 'creationDate' },
-      { name: 'Payed On', value: 'payedOn' },
-      { name: 'Expense', value: 'expense' },
-    ],
-  };
-
-  selectedDescription = '';
-
-  lastEvent: LazyLoadEvent;
-  total$ = this.ratesFacade.total$;
+  loading$ = this.ratesFacade.loading$;
 
   constructor(
-    private confirmationService: ConfirmationService,
-    private ratesFacade: RatesFacade,
-    private expensesFacade: ExpenseService
+    private readonly overlayService: OverlayService,
+    private readonly ratesFacade: RatesFacade
   ) {}
 
   ngOnInit() {
-    this.getData(null);
+    this.ratesFacade.getRates(null);
   }
 
-  clearExpenseFilter(): void {
-    this.selectedExpenses = [];
-    this.ratesFacade.getRates(this.lastEvent);
-  }
-
-  filterTable($event) {
-    // TODO investigate table 'filters' property to inject the dropdown value
-    // TODO hit expenses endpoint => this should also be paged
-    const expenses = $event.value;
-    /*if (expenses.length) {
-      const ids = expenses.map(ex => ex.id);
-      this.ratesFacade.getRatesByExpenseIds(ids, this.lastEvent).subscribe(rates => this.pageData$.rates = rates);
-    } else {
-      this.ratesFacade.getRates(TABLE_DEFAULTS.query);
-    }*/
-  }
-
-  confirmDeletion() {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete these rates?',
-      accept: () => {
-        // TODO check map warning
-        const ids = this.selectedRates.map((el) => el.id);
-        this.ratesFacade.deleteRates(ids);
-      },
-    });
-  }
-
-  onDelete(rate: Rate): void {
-    this.confirmationService.confirm({
-      message: `Are you sure you want to delete ${rate.amount} ?`,
-      accept: () => {
+  showDeleteDialog(rate: Rate) {
+    const overlayRef = this.overlayService.open(
+      `<h2>Delete</h2><p>Are you sure you want to delete rate <b>${rate.amount}</b>?</p>`,
+      null
+    );
+    overlayRef.afterClosed$.subscribe((res) => {
+      if (res.data) {
         this.ratesFacade.deleteRates([rate.id]);
-      },
+        this.ratesFacade.getRates(null);
+      }
     });
-  }
-
-  getData($event: any) {
-    this.ratesFacade.getRates($event);
   }
 }
