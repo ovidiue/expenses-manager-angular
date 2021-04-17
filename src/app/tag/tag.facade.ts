@@ -112,32 +112,19 @@ export class TagFacade {
     const stringForm = tags.length > 1 ? 'tags' : 'tag';
     this.setLoading(true);
 
-    return this.tagService
-      .delete(tags)
-      .pipe(
-        catchError((err: HttpErrorResponse) => {
-          this.toastr.error('Failed deleting', 'Delete');
+    return this.tagService.delete(tags).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.toastr.error('Failed deleting', 'Delete');
 
-          return throwError(err);
-        }),
-        tap(() => {
-          this.toastr.success(`Successfully deleted ${stringForm}`);
-        }),
-        finalize(() => {
-          this.setLoading(false);
-        })
-      )
-      .subscribe(
-        () => {
-          let tags = this._tags.getValue();
-          tags = tags.filter((tag) => !tags.includes(tag));
-          const updatedTotal =
-            parseInt(this._total.getValue().toFixed(), 10) - 1;
-          this._total.next(updatedTotal);
-          this._tags.next(tags);
-        },
-        () => this.toastr.error(MESSAGES.ERROR)
-      );
+        return throwError(err);
+      }),
+      tap(() => {
+        this.toastr.success(`Successfully deleted ${stringForm}`);
+      }),
+      finalize(() => {
+        this.setLoading(false);
+      })
+    );
   }
 
   getTags(event: LazyLoadEvent) {

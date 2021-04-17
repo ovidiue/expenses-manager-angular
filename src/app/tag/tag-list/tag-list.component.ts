@@ -1,12 +1,17 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+
+import { Observable } from 'rxjs';
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 import { Tag } from '@models/interfaces';
+
 import { fadeIn } from '@utils/animations/fadeIn';
-import { TABLE_DEFAULTS } from '@utils/table-options';
-import { ConfirmationService, LazyLoadEvent, MessageService, } from 'primeng/api';
 
 import { TagFacade } from '../tag.facade';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs';
+
+import { OverlayService } from '@shared/modal/overlay.service';
 
 export class TagDataSource extends DataSource<Tag> {
   /** Stream of data that is provided to the table. */
@@ -32,55 +37,32 @@ export class TagDataSource extends DataSource<Tag> {
   animations: [fadeIn],
 })
 export class TagListComponent implements OnInit {
-  tags$ = this.tagFacade.tags$;
-  total$ = this.tagFacade.total$;
   loading$ = this.tagFacade.loading$;
 
-  displayedColumns: string[] = ['name', 'description', 'color', 'actions'];
+  tableColumns: string[] = ['name', 'description', 'color', 'actions'];
   dataSource = new TagDataSource(this.tagFacade);
-
-  selectedTags: Tag[] = [];
-  tableDefaults = TABLE_DEFAULTS;
-
-  tableOptions = {
-    columns: [
-      { name: 'Name', value: 'name' },
-      { name: 'Description', value: 'description' },
-      { name: 'Color', value: 'color' },
-    ],
-  };
-
-  selectedDescription = '';
 
   constructor(
     private tagFacade: TagFacade,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private readonly overlayService: OverlayService
   ) {}
 
   ngOnInit() {
-    this.getTags(null);
+    this.tagFacade.getTags(null);
   }
 
-  getTags(event: LazyLoadEvent) {
-    // TODO inspect fetching tags mechanism
-    this.tagFacade.getTags(event);
-  }
-
-  confirmDeletion() {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete these tags?',
-      accept: () => {
-        this.tagFacade.deleteTags(this.selectedTags);
-      },
-    });
-  }
-
-  onDelete(tag: Tag): void {
-    this.confirmationService.confirm({
-      message: `Are you sure you want to delete ${tag.name} ?`,
-      accept: () => {
-        this.tagFacade.deleteTags([tag]);
-      },
+  showDeleteDialog(tag: Tag) {
+    const overlayRef = this.overlayService.open(
+      `<h2>Delete</h2><p>Are you sure you want to delete tag <b>${tag.name}</b>?</p>`,
+      null
+    );
+    overlayRef.afterClosed$.subscribe((res) => {
+      if (res.data) {
+        this.tagFacade.deleteTags([tag]).subscribe(() => {
+          this.tagFacade.getTags(null);
+        });
+      }
     });
   }
 

@@ -51,7 +51,7 @@
             appButton
             bType="warning"
             bShape="fab"
-            (click)="confirmDeletion()"
+            (click)="showDeleteDialog(element)"
           >
             <svg-icon key="delete" size="lg"></svg-icon>
           </button>
@@ -61,13 +61,13 @@
       <tr
         class="header-row"
         cdk-header-row
-        *cdkHeaderRowDef="displayedColumns"
+        *cdkHeaderRowDef="tableColumns"
       ></tr>
 
       <tr
         class="body-row"
         cdk-row
-        *cdkRowDef="let row; columns: displayedColumns"
+        *cdkRowDef="let row; columns: tableColumns"
       ></tr>
     </table>
   </ng-template>
