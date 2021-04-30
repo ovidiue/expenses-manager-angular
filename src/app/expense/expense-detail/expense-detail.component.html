@@ -7,7 +7,7 @@
       <div class="form-wrapper">
         <form (ngSubmit)="onSubmit()" [formGroup]="expenseForm">
           <div class="form-group">
-            <app-label text="Name">
+            <app-label [text]="'GENERAL.NAME' | transloco">
               <input
                 [ngClass]="{
                   'is-invalid':
@@ -17,13 +17,13 @@
                 class="form-control"
                 formControlName="name"
                 id="title"
-                placeholder="Enter name"
+                [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.NAME' | transloco"
                 required
                 type="text"
               />
             </app-label>
             <app-error
-              text="Title is required"
+              [text]="'EXPENSES.DETAIL.ERRORS.TITLE' | transloco"
               *ngIf="
                 name.invalid &&
                 (name.dirty || name.touched || isFormSubmitted) &&
@@ -33,7 +33,7 @@
             ></app-error>
           </div>
           <div class="form-group">
-            <app-label text="Amount">
+            <app-label [text]="'GENERAL.AMOUNT' | transloco">
               <input
                 [ngClass]="{
                   'is-invalid':
@@ -44,13 +44,15 @@
                 class="form-control"
                 formControlName="amount"
                 id="amount"
-                placeholder="Enter amount"
+                [placeholder]="
+                  'EXPENSES.DETAIL.PLACEHOLDERS.AMOUNT' | transloco
+                "
                 required
                 type="text"
               />
             </app-label>
             <app-error
-              text="Amount is required"
+              [text]="'EXPENSES.DETAIL.ERRORS.AMOUNT' | transloco"
               *ngIf="
                 amount.invalid &&
                 (amount.dirty || amount.touched || isFormSubmitted) &&
@@ -60,12 +62,12 @@
             ></app-error>
           </div>
           <div class="form-group">
-            <app-label text="Description">
+            <app-label [text]="'GENERAL.DESCRIPTION' | transloco">
               <textarea
                 class="form-control"
                 formControlName="description"
                 id="description"
-                placeholder="Description"
+                [placeholder]="'GENERAL.DESCRIPTION' | transloco"
                 rows="7"
               >
               </textarea>
@@ -73,16 +75,18 @@
           </div>
           <div class="form-group">
             <mat-checkbox color="primary" formControlName="recurrent">
-              Recurrent
+              {{ 'GENERAL.RECURRENT' | transloco }}
             </mat-checkbox>
           </div>
           <div class="form-group">
-            <app-label text="Due Date">
+            <app-label [text]="'EXPENSES.LIST.DUE_DATE' | transloco">
               <mat-form-field>
                 <input
                   matInput
                   [matDatepicker]="picker"
-                  placeholder="Choose a date"
+                  [placeholder]="
+                    'EXPENSES.DETAIL.PLACEHOLDERS.DATE' | transloco
+                  "
                   [min]="minDate"
                   formControlName="dueDate"
                 />
@@ -99,13 +103,15 @@
             </app-label>
           </div>
           <div class="form-group">
-            <app-label text="Category">
+            <app-label [text]="'EXPENSES.LIST.CATEGORY' | transloco">
               <mat-form-field appearance="standard">
                 <mat-select
-                  placeholder="Select category"
+                  [placeholder]="
+                    'EXPENSES.DETAIL.PLACEHOLDERS.CATEGORY' | transloco
+                  "
                   formControlName="category"
                 >
-                  <mat-option>None</mat-option>
+                  <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
                   <mat-option
                     *ngFor="let cat of categories$ | async"
                     [value]="cat"
@@ -117,14 +123,16 @@
             </app-label>
           </div>
           <div class="form-group">
-            <app-label text="Tags">
+            <app-label [text]="'EXPENSES.LIST.TAGS' | transloco">
               <mat-form-field appearance="standard">
                 <mat-select
-                  placeholder="Select tags"
+                  [placeholder]="
+                    'EXPENSES.DETAIL.PLACEHOLDERS.TAGS' | transloco
+                  "
                   formControlName="tags"
                   multiple
                 >
-                  <mat-option>None</mat-option>
+                  <mat-option>{{'GENERAL.NONE' | transloco}}</mat-option>
                   <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
                     {{ tag.name }}
                   </mat-option>
@@ -135,9 +143,9 @@
           <hr />
           <div class="actions">
             <button (click)="goBack($event)" appButton bType="secondary">
-              Cancel
+              {{'GENERAL.CANCEL' | transloco}}
             </button>
-            <button appButton>Save</button>
+            <button appButton>{{'GENERAL.SAVE' | transloco}}</button>
           </div>
         </form>
       </div>

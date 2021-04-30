@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from '../app-routing/app-routing.module';
+import { TranslocoRootModule } from "../transloco/transloco-root.module";
 
 import { HeaderComponent, MainComponent } from './index';
 
@@ -19,6 +20,7 @@ const importsAndExports = [HttpClientModule, AppRoutingModule];
       closeButton: true,
       extendedTimeOut: 1
     }),
+    TranslocoRootModule
   ],
   exports: [...importsAndExports],
   declarations: [MainComponent, HeaderComponent],

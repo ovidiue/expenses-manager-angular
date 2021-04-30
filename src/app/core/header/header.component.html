@@ -4,7 +4,7 @@
       <ng-container *ngFor="let route of navigationRoutes[2].children">
         <li *ngIf="route.data?.displayName">
           <a [routerLink]="route.path" routerLinkActive="active">
-            {{ route.data.displayName }}
+            {{ route.data.displayName | transloco }}
           </a>
         </li>
       </ng-container>

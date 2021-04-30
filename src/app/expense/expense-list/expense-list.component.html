@@ -1,6 +1,6 @@
 <div class="expenses" [@fadeIn]>
   <div class="expenses-title">
-    <h3>Expenses</h3>
+    <h3>{{ 'EXPENSES.LIST.TITLE' | transloco }}</h3>
   </div>
 
   <ng-container *ngIf="loading$ | async as loading; else table">
@@ -9,68 +9,86 @@
   <ng-template #table>
     <div class="expenses-actions">
       <button appButton routerLink="add" class="expenses-actions--button">
-        Add expense
+        {{ 'EXPENSES.LIST.ADD' | transloco }}
       </button>
     </div>
     <table cdk-table [dataSource]="dataSource" class="table">
       <!-- Name Column -->
       <ng-container cdkColumnDef="name">
-        <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.NAME' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
       </ng-container>
 
       <!-- Description Column -->
       <ng-container cdkColumnDef="amount">
-        <th cdk-header-cell *cdkHeaderCellDef>Amount</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.AMOUNT' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.amount }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="description">
-        <th cdk-header-cell *cdkHeaderCellDef>Description</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.DESCRIPTION' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.description }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="recurrent">
-        <th cdk-header-cell *cdkHeaderCellDef>Recurrent</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.RECURRENT' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.recurrent }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="createdOn">
-        <th cdk-header-cell *cdkHeaderCellDef>Created on</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.CREATED_ON' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.createdOn | date }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="dueDate">
-        <th cdk-header-cell *cdkHeaderCellDef>Due date</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'EXPENSES.LIST.DUE_DATE' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.dueDate | date }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="category">
-        <th cdk-header-cell *cdkHeaderCellDef>Category</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'EXPENSES.LIST.CATEGORY' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.category?.name }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="tags">
-        <th cdk-header-cell *cdkHeaderCellDef>Tags</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'EXPENSES.LIST.TAGS' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.tags }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="payed">
-        <th cdk-header-cell *cdkHeaderCellDef>Payed</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'EXPENSES.LIST.PAYED' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.payed }}
         </td>
@@ -78,7 +96,9 @@
 
       <!-- Actions Column -->
       <ng-container cdkColumnDef="actions">
-        <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.ACTIONS' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element" class="actions">
           <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
             <svg-icon key="edit" size="lg"></svg-icon>

@@ -1,6 +1,6 @@
 <div class="categories" [@fadeIn]>
   <div class="categories-title">
-    <h3>Categories</h3>
+    <h3>{{ 'CATEGORY.LIST.TITLE' | transloco }}</h3>
   </div>
 
   <ng-container *ngIf="loading$ | async as loading; else table">
@@ -9,19 +9,23 @@
   <ng-template #table>
     <div class="categories-actions">
       <button appButton routerLink="add" class="categories-actions--button">
-        Add category
+        {{ 'CATEGORY.LIST.ADD' | transloco }}
       </button>
     </div>
     <table cdk-table [dataSource]="dataSource" class="table">
       <!-- Name Column -->
       <ng-container cdkColumnDef="name">
-        <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.NAME' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
       </ng-container>
 
       <!-- Description Column -->
       <ng-container cdkColumnDef="description">
-        <th cdk-header-cell *cdkHeaderCellDef>Description</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.DESCRIPTION' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.description }}
         </td>
@@ -29,7 +33,9 @@
 
       <!-- Color Column -->
       <ng-container cdkColumnDef="color">
-        <th cdk-header-cell *cdkHeaderCellDef>Color</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.COLOR' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           <div [style.background]="element.color" class="color"></div>
         </td>
@@ -37,7 +43,9 @@
 
       <!-- Actions Column -->
       <ng-container cdkColumnDef="actions">
-        <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.ACTIONS' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element" class="actions">
           <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
             <svg-icon key="edit" size="lg"></svg-icon>

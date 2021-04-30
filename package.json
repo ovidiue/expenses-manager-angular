@@ -24,6 +24,7 @@
     "@angular/router": "~11.0.5",
     "@fullcalendar/core": "^4.4.2",
     "@ngneat/svg-icon": "^3.1.0",
+    "@ngneat/transloco": "^2.20.1",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
     "core-js": "^2.6.12",

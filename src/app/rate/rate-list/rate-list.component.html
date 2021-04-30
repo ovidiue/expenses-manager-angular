@@ -1,6 +1,6 @@
 <div class="rates" [@fadeIn]>
   <div class="rates-title">
-    <h3>Rates</h3>
+    <h3>{{ 'RATE.LIST.TITLE' | transloco }}</h3>
   </div>
 
   <ng-container *ngIf="loading$ | async as loading; else table">
@@ -9,19 +9,23 @@
   <ng-template #table>
     <div class="rates-actions">
       <button appButton routerLink="add" class="rates-actions--button">
-        Add rate
+        {{ 'RATE.LIST.ADD' | transloco }}
       </button>
     </div>
     <table cdk-table [dataSource]="dataSource" class="table">
       <!-- Name Column -->
       <ng-container cdkColumnDef="amount">
-        <th cdk-header-cell *cdkHeaderCellDef>Amount</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.AMOUNT' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.amount }}</td>
       </ng-container>
 
       <!-- Description Column -->
       <ng-container cdkColumnDef="description">
-        <th cdk-header-cell *cdkHeaderCellDef>Description</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.DESCRIPTION' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.description }}
         </td>
@@ -29,19 +33,25 @@
 
       <!-- Color Column -->
       <ng-container cdkColumnDef="creationDate">
-        <th cdk-header-cell *cdkHeaderCellDef>Creation date</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'RATE.LIST.CREATED' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.creationDate }}</td>
       </ng-container>
 
       <ng-container cdkColumnDef="payedOn">
-        <th cdk-header-cell *cdkHeaderCellDef>Payed on</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'RATE.LIST.PAYED_ON' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.payedOn | date }}
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="expense">
-        <th cdk-header-cell *cdkHeaderCellDef>Expense</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.EXPENSE' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.expense.name }}
         </td>
@@ -49,7 +59,9 @@
 
       <!-- Actions Column -->
       <ng-container cdkColumnDef="actions">
-        <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+        <th cdk-header-cell *cdkHeaderCellDef>
+          {{ 'GENERAL.ACTIONS' | transloco }}
+        </th>
         <td cdk-cell *cdkCellDef="let element" class="actions">
           <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
             <svg-icon key="edit" size="lg"></svg-icon>

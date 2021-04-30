@@ -1,0 +1,83 @@
+{
+  "EXPENSES": {
+    "LIST": {
+      "TITLE": "Expenses",
+      "ADD": "Add expense",
+      "DUE_DATE": "Due date",
+      "CATEGORY": "Category",
+      "TAGS": "Tags",
+      "PAYED": "Payed"
+    },
+    "DETAIL": {
+      "PLACEHOLDERS": {
+        "NAME": "Enter name",
+        "AMOUNT": "Enter amount",
+        "DATE": "Choose a date",
+        "CATEGORY": "Select category",
+        "TAGS": "Tags"
+      },
+      "ERRORS": {
+        "TITLE": "Title is required",
+        "AMOUNT": "Amount is required"
+      }
+    }
+  },
+  "RATE": {
+    "LIST": {
+      "TITLE": "Rates",
+      "ADD": "Add rate",
+      "CREATED": "Creation date",
+      "PAYED_ON": "Payed on"
+    },
+    "DETAIL": {
+      "PLACEHOLDERS": {
+        "EXPENSE": "Select expense"
+      }
+    }
+  },
+  "CATEGORY": {
+    "LIST": {
+      "TITLE": "Categories",
+      "ADD": "Add category"
+    }
+  },
+  "TAG": {
+    "LIST": {
+      "TITLE": "Tags",
+      "ADD": "Add tag"
+    }
+  },
+  "MENUS": {
+    "EXPENSES": "Expenses",
+    "CATEGORIES": "Categories",
+    "TAGS": "Tags",
+    "DASHBOARD": "Dashboard",
+    "RATES": "Rates"
+  },
+  "GENERAL": {
+    "NAME": "Name",
+    "AMOUNT": "Amount",
+    "DESCRIPTION": "Description",
+    "RECURRENT": "Recurrent",
+    "PAYED_ON": "Payed on",
+    "CREATED_ON": "Created on",
+    "ACTIONS": "Actions",
+    "NONE": "None",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "EXPENSE": "Expense",
+    "COLOR": "Color",
+    "PLACEHOLDERS": {
+      "AMOUNT": "Enter amount",
+      "DATE": "Choose a date",
+      "NAME": "Enter name",
+      "NAME_EXISTS": "Name already exists. Please choose another name!",
+      "DESCRIPTION": "Enter description"
+    },
+    "ERRORS": {
+      "AMOUNT": "Amount is required",
+      "DATE": "Date is required",
+      "NAME": "Name is required"
+    }
+  }
+}

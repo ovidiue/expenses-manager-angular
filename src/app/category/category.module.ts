@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { TranslocoRootModule } from "../transloco/transloco-root.module";
 
 import { CategoryFacade } from './category.facade';
 import {
@@ -11,7 +12,7 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  imports: [SharedModule, SvgIconsModule],
+  imports: [SharedModule, SvgIconsModule, TranslocoRootModule],
   declarations: [
     CategoryDetailEditComponent,
     CategoriesListComponent,

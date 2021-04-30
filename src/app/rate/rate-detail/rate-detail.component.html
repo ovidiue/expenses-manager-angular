@@ -7,31 +7,31 @@
       <div class="form-wrapper">
         <form (ngSubmit)="onSubmit()" [formGroup]="rateFormControls">
           <div class="form-group">
-            <app-label text="Amount">
+            <app-label [text]="'GENERAL.AMOUNT' | transloco">
               <input
                 [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
                 class="form-control"
                 formControlName="amount"
                 id="amount"
                 name="amount"
-                placeholder="Enter amount"
+                [placeholder]="'GENERAL.PLACEHOLDERS.AMOUNT' | transloco"
                 required
                 type="text"
               />
             </app-label>
             <app-error
-              text="Amount is required"
+              [text]="'GENERAL.ERRORS.AMOUNT' | transloco"
               *ngIf="isSubmitted && amount.errors && amount.errors.required"
             ></app-error>
           </div>
           <div class="form-group">
-            <app-label text="Payed On">
+            <app-label [text]="'GENERAL.PAYED_ON' | transloco">
               <!--TODO add datepicker clear button-->
               <mat-form-field>
                 <input
                   matInput
                   [matDatepicker]="picker"
-                  placeholder="Choose a date"
+                  [placeholder]="'GENERAL.PLACEHOLDERS.DATE' | transloco"
                   [max]="maxDate"
                   formControlName="payedOn"
                   disabled
@@ -48,19 +48,19 @@
               </mat-form-field>
             </app-label>
             <app-error
-              text="Date is required"
+              [text]="'GENERAL.ERRORS.DATE' | transloco"
               *ngIf="isSubmitted && payedOn.invalid"
             ></app-error>
           </div>
           <div class="form-group">
-            <app-label text="Expense">
+            <app-label [text]="'GENERAL.EXPENSE' | transloco">
               <mat-form-field appearance="standard">
                 <mat-select
                   [compareWith]="compareExpenses"
-                  placeholder="Select expense"
+                  [placeholder]="'RATE.DETAIL.PLACEHOLDERS.EXPENSE' | transloco"
                   formControlName="expense"
                 >
-                  <mat-option>None</mat-option>
+                  <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
                   <mat-option
                     *ngFor="let expense of expenses$ | async"
                     [value]="expense"
@@ -72,12 +72,12 @@
             </app-label>
           </div>
           <div class="form-group">
-            <app-label text="Description">
+            <app-label [text]="'GENERAL.DESCRIPTION' | transloco">
               <textarea
                 class="form-control"
                 formControlName="description"
                 name="observation"
-                placeholder="Description"
+                [placeholder]="'GENERAL.DESCRIPTION' | transloco"
                 rows="7"
               ></textarea>
             </app-label>
@@ -85,9 +85,9 @@
           <hr />
           <div class="actions">
             <button (click)="goBack($event)" appButton bType="secondary">
-              Cancel
+              {{ 'GENERAL.CANCEL' | transloco }}
             </button>
-            <button appButton>Save</button>
+            <button appButton>{{ 'GENERAL.SAVE' | transloco }}</button>
           </div>
         </form>
       </div>

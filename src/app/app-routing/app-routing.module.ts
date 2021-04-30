@@ -43,7 +43,7 @@ export const routes: Routes = [
       {
         path: 'expenses',
         data: {
-          displayName: 'Expenses',
+          displayName: 'MENUS.EXPENSES',
         },
         children: [
           { path: '', component: ExpenseListComponent },
@@ -54,7 +54,7 @@ export const routes: Routes = [
       {
         path: 'rates',
         data: {
-          displayName: 'Rates',
+          displayName: 'MENUS.RATES',
         },
         children: [
           { path: '', component: RateListComponent },
@@ -65,7 +65,7 @@ export const routes: Routes = [
       {
         path: 'categories',
         data: {
-          displayName: 'Categories',
+          displayName: 'MENUS.CATEGORIES',
         },
         children: [
           { path: '', component: CategoriesListComponent },
@@ -76,7 +76,7 @@ export const routes: Routes = [
       {
         path: 'tags',
         data: {
-          displayName: 'Tags',
+          displayName: 'MENUS.TAGS',
         },
         children: [
           { path: '', component: TagListComponent },
@@ -87,7 +87,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         data: {
-          displayName: 'Dashboard',
+          displayName: 'MENUS.DASHBOARD',
         },
         component: DashboardComponent,
       },
