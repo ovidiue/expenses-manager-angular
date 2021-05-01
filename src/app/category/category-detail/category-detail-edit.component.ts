@@ -2,14 +2,18 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoutePaths } from '@models/enums/route-paths.enum';
-import { Category } from '@models/interfaces';
-import { fadeIn } from '@utils/animations/fadeIn';
+
 import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 
-import { CategoryFacade } from '../category.facade';
+import { RoutePaths } from '@models/enums/route-paths.enum';
+import { Category } from '@models/interfaces';
 
+import { fadeIn } from '@utils/animations/fadeIn';
+
+import { CategoryFacade } from '../category.facade';
 import { CategoryDetailBaseComponent } from './category-detail-base.component';
+
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-category-detail',
@@ -17,16 +21,18 @@ import { CategoryDetailBaseComponent } from './category-detail-base.component';
   styleUrls: ['./category-detail.component.scss'],
   animations: [fadeIn],
 })
-export class CategoryDetailEditComponent extends CategoryDetailBaseComponent
+export class CategoryDetailEditComponent
+  extends CategoryDetailBaseComponent
   implements OnInit {
   constructor(
     protected location: Location,
     protected router: Router,
     protected categoryFacade: CategoryFacade,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private readonly _translocoService: TranslocoService
   ) {
     super(location, categoryFacade);
-    this.pageTitle = 'Edit Category';
+    this.pageTitle = this._translocoService.translate('CATEGORY.DETAIL.EDIT');
   }
 
   get name() {
@@ -54,8 +60,10 @@ export class CategoryDetailEditComponent extends CategoryDetailBaseComponent
       return;
     }
 
-    this.categoryFacade.updateCategory(this.categoryForm.value).subscribe(() => {
-      this.router.navigate([RoutePaths.CATEGORY_LISTING]);
-    });
+    this.categoryFacade
+      .updateCategory(this.categoryForm.value)
+      .subscribe(() => {
+        this.router.navigate([RoutePaths.CATEGORY_LISTING]);
+      });
   }
 }

@@ -1,12 +1,16 @@
 import { Location } from '@angular/common';
-import { Directive, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { CategoryFacade } from '../category.facade';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-@Directive()
+import { CategoryFacade } from '../category.facade';
+
+@Component({
+  selector: 'app-category-detail-base',
+  template: '',
+})
 export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
   loading$ = this.categoryFacade.loading$;
   spinnerMessage$ = this.categoryFacade.loadingMsg$;

@@ -9,6 +9,7 @@ import { fadeIn } from '@utils/animations/fadeIn';
 
 import { TagFacade } from '../tag.facade';
 
+import { TranslocoService } from '@ngneat/transloco';
 import { OverlayService } from '@shared/modal/overlay.service';
 
 export class TagDataSource extends DataSource<Tag> {
@@ -41,7 +42,8 @@ export class TagListComponent implements OnInit {
 
   constructor(
     private tagFacade: TagFacade,
-    private readonly overlayService: OverlayService
+    private readonly overlayService: OverlayService,
+    private readonly _translocoService: TranslocoService
   ) {}
 
   ngOnInit() {
@@ -49,10 +51,10 @@ export class TagListComponent implements OnInit {
   }
 
   showDeleteDialog(tag: Tag) {
-    const overlayRef = this.overlayService.open(
-      `<h2>Delete</h2><p>Are you sure you want to delete tag <b>${tag.name}</b>?</p>`,
-      null
-    );
+    const text = this._translocoService.translate('TAG.LIST.DELETE', {
+      tagName: tag.name,
+    });
+    const overlayRef = this.overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
         this.tagFacade.deleteTags([tag]).subscribe(() => {

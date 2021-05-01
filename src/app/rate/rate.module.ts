@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
+
+import { TranslocoRootModule } from '../transloco/transloco-root.module';
+import {
+  RateDetailAddComponent,
+  RateDetailEditComponent,
+  RateListComponent,
+} from './index';
+import { RateDetailBaseComponent } from './rate-detail/rate-detail-base.component';
+
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { SharedModule } from '@shared/shared.module';
-import { TranslocoRootModule } from "../transloco/transloco-root.module";
-
-import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } from './index';
 
 @NgModule({
   imports: [SharedModule, SvgIconsModule, TranslocoRootModule],
@@ -11,6 +17,7 @@ import { RateDetailAddComponent, RateDetailEditComponent, RateListComponent } fr
     RateListComponent,
     RateDetailAddComponent,
     RateDetailEditComponent,
+    RateDetailBaseComponent,
   ],
 })
 export class RateModule {}

@@ -1,13 +1,17 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { takeUntil } from 'rxjs/operators';
+
 import { RoutePaths } from '@models/enums/route-paths.enum';
+
 import { fadeIn } from '@utils/animations/fadeIn';
 
 import { TagFacade } from '../tag.facade';
+import { TagDetailBaseComponent } from './tag-detail-base.component';
 
-import { TagDetailBase } from './tag-detail-base';
-import { takeUntil } from 'rxjs/operators';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-tag-detail',
@@ -15,17 +19,18 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./tag-detail.component.scss'],
   animations: [fadeIn],
 })
-export class TagDetailAddComponent extends TagDetailBase {
+export class TagDetailAddComponent extends TagDetailBaseComponent {
   nameExists = false;
 
   constructor(
     protected location: Location,
     protected router: Router,
     protected tagFacade: TagFacade,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private readonly _translocoService: TranslocoService
   ) {
     super(location, tagFacade);
-    this.pageTitle = 'Add Tag';
+    this.pageTitle = this._translocoService.translate('TAG.DETAIL.ADD');
   }
 
   onSubmit() {

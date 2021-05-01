@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -16,7 +16,11 @@ import { CategoryFacade } from '../../category/category.facade';
 import { TagFacade } from '../../tag/tag.facade';
 import { ExpenseFacade } from '../expense.facade';
 
-export class ExpenseDetailBase implements OnDestroy {
+@Component({
+  selector: 'app-expense-detail-base',
+  template: '',
+})
+export class ExpenseDetailBaseComponent implements OnDestroy {
   pageTitle: string;
   isFormSubmitted = false;
   expenseForm: FormGroup;

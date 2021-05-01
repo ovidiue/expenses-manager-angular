@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -16,7 +16,11 @@ import { Expense } from '@models/interfaces';
 import { ExpenseFacade } from '../../expense/expense.facade';
 import { RatesFacade } from '../rates.facade';
 
-export class RateDetailBase implements OnDestroy {
+@Component({
+  selector: 'app-rate-detail-base',
+  template: '',
+})
+export class RateDetailBaseComponent implements OnDestroy {
   expenses$: Observable<Expense[]> = this.expenseFacade.expenses$.pipe(
     tap(console.log)
   );

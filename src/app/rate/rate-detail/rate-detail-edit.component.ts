@@ -12,7 +12,9 @@ import { fadeIn } from '@utils/animations/fadeIn';
 
 import { ExpenseFacade } from '../../expense/expense.facade';
 import { RatesFacade } from '../rates.facade';
-import { RateDetailBase } from './rate-detail-base';
+import { RateDetailBaseComponent } from './rate-detail-base.component';
+
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-rate-detail',
@@ -20,7 +22,9 @@ import { RateDetailBase } from './rate-detail-base';
   styleUrls: ['./rate-detail.component.scss'],
   animations: [fadeIn],
 })
-export class RateDetailEditComponent extends RateDetailBase implements OnInit {
+export class RateDetailEditComponent
+  extends RateDetailBaseComponent
+  implements OnInit {
   initialExpenseId: string;
 
   constructor(
@@ -28,11 +32,12 @@ export class RateDetailEditComponent extends RateDetailBase implements OnInit {
     protected router: Router,
     protected ratesFacade: RatesFacade,
     protected route: ActivatedRoute,
-    protected expenseFacade: ExpenseFacade
+    protected expenseFacade: ExpenseFacade,
+    private readonly _translocoService: TranslocoService
   ) {
     super(location, router, ratesFacade, expenseFacade, route);
 
-    this.pageTitle = 'Edit rate';
+    this.pageTitle = this._translocoService.translate('RATE.DETAIL.EDIT');
   }
 
   ngOnInit(): void {

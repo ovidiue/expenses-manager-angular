@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslocoRootModule } from "../transloco/transloco-root.module";
 
 import { PrimengModule } from './primeng.module';
 
@@ -40,6 +41,7 @@ const importsExports = [
     CommonModule,
     MaterialModule,
     SvgIconsModule,
+    TranslocoRootModule
   ],
   exports: [
     ...importsExports,

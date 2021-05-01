@@ -11,7 +11,9 @@ import { fadeIn } from '@utils/animations/fadeIn';
 import { CategoryFacade } from '../../category/category.facade';
 import { TagFacade } from '../../tag/tag.facade';
 import { ExpenseFacade } from '../expense.facade';
-import { ExpenseDetailBase } from './expense-detail-base';
+import { ExpenseDetailBaseComponent } from './expense-detail-base.component';
+
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-expense-detail',
@@ -20,14 +22,17 @@ import { ExpenseDetailBase } from './expense-detail-base';
   providers: [MessageService],
   animations: [fadeIn],
 })
-export class ExpenseDetailAddComponent extends ExpenseDetailBase {
+export class ExpenseDetailAddComponent extends ExpenseDetailBaseComponent {
+  pageTitle = this._translocoService.translate('EXPENSES.DETAIL.ADD');
+
   constructor(
     protected location: Location,
     protected router: Router,
     protected expenseFacade: ExpenseFacade,
     protected route: ActivatedRoute,
     protected tagFacade: TagFacade,
-    protected categoryFacade: CategoryFacade
+    protected categoryFacade: CategoryFacade,
+    private readonly _translocoService: TranslocoService
   ) {
     super(location, router, expenseFacade, route, tagFacade, categoryFacade);
   }

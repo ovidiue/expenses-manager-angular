@@ -9,6 +9,7 @@ import { fadeIn } from '@utils/animations/fadeIn';
 
 import { RatesFacade } from '../rates.facade';
 
+import { TranslocoService } from '@ngneat/transloco';
 import { OverlayService } from '@shared/modal/overlay.service';
 
 export class RateDataSource extends DataSource<Rate> {
@@ -48,7 +49,8 @@ export class RateListComponent implements OnInit {
 
   constructor(
     private readonly overlayService: OverlayService,
-    private readonly ratesFacade: RatesFacade
+    private readonly ratesFacade: RatesFacade,
+    private readonly _translocoService: TranslocoService
   ) {}
 
   ngOnInit() {
@@ -56,10 +58,10 @@ export class RateListComponent implements OnInit {
   }
 
   showDeleteDialog(rate: Rate) {
-    const overlayRef = this.overlayService.open(
-      `<h2>Delete</h2><p>Are you sure you want to delete rate <b>${rate.amount}</b>?</p>`,
-      null
-    );
+    const text = this._translocoService.translate('RATE.LIST.DELETE', {
+      rateAmount: rate.amount,
+    });
+    const overlayRef = this.overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
         this.ratesFacade.deleteRates([rate.id]);

@@ -5,9 +5,11 @@
         <div [innerHTML]="content"></div>
         <div class="footer">
           <button appButton bType="secondary" (click)="close(false)">
-            Cancel
+            {{ 'GENERAL.CANCEL' | transloco }}
           </button>
-          <button appButton (click)="close(true)">Ok</button>
+          <button appButton (click)="close(true)">
+            {{ 'GENERAL.OK' | transloco }}
+          </button>
         </div>
       </div>
     </ng-container>

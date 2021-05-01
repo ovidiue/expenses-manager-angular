@@ -2,14 +2,18 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoutePaths } from '@models/enums/route-paths.enum';
-import { Tag } from '@models/interfaces';
-import { fadeIn } from '@utils/animations/fadeIn';
+
 import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 
-import { TagFacade } from '../tag.facade';
+import { RoutePaths } from '@models/enums/route-paths.enum';
+import { Tag } from '@models/interfaces';
 
-import { TagDetailBase } from './tag-detail-base';
+import { fadeIn } from '@utils/animations/fadeIn';
+
+import { TagFacade } from '../tag.facade';
+import { TagDetailBaseComponent } from './tag-detail-base.component';
+
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-tag-detail',
@@ -17,18 +21,21 @@ import { TagDetailBase } from './tag-detail-base';
   styleUrls: ['./tag-detail.component.scss'],
   animations: [fadeIn],
 })
-export class TagDetailEditComponent extends TagDetailBase implements OnInit {
+export class TagDetailEditComponent
+  extends TagDetailBaseComponent
+  implements OnInit {
   nameExists = false;
 
   constructor(
     protected location: Location,
     protected router: Router,
     protected tagFacade: TagFacade,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private readonly _translocoService: TranslocoService
   ) {
     super(location, tagFacade);
 
-    this.pageTitle = 'Edit Rate';
+    this.pageTitle = this._translocoService.translate('TAG.DETAIL.EDIT');
   }
 
   ngOnInit(): void {

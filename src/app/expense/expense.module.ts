@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { TranslocoRootModule } from "../transloco/transloco-root.module";
 
+import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { ExpenseCardComponent } from './expense-card/expense-card.component';
+import { ExpenseDetailBaseComponent } from './expense-detail/expense-detail-base.component';
 import {
   AppRowActionsComponent,
   ExpenseDetailAddComponent,
@@ -22,6 +23,7 @@ import { SharedModule } from '@shared/shared.module';
     ExpenseDetailEditComponent,
     ExpenseFilterComponent,
     ExpenseCardComponent,
+    ExpenseDetailBaseComponent,
   ],
 })
 export class ExpenseModule {}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { TranslocoRootModule } from "../transloco/transloco-root.module";
 
+import { TranslocoRootModule } from '../transloco/transloco-root.module';
+import { CategoryDetailBaseComponent } from './category-detail/category-detail-base.component';
 import { CategoryFacade } from './category.facade';
 import {
   CategoriesListComponent,
@@ -17,6 +18,7 @@ import { SharedModule } from '@shared/shared.module';
     CategoryDetailEditComponent,
     CategoriesListComponent,
     CategoryDetailAddComponent,
+    CategoryDetailBaseComponent,
   ],
   providers: [CategoryFacade],
 })

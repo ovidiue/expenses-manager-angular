@@ -15,7 +15,9 @@ import { fadeIn } from '@utils/animations/fadeIn';
 import { CategoryFacade } from '../../category/category.facade';
 import { TagFacade } from '../../tag/tag.facade';
 import { ExpenseFacade } from '../expense.facade';
-import { ExpenseDetailBase } from './expense-detail-base';
+import { ExpenseDetailBaseComponent } from './expense-detail-base.component';
+
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-expense-detail',
@@ -25,9 +27,9 @@ import { ExpenseDetailBase } from './expense-detail-base';
   animations: [fadeIn],
 })
 export class ExpenseDetailEditComponent
-  extends ExpenseDetailBase
+  extends ExpenseDetailBaseComponent
   implements OnInit {
-  pageTitle: string;
+  pageTitle = this._translocoService.translate('EXPENSES.DETAIL.EDIT');
 
   constructor(
     protected location: Location,
@@ -35,11 +37,10 @@ export class ExpenseDetailEditComponent
     protected expenseFacade: ExpenseFacade,
     protected route: ActivatedRoute,
     protected tagFacade: TagFacade,
-    protected categoryFacade: CategoryFacade
+    protected categoryFacade: CategoryFacade,
+    private readonly _translocoService: TranslocoService
   ) {
     super(location, router, expenseFacade, route, tagFacade, categoryFacade);
-
-    this.pageTitle = 'Edit expense';
   }
 
   ngOnInit() {

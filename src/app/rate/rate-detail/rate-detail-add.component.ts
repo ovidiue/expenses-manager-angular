@@ -8,7 +8,9 @@ import { fadeIn } from '@utils/animations/fadeIn';
 
 import { ExpenseFacade } from '../../expense/expense.facade';
 import { RatesFacade } from '../rates.facade';
-import { RateDetailBase } from './rate-detail-base';
+import { RateDetailBaseComponent } from './rate-detail-base.component';
+
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-rate-detail',
@@ -16,7 +18,7 @@ import { RateDetailBase } from './rate-detail-base';
   styleUrls: ['./rate-detail.component.scss'],
   animations: [fadeIn],
 })
-export class RateDetailAddComponent extends RateDetailBase {
+export class RateDetailAddComponent extends RateDetailBaseComponent {
   // TODO: on edit, expense doesn't preselect previous value
 
   constructor(
@@ -24,11 +26,12 @@ export class RateDetailAddComponent extends RateDetailBase {
     protected router: Router,
     protected ratesFacade: RatesFacade,
     protected expenseFacade: ExpenseFacade,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private readonly _translocoService: TranslocoService
   ) {
     super(location, router, ratesFacade, expenseFacade, route);
 
-    this.pageTitle = 'Add rate';
+    this.pageTitle = this._translocoService.translate('RATE.DETAIL.ADD');
   }
 
   onSubmit() {

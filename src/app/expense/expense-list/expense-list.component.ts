@@ -10,6 +10,7 @@ import { fadeIn } from '@utils/animations/fadeIn';
 
 import { ExpenseFacade } from '../expense.facade';
 
+import { TranslocoService } from '@ngneat/transloco';
 import { OverlayService } from '@shared/modal/overlay.service';
 
 export class ExpenseDataSource extends DataSource<Expense> {
@@ -54,7 +55,8 @@ export class ExpenseListComponent implements OnInit {
   constructor(
     private router: Router,
     private expenseFacade: ExpenseFacade,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private readonly _translocoService: TranslocoService
   ) {}
 
   ngOnInit() {
@@ -62,10 +64,10 @@ export class ExpenseListComponent implements OnInit {
   }
 
   showDeleteDialog(expense: Expense) {
-    const overlayRef = this.overlayService.open(
-      `<h2>Delete</h2><p>Are you sure you want to delete expense <b>${expense.name}</b>?</p>`,
-      null
-    );
+    const text = this._translocoService.translate('EXPENSES.LIST.DELETE', {
+      expenseName: expense.name,
+    });
+    const overlayRef = this.overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
         this.expenseFacade.deleteExpensesApi([expense.id], false);

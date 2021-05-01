@@ -12,6 +12,7 @@ import { TABLE_DEFAULTS } from '@utils/table-options';
 
 import { CategoryFacade } from '../category.facade';
 
+import { TranslocoService } from '@ngneat/transloco';
 import { OverlayService } from '@shared/modal/overlay.service';
 
 export class TagDataSource extends DataSource<Category> {
@@ -43,7 +44,8 @@ export class CategoriesListComponent implements OnInit {
 
   constructor(
     private categoryFacade: CategoryFacade,
-    private readonly overlayService: OverlayService
+    private readonly overlayService: OverlayService,
+    private readonly _translocoService: TranslocoService
   ) {
     this.categoryFacade.getCategories(null);
   }
@@ -57,10 +59,10 @@ export class CategoriesListComponent implements OnInit {
   }
 
   showDeleteDialog(category: Category) {
-    const overlayRef = this.overlayService.open(
-      `<h2>Delete</h2><p>Are you sure you want to delete category <b>${category.name}</b>?</p>`,
-      null
-    );
+    const text = this._translocoService.translate('CATEGORY.LIST.DELETE', {
+      categoryName: category.name,
+    });
+    const overlayRef = this.overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
         this.categoryFacade

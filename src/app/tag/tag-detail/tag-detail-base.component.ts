@@ -1,14 +1,26 @@
 import { Location } from '@angular/common';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { Subject } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  switchMap,
+  takeUntil,
+} from 'rxjs/operators';
+
 import { Tag } from '@models/interfaces';
-import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil, } from 'rxjs/operators';
 
 import { TagFacade } from '../tag.facade';
-import { Subject } from 'rxjs';
-import { OnDestroy } from '@angular/core';
 
-export class TagDetailBase implements OnDestroy {
-  pageTitle: string = '';
+@Component({
+  selector: 'app-tag-detail-base',
+  template: '',
+})
+export class TagDetailBaseComponent implements OnDestroy {
+  pageTitle = '';
   nameExists: boolean;
   tagFormControls: FormGroup;
   initialName: string;
