@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@core/services';
 
 import { routes } from '../../app-routing/app-routing.module';
+
+import { AuthService } from '@core/services';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +10,12 @@ import { routes } from '../../app-routing/app-routing.module';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  isLoggedIn$ = this.authService.getLoggedInStatus();
+  isLoggedIn$ = this._authService.getLoggedInStatus();
   navigationRoutes = routes;
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly _authService: AuthService) {}
 
   logout() {
-    this.authService.logout();
+    this._authService.logout();
   }
 }

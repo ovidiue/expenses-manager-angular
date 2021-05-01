@@ -1,11 +1,18 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiPath } from '@utils/constants/api-paths';
-import { PathBuilder } from '@utils/path-builder';
-import { ToastrService } from 'ngx-toastr';
+
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
+
+import { ApiPath } from '@utils/constants/api-paths';
+import { PathBuilder } from '@utils/path-builder';
+
+import { ToastrService } from 'ngx-toastr';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -13,29 +20,31 @@ const httpOptions = {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private AUTHENTICATE_BASE_URL = PathBuilder.get(ApiPath.AUTHENTICATE);
-  private REGISTER_BASE_URL = PathBuilder.get(ApiPath.REGISTER);
-  private isLoading$ = new BehaviorSubject<boolean>(false);
-  private isLoggedIn$ = new BehaviorSubject<boolean>(false);
+  private readonly _AUTHENTICATE_BASE_URL = PathBuilder.get(
+    ApiPath.AUTHENTICATE
+  );
+  private readonly _REGISTER_BASE_URL = PathBuilder.get(ApiPath.REGISTER);
+  private readonly _isLoading$ = new BehaviorSubject<boolean>(false);
+  private readonly _isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private http: HttpClient,
-    private readonly router: Router,
-    private readonly toastr: ToastrService
+    private readonly _httpClient: HttpClient,
+    private readonly _router: Router,
+    private readonly _toastrService: ToastrService
   ) {}
 
   public getLoadingState(): Observable<boolean> {
-    return this.isLoading$.asObservable();
+    return this._isLoading$.asObservable();
   }
 
   register(username: string, password: string) {
     this.setLoading(true);
 
-    return this.http
-      .post(this.REGISTER_BASE_URL, { username, password }, httpOptions)
+    return this._httpClient
+      .post(this._REGISTER_BASE_URL, { username, password }, httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, 'Register Failed');
+          this._toastrService.error(err.message, 'Register Failed');
 
           return throwError(err);
         }),
@@ -44,20 +53,20 @@ export class AuthService {
         })
       )
       .subscribe(() => {
-        this.isLoggedIn$.next(true);
-        this.toastr.success('Register Success');
-        this.router.navigate(['/home']);
+        this._isLoggedIn$.next(true);
+        this._toastrService.success('Register Success');
+        this._router.navigate(['/home']);
       });
   }
 
   authenticate(username: string, password: string) {
     this.setLoading(true);
 
-    return this.http
-      .post(this.AUTHENTICATE_BASE_URL, { username, password }, httpOptions)
+    return this._httpClient
+      .post(this._AUTHENTICATE_BASE_URL, { username, password }, httpOptions)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, 'Login Failed');
+          this._toastrService.error(err.message, 'Login Failed');
 
           return throwError(err);
         }),
@@ -69,27 +78,27 @@ export class AuthService {
         })
       )
       .subscribe(() => {
-        this.isLoggedIn$.next(true);
-        this.toastr.success('Success logged in');
-        this.router.navigate(['/home']);
+        this._isLoggedIn$.next(true);
+        this._toastrService.success('Success logged in');
+        this._router.navigate(['/home']);
       });
   }
 
   public getLoggedInStatus() {
     // TODO find better solution
     const token = localStorage.getItem('token');
-    this.isLoggedIn$.next(token !== null);
+    this._isLoggedIn$.next(token !== null);
 
-    return this.isLoggedIn$.asObservable();
+    return this._isLoggedIn$.asObservable();
   }
 
   logout() {
-    this.isLoggedIn$.next(false);
+    this._isLoggedIn$.next(false);
     localStorage.removeItem('token');
-    this.router.navigate(['login']);
+    this._router.navigate(['login']);
   }
 
   private setLoading(state: boolean) {
-    this.isLoading$.next(state);
+    this._isLoading$.next(state);
   }
 }

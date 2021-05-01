@@ -1,15 +1,23 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from '@core/services';
-import { ToastrService } from 'ngx-toastr';
+
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { AuthService } from '@core/services';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
-    private readonly authService: AuthService,
-    private readonly toastr: ToastrService
+    private readonly _authService: AuthService,
+    private readonly _toastrService: ToastrService
   ) {}
 
   intercept(
@@ -19,8 +27,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.error.message === 'Unauthorized') {
-          this.toastr.clear();
-          this.toastr
+          this._toastrService.clear();
+          this._toastrService
             .warning('You have been loggedOut', 'Session ended', {
               closeButton: true,
               progressBar: false,
@@ -28,8 +36,8 @@ export class ErrorInterceptor implements HttpInterceptor {
             })
             .onTap.subscribe((a) => {
               // TODO fix session ended notification keep showing up
-              this.authService.logout();
-              this.toastr.clear();
+              this._authService.logout();
+              this._toastrService.clear();
             });
         }
 

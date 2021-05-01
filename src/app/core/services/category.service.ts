@@ -1,11 +1,15 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs';
+
+import { LazyLoadEvent } from 'primeng/api';
+
 import { Card, Category, ServerResp } from '@models/interfaces';
+
 import { ApiPath } from '@utils/constants/api-paths';
 import mapTableParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';
-import { LazyLoadEvent } from 'primeng/api';
-import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -17,26 +21,31 @@ const httpOptions = {
 export class CategoryService {
   private CATEGORIES_BASE_URL = PathBuilder.get(ApiPath.CATEGORIES);
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly _httpClient: HttpClient) {}
 
   getAll(event: LazyLoadEvent = {}): Observable<ServerResp<Category>> {
     const params: HttpParams = mapTableParams(event);
 
-    return this.http.get<ServerResp<Category>>(this.CATEGORIES_BASE_URL, {
-      params,
-    });
+    return this._httpClient.get<ServerResp<Category>>(
+      this.CATEGORIES_BASE_URL,
+      {
+        params,
+      }
+    );
   }
 
   getCategories(event: LazyLoadEvent = null): Observable<Category[]> {
     const params: HttpParams = mapTableParams(event);
 
-    return this.http.get<Category[]>(this.CATEGORIES_BASE_URL, { params });
+    return this._httpClient.get<Category[]>(this.CATEGORIES_BASE_URL, {
+      params,
+    });
   }
 
   save(category: Category): Observable<any> {
     const url = this.CATEGORIES_BASE_URL + '/save';
 
-    return this.http.post(url, category, httpOptions);
+    return this._httpClient.post(url, category, httpOptions);
   }
 
   delete(categoryIds: number[], withExpenses: boolean): Observable<any> {
@@ -51,19 +60,19 @@ export class CategoryService {
       params,
     } as any;
 
-    return this.http.delete<Category[]>(url, options);
+    return this._httpClient.delete<Category[]>(url, options);
   }
 
   get(catId: number): Observable<Category> {
     const url = this.CATEGORIES_BASE_URL + '/category/' + catId;
 
-    return this.http.get<Category>(url);
+    return this._httpClient.get<Category>(url);
   }
 
   getByName(name: string): Observable<Category> {
     const url = this.CATEGORIES_BASE_URL + '/name/' + name;
 
-    return this.http.get<Category>(url);
+    return this._httpClient.get<Category>(url);
   }
 
   nameExists(name: string): Observable<Category> {
@@ -73,12 +82,12 @@ export class CategoryService {
   update(category: Category): Observable<any> {
     const url = this.CATEGORIES_BASE_URL + `/update`;
 
-    return this.http.put(url, category, httpOptions);
+    return this._httpClient.put(url, category, httpOptions);
   }
 
   getStats(): Observable<Card[]> {
     const url = this.CATEGORIES_BASE_URL + `/info`;
 
-    return this.http.get<Card[]>(url);
+    return this._httpClient.get<Card[]>(url);
   }
 }

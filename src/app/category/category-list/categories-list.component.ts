@@ -38,16 +38,16 @@ export class TagDataSource extends DataSource<Category> {
 })
 export class CategoriesListComponent implements OnInit {
   tableColumns: string[] = ['name', 'description', 'color', 'actions'];
-  dataSource = new TagDataSource(this.categoryFacade);
+  dataSource = new TagDataSource(this._categoryFacade);
 
-  loading$ = this.categoryFacade.loading$;
+  loading$ = this._categoryFacade.loading$;
 
   constructor(
-    private categoryFacade: CategoryFacade,
-    private readonly overlayService: OverlayService,
+    private readonly _categoryFacade: CategoryFacade,
+    private readonly _overlayService: OverlayService,
     private readonly _translocoService: TranslocoService
   ) {
-    this.categoryFacade.getCategories(null);
+    this._categoryFacade.getCategories(null);
   }
 
   ngOnInit() {
@@ -55,20 +55,20 @@ export class CategoriesListComponent implements OnInit {
   }
 
   getCategories(event: LazyLoadEvent): void {
-    this.categoryFacade.getCategories(event);
+    this._categoryFacade.getCategories(event);
   }
 
   showDeleteDialog(category: Category) {
     const text = this._translocoService.translate('CATEGORY.LIST.DELETE', {
       categoryName: category.name,
     });
-    const overlayRef = this.overlayService.open(text, null);
+    const overlayRef = this._overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
-        this.categoryFacade
+        this._categoryFacade
           .deleteCategory([category.id], false)
           .subscribe(() => {
-            this.categoryFacade.getCategories(null);
+            this._categoryFacade.getCategories(null);
           });
       }
     });

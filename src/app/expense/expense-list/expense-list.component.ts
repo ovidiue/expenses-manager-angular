@@ -48,30 +48,30 @@ export class ExpenseListComponent implements OnInit {
     'payed',
     'actions',
   ];
-  dataSource = new ExpenseDataSource(this.expenseFacade);
+  dataSource = new ExpenseDataSource(this._expenseFacade);
 
-  loading$ = this.expenseFacade.loading$;
+  loading$ = this._expenseFacade.loading$;
 
   constructor(
-    private router: Router,
-    private expenseFacade: ExpenseFacade,
-    private overlayService: OverlayService,
+    private readonly _router: Router,
+    private readonly _expenseFacade: ExpenseFacade,
+    private readonly _overlayService: OverlayService,
     private readonly _translocoService: TranslocoService
   ) {}
 
   ngOnInit() {
-    this.expenseFacade.getExpenses(null);
+    this._expenseFacade.getExpenses(null);
   }
 
   showDeleteDialog(expense: Expense) {
     const text = this._translocoService.translate('EXPENSES.LIST.DELETE', {
       expenseName: expense.name,
     });
-    const overlayRef = this.overlayService.open(text, null);
+    const overlayRef = this._overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
-        this.expenseFacade.deleteExpensesApi([expense.id], false);
-        this.expenseFacade.getExpenses(null);
+        this._expenseFacade.deleteExpensesApi([expense.id], false);
+        this._expenseFacade.getExpenses(null);
       }
     });
   }

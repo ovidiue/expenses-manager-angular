@@ -14,10 +14,10 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly _httpClient: HttpClient) {}
 
   getTranslation(lang: string) {
-    return this.http.get<Translation>(`/assets/i18n/${lang}.json`);
+    return this._httpClient.get<Translation>(`/assets/i18n/${lang}.json`);
   }
 }
 

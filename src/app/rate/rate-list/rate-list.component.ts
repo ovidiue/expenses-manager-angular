@@ -43,29 +43,29 @@ export class RateListComponent implements OnInit {
     'expense',
     'actions',
   ];
-  dataSource = new RateDataSource(this.ratesFacade);
+  dataSource = new RateDataSource(this._ratesFacade);
 
-  loading$ = this.ratesFacade.loading$;
+  loading$ = this._ratesFacade.loading$;
 
   constructor(
-    private readonly overlayService: OverlayService,
-    private readonly ratesFacade: RatesFacade,
+    private readonly _overlayService: OverlayService,
+    private readonly _ratesFacade: RatesFacade,
     private readonly _translocoService: TranslocoService
   ) {}
 
   ngOnInit() {
-    this.ratesFacade.getRates(null);
+    this._ratesFacade.getRates(null);
   }
 
   showDeleteDialog(rate: Rate) {
     const text = this._translocoService.translate('RATE.LIST.DELETE', {
       rateAmount: rate.amount,
     });
-    const overlayRef = this.overlayService.open(text, null);
+    const overlayRef = this._overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
-        this.ratesFacade.deleteRates([rate.id]);
-        this.ratesFacade.getRates(null);
+        this._ratesFacade.deleteRates([rate.id]);
+        this._ratesFacade.getRates(null);
       }
     });
   }

@@ -35,30 +35,30 @@ export class TagDataSource extends DataSource<Tag> {
   animations: [fadeIn],
 })
 export class TagListComponent implements OnInit {
-  loading$ = this.tagFacade.loading$;
+  loading$ = this._tagFacade.loading$;
 
   tableColumns: string[] = ['name', 'description', 'color', 'actions'];
-  dataSource = new TagDataSource(this.tagFacade);
+  dataSource = new TagDataSource(this._tagFacade);
 
   constructor(
-    private tagFacade: TagFacade,
-    private readonly overlayService: OverlayService,
+    private readonly _tagFacade: TagFacade,
+    private readonly _overlayService: OverlayService,
     private readonly _translocoService: TranslocoService
   ) {}
 
   ngOnInit() {
-    this.tagFacade.getTags(null);
+    this._tagFacade.getTags(null);
   }
 
   showDeleteDialog(tag: Tag) {
     const text = this._translocoService.translate('TAG.LIST.DELETE', {
       tagName: tag.name,
     });
-    const overlayRef = this.overlayService.open(text, null);
+    const overlayRef = this._overlayService.open(text, null);
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
-        this.tagFacade.deleteTags([tag]).subscribe(() => {
-          this.tagFacade.getTags(null);
+        this._tagFacade.deleteTags([tag]).subscribe(() => {
+          this._tagFacade.getTags(null);
         });
       }
     });

@@ -25,8 +25,8 @@ export class TagFacade {
   private event: LazyLoadEvent;
 
   constructor(
-    private tagService: TagService,
-    private readonly toastr: ToastrService
+    private readonly _tagService: TagService,
+    private readonly _toastrService: ToastrService
   ) {
     this.getTags(null);
   }
@@ -46,9 +46,9 @@ export class TagFacade {
   getTag(id: number) {
     this.setLoading(true);
 
-    return this.tagService.get(id).pipe(
+    return this._tagService.get(id).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, 'Failed fetching tag');
+        this._toastrService.error(err.message, 'Failed fetching tag');
 
         return throwError(err);
       }),
@@ -59,9 +59,9 @@ export class TagFacade {
   }
 
   getTagByName(name: string): Observable<Tag> {
-    return this.tagService.getByName(name).pipe(
+    return this._tagService.getByName(name).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, 'Failed fetching tag');
+        this._toastrService.error(err.message, 'Failed fetching tag');
 
         return throwError(err);
       })
@@ -71,14 +71,14 @@ export class TagFacade {
   saveTag(tag: Tag) {
     this.setLoading(true);
 
-    return this.tagService.save(tag).pipe(
+    return this._tagService.save(tag).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, 'Failed saving tag');
+        this._toastrService.error(err.message, 'Failed saving tag');
 
         return throwError(err);
       }),
       tap((resp) => {
-        this.toastr.success('', 'Saved tag');
+        this._toastrService.success('', 'Saved tag');
       }),
       finalize(() => {
         this.setLoading(false);
@@ -89,14 +89,14 @@ export class TagFacade {
   update(tag: Tag) {
     this.setLoading(true);
 
-    return this.tagService.update(tag).pipe(
+    return this._tagService.update(tag).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, 'Failed updating tag');
+        this._toastrService.error(err.message, 'Failed updating tag');
 
         return throwError(err);
       }),
       tap((resp) => {
-        this.toastr.success('', 'Updated tag');
+        this._toastrService.success('', 'Updated tag');
       }),
       finalize(() => {
         this.setLoading(false);
@@ -112,14 +112,14 @@ export class TagFacade {
     const stringForm = tags.length > 1 ? 'tags' : 'tag';
     this.setLoading(true);
 
-    return this.tagService.delete(tags).pipe(
+    return this._tagService.delete(tags).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error('Failed deleting', 'Delete');
+        this._toastrService.error('Failed deleting', 'Delete');
 
         return throwError(err);
       }),
       tap(() => {
-        this.toastr.success(`Successfully deleted ${stringForm}`);
+        this._toastrService.success(`Successfully deleted ${stringForm}`);
       }),
       finalize(() => {
         this.setLoading(false);
@@ -129,11 +129,11 @@ export class TagFacade {
 
   getTags(event: LazyLoadEvent) {
     this.setLoading(true);
-    this.tagService
+    this._tagService
       .getAll(event)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error('Error getting tags', 'Error');
+          this._toastrService.error('Error getting tags', 'Error');
 
           return throwError(err);
         }),

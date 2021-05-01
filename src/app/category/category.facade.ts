@@ -22,7 +22,10 @@ export class CategoryFacade {
     ''
   );
 
-  constructor(private service: CategoryService, private toastr: ToastrService) {
+  constructor(
+    private readonly _categoryService: CategoryService,
+    private readonly _toastrService: ToastrService
+  ) {
     this.getCategories(null);
   }
 
@@ -52,9 +55,12 @@ export class CategoryFacade {
     this._loading$.next(true);
     this.setMessage(`Fetching category with id ${catId}`);
 
-    return this.service.get(catId).pipe(
+    return this._categoryService.get(catId).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(`Failed getting category with id: ${catId}`, 'Error');
+        this._toastrService.error(
+          `Failed getting category with id: ${catId}`,
+          'Error'
+        );
 
         return throwError(err);
       }),
@@ -66,16 +72,16 @@ export class CategoryFacade {
   }
 
   getCategoryByName(name: string): Observable<Category> {
-    return this.service.getByName(name);
+    return this._categoryService.getByName(name);
   }
 
   updateCategory(category: Category): Observable<any> {
     this._loading$.next(true);
     this.setMessage(`Updating category ${category.name}`);
 
-    return this.service.update(category).pipe(
+    return this._categoryService.update(category).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(
+        this._toastrService.error(
           `'Failed updating category ${category.name}`,
           'Update'
         );
@@ -83,7 +89,7 @@ export class CategoryFacade {
         return throwError(err);
       }),
       tap(() => {
-        this.toastr.success('Success updating category', 'Success');
+        this._toastrService.success('Success updating category', 'Success');
       }),
       finalize(() => {
         this._loading$.next(false);
@@ -96,14 +102,17 @@ export class CategoryFacade {
     this._loading$.next(true);
     this.setMessage(`Saving category ${category.name}`);
 
-    return this.service.save(category).pipe(
+    return this._categoryService.save(category).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(`Failed saving category ${category.name}`, 'Fail');
+        this._toastrService.error(
+          `Failed saving category ${category.name}`,
+          'Fail'
+        );
 
         return throwError(err);
       }),
       tap(() => {
-        this.toastr.success(
+        this._toastrService.success(
           `Success saving new category ${category.name}`,
           'Save'
         );
@@ -120,9 +129,9 @@ export class CategoryFacade {
   ): Observable<any[]> {
     this._loading$.next(true);
 
-    return this.service.delete(ids, withExpense).pipe(
+    return this._categoryService.delete(ids, withExpense).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, MESSAGES.ERROR);
+        this._toastrService.error(err.message, MESSAGES.ERROR);
 
         return throwError(err);
       }),
@@ -141,7 +150,7 @@ export class CategoryFacade {
         this._total$.next(newTotal);
         this._categories$.next(filteredCategories);
 
-        this.toastr.success(
+        this._toastrService.success(
           MESSAGES.CATEGORY.DELETED_MULTIPLE,
           ids.length.toString()
         );
@@ -154,11 +163,11 @@ export class CategoryFacade {
 
   getCategories(event: LazyLoadEvent): void {
     this._loading$.next(true);
-    this.service
+    this._categoryService
       .getAll(event)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, MESSAGES.ERROR);
+          this._toastrService.error(err.message, MESSAGES.ERROR);
 
           return throwError(err);
         }),

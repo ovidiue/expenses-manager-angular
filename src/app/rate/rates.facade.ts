@@ -16,9 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RatesFacade {
   constructor(
-    private rateService: RateService,
-    private expenseService: ExpenseService,
-    private toastr: ToastrService
+    private readonly _rateService: RateService,
+    private readonly _expenseService: ExpenseService,
+    private readonly _toastrService: ToastrService
   ) {}
 
   private _rates$: BehaviorSubject<Rate[]> = new BehaviorSubject([]);
@@ -48,24 +48,24 @@ export class RatesFacade {
   }
 
   getRatesByExpenseIds(ids: number[], event: LazyLoadEvent) {
-    return this.rateService.getRatesByExpenseIds(ids, event);
+    return this._rateService.getRatesByExpenseIds(ids, event);
   }
 
   deleteRates(ids: number[]) {
     this.setLoadingState(true);
 
-    return this.rateService
+    return this._rateService
       .deleteRates(ids)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, 'Failed deleting rates');
+          this._toastrService.error(err.message, 'Failed deleting rates');
 
           return throwError(err);
         }),
         finalize(() => this.setLoadingState(false))
       )
       .subscribe(() => {
-        this.toastr.success('', 'Deleted rates');
+        this._toastrService.success('', 'Deleted rates');
 
         this.getRates(null);
       });
@@ -73,11 +73,11 @@ export class RatesFacade {
 
   getRates(event: LazyLoadEvent): void {
     this.setLoadingState(true);
-    this.rateService
+    this._rateService
       .getRates(event)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, 'Load rates failed');
+          this._toastrService.error(err.message, 'Load rates failed');
 
           return throwError(err);
         }),
@@ -93,9 +93,9 @@ export class RatesFacade {
   getRateByName(name: string) {
     this.setLoadingState(true);
 
-    return this.rateService.getByName(name).pipe(
+    return this._rateService.getByName(name).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, `Get rate ${name} failed`);
+        this._toastrService.error(err.message, `Get rate ${name} failed`);
 
         return throwError(err);
       }),
@@ -106,13 +106,16 @@ export class RatesFacade {
   saveRate(rate: Rate) {
     this.setLoadingState(true);
 
-    return this.rateService.save(rate).pipe(
+    return this._rateService.save(rate).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, `Save rate ${rate.amount} failed`);
+        this._toastrService.error(
+          err.message,
+          `Save rate ${rate.amount} failed`
+        );
 
         return throwError(err);
       }),
-      tap(() => this.toastr.success('', 'Added rate')),
+      tap(() => this._toastrService.success('', 'Added rate')),
       finalize(() => this.setLoadingState(false))
     );
   }
@@ -120,9 +123,9 @@ export class RatesFacade {
   getRate(id: number) {
     this.setLoadingState(true);
 
-    return this.rateService.get(id).pipe(
+    return this._rateService.get(id).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, `Get rate ${id} failed`);
+        this._toastrService.error(err.message, `Get rate ${id} failed`);
 
         return throwError(err);
       }),
@@ -133,13 +136,16 @@ export class RatesFacade {
   updateRate(rate: Rate, expenseId: string, rateAmount: string) {
     this.setLoadingState(true);
 
-    return this.rateService.update(rate, expenseId, rateAmount).pipe(
+    return this._rateService.update(rate, expenseId, rateAmount).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, `Update rate ${rate.amount} failed`);
+        this._toastrService.error(
+          err.message,
+          `Update rate ${rate.amount} failed`
+        );
 
         return throwError(err);
       }),
-      tap(() => this.toastr.success('', 'Updated rate')),
+      tap(() => this._toastrService.success('', 'Updated rate')),
       finalize(() => this.setLoadingState(false))
     );
   }
