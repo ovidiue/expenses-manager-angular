@@ -3,15 +3,21 @@
     <h3>{{ 'EXPENSES.LIST.TITLE' | transloco }}</h3>
   </div>
 
-  <ng-container *ngIf="loading$ | async as loading; else table">
+  <app-no-data
+    *ngIf="!(expenses$ | async).length"
+    [message]="'nu sunt date momentan. vrei sa adaugam?'"
+  >
+    <button appButton routerLink="add" class="expenses-actions--button">
+      {{ 'EXPENSES.LIST.ADD' | transloco }}
+    </button>
+  </app-no-data>
+
+  <ng-container *ngIf="loading$ | async as loading">
     <app-page-spinner [displaySpinner]="loading"></app-page-spinner>
   </ng-container>
-  <ng-template #table>
-    <div class="expenses-actions">
-      <button appButton routerLink="add" class="expenses-actions--button">
-        {{ 'EXPENSES.LIST.ADD' | transloco }}
-      </button>
-    </div>
+
+  <ng-container *ngIf="(expenses$ | async).length">
+    <div class="expenses-actions"></div>
     <table cdk-table [dataSource]="dataSource" class="table">
       <!-- Name Column -->
       <ng-container cdkColumnDef="name">
@@ -126,5 +132,5 @@
         *cdkRowDef="let row; columns: tableColumns"
       ></tr>
     </table>
-  </ng-template>
+  </ng-container>
 </div>

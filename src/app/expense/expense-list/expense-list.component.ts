@@ -36,6 +36,7 @@ export class ExpenseDataSource extends DataSource<Expense> {
   animations: [fadeIn],
 })
 export class ExpenseListComponent implements OnInit {
+  expenses$ = this._expenseFacade.expenses$;
   tableColumns: string[] = [
     'name',
     'amount',

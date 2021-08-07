@@ -12,10 +12,11 @@ import {
 } from './index';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { NoDataModule } from '@shared/components/noData/no-data.module';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  imports: [SharedModule, SvgIconsModule, TranslocoRootModule],
+  imports: [SharedModule, SvgIconsModule, TranslocoRootModule, NoDataModule],
   declarations: [
     ExpenseListComponent,
     AppRowActionsComponent,

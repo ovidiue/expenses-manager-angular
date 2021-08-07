@@ -1,0 +1,19 @@
+@import 'custom';
+@import 'variables';
+
+.noData {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &-container {
+    width: 35rem;
+  }
+
+  &-text {
+    color: $secondary;
+    text-align: center;
+  }
+}

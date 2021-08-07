@@ -17,6 +17,12 @@ import { TranslocoRootModule } from './transloco/transloco-root.module';
 
 import { CoreModule } from '@core/core.module';
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import player from 'lottie-web';
+import { LottieModule } from 'ngx-lottie';
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +30,7 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
     CoreModule,
     CategoryModule,
     RateModule,
+    LottieModule.forRoot({ player: playerFactory }),
     TagModule,
     ExpenseModule,
     DashboardModule,

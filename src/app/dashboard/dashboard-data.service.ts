@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CategoryService, TagService } from '@core/services';
-import { Card } from '@models/interfaces';
+
 import { Observable } from 'rxjs';
+
+import { Card } from '@models/interfaces';
+
+import { CategoryService, TagService } from '@core/services';
 
 @Injectable({
   providedIn: 'root',
