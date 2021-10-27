@@ -1,4 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Route, RouterModule } from '@angular/router';
+
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { CategoryDetailBaseComponent } from './category-detail/category-detail-base.component';
@@ -10,10 +15,26 @@ import {
 } from './index';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 
+const categoryRoutes: Route[] = [
+  { path: '', component: CategoriesListComponent },
+  { path: 'add', component: CategoryDetailAddComponent },
+  { path: 'edit/:id', component: CategoryDetailEditComponent },
+];
+
 @NgModule({
-  imports: [SharedModule, SvgIconsModule, TranslocoRootModule],
+  imports: [
+    SharedModule,
+    SvgIconsModule,
+    TranslocoRootModule,
+    RouterModule.forChild(categoryRoutes),
+    MaterialModule,
+    ReactiveFormsModule,
+    ColorPickerModule,
+    CommonModule,
+  ],
   declarations: [
     CategoryDetailEditComponent,
     CategoriesListComponent,

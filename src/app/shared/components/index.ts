@@ -1,5 +1,3 @@
-export * from './card-view/card-view.component';
-export * from './card-view-list/card-view-list.component';
 export * from './chart/chart.component';
 export * from './dialog/dialog.component';
 export * from './dialog-rates/dialog-rates.component';

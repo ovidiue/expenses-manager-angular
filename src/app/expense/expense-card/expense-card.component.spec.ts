@@ -6,12 +6,13 @@ describe('ExpenseCardComponent', () => {
   let component: ExpenseCardComponent;
   let fixture: ComponentFixture<ExpenseCardComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ExpenseCardComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ExpenseCardComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ExpenseCardComponent);

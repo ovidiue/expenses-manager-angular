@@ -1,34 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import {
-  CategoriesListComponent,
-  CategoryDetailAddComponent,
-  CategoryDetailEditComponent,
-} from '../category';
-import { DashboardComponent } from '../dashboard';
-import {
-  ExpenseDetailAddComponent,
-  ExpenseDetailEditComponent,
-  ExpenseListComponent,
-} from '../expense';
 import { AuthGuard } from '../guards/auth.guard';
-import { LoginComponent } from '../login';
-import {
-  RateDetailAddComponent,
-  RateDetailEditComponent,
-  RateListComponent,
-} from '../rate';
-import {
-  TagDetailAddComponent,
-  TagDetailEditComponent,
-  TagListComponent,
-} from '../tag';
 
 import { MainComponent } from '@core/main/main.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('../login/login.module').then((m) => m.LoginModule),
+  },
   { path: '', redirectTo: 'home/expenses', pathMatch: 'full' },
   {
     path: 'home',
@@ -45,58 +27,53 @@ export const routes: Routes = [
         data: {
           displayName: 'MENUS.EXPENSES',
         },
-        children: [
-          { path: '', component: ExpenseListComponent },
-          { path: 'add', component: ExpenseDetailAddComponent },
-          { path: 'edit/:id', component: ExpenseDetailEditComponent },
-        ],
+        loadChildren: () =>
+          import('../expense/expense.module').then((m) => m.ExpenseModule),
       },
       {
         path: 'rates',
         data: {
           displayName: 'MENUS.RATES',
         },
-        children: [
-          { path: '', component: RateListComponent },
-          { path: 'add', component: RateDetailAddComponent },
-          { path: 'edit/:id', component: RateDetailEditComponent },
-        ],
+        loadChildren: () =>
+          import('../rate/rate.module').then((m) => m.RateModule),
       },
       {
         path: 'categories',
         data: {
           displayName: 'MENUS.CATEGORIES',
         },
-        children: [
-          { path: '', component: CategoriesListComponent },
-          { path: 'add', component: CategoryDetailAddComponent },
-          { path: 'edit/:id', component: CategoryDetailEditComponent },
-        ],
+        loadChildren: () =>
+          import('../category/category.module').then((m) => m.CategoryModule),
       },
       {
         path: 'tags',
         data: {
           displayName: 'MENUS.TAGS',
         },
-        children: [
-          { path: '', component: TagListComponent },
-          { path: 'add', component: TagDetailAddComponent },
-          { path: 'edit/:id', component: TagDetailEditComponent },
-        ],
+        loadChildren: () =>
+          import('../tag/tag.module').then((m) => m.TagModule),
       },
       {
         path: 'dashboard',
         data: {
           displayName: 'MENUS.DASHBOARD',
         },
-        component: DashboardComponent,
+        loadChildren: () =>
+          import('../dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
       },
     ],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      relativeLinkResolution: 'legacy',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,10 +1,10 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ExpenseDetailAddComponent } from './expense-detail-add.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExpenseFacade } from '../expense.facade';
+import { ExpenseDetailAddComponent } from './expense-detail-add.component';
 
 class MockExpenseService {
   getTags = jasmine.createSpy('getTags');

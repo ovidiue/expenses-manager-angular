@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from '../app-routing/app-routing.module';
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
@@ -13,6 +15,8 @@ const importsAndExports = [HttpClientModule, AppRoutingModule];
 @NgModule({
   imports: [
     ...importsAndExports,
+    BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     ToastrModule.forRoot({
       progressBar: true,

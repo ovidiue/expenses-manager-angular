@@ -1,4 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Route, RouterModule } from '@angular/router';
 
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import {
@@ -9,10 +12,25 @@ import {
 import { RateDetailBaseComponent } from './rate-detail/rate-detail-base.component';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 
+const ratesRoutes: Route[] = [
+  { path: '', component: RateListComponent },
+  { path: 'add', component: RateDetailAddComponent },
+  { path: 'edit/:id', component: RateDetailEditComponent },
+];
+
 @NgModule({
-  imports: [SharedModule, SvgIconsModule, TranslocoRootModule],
+  imports: [
+    SharedModule,
+    SvgIconsModule,
+    TranslocoRootModule,
+    RouterModule.forChild(ratesRoutes),
+    MaterialModule,
+    ReactiveFormsModule,
+    CommonModule,
+  ],
   declarations: [
     RateListComponent,
     RateDetailAddComponent,

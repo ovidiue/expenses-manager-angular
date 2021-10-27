@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { Card } from '@models/interfaces/card.interface';
 
 @Component({

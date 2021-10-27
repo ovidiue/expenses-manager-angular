@@ -1,16 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslocoRootModule } from "../transloco/transloco-root.module";
 
+import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { PrimengModule } from './primeng.module';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { CdkModule } from '@shared/cdk.module';
 import {
-  CardViewComponent,
-  CardViewListComponent,
   ChartComponent,
   DialogComponent,
   DialogRatesComponent,
@@ -25,24 +20,10 @@ import { LabelComponent } from '@shared/components/label/label.component';
 import { MaterialModule } from '@shared/material.module';
 import { OverlayComponent } from '@shared/modal/overlay.component';
 
-const importsExports = [
-  FormsModule,
-  ReactiveFormsModule,
-  PrimengModule,
-  MaterialModule,
-  CommonModule,
-  CdkModule,
-];
+const importsExports = [CdkModule];
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    PrimengModule,
-    CommonModule,
-    MaterialModule,
-    SvgIconsModule,
-    TranslocoRootModule
-  ],
+  imports: [PrimengModule, MaterialModule, SvgIconsModule, TranslocoRootModule],
   exports: [
     ...importsExports,
     PageSpinnerComponent,
@@ -59,8 +40,6 @@ const importsExports = [
     DialogComponent,
     DialogRatesComponent,
     ExpenseCardListComponent,
-    CardViewComponent,
-    CardViewListComponent,
     ExpenseChartComponent,
     ChartComponent,
     ShortFilterComponent,

@@ -2,16 +2,19 @@
   <p-accordion>
     <p-accordionTab header="Filters">
       <p-header> Filters </p-header>
+
       <app-short-filter
         (removeFilter)="filterUpdate($event)"
         [filter]="filterForm.value"
       >
       </app-short-filter>
+
       <form [formGroup]="filterForm">
         <div class="row">
           <div class="col">
             <div class="form-group">
               <label for="title">Title</label>
+
               <input
                 class="form-control"
                 formControlName="name"
@@ -21,9 +24,11 @@
               />
             </div>
           </div>
+
           <div class="col">
             <div class="form-group">
               <label for="description">Description</label>
+
               <input
                 class="form-control"
                 formControlName="description"
@@ -46,6 +51,7 @@
                     multiple
                   >
                     <mat-option>None</mat-option>
+
                     <mat-option
                       *ngFor="let cat of categories$ | async"
                       [value]="cat"
@@ -57,6 +63,7 @@
               </app-label>
             </div>
           </div>
+
           <div class="col">
             <div class="form-group">
               <app-label text="Tags">
@@ -67,6 +74,7 @@
                     multiple
                   >
                     <mat-option>None</mat-option>
+
                     <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
                       {{ tag.title }}
                     </mat-option>
@@ -86,11 +94,15 @@
                     <input matStartDate placeholder="Start date" />
                     <input matEndDate placeholder="End date" />
                   </mat-date-range-input>
+
                   <mat-datepicker-toggle
                     matSuffix
                     [for]="pickerCreation"
                   ></mat-datepicker-toggle>
-                  <mat-date-range-picker #pickerCreation></mat-date-range-picker>
+
+                  <mat-date-range-picker
+                    #pickerCreation
+                  ></mat-date-range-picker>
                 </mat-form-field>
               </app-label>
             </div>
@@ -103,10 +115,12 @@
                     <input matStartDate placeholder="Start date" />
                     <input matEndDate placeholder="End date" />
                   </mat-date-range-input>
+
                   <mat-datepicker-toggle
                     matSuffix
                     [for]="picker"
                   ></mat-datepicker-toggle>
+
                   <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
               </app-label>
@@ -122,6 +136,7 @@
               </mat-checkbox>
             </div>
           </div>
+
           <div class="col">
             <div class="form-group">
               <label
@@ -133,9 +148,11 @@
                 for="amount"
                 >Amount {{ amountBetween[0] + ' - ' + amountBetween[1] }}</label
               >
+
               <ng-template #labelSimple>
                 <label for="amount">Amount</label>
               </ng-template>
+
               <p-slider
                 [max]="amountBetween[1]"
                 [min]="amountBetween[0]"

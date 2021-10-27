@@ -18,12 +18,14 @@
 
   <ng-container *ngIf="(expenses$ | async).length">
     <div class="expenses-actions"></div>
+
     <table cdk-table [dataSource]="dataSource" class="table">
       <!-- Name Column -->
       <ng-container cdkColumnDef="name">
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.NAME' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
       </ng-container>
 
@@ -32,6 +34,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.AMOUNT' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.amount }}
         </td>
@@ -41,6 +44,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.DESCRIPTION' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.description }}
         </td>
@@ -50,6 +54,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.RECURRENT' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.recurrent }}
         </td>
@@ -59,6 +64,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.CREATED_ON' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.createdOn | date }}
         </td>
@@ -68,6 +74,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'EXPENSES.LIST.DUE_DATE' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.dueDate | date }}
         </td>
@@ -77,6 +84,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'EXPENSES.LIST.CATEGORY' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.category?.name }}
         </td>
@@ -86,6 +94,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'EXPENSES.LIST.TAGS' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.tags }}
         </td>
@@ -95,6 +104,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'EXPENSES.LIST.PAYED' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.payed }}
         </td>
@@ -105,10 +115,12 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.ACTIONS' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element" class="actions">
           <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
             <svg-icon key="edit" size="lg"></svg-icon>
           </button>
+
           <button
             appButton
             bType="warning"

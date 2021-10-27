@@ -6,18 +6,21 @@
   <ng-container *ngIf="loading$ | async as loading; else table">
     <app-page-spinner [displaySpinner]="loading"></app-page-spinner>
   </ng-container>
+
   <ng-template #table>
     <div class="tags-actions">
       <button appButton routerLink="add" class="tags-actions--button">
         {{ 'TAG.LIST.ADD' | transloco }}
       </button>
     </div>
+
     <table cdk-table [dataSource]="dataSource" class="table">
       <!-- Name Column -->
       <ng-container cdkColumnDef="name">
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.NAME' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
       </ng-container>
 
@@ -26,6 +29,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.DESCRIPTION' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           {{ element.description }}
         </td>
@@ -36,6 +40,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.COLOR' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element">
           <div [style.background]="element.color" class="color"></div>
         </td>
@@ -46,6 +51,7 @@
         <th cdk-header-cell *cdkHeaderCellDef>
           {{ 'GENERAL.ACTIONS' | transloco }}
         </th>
+
         <td cdk-cell *cdkCellDef="let element" class="actions">
           <button appButton bShape="fab" routerLink="edit/{{ element.id }}">
             <svg-icon key="edit" size="lg"></svg-icon>

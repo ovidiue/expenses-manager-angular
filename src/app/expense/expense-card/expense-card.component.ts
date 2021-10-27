@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { Expense } from '@models/interfaces';
 
 @Component({
@@ -8,5 +9,6 @@ import { Expense } from '@models/interfaces';
 })
 export class ExpenseCardComponent {
   @Input() expense: Expense;
+
   expandedDescription = false;
 }
