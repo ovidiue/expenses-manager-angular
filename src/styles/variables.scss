@@ -4,8 +4,10 @@ $secondary: #40798C;
 $red: #BB4430 ;
 $green-light: #2FBF71;
 $orange: #FFAE03 ;
-$gray: #cfcfcf;
+$gray: #f8f8f8;
+$gray-dark: darken($gray, 5%);
 
 $spacer-sm: 1rem * 0.8;
-$spacer-md: 1rem * 2;
-$spacer-lg: 1rem * 3;
+$spacer-md: $spacer-sm * 2;
+$spacer-lg: $spacer-sm * 3;
+$spacer-xlg: $spacer-sm * 4;

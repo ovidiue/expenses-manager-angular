@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  Attribute,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Optional,
+} from '@angular/core';
 
 import { AnimationOptions } from 'ngx-lottie';
 
@@ -11,8 +17,16 @@ import { AnimationOptions } from 'ngx-lottie';
 export class NoDataComponent {
   @Input() message = '';
 
+  constructor(@Optional() @Attribute('error') private error: boolean) {}
+
+  private get path() {
+    return this.error === null
+      ? 'assets/animations/tumbleweed-rolling.json'
+      : 'assets/animations/error.json';
+  }
+
   options: AnimationOptions = {
-    path: 'assets/animations/empty.json',
+    path: this.path,
     loop: 1,
   };
 }
