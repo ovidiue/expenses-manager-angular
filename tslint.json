@@ -7,7 +7,6 @@
     "codelyzer"
   ],
   "rules": {
-    "prettier": true,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
@@ -82,19 +81,22 @@
     ],
     "interface-over-type-literal": true,
     "label-position": true,
-    "max-line-length": [
-      true,
-      120
-    ],
     "member-access": false,
     "member-ordering": [
       true,
       {
         "order": [
+          "private-instance-field",
+          "private-instance-accessor",
           "static-field",
           "instance-field",
+          "public-constructor",
+          "private-constructor",
+          "protected-constructor",
+          "constructor",
           "static-method",
-          "instance-method"
+          "instance-method",
+          "private-instance-method"
         ]
       }
     ],
@@ -131,13 +133,7 @@
     "no-unused-expression": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-whitespace"
-    ],
+    "one-line": false,
     "prefer-const": true,
     "quotemark": [
       true,
