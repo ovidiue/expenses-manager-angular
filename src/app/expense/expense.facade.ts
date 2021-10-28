@@ -2,9 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, map, tap } from 'rxjs/operators';
-
-import { LazyLoadEvent } from 'primeng/api';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 import { Expense, ExpenseFilter, Rate, ServerResp } from '@models/interfaces';
 
@@ -21,31 +19,22 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class ExpenseFacade {
+  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
   get loading$() {
     return this._loading$.asObservable();
   }
 
+  private _expenses$ = new BehaviorSubject<Expense[]>([]);
   get expenses$() {
     return this._expenses$.asObservable();
   }
 
-  get total$() {
-    return this._total$.asObservable();
+  private _apiErr$ = new BehaviorSubject<boolean>(false);
+  get apiErr$() {
+    return this._apiErr$.asObservable();
   }
-
-  get isModalVisible$() {
-    return this._visibleModal$.asObservable();
-  }
-  private _visibleModal$ = new BehaviorSubject<boolean>(false);
-  private event: LazyLoadEvent = null;
-
-  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-
-  private _expenses$ = new BehaviorSubject<Expense[]>([]);
-
-  private _total$ = new BehaviorSubject<number>(0);
   categories$ = this.categoryFacade.categories$;
   tags$ = this.tagFacade.tags$;
 
@@ -56,40 +45,27 @@ export class ExpenseFacade {
     private readonly tagFacade: TagFacade,
     private readonly toastr: ToastrService
   ) {
-    this.getExpenses(null);
+    this.getExpenses();
   }
 
-  getModalVisible() {
-    return this._visibleModal$.asObservable();
-  }
+  getExpenses() {
+    return this.expenseService.getAll().pipe(
+      tap((resp) => {
+        this._expenses$.next(resp.data);
+        this._apiErr$.next(false);
+      }),
+      catchError((err) => {
+        this._apiErr$.next(true);
+        this._expenses$.next([]);
 
-  setModalVisibility(value: boolean) {
-    this._visibleModal$.next(value);
-  }
-
-  getExpenses(event: LazyLoadEvent, expenseFilter?: ExpenseFilter): void {
-    this.setLoading(true);
-    this.event = event;
-
-    this.expenseService
-      .getAll(event, expenseFilter)
-      .pipe(
-        catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, MESSAGES.ERROR);
-
-          return throwError(err);
-        }),
-        map((resp) => ({ data: resp.data || [], total: resp.total || 0 })),
-        finalize(() => this.setLoading(false))
-      )
-      .subscribe((result) => {
-        this._expenses$.next(result.data);
-        this._total$.next(result.total || 0);
-      });
+        return throwError(err);
+      }),
+      finalize(() => this._loading$.next(false))
+    );
   }
 
   setCategoryApi(expIds: number[], catId: number) {
-    this.setLoading(true);
+    this._loading$.next(true);
 
     this.expenseService
       .setCategory(expIds, catId)
@@ -99,16 +75,15 @@ export class ExpenseFacade {
 
           return throwError(err);
         }),
-        finalize(() => this.setLoading(false))
+        finalize(() => this._loading$.next(false))
       )
       .subscribe(() => {
-        this.getExpenses(this.event);
+        this.getExpenses();
       });
   }
 
   deleteExpensesApi(ids: number[], withRates: boolean) {
-    this.setLoading(true);
-    this.setModalVisibility(true);
+    this._loading$.next(true);
 
     this.expenseService
       .delete(ids, withRates)
@@ -125,11 +100,10 @@ export class ExpenseFacade {
           this.toastr.success(msg, 'Delete');
         }),
         finalize(() => {
-          this.setLoading(false);
-          this.setModalVisibility(false);
+          this._loading$.next(false);
         })
       )
-      .subscribe(() => this.getExpenses(this.event));
+      .subscribe();
   }
 
   getRatesByExpenseIdApi(id: number): Observable<ServerResp<Rate[]>> {
@@ -237,9 +211,5 @@ export class ExpenseFacade {
       }),
       finalize(() => this._loading$.next(false))
     );
-  }
-
-  private setLoading(state: boolean): void {
-    this._loading$.next(state);
   }
 }

@@ -37,6 +37,8 @@ export class ExpenseDataSource extends DataSource<Expense> {
 })
 export class ExpenseListComponent implements OnInit {
   expenses$ = this._expenseFacade.expenses$;
+  expensesApiErr$ = this._expenseFacade.apiErr$;
+
   tableColumns: string[] = [
     'name',
     'amount',
@@ -61,7 +63,8 @@ export class ExpenseListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._expenseFacade.getExpenses(null);
+    console.log('oninit called');
+    this._expenseFacade.getExpenses().subscribe();
   }
 
   showDeleteDialog(expense: Expense) {
@@ -72,7 +75,7 @@ export class ExpenseListComponent implements OnInit {
     overlayRef.afterClosed$.subscribe((res) => {
       if (res.data) {
         this._expenseFacade.deleteExpensesApi([expense.id], false);
-        this._expenseFacade.getExpenses(null);
+        this._expenseFacade.getExpenses().subscribe();
       }
     });
   }

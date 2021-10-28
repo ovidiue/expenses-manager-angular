@@ -4,13 +4,19 @@
   </div>
 
   <app-no-data
-    *ngIf="!(expenses$ | async).length"
+    *ngIf="!(expenses$ | async).length && !(expensesApiErr$ | async)"
     [message]="'nu sunt date momentan. vrei sa adaugam?'"
   >
     <button appButton routerLink="add" class="expenses-actions--button">
       {{ 'EXPENSES.LIST.ADD' | transloco }}
     </button>
   </app-no-data>
+
+  <app-no-data
+    error
+    *ngIf="expensesApiErr$ | async"
+    [message]="'Intampinam o problema tehnica. Te rugam sa incerci mai tarziu!'"
+  ></app-no-data>
 
   <ng-container *ngIf="loading$ | async as loading">
     <app-page-spinner [displaySpinner]="loading"></app-page-spinner>
