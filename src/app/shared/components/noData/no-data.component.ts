@@ -15,18 +15,17 @@ import { AnimationOptions } from 'ngx-lottie';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoDataComponent {
-  @Input() message = '';
-
-  constructor(@Optional() @Attribute('error') private error: boolean) {}
-
   private get path() {
     return this.error === null
       ? 'assets/animations/tumbleweed-rolling.json'
       : 'assets/animations/error.json';
   }
+  @Input() message = '';
 
   options: AnimationOptions = {
     path: this.path,
     loop: 1,
   };
+
+  constructor(@Optional() @Attribute('error') private error: boolean) {}
 }

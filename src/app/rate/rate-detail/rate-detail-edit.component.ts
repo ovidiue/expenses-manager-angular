@@ -24,7 +24,8 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class RateDetailEditComponent
   extends RateDetailBaseComponent
-  implements OnInit {
+  implements OnInit
+{
   initialExpenseId: string;
 
   constructor(

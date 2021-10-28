@@ -23,7 +23,8 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class CategoryDetailEditComponent
   extends CategoryDetailBaseComponent
-  implements OnInit {
+  implements OnInit
+{
   constructor(
     protected location: Location,
     protected router: Router,

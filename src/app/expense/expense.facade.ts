@@ -21,10 +21,33 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class ExpenseFacade {
-  categories$ = this.categoryFacade.categories$;
-  tags$ = this.tagFacade.tags$;
+  get loading$() {
+    return this._loading$.asObservable();
+  }
+
+  get expenses$() {
+    return this._expenses$.asObservable();
+  }
+
+  get total$() {
+    return this._total$.asObservable();
+  }
+
+  get isModalVisible$() {
+    return this._visibleModal$.asObservable();
+  }
   private _visibleModal$ = new BehaviorSubject<boolean>(false);
   private event: LazyLoadEvent = null;
+
+  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+
+  private _expenses$ = new BehaviorSubject<Expense[]>([]);
+
+  private _total$ = new BehaviorSubject<number>(0);
+  categories$ = this.categoryFacade.categories$;
+  tags$ = this.tagFacade.tags$;
 
   constructor(
     private readonly expenseService: ExpenseService,
@@ -34,30 +57,6 @@ export class ExpenseFacade {
     private readonly toastr: ToastrService
   ) {
     this.getExpenses(null);
-  }
-
-  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-
-  get loading$() {
-    return this._loading$.asObservable();
-  }
-
-  private _expenses$ = new BehaviorSubject<Expense[]>([]);
-
-  get expenses$() {
-    return this._expenses$.asObservable();
-  }
-
-  private _total$ = new BehaviorSubject<number>(0);
-
-  get total$() {
-    return this._total$.asObservable();
-  }
-
-  get isModalVisible$() {
-    return this._visibleModal$.asObservable();
   }
 
   getModalVisible() {

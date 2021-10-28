@@ -6,11 +6,13 @@ describe('ShortFilterComponent', () => {
   let component: ShortFilterComponent;
   let fixture: ComponentFixture<ShortFilterComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ShortFilterComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ShortFilterComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ShortFilterComponent);

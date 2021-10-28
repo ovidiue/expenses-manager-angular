@@ -1,9 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { SharedModule } from '@shared/shared.module';
-
 import { DashboardComponent } from './dashboard.component';
+
 import {
   CardViewComponent,
   CardViewListComponent,
@@ -11,6 +10,7 @@ import {
   ExpenseCardListComponent,
   ExpenseChartComponent,
 } from '@shared/components';
+import { SharedModule } from '@shared/shared.module';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

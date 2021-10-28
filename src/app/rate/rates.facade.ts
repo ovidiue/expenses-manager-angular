@@ -15,37 +15,36 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class RatesFacade {
-  constructor(
-    private readonly _rateService: RateService,
-    private readonly _expenseService: ExpenseService,
-    private readonly _toastrService: ToastrService
-  ) {}
-
-  private _rates$: BehaviorSubject<Rate[]> = new BehaviorSubject([]);
-
   get rates$() {
     return this._rates$.asObservable();
   }
-
-  private _expenses$: BehaviorSubject<Expense[]> = new BehaviorSubject([]);
 
   get expenses$() {
     return this._expenses$.asObservable();
   }
 
-  private _total$: BehaviorSubject<Number> = new BehaviorSubject(0);
-
   get total$() {
     return this._total$.asObservable();
   }
 
-  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-
   get loading$() {
     return this._loading$.asObservable();
   }
+
+  private _rates$: BehaviorSubject<Rate[]> = new BehaviorSubject([]);
+
+  private _expenses$: BehaviorSubject<Expense[]> = new BehaviorSubject([]);
+
+  private _total$: BehaviorSubject<Number> = new BehaviorSubject(0);
+
+  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  constructor(
+    private readonly _rateService: RateService,
+    private readonly _expenseService: ExpenseService,
+    private readonly _toastrService: ToastrService
+  ) {}
 
   getRatesByExpenseIds(ids: number[], event: LazyLoadEvent) {
     return this._rateService.getRatesByExpenseIds(ids, event);

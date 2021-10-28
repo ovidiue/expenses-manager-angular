@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
@@ -23,7 +24,7 @@ import { OverlayComponent } from '@shared/modal/overlay.component';
 const importsExports = [CdkModule];
 
 @NgModule({
-  imports: [PrimengModule, MaterialModule, SvgIconsModule, TranslocoRootModule],
+  imports: [PrimengModule, MaterialModule, SvgIconsModule, TranslocoRootModule, CommonModule],
   exports: [
     ...importsExports,
     PageSpinnerComponent,

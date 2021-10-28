@@ -15,33 +15,13 @@ import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryFacade {
-  private readonly _categories$: BehaviorSubject<
-    Category[]
-  > = new BehaviorSubject([]);
-  private _loadingMessage$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    ''
-  );
-
-  constructor(
-    private readonly _categoryService: CategoryService,
-    private readonly _toastrService: ToastrService
-  ) {
-    this.getCategories(null);
-  }
-
   get categories$() {
     return this._categories$.asObservable();
   }
 
-  private _total$: BehaviorSubject<number> = new BehaviorSubject(0);
-
   get total$() {
     return this._total$.asObservable();
   }
-
-  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
 
   get loading$() {
     return this._loading$.asObservable();
@@ -49,6 +29,23 @@ export class CategoryFacade {
 
   get loadingMsg$() {
     return this._loadingMessage$.asObservable();
+  }
+  private readonly _categories$: BehaviorSubject<Category[]> =
+    new BehaviorSubject([]);
+  private _loadingMessage$: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
+
+  private _total$: BehaviorSubject<number> = new BehaviorSubject(0);
+
+  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+
+  constructor(
+    private readonly _categoryService: CategoryService,
+    private readonly _toastrService: ToastrService
+  ) {
+    this.getCategories(null);
   }
 
   getCategory(catId: number): Observable<Category> {

@@ -16,11 +16,11 @@ import { TranslocoService } from '@ngneat/transloco';
 import { OverlayService } from '@shared/modal/overlay.service';
 
 export class TagDataSource extends DataSource<Category> {
+  /** Stream of data that is provided to the table. */
+  data = this.categoryFacade.categories$;
   constructor(private readonly categoryFacade: CategoryFacade) {
     super();
   }
-  /** Stream of data that is provided to the table. */
-  data = this.categoryFacade.categories$;
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Category[]> {

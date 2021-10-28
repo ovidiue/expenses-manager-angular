@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { ChartType } from '@models/enums';
 import { Card, ChartData } from '@models/interfaces';
+
 import reduceProperty from '@utils/reduce-property';
 
 @Injectable({ providedIn: 'root' })
@@ -38,6 +40,7 @@ export class ChartDataService {
         data: reduceProperty(nonEmptyArr, keyData),
       },
     ];
+
     return {
       labels,
       datasets,
@@ -54,6 +57,7 @@ export class ChartDataService {
     const labels = reduceProperty(nonEmptyArr, keyLabel);
     const data = reduceProperty(nonEmptyArr, keyData);
     const backgroundColor = reduceProperty(nonEmptyArr, keyColor);
+
     return {
       labels,
       datasets: [

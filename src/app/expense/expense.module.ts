@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
+
 import { AccordionModule } from 'primeng/accordion';
 import { CardModule } from 'primeng/card';
 import { SliderModule } from 'primeng/slider';
@@ -41,7 +42,7 @@ const expensesRoutes: Route[] = [
     CommonModule,
     AccordionModule,
     CardModule,
-    SliderModule
+    SliderModule,
   ],
   declarations: [
     ExpenseListComponent,

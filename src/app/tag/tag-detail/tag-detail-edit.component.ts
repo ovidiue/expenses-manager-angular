@@ -23,7 +23,8 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class TagDetailEditComponent
   extends TagDetailBaseComponent
-  implements OnInit {
+  implements OnInit
+{
   nameExists = false;
 
   constructor(

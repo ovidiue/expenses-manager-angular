@@ -17,13 +17,13 @@ import { ExpenseFacade } from '../expense.facade';
   templateUrl: './expense-filter.component.html',
 })
 export class ExpenseFilterComponent implements OnInit, OnDestroy {
+  private formSubscription: Subscription;
   categories$ = this.expenseFacade.categories$;
   tags$ = this.expenseFacade.tags$;
 
   @Output() filterChange = new EventEmitter<any>();
   filterForm: FormGroup;
   amountBetween: number[] = [0, 10000];
-  private formSubscription: Subscription;
 
   constructor(private readonly expenseFacade: ExpenseFacade) {
     this.filterForm = new FormGroup({

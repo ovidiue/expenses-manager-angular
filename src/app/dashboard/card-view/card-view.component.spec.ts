@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { SharedModule } from '@shared/shared.module';
-
 import { CardViewComponent } from './card-view.component';
+
+import { SharedModule } from '@shared/shared.module';
 
 describe('CardViewComponent', () => {
   let testHostComponent: TestHostComponent;
   let testHostFixture: ComponentFixture<TestHostComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [SharedModule],
-      declarations: [CardViewComponent, TestHostComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [SharedModule],
+        declarations: [CardViewComponent, TestHostComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     testHostFixture = TestBed.createComponent(TestHostComponent);
@@ -29,7 +31,9 @@ describe('CardViewComponent', () => {
 
   @Component({
     selector: 'app-host-component',
-    template: ` <app-card-view [data]="testData"></app-card-view>`,
+    template: `
+      <app-card-view [data]="testData"></app-card-view>
+    `,
   })
   class TestHostComponent {
     testData = {

@@ -21,6 +21,16 @@ import { RatesFacade } from '../rates.facade';
   template: '',
 })
 export class RateDetailBaseComponent implements OnDestroy {
+  // TODO: on edit, expense doesn't preselect previous value
+
+  get amount(): AbstractControl {
+    return this.rateFormControls.get('amount');
+  }
+
+  get payedOn(): AbstractControl {
+    return this.rateFormControls.get('payedOn');
+  }
+  private _destroy$ = new Subject();
   expenses$: Observable<Expense[]> = this.expenseFacade.expenses$.pipe(
     tap(console.log)
   );
@@ -30,7 +40,6 @@ export class RateDetailBaseComponent implements OnDestroy {
   maxDate = new Date();
   expenses: any[];
   rateFormControls: FormGroup;
-  private _destroy$ = new Subject();
 
   constructor(
     protected location: Location,
@@ -45,16 +54,6 @@ export class RateDetailBaseComponent implements OnDestroy {
       expense: new FormControl(''),
       description: new FormControl(''),
     });
-  }
-
-  // TODO: on edit, expense doesn't preselect previous value
-
-  get amount(): AbstractControl {
-    return this.rateFormControls.get('amount');
-  }
-
-  get payedOn(): AbstractControl {
-    return this.rateFormControls.get('payedOn');
   }
 
   ngOnDestroy(): void {

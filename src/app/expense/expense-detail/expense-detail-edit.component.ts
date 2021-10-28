@@ -28,7 +28,8 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class ExpenseDetailEditComponent
   extends ExpenseDetailBaseComponent
-  implements OnInit {
+  implements OnInit
+{
   pageTitle = this._translocoService.translate('EXPENSES.DETAIL.EDIT');
 
   constructor(

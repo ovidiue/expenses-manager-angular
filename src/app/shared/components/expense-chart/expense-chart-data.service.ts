@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ExpenseService } from '@core/services';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { ExpenseService } from '@core/services';
 
 @Injectable({ providedIn: 'root' })
 export class ExpenseChartDataService {
@@ -81,6 +82,7 @@ export class ExpenseChartDataService {
       if (acc.indexOf(el[key]) < 0) {
         acc.push(el[key]);
       }
+
       return acc;
     }, []);
   }
