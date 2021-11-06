@@ -11,7 +11,8 @@ describe('RateService', () => {
   );
 
   it('should be created', () => {
-    const service: RateService = TestBed.get(RateService);
+    const service: RateService = TestBed.inject(RateService);
+
     expect(service).toBeTruthy();
   });
 });

@@ -1,16 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
-
-import {
-  CardViewComponent,
-  CardViewListComponent,
-  ChartComponent,
-  ExpenseCardListComponent,
-  ExpenseChartComponent,
-} from '@shared/components';
-import { SharedModule } from '@shared/shared.module';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -19,15 +11,9 @@ describe('DashboardComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule, HttpClientTestingModule],
-        declarations: [
-          DashboardComponent,
-          ExpenseCardListComponent,
-          ExpenseChartComponent,
-          CardViewListComponent,
-          ChartComponent,
-          CardViewComponent,
-        ],
+        imports: [HttpClientTestingModule],
+        declarations: [DashboardComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     })
   );

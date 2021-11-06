@@ -1,26 +1,34 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ExpenseFilterComponent } from '../expense-filter/expense-filter.component';
+import { TranslocoRootModule } from '../../transloco/transloco-root.module';
 import { ExpenseListComponent } from './expense-list.component';
 
-import { ShortFilterComponent } from '@shared/components';
-import { SharedModule } from '@shared/shared.module';
+import { CdkModule } from '@shared/cdk.module';
+import { OverlayService } from '@shared/modal/overlay.service';
+import { ToastrModule } from 'ngx-toastr';
 
-describe('ExpensesComponent', () => {
+describe('ExpenseListComponent', () => {
   let component: ExpenseListComponent;
   let fixture: ComponentFixture<ExpenseListComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
-        declarations: [
-          ExpenseListComponent,
-          ExpenseFilterComponent,
-          ShortFilterComponent,
+        imports: [
+          RouterTestingModule,
+          HttpClientTestingModule,
+          TranslocoRootModule,
+          CdkModule,
+          ToastrModule.forRoot(),
+          BrowserAnimationsModule
         ],
+        declarations: [ExpenseListComponent],
+        providers: [{provide: OverlayService, useValue: {}}],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     })
   );

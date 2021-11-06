@@ -17,6 +17,18 @@ describe('ExpenseCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExpenseCardComponent);
     component = fixture.componentInstance;
+    component.expense = {
+      amount: 0,
+      category: undefined,
+      createdOn: undefined,
+      description: '',
+      dueDate: undefined,
+      id: 0,
+      name: '',
+      payed: 0,
+      recurrent: false,
+      tags: [],
+    };
     fixture.detectChanges();
   });
 

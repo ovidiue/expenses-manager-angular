@@ -10,27 +10,11 @@
         <p-tabPanel header="Tags">
           <ng-container *ngIf="tagStats$ | async as tagStats">
             <app-card-view-list [stats]="tagStats"></app-card-view-list>
-            <app-chart
-              [chartData]="tagStats"
-              [chartType]="pieChart"
-            ></app-chart>
-            <app-chart
-              [chartData]="tagStats"
-              [chartType]="barChart"
-            ></app-chart>
           </ng-container>
         </p-tabPanel>
         <p-tabPanel header="Categories">
           <ng-container *ngIf="categoriesStats$ | async as categoriesStats">
             <app-card-view-list [stats]="categoriesStats"></app-card-view-list>
-            <app-chart
-              [chartData]="categoriesStats"
-              [chartType]="pieChart"
-            ></app-chart>
-            <app-chart
-              [chartData]="categoriesStats"
-              [chartType]="barChart"
-            ></app-chart>
           </ng-container>
         </p-tabPanel>
       </p-tabView>

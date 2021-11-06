@@ -1,10 +1,12 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'button[appButton], a[appButton]',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'app-button',
     '[class.app-button--regular]': `bShape === 'regular'`,

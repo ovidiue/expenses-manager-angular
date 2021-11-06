@@ -1,20 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-
-import { ExpenseChartDataService } from './expense-chart-data.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-expense-chart',
   templateUrl: './expense-chart.component.html',
   styleUrls: ['./expense-chart.component.scss'],
 })
-export class ExpenseChartComponent implements OnInit {
+export class ExpenseChartComponent {
   data: any;
 
-  constructor(private service: ExpenseChartDataService) {}
-
-  ngOnInit() {
-    this.service.getSimpleStats().subscribe((resp) => {
-      this.data = resp;
-    });
-  }
+  constructor() {}
 }

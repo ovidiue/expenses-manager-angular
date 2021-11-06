@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CardViewComponent } from './card-view.component';
-
-import { SharedModule } from '@shared/shared.module';
 
 describe('CardViewComponent', () => {
   let testHostComponent: TestHostComponent;
@@ -12,8 +10,8 @@ describe('CardViewComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule],
         declarations: [CardViewComponent, TestHostComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     })
   );

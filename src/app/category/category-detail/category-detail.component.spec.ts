@@ -1,11 +1,14 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CategoryDetailAddComponent } from './category-detail-add.component';
 
-import { SharedModule } from '@shared/shared.module';
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('CategoryDetailAddComponent', () => {
   let component: CategoryDetailAddComponent;
@@ -17,10 +20,13 @@ describe('CategoryDetailAddComponent', () => {
         imports: [
           RouterTestingModule,
           HttpClientTestingModule,
-          SharedModule,
           ReactiveFormsModule,
+          TranslocoTestingModule,
+          ToastrModule.forRoot(),
+          NoopAnimationsModule,
         ],
         declarations: [CategoryDetailAddComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     })
   );

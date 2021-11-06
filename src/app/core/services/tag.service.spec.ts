@@ -11,7 +11,8 @@ describe('TagService', () => {
   );
 
   it('should be created', () => {
-    const service: TagService = TestBed.get(TagService);
+    const service: TagService = TestBed.inject(TagService);
+
     expect(service).toBeTruthy();
   });
 });

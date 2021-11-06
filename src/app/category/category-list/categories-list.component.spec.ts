@@ -1,19 +1,34 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CategoriesListComponent } from './categories-list.component';
 
-import { SharedModule } from '@shared/shared.module';
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { OverlayService } from '@shared/modal/overlay.service';
+import { ToastrModule } from 'ngx-toastr';
 
-describe('CategoriesComponent', () => {
+describe('CategoriesListComponent', () => {
   let component: CategoriesListComponent;
   let fixture: ComponentFixture<CategoriesListComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule, HttpClientTestingModule],
+        imports: [
+          HttpClientTestingModule,
+          TranslocoTestingModule,
+          CdkTableModule,
+          RouterTestingModule.withRoutes([]),
+          ToastrModule.forRoot(),
+          NoopAnimationsModule
+        ],
         declarations: [CategoriesListComponent],
+        providers: [{ provide: OverlayService, useValue: {} }],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     })
   );

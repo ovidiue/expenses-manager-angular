@@ -21,9 +21,9 @@ import { TagFacade } from '../tag.facade';
 })
 export class TagDetailBaseComponent implements OnDestroy {
   pageTitle = '';
-  nameExists: boolean;
+  nameExists = false;
   tagFormControls: FormGroup;
-  initialName: string;
+  initialName = '';
   isSubmitted = false;
   loading$ = this.tagFacade.loading$;
   protected _destroy$ = new Subject();

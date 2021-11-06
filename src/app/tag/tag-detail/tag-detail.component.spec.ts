@@ -1,20 +1,33 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { TranslocoRootModule } from '../../transloco/transloco-root.module';
 import { TagDetailAddComponent } from './tag-detail-add.component';
 
-import { SharedModule } from '@shared/shared.module';
+import { ToastrModule } from 'ngx-toastr';
 
-describe('TagDetailComponent', () => {
+describe('TagDetailAddComponent', () => {
   let component: TagDetailAddComponent;
   let fixture: ComponentFixture<TagDetailAddComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
+        imports: [
+          RouterTestingModule,
+          HttpClientTestingModule,
+          TranslocoRootModule,
+          FormsModule,
+          ReactiveFormsModule,
+          NoopAnimationsModule,
+          ToastrModule.forRoot(),
+        ],
         declarations: [TagDetailAddComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       }).compileComponents();
     })
   );

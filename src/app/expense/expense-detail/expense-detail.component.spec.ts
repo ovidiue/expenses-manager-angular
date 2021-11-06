@@ -1,14 +1,25 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ExpenseFacade } from '../expense.facade';
 import { ExpenseDetailAddComponent } from './expense-detail-add.component';
 
+import { TranslocoTestingModule } from '@ngneat/transloco';
+import { ToastrModule } from 'ngx-toastr';
+
 class MockExpenseService {
-  getTags = jasmine.createSpy('getTags');
-  getCategories = jasmine.createSpy('getCategories');
+  getTags = jest.fn();
+  getCategories = jest.fn();
 }
 
 describe('ExpenseDetailAddComponent', () => {
@@ -18,7 +29,20 @@ describe('ExpenseDetailAddComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [BrowserAnimationsModule, RouterTestingModule],
+        imports: [
+          BrowserAnimationsModule,
+          RouterTestingModule,
+          ReactiveFormsModule,
+          TranslocoTestingModule,
+          MatDatepickerModule,
+          MatNativeDateModule,
+          MatCheckboxModule,
+          MatSelectModule,
+          MatFormFieldModule,
+          MatInputModule,
+          HttpClientTestingModule,
+          ToastrModule.forRoot(),
+        ],
         declarations: [ExpenseDetailAddComponent],
         providers: [{ provide: ExpenseFacade, useClass: MockExpenseService }],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
