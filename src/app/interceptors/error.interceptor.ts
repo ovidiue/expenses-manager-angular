@@ -26,6 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
+        console.log('intercep', err);
         if (err.error.message === 'Unauthorized') {
           this._toastrService.clear();
           this._toastrService

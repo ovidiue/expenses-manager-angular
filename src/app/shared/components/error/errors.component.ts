@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-label',
-  templateUrl: 'label.component.html',
-  styleUrls: ['label.component.scss'],
+  selector: 'app-errors',
+  templateUrl: 'errors.component.html',
+  styleUrls: ['errors.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LabelComponent {
+export class ErrorsComponent {
   @Input() text = '';
 }

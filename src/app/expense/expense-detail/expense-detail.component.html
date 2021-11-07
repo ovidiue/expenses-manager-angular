@@ -7,151 +7,145 @@
     <div class="col">
       <div class="form-wrapper">
         <form (ngSubmit)="onSubmit()" [formGroup]="expenseForm">
-          <div class="form-group">
-            <app-label [text]="'GENERAL.NAME' | transloco">
-              <input
-                [ngClass]="{
-                  'is-invalid':
-                    name.invalid &&
-                    (name.dirty || name.touched || isFormSubmitted)
-                }"
-                class="form-control"
-                formControlName="name"
-                id="title"
-                [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.NAME' | transloco"
-                required
-                type="text"
-              />
-            </app-label>
-
+          <app-form-group>
+            <app-label>{{ 'GENERAL.NAME' | transloco }}</app-label>
+            <input
+              [ngClass]="{
+                'is-invalid':
+                  name.invalid &&
+                  (name.dirty || name.touched || isFormSubmitted)
+              }"
+              class="form-control"
+              formControlName="name"
+              appFormField
+              [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.NAME' | transloco"
+              required
+              type="text"
+            />
             <app-error
-              [text]="'EXPENSES.DETAIL.ERRORS.TITLE' | transloco"
               *ngIf="
                 name.invalid &&
                 (name.dirty || name.touched || isFormSubmitted) &&
                 name.errors.required &&
                 isFormSubmitted
               "
-            ></app-error>
-          </div>
+            >
+              {{ 'EXPENSES.DETAIL.ERRORS.TITLE' | transloco }}
+            </app-error>
+          </app-form-group>
 
-          <div class="form-group">
-            <app-label [text]="'GENERAL.AMOUNT' | transloco">
-              <input
-                [ngClass]="{
-                  'is-invalid':
-                    amount.invalid &&
-                    (amount.dirty || amount.touched || isFormSubmitted)
-                }"
-                aria-describedby="amount"
-                class="form-control"
-                formControlName="amount"
-                id="amount"
-                [placeholder]="
-                  'EXPENSES.DETAIL.PLACEHOLDERS.AMOUNT' | transloco
-                "
-                required
-                type="text"
-              />
-            </app-label>
-
+          <app-form-group>
+            <app-label>{{ 'GENERAL.AMOUNT' | transloco }}</app-label>
+            <input
+              [ngClass]="{
+                'is-invalid':
+                  amount.invalid &&
+                  (amount.dirty || amount.touched || isFormSubmitted)
+              }"
+              aria-describedby="amount"
+              class="form-control"
+              formControlName="amount"
+              appFormField
+              [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.AMOUNT' | transloco"
+              required
+              type="text"
+            />
             <app-error
-              [text]="'EXPENSES.DETAIL.ERRORS.AMOUNT' | transloco"
               *ngIf="
                 amount.invalid &&
                 (amount.dirty || amount.touched || isFormSubmitted) &&
                 amount.errors.required &&
                 isFormSubmitted
               "
-            ></app-error>
-          </div>
+            >
+              {{ 'EXPENSES.DETAIL.ERRORS.AMOUNT' | transloco }}
+            </app-error>
+          </app-form-group>
 
-          <div class="form-group">
-            <app-label [text]="'GENERAL.DESCRIPTION' | transloco">
-              <textarea
-                class="form-control"
-                formControlName="description"
-                id="description"
-                [placeholder]="'GENERAL.DESCRIPTION' | transloco"
-                rows="7"
-              ></textarea>
-            </app-label>
-          </div>
+          <app-form-group>
+            <app-label>{{ 'GENERAL.DESCRIPTION' | transloco }}</app-label>
+            <textarea
+              class="form-control"
+              formControlName="description"
+              appFormField
+              [placeholder]="'GENERAL.DESCRIPTION' | transloco"
+              rows="7"
+            ></textarea>
+          </app-form-group>
 
-          <div class="form-group">
+          <app-form-group>
             <mat-checkbox color="primary" formControlName="recurrent">
               {{ 'GENERAL.RECURRENT' | transloco }}
             </mat-checkbox>
-          </div>
+          </app-form-group>
 
-          <div class="form-group">
-            <app-label [text]="'EXPENSES.LIST.DUE_DATE' | transloco">
-              <mat-form-field>
-                <input
-                  matInput
-                  [matDatepicker]="picker"
-                  [placeholder]="
-                    'EXPENSES.DETAIL.PLACEHOLDERS.DATE' | transloco
-                  "
-                  [min]="minDate"
-                  formControlName="dueDate"
-                />
+          <app-form-group>
+            <app-label>{{ 'EXPENSES.LIST.DUE_DATE' | transloco }}</app-label>
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.DATE' | transloco"
+                [min]="minDate"
+                formControlName="dueDate"
+              />
 
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
 
-                <mat-datepicker
-                  #picker
-                  startView="month"
-                  disabled="false"
-                ></mat-datepicker>
-              </mat-form-field>
-            </app-label>
-          </div>
+              <mat-datepicker
+                #picker
+                startView="month"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+            <app-error  *ngIf="
+                dueDate.invalid &&
+                (dueDate.dirty || dueDate.touched || isFormSubmitted) &&
+                dueDate.errors.required &&
+                isFormSubmitted
+              ">Required</app-error>
+          </app-form-group>
 
-          <div class="form-group">
-            <app-label [text]="'EXPENSES.LIST.CATEGORY' | transloco">
-              <mat-form-field appearance="standard">
-                <mat-select
-                  [placeholder]="
-                    'EXPENSES.DETAIL.PLACEHOLDERS.CATEGORY' | transloco
-                  "
-                  formControlName="category"
+          <app-form-group>
+            <app-label>{{ 'EXPENSES.LIST.CATEGORY' | transloco }}</app-label>
+            <mat-form-field appearance="standard">
+              <mat-select
+                [placeholder]="
+                  'EXPENSES.DETAIL.PLACEHOLDERS.CATEGORY' | transloco
+                "
+                formControlName="category"
+              >
+                <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
+
+                <mat-option
+                  *ngFor="let cat of categories$ | async"
+                  [value]="cat"
                 >
-                  <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
+                  {{ cat.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </app-form-group>
 
-                  <mat-option
-                    *ngFor="let cat of categories$ | async"
-                    [value]="cat"
-                  >
-                    {{ cat.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </app-label>
-          </div>
+          <app-form-group>
+            <app-label>{{ 'EXPENSES.LIST.TAGS' | transloco }}</app-label>
+            <mat-form-field appearance="standard">
+              <mat-select
+                [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.TAGS' | transloco"
+                formControlName="tags"
+                multiple
+              >
+                <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
 
-          <div class="form-group">
-            <app-label [text]="'EXPENSES.LIST.TAGS' | transloco">
-              <mat-form-field appearance="standard">
-                <mat-select
-                  [placeholder]="
-                    'EXPENSES.DETAIL.PLACEHOLDERS.TAGS' | transloco
-                  "
-                  formControlName="tags"
-                  multiple
-                >
-                  <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
-
-                  <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
-                    {{ tag.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </app-label>
-          </div>
+                <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+                  {{ tag.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </app-form-group>
 
           <hr />
 

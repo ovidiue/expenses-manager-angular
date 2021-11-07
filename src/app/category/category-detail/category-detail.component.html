@@ -16,7 +16,7 @@
         <div class="form-wrapper">
           <form (ngSubmit)="onSubmit()" [formGroup]="categoryForm">
             <div class="form-group">
-              <app-label [text]="'GENERAL.NAME' | transloco">
+              <app-labels [text]="'GENERAL.NAME' | transloco">
                 <input
                   (change)="checkName($event)"
                   [ngClass]="{ 'is-invalid': name.errors && isSubmitted }"
@@ -27,21 +27,21 @@
                   required
                   type="text"
                 />
-              </app-label>
+              </app-labels>
 
-              <app-error
+              <app-errors
                 [text]="'GENERAL.ERRORS.NAME' | transloco"
                 *ngIf="name.errors && isSubmitted && name.errors.required"
-              ></app-error>
+              ></app-errors>
 
-              <app-error
+              <app-errors
                 [text]="'GENERAL.ERRORS.NAME_EXISTS' | transloco"
                 *ngIf="nameExists"
-              ></app-error>
+              ></app-errors>
             </div>
 
             <div class="form-group">
-              <app-label [text]="'GENERAL.DESCRIPTION' | transloco">
+              <app-labels [text]="'GENERAL.DESCRIPTION' | transloco">
                 <textarea
                   class="form-control"
                   formControlName="description"
@@ -49,11 +49,11 @@
                   [placeholder]="'GENERAL.PLACEHOLDERS.DESCRIPTION' | transloco"
                   rows="7"
                 ></textarea>
-              </app-label>
+              </app-labels>
             </div>
 
             <div class="form-group">
-              <app-label text="Color">
+              <app-labels text="Color">
                 <p-colorPicker
                   [inline]="true"
                   class="test"
@@ -64,7 +64,7 @@
                   [ngStyle]="{ background: categoryForm.get('color').value }"
                   class="preview-block"
                 ></div>
-              </app-label>
+              </app-labels>
             </div>
 
             <hr />

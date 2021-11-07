@@ -19,6 +19,7 @@ import {
 } from './index';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { FormGroupModule } from '@shared/components/form-group';
 import { NoDataModule } from '@shared/components/noData/no-data.module';
 import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
@@ -43,6 +44,7 @@ const expensesRoutes: Route[] = [
     AccordionModule,
     CardModule,
     SliderModule,
+    FormGroupModule,
   ],
   declarations: [
     ExpenseListComponent,

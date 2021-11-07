@@ -5,6 +5,7 @@ import { Route, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login.component';
 
+import { FormGroupModule } from '@shared/components/form-group';
 import { SharedModule } from '@shared/shared.module';
 
 const loginRoutes: Route[] = [{ path: '', component: LoginComponent }];
@@ -15,6 +16,7 @@ const loginRoutes: Route[] = [{ path: '', component: LoginComponent }];
     RouterModule.forChild(loginRoutes),
     ReactiveFormsModule,
     CommonModule,
+    FormGroupModule,
   ],
   declarations: [LoginComponent],
 })

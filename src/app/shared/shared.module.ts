@@ -16,15 +16,23 @@ import {
   ShortFilterComponent,
 } from '@shared/components';
 import { ButtonComponent } from '@shared/components/button/button/button.component';
-import { ErrorComponent } from '@shared/components/error/error.component';
-import { LabelComponent } from '@shared/components/label/label.component';
+import { ErrorsComponent } from '@shared/components/error/errors.component';
+import { LabelsComponent } from '@shared/components/label/labels.component';
 import { MaterialModule } from '@shared/material.module';
 import { OverlayComponent } from '@shared/modal/overlay.component';
+import { LottieModule } from 'ngx-lottie';
 
 const importsExports = [CdkModule];
 
 @NgModule({
-  imports: [PrimengModule, MaterialModule, SvgIconsModule, TranslocoRootModule, CommonModule],
+  imports: [
+    PrimengModule,
+    MaterialModule,
+    SvgIconsModule,
+    TranslocoRootModule,
+    CommonModule,
+    LottieModule,
+  ],
   exports: [
     ...importsExports,
     PageSpinnerComponent,
@@ -32,8 +40,8 @@ const importsExports = [CdkModule];
     ShortFilterComponent,
     ExpenseCardListComponent,
     ExpenseChartComponent,
-    LabelComponent,
-    ErrorComponent,
+    LabelsComponent,
+    ErrorsComponent,
     ButtonComponent,
   ],
   declarations: [
@@ -44,8 +52,8 @@ const importsExports = [CdkModule];
     ExpenseChartComponent,
     ChartComponent,
     ShortFilterComponent,
-    LabelComponent,
-    ErrorComponent,
+    LabelsComponent,
+    ErrorsComponent,
     ButtonComponent,
     OverlayComponent,
   ],

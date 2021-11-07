@@ -16,24 +16,19 @@ export class LoginComponent implements OnInit {
 
   loading$ = this._authService.getLoadingState();
 
+  usernameCtrl = new FormControl('', Validators.required);
+  passwordCtrl = new FormControl('', Validators.required);
+
   constructor(private readonly _authService: AuthService) {}
-
-  get password() {
-    return this.loginForm.get('password');
-  }
-
-  get username() {
-    return this.loginForm.get('username');
-  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      username: this.usernameCtrl,
+      password: this.passwordCtrl,
     });
   }
 
-  onSubmit() {
+  submit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;

@@ -57,6 +57,10 @@ export class ExpenseDetailBaseComponent implements OnDestroy {
     return this.expenseForm.get('amount');
   }
 
+  get dueDate() {
+    return this.expenseForm.get('dueDate');
+  }
+
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();

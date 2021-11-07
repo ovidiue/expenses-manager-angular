@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PageSpinnerComponent } from './page-spinner.component';
 
-import { PrimengModule } from '@shared/primeng.module';
+import { LottieModule } from 'ngx-lottie';
 
 describe('PageSpinnerComponent', () => {
   let component: PageSpinnerComponent;
@@ -11,7 +11,7 @@ describe('PageSpinnerComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [PrimengModule],
+        imports: [LottieModule],
         declarations: [PageSpinnerComponent],
       }).compileComponents();
     })

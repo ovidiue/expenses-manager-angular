@@ -35,6 +35,7 @@ export class ExpenseFacade {
   get apiErr$() {
     return this._apiErr$.asObservable();
   }
+
   categories$ = this.categoryFacade.categories$;
   tags$ = this.tagFacade.tags$;
 
@@ -44,17 +45,17 @@ export class ExpenseFacade {
     private readonly categoryFacade: CategoryFacade,
     private readonly tagFacade: TagFacade,
     private readonly toastr: ToastrService
-  ) {
-    this.getExpenses();
-  }
+  ) {}
 
   getExpenses() {
+    this._apiErr$.next(false);
+
     return this.expenseService.getAll().pipe(
       tap((resp) => {
         this._expenses$.next(resp.data);
-        this._apiErr$.next(false);
       }),
       catchError((err) => {
+        console.log('catcherr', err);
         this._apiErr$.next(true);
         this._expenses$.next([]);
 
