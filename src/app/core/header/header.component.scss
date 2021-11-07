@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import 'custom';
 
 ul {
@@ -9,7 +10,7 @@ ul {
   font-weight: bold;
 
   li {
-    padding: $spacer / 2;
+    padding: math.div($spacer, 2);
     color: $primary;
     justify-content: space-between;
     font-size: $font-size-lg;
