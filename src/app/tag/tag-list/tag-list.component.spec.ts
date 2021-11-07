@@ -5,9 +5,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { getTranslocoTestingModule } from '../../transloco/transloco-spec.module';
 import { TagListComponent } from './tag-list.component';
 
-import { TranslocoTestingModule } from '@ngneat/transloco';
 import { OverlayService } from '@shared/modal/overlay.service';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -21,10 +21,10 @@ describe('TagListComponent', () => {
         imports: [
           RouterTestingModule,
           HttpClientTestingModule,
-          TranslocoTestingModule,
+          getTranslocoTestingModule(),
           CdkTableModule,
           ToastrModule.forRoot(),
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
         ],
         declarations: [TagListComponent],
         providers: [{ provide: OverlayService, useValue: {} }],

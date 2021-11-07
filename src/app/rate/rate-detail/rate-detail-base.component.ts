@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 import { Expense } from '@models/interfaces';
 
@@ -31,9 +31,7 @@ export class RateDetailBaseComponent implements OnDestroy {
     return this.rateFormControls.get('payedOn');
   }
   private _destroy$ = new Subject();
-  expenses$: Observable<Expense[]> = this.expenseFacade.expenses$.pipe(
-    tap(console.log)
-  );
+  expenses$: Observable<Expense[]> = this.expenseFacade.expenses$;
   isSubmitted = false;
   pageTitle: string;
   nameExists = false;
@@ -50,7 +48,10 @@ export class RateDetailBaseComponent implements OnDestroy {
   ) {
     this.rateFormControls = new FormGroup({
       amount: new FormControl(null, Validators.required),
-      payedOn: new FormControl(null, Validators.required),
+      payedOn: new FormControl(
+        { value: null, disabled: true },
+        Validators.required
+      ),
       expense: new FormControl(''),
       description: new FormControl(''),
     });

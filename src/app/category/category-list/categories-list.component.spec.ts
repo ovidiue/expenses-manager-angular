@@ -5,9 +5,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { getTranslocoTestingModule } from '../../transloco/transloco-spec.module';
 import { CategoriesListComponent } from './categories-list.component';
 
-import { TranslocoTestingModule } from '@ngneat/transloco';
 import { OverlayService } from '@shared/modal/overlay.service';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -20,11 +20,11 @@ describe('CategoriesListComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           HttpClientTestingModule,
-          TranslocoTestingModule,
+          getTranslocoTestingModule(),
           CdkTableModule,
           RouterTestingModule.withRoutes([]),
           ToastrModule.forRoot(),
-          NoopAnimationsModule
+          NoopAnimationsModule,
         ],
         declarations: [CategoriesListComponent],
         providers: [{ provide: OverlayService, useValue: {} }],

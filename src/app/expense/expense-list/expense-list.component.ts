@@ -63,7 +63,6 @@ export class ExpenseListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('oninit called');
     this._expenseFacade.getExpenses().subscribe();
   }
 

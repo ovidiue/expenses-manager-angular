@@ -5,9 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { getTranslocoTestingModule } from '../../transloco/transloco-spec.module';
 import { CategoryDetailAddComponent } from './category-detail-add.component';
 
-import { TranslocoTestingModule } from '@ngneat/transloco';
 import { ToastrModule } from 'ngx-toastr';
 
 describe('CategoryDetailAddComponent', () => {
@@ -21,7 +21,7 @@ describe('CategoryDetailAddComponent', () => {
           RouterTestingModule,
           HttpClientTestingModule,
           ReactiveFormsModule,
-          TranslocoTestingModule,
+          getTranslocoTestingModule(),
           ToastrModule.forRoot(),
           NoopAnimationsModule,
         ],

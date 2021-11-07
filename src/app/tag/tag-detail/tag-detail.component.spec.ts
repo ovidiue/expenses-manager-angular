@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TranslocoRootModule } from '../../transloco/transloco-root.module';
+import { getTranslocoTestingModule } from '../../transloco/transloco-spec.module';
 import { TagDetailAddComponent } from './tag-detail-add.component';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -20,7 +20,7 @@ describe('TagDetailAddComponent', () => {
         imports: [
           RouterTestingModule,
           HttpClientTestingModule,
-          TranslocoRootModule,
+          getTranslocoTestingModule(),
           FormsModule,
           ReactiveFormsModule,
           NoopAnimationsModule,

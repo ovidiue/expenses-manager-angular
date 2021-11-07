@@ -11,10 +11,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { getTranslocoTestingModule } from '../../transloco/transloco-spec.module';
 import { ExpenseFacade } from '../expense.facade';
 import { ExpenseDetailAddComponent } from './expense-detail-add.component';
 
-import { TranslocoTestingModule } from '@ngneat/transloco';
 import { ToastrModule } from 'ngx-toastr';
 
 class MockExpenseService {
@@ -33,7 +33,7 @@ describe('ExpenseDetailAddComponent', () => {
           BrowserAnimationsModule,
           RouterTestingModule,
           ReactiveFormsModule,
-          TranslocoTestingModule,
+          getTranslocoTestingModule(),
           MatDatepickerModule,
           MatNativeDateModule,
           MatCheckboxModule,
