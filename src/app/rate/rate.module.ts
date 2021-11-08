@@ -23,17 +23,17 @@ const ratesRoutes: Route[] = [
   { path: 'edit/:id', component: RateDetailEditComponent },
 ];
 
+const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
+
 @NgModule({
   imports: [
+    ...vendorImports,
     SharedModule,
-    SvgIconsModule,
     TranslocoRootModule,
     RouterModule.forChild(ratesRoutes),
-    MaterialModule,
     ReactiveFormsModule,
     CommonModule,
     FormGroupModule,
-    CdkTableModule,
   ],
   declarations: [
     RateListComponent,

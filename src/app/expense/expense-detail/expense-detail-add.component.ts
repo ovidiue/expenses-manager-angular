@@ -6,7 +6,7 @@ import { RoutePaths } from '@models/enums/route-paths.enum';
 
 import { fadeIn } from '@utils/animations/fadeIn';
 
-import { CategoryFacade } from '../../category/category.facade';
+import { CategoryFacade } from '../../category';
 import { TagFacade } from '../../tag/tag.facade';
 import { ExpenseFacade } from '../expense.facade';
 import { ExpenseDetailBaseComponent } from './expense-detail-base.component';

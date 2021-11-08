@@ -24,18 +24,22 @@ const tagRoutes: Route[] = [
   { path: 'edit/:id', component: TagDetailEditComponent },
 ];
 
+const vendorImports = [
+  SvgIconsModule,
+  MaterialModule,
+  ColorPickerModule,
+  CdkTableModule,
+];
+
 @NgModule({
   imports: [
+    ...vendorImports,
     SharedModule,
-    SvgIconsModule,
     TranslocoRootModule,
     RouterModule.forChild(tagRoutes),
     ReactiveFormsModule,
-    MaterialModule,
-    ColorPickerModule,
     CommonModule,
     FormGroupModule,
-    CdkTableModule,
   ],
   declarations: [
     TagListComponent,

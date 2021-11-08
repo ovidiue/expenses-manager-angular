@@ -25,19 +25,19 @@ const expensesRoutes: Route[] = [
   { path: 'edit/:id', component: ExpenseDetailEditComponent },
 ];
 
+const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
+
 @NgModule({
   imports: [
+    ...vendorImports,
     SharedModule,
-    SvgIconsModule,
     TranslocoRootModule,
     NoDataModule,
     RouterModule.forChild(expensesRoutes),
-    MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
     FormGroupModule,
-    CdkTableModule,
   ],
   declarations: [
     ExpenseListComponent,

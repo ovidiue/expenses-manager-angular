@@ -8,7 +8,6 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { CategoryDetailBaseComponent } from './category-detail/category-detail-base.component';
-import { CategoryFacade } from './category.facade';
 import {
   CategoriesListComponent,
   CategoryDetailAddComponent,
@@ -26,18 +25,22 @@ const categoryRoutes: Route[] = [
   { path: 'edit/:id', component: CategoryDetailEditComponent },
 ];
 
+const vendorImports = [
+  SvgIconsModule,
+  MaterialModule,
+  ColorPickerModule,
+  CdkTableModule,
+];
+
 @NgModule({
   imports: [
+    ...vendorImports,
     SharedModule,
-    SvgIconsModule,
     TranslocoRootModule,
     RouterModule.forChild(categoryRoutes),
-    MaterialModule,
     ReactiveFormsModule,
-    ColorPickerModule,
     CommonModule,
     FormGroupModule,
-    CdkTableModule,
   ],
   declarations: [
     CategoryDetailEditComponent,
@@ -45,6 +48,5 @@ const categoryRoutes: Route[] = [
     CategoryDetailAddComponent,
     CategoryDetailBaseComponent,
   ],
-  providers: [CategoryFacade],
 })
 export class CategoryModule {}

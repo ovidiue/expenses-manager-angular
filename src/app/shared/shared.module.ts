@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
@@ -8,11 +7,13 @@ import { MaterialModule } from '@shared/material.module';
 import { OverlayComponent } from '@shared/modal/overlay.component';
 import { LottieModule } from 'ngx-lottie';
 
-const importsExports = [];
+const vendorImports = [MaterialModule, SvgIconsModule, LottieModule];
+
+const declarationsAndExports = [PageSpinnerComponent, ButtonComponent];
 
 @NgModule({
-  imports: [MaterialModule, SvgIconsModule, CommonModule, LottieModule],
-  exports: [...importsExports, PageSpinnerComponent, ButtonComponent],
-  declarations: [PageSpinnerComponent, ButtonComponent, OverlayComponent],
+  imports: [...vendorImports],
+  exports: [...declarationsAndExports],
+  declarations: [...declarationsAndExports, OverlayComponent],
 })
 export class SharedModule {}

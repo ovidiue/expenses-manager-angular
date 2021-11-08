@@ -1,5 +1,6 @@
-import { RateDetailAddComponent } from './rate-detail/rate-detail-add.component';
-import { RateDetailEditComponent } from './rate-detail/rate-detail-edit.component';
-import { RateListComponent } from './rate-list/rate-list.component';
-
-export { RateDetailEditComponent, RateListComponent, RateDetailAddComponent };
+export * from './rate-detail/rate-detail-add.component';
+export * from './rate-detail/rate-detail-base.component';
+export * from './rate-detail/rate-detail-edit.component';
+export * from './rate.module';
+export * from './rate-list/rate-list.component';
+export * from './rates.facade';

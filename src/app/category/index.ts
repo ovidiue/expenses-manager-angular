@@ -1,9 +1,6 @@
-import { CategoryDetailAddComponent } from './category-detail/category-detail-add.component';
-import { CategoryDetailEditComponent } from './category-detail/category-detail-edit.component';
-import { CategoriesListComponent } from './category-list/categories-list.component';
-
-export {
-  CategoryDetailAddComponent,
-  CategoryDetailEditComponent,
-  CategoriesListComponent,
-};
+export * from './category-detail/category-detail-add.component';
+export * from './category-detail/category-detail-base.component';
+export * from './category-detail/category-detail-edit.component';
+export * from './category.facade';
+export * from './category.module';
+export * from './category-list/categories-list.component';
