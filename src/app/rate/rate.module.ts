@@ -1,3 +1,4 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -12,6 +13,7 @@ import {
 import { RateDetailBaseComponent } from './rate-detail/rate-detail-base.component';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { FormGroupModule } from '@shared/components/form-group';
 import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 
@@ -30,6 +32,8 @@ const ratesRoutes: Route[] = [
     MaterialModule,
     ReactiveFormsModule,
     CommonModule,
+    FormGroupModule,
+    CdkTableModule,
   ],
   declarations: [
     RateListComponent,

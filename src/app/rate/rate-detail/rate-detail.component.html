@@ -7,89 +7,83 @@
     <div class="col">
       <div class="form-wrapper">
         <form (ngSubmit)="onSubmit()" [formGroup]="rateFormControls">
-          <div class="form-group">
-            <app-labels [text]="'GENERAL.AMOUNT' | transloco">
-              <input
-                [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
-                class="form-control"
-                formControlName="amount"
-                id="amount"
-                name="amount"
-                [placeholder]="'GENERAL.PLACEHOLDERS.AMOUNT' | transloco"
-                required
-                type="text"
-              />
-            </app-labels>
-
-            <app-errors
-              [text]="'GENERAL.ERRORS.AMOUNT' | transloco"
+          <app-form-group>
+            <app-label>{{ 'GENERAL.AMOUNT' | transloco }}</app-label>
+            <input
+              [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
+              class="form-control"
+              formControlName="amount"
+              appFormField
+              [placeholder]="'GENERAL.PLACEHOLDERS.AMOUNT' | transloco"
+              required
+              type="text"
+            />
+            <app-error
               *ngIf="isSubmitted && amount.errors && amount.errors.required"
-            ></app-errors>
-          </div>
+            >
+              {{ 'GENERAL.ERRORS.AMOUNT' | transloco }}
+            </app-error>
+          </app-form-group>
 
-          <div class="form-group">
-            <app-labels [text]="'GENERAL.PAYED_ON' | transloco">
-              <!--TODO add datepicker clear button-->
-              <mat-form-field>
-                <input
-                  matInput
-                  [matDatepicker]="picker"
-                  [placeholder]="'GENERAL.PLACEHOLDERS.DATE' | transloco"
-                  [max]="maxDate"
-                  formControlName="payedOn"
-                />
+          <app-form-group>
+            <app-label>{{ 'GENERAL.PAYED_ON' | transloco }}</app-label>
+            <!--TODO add datepicker clear button-->
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [placeholder]="'GENERAL.PLACEHOLDERS.DATE' | transloco"
+                [max]="maxDate"
+                formControlName="payedOn"
+              />
 
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
 
-                <mat-datepicker
-                  #picker
-                  startView="month"
-                  disabled="false"
-                ></mat-datepicker>
-              </mat-form-field>
-            </app-labels>
+              <mat-datepicker
+                #picker
+                startView="month"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+            <app-error *ngIf="isSubmitted && payedOn.invalid">
+              {{ 'GENERAL.ERRORS.DATE' | transloco }}
+            </app-error>
+          </app-form-group>
 
-            <app-errors
-              [text]="'GENERAL.ERRORS.DATE' | transloco"
-              *ngIf="isSubmitted && payedOn.invalid"
-            ></app-errors>
-          </div>
+          <app-form-group>
+            <app-label>{{ 'GENERAL.EXPENSE' | transloco }}</app-label>
 
-          <div class="form-group">
-            <app-labels [text]="'GENERAL.EXPENSE' | transloco">
-              <mat-form-field appearance="standard">
-                <mat-select
-                  [compareWith]="compareExpenses"
-                  [placeholder]="'RATE.DETAIL.PLACEHOLDERS.EXPENSE' | transloco"
-                  formControlName="expense"
+            <mat-form-field appearance="standard">
+              <mat-select
+                [compareWith]="compareExpenses"
+                [placeholder]="'RATE.DETAIL.PLACEHOLDERS.EXPENSE' | transloco"
+                formControlName="expense"
+              >
+                <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
+
+                <mat-option
+                  *ngFor="let expense of expenses$ | async"
+                  [value]="expense"
                 >
-                  <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
+                  {{ expense.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </app-form-group>
 
-                  <mat-option
-                    *ngFor="let expense of expenses$ | async"
-                    [value]="expense"
-                  >
-                    {{ expense.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </app-labels>
-          </div>
-
-          <div class="form-group">
-            <app-labels [text]="'GENERAL.DESCRIPTION' | transloco">
-              <textarea
-                class="form-control"
-                formControlName="description"
-                name="observation"
-                [placeholder]="'GENERAL.DESCRIPTION' | transloco"
-                rows="7"
-              ></textarea>
-            </app-labels>
-          </div>
+          <app-form-group>
+            <app-label>{{ 'GENERAL.DESCRIPTION' | transloco }}</app-label>
+            <textarea
+              class="form-control"
+              formControlName="description"
+              appFormField
+              [placeholder]="'GENERAL.DESCRIPTION' | transloco"
+              rows="7"
+            ></textarea>
+          </app-form-group>
 
           <hr />
 

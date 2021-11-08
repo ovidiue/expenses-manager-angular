@@ -5,8 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { map, pluck, switchMap, takeUntil } from 'rxjs/operators';
 
-import { MessageService } from 'primeng/api';
-
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Expense } from '@models/interfaces';
 
@@ -23,7 +21,6 @@ import { TranslocoService } from '@ngneat/transloco';
   selector: 'app-expense-detail',
   templateUrl: './expense-detail.component.html',
   styleUrls: ['./expense-detail.component.scss'],
-  providers: [MessageService],
   animations: [fadeIn],
 })
 export class ExpenseDetailEditComponent

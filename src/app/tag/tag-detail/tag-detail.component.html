@@ -12,64 +12,58 @@
       <ng-template #form>
         <div class="form-wrapper">
           <form (ngSubmit)="onSubmit()" [formGroup]="tagFormControls">
-            <div class="form-group">
-              <app-labels [text]="'GENERAL.NAME' | transloco">
-                <input
-                  [ngClass]="{
-                    'is-invalid': name.errors && isSubmitted === true
-                  }"
-                  class="form-control"
-                  formControlName="name"
-                  id="name"
-                  placeholder="Enter name"
-                  required
-                  type="text"
-                />
-              </app-labels>
-
-              <app-errors
-                [text]="'GENERAL.ERRORS.NAME' | transloco"
+            <app-form-group>
+              <app-label>{{ 'GENERAL.NAME' | transloco }}</app-label>
+              <input
+                [ngClass]="{
+                  'is-invalid': name.errors && isSubmitted === true
+                }"
+                class="form-control"
+                formControlName="name"
+                appFormField
+                placeholder="Enter name"
+                required
+                type="text"
+              />
+              <app-error
                 *ngIf="
                   name.errors && isSubmitted === true && name.errors.required
                 "
-              ></app-errors>
+              >
+                {{ 'GENERAL.ERRORS.NAME' | transloco }}
+              </app-error>
 
-              <app-errors
-                [text]="'GENERAL.ERRORS.NAME_EXISTS' | transloco"
-                *ngIf="nameExists && !name.errors"
-              ></app-errors>
-            </div>
+              <app-error *ngIf="nameExists && !name.errors">
+                {{ 'GENERAL.ERRORS.NAME_EXISTS' | transloco }}
+              </app-error>
+            </app-form-group>
 
-            <div class="form-group">
-              <app-labels [text]="'GENERAL.DESCRIPTION' | transloco">
-                <textarea
-                  class="form-control"
-                  formControlName="description"
-                  id="description"
-                  name="description"
-                  [placeholder]="'GENERAL.PLACEHOLDERS.DESCRIPTION' | transloco"
-                  rows="7"
-                ></textarea>
-              </app-labels>
-            </div>
+            <app-form-group>
+              <app-label>{{ 'GENERAL.DESCRIPTION' | transloco }}</app-label>
+              <textarea
+                class="form-control"
+                formControlName="description"
+                appFormField
+                [placeholder]="'GENERAL.PLACEHOLDERS.DESCRIPTION' | transloco"
+                rows="7"
+              ></textarea>
+            </app-form-group>
 
-            <div class="form-group">
-              <app-labels text="Color">
-                <p-colorPicker
-                  [inline]="true"
-                  class="test"
-                  formControlName="color"
-                  value="selectedColor"
-                ></p-colorPicker>
-
-                <div
-                  [ngStyle]="{
-                    background: tagFormControls.controls['color'].value
-                  }"
-                  class="preview-block"
-                ></div>
-              </app-labels>
-            </div>
+            <app-form-group>
+              <app-label>Color</app-label>
+              <p-colorPicker
+                [inline]="true"
+                class="test"
+                formControlName="color"
+                value="selectedColor"
+              ></p-colorPicker>
+              <div
+                [ngStyle]="{
+                  background: tagFormControls.controls['color'].value
+                }"
+                class="preview-block"
+              ></div>
+            </app-form-group>
 
             <hr />
 

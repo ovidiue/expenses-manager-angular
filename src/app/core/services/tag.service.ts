@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 import { Card, ServerResp, Tag } from '@models/interfaces';
 
 import { ApiPath } from '@utils/constants/api-paths';
@@ -23,7 +21,7 @@ export class TagService {
 
   constructor(private readonly _httpClient: HttpClient) {}
 
-  getAll(event: LazyLoadEvent): Observable<ServerResp<Tag>> {
+  getAll(event: any): Observable<ServerResp<Tag>> {
     let params: HttpParams;
     params = mapEventToRestParams(event);
 

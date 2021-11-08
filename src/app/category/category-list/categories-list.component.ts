@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 import { Category } from '@models/interfaces';
 
 import { fadeIn } from '@utils/animations/fadeIn';
@@ -54,7 +52,7 @@ export class CategoriesListComponent implements OnInit {
     this.getCategories(TABLE_DEFAULTS.query);
   }
 
-  getCategories(event: LazyLoadEvent): void {
+  getCategories(event: any): void {
     this._categoryFacade.getCategories(event);
   }
 

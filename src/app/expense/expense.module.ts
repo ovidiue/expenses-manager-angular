@@ -1,20 +1,15 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
 
-import { AccordionModule } from 'primeng/accordion';
-import { CardModule } from 'primeng/card';
-import { SliderModule } from 'primeng/slider';
-
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { ExpenseCardComponent } from './expense-card/expense-card.component';
 import { ExpenseDetailBaseComponent } from './expense-detail/expense-detail-base.component';
 import {
-  AppRowActionsComponent,
   ExpenseDetailAddComponent,
   ExpenseDetailEditComponent,
-  ExpenseFilterComponent,
   ExpenseListComponent,
 } from './index';
 
@@ -41,17 +36,13 @@ const expensesRoutes: Route[] = [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    AccordionModule,
-    CardModule,
-    SliderModule,
     FormGroupModule,
+    CdkTableModule,
   ],
   declarations: [
     ExpenseListComponent,
-    AppRowActionsComponent,
     ExpenseDetailAddComponent,
     ExpenseDetailEditComponent,
-    ExpenseFilterComponent,
     ExpenseCardComponent,
     ExpenseDetailBaseComponent,
   ],

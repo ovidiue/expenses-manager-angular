@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 import { Rate, ServerResp } from '@models/interfaces';
 
 import { ApiPath } from '@utils/constants/api-paths';
@@ -23,7 +21,7 @@ export class RateService {
 
   constructor(private readonly _httpClient: HttpClient) {}
 
-  getRates(event: LazyLoadEvent): Observable<any> {
+  getRates(event: any): Observable<any> {
     const params: HttpParams = mapTableParams(event);
 
     return this._httpClient.get(this._RATES_BASE_URL, { params });
@@ -80,7 +78,7 @@ export class RateService {
     return this._httpClient.get<ServerResp<Rate[]>>(url, { params });
   }
 
-  getRatesByExpenseIds(id: number[], event: LazyLoadEvent): Observable<any> {
+  getRatesByExpenseIds(id: number[], event: any): Observable<any> {
     const url = this._RATES_BASE_URL + '/expenses';
     let params: HttpParams = mapTableParams(event);
     params = params.append('expenseIds', id.toString());

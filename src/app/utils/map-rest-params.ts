@@ -1,12 +1,10 @@
 import { HttpParams } from '@angular/common/http';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 const getSort = (param: number): string => {
   return param > 0 ? 'asc' : 'desc';
 };
 
-export default (param: LazyLoadEvent): HttpParams => {
+export default (param: any): HttpParams => {
   let params: HttpParams = new HttpParams();
   if (param) {
     if (param.rows) {

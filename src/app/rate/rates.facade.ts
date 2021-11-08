@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 import { Expense, Rate } from '@models/interfaces';
 
 import { ExpenseService, RateService } from '@core/services';
@@ -46,7 +44,7 @@ export class RatesFacade {
     private readonly _toastrService: ToastrService
   ) {}
 
-  getRatesByExpenseIds(ids: number[], event: LazyLoadEvent) {
+  getRatesByExpenseIds(ids: number[], event: any) {
     return this._rateService.getRatesByExpenseIds(ids, event);
   }
 
@@ -70,7 +68,7 @@ export class RatesFacade {
       });
   }
 
-  getRates(event: LazyLoadEvent): void {
+  getRates(event: any): void {
     this.setLoadingState(true);
     this._rateService
       .getRates(event)

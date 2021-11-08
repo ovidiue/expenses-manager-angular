@@ -3,12 +3,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { LazyLoadEvent } from 'primeng/api';
-
-import { Expense, ExpenseFilter, ServerResp } from '@models/interfaces';
+import { Expense, ServerResp } from '@models/interfaces';
 
 import { ApiPath } from '@utils/constants/api-paths';
-import mapToRestParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';
 
 const httpOptions = {

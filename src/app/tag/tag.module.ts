@@ -1,3 +1,4 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFacade } from './tag.facade';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { FormGroupModule } from '@shared/components/form-group';
 import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 
@@ -32,6 +34,8 @@ const tagRoutes: Route[] = [
     MaterialModule,
     ColorPickerModule,
     CommonModule,
+    FormGroupModule,
+    CdkTableModule,
   ],
   declarations: [
     TagListComponent,

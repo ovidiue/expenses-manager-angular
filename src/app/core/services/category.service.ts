@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 import { Card, Category, ServerResp } from '@models/interfaces';
 
 import { ApiPath } from '@utils/constants/api-paths';
@@ -23,7 +21,7 @@ export class CategoryService {
 
   constructor(private readonly _httpClient: HttpClient) {}
 
-  getAll(event: LazyLoadEvent = {}): Observable<ServerResp<Category>> {
+  getAll(event: any = {}): Observable<ServerResp<Category>> {
     const params: HttpParams = mapTableParams(event);
 
     return this._httpClient.get<ServerResp<Category>>(
@@ -34,7 +32,7 @@ export class CategoryService {
     );
   }
 
-  getCategories(event: LazyLoadEvent = null): Observable<Category[]> {
+  getCategories(event: any = null): Observable<Category[]> {
     const params: HttpParams = mapTableParams(event);
 
     return this._httpClient.get<Category[]>(this.CATEGORIES_BASE_URL, {

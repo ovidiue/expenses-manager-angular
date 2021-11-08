@@ -29,7 +29,8 @@
             "styles": [
               "src/styles/main.scss",
               "node_modules/primeng/resources/themes/nova/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/components/colorpicker/colorpicker.css",
+              "node_modules/primeng/resources/components/colorpicker/colorpicker-images.css"
             ],
             "scripts": [],
             "aot": false,

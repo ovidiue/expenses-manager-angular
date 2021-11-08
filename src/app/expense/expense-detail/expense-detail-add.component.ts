@@ -2,8 +2,6 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MessageService } from 'primeng/api';
-
 import { RoutePaths } from '@models/enums/route-paths.enum';
 
 import { fadeIn } from '@utils/animations/fadeIn';
@@ -19,7 +17,6 @@ import { TranslocoService } from '@ngneat/transloco';
   selector: 'app-expense-detail',
   templateUrl: './expense-detail.component.html',
   styleUrls: ['./expense-detail.component.scss'],
-  providers: [MessageService],
   animations: [fadeIn],
 })
 export class ExpenseDetailAddComponent extends ExpenseDetailBaseComponent {

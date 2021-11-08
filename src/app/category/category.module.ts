@@ -1,3 +1,4 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import {
 } from './index';
 
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { FormGroupModule } from '@shared/components/form-group';
 import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 
@@ -34,6 +36,8 @@ const categoryRoutes: Route[] = [
     ReactiveFormsModule,
     ColorPickerModule,
     CommonModule,
+    FormGroupModule,
+    CdkTableModule,
   ],
   declarations: [
     CategoryDetailEditComponent,

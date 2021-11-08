@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 import { Category } from '@models/interfaces';
 
 import { MESSAGES } from '@utils/messages';
@@ -158,7 +156,7 @@ export class CategoryFacade {
     );
   }
 
-  getCategories(event: LazyLoadEvent): void {
+  getCategories(event: any): void {
     this._loading$.next(true);
     this._categoryService
       .getAll(event)

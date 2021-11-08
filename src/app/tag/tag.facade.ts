@@ -4,11 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 
-import { LazyLoadEvent } from 'primeng/api';
-
 import { Tag } from '@models/interfaces';
-
-import { MESSAGES } from '@utils/messages';
 
 import { TagService } from '@core/services';
 import * as _ from 'lodash';
@@ -22,7 +18,7 @@ export class TagFacade {
   private _loadingMessage = new BehaviorSubject<string>('');
   private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<Number> = new BehaviorSubject(0);
-  private event: LazyLoadEvent;
+  private event: any;
 
   constructor(
     private readonly _tagService: TagService,
@@ -104,7 +100,7 @@ export class TagFacade {
     );
   }
 
-  isSameEvent(event: LazyLoadEvent): boolean {
+  isSameEvent(event: any): boolean {
     return _.isEqual(event, this.event);
   }
 
@@ -127,7 +123,7 @@ export class TagFacade {
     );
   }
 
-  getTags(event: LazyLoadEvent) {
+  getTags(event: any) {
     this.setLoading(true);
     this._tagService
       .getAll(event)
