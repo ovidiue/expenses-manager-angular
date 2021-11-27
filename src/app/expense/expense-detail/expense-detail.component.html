@@ -9,61 +9,39 @@
         <form (ngSubmit)="onSubmit()" [formGroup]="expenseForm">
           <app-form-group>
             <app-label>{{ 'GENERAL.NAME' | transloco }}</app-label>
+
             <input
-              [ngClass]="{
-                'is-invalid':
-                  name.invalid &&
-                  (name.dirty || name.touched || isFormSubmitted)
-              }"
-              class="form-control"
               formControlName="name"
               appFormField
               [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.NAME' | transloco"
               required
-              type="text"
             />
-            <app-error
-              *ngIf="
-                name.invalid &&
-                (name.dirty || name.touched || isFormSubmitted) &&
-                name.errors.required &&
-                isFormSubmitted
-              "
-            >
-              {{ 'EXPENSES.DETAIL.ERRORS.TITLE' | transloco }}
+
+            <app-error *ngIf="isErrorVisible(name)">
+              {{ 'EXPENSES.DETAIL.ERRORS.NAME' | transloco }}
             </app-error>
           </app-form-group>
 
           <app-form-group>
             <app-label>{{ 'GENERAL.AMOUNT' | transloco }}</app-label>
+
             <input
-              [ngClass]="{
-                'is-invalid':
-                  amount.invalid &&
-                  (amount.dirty || amount.touched || isFormSubmitted)
-              }"
-              aria-describedby="amount"
-              class="form-control"
               formControlName="amount"
               appFormField
               [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.AMOUNT' | transloco"
               required
               type="text"
+              appNumberOnly
             />
-            <app-error
-              *ngIf="
-                amount.invalid &&
-                (amount.dirty || amount.touched || isFormSubmitted) &&
-                amount.errors.required &&
-                isFormSubmitted
-              "
-            >
+
+            <app-error *ngIf="isErrorVisible(amount)">
               {{ 'EXPENSES.DETAIL.ERRORS.AMOUNT' | transloco }}
             </app-error>
           </app-form-group>
 
           <app-form-group>
             <app-label>{{ 'GENERAL.DESCRIPTION' | transloco }}</app-label>
+
             <textarea
               class="form-control"
               formControlName="description"
@@ -81,12 +59,14 @@
 
           <app-form-group>
             <app-label>{{ 'EXPENSES.LIST.DUE_DATE' | transloco }}</app-label>
+
             <mat-form-field>
               <input
                 matInput
                 [matDatepicker]="picker"
                 [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.DATE' | transloco"
                 [min]="minDate"
+                (click)="picker.open()"
                 formControlName="dueDate"
               />
 
@@ -101,16 +81,13 @@
                 disabled="false"
               ></mat-datepicker>
             </mat-form-field>
-            <app-error  *ngIf="
-                dueDate.invalid &&
-                (dueDate.dirty || dueDate.touched || isFormSubmitted) &&
-                dueDate.errors.required &&
-                isFormSubmitted
-              ">Required</app-error>
+
+            <app-error *ngIf="isErrorVisible(dueDate)">Required</app-error>
           </app-form-group>
 
           <app-form-group>
             <app-label>{{ 'EXPENSES.LIST.CATEGORY' | transloco }}</app-label>
+
             <mat-form-field appearance="standard">
               <mat-select
                 [placeholder]="
@@ -132,6 +109,7 @@
 
           <app-form-group>
             <app-label>{{ 'EXPENSES.LIST.TAGS' | transloco }}</app-label>
+
             <mat-form-field appearance="standard">
               <mat-select
                 [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.TAGS' | transloco"

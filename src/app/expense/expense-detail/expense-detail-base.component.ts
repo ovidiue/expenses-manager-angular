@@ -1,19 +1,14 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
 
 import { Category, Tag } from '@models/interfaces';
 
-import { CategoryFacade } from '../../category/category.facade';
-import { TagFacade } from '../../tag/tag.facade';
+import { CategoryFacade } from '../../category';
+import { TagFacade } from '../../tag';
 import { ExpenseFacade } from '../expense.facade';
 
 @Component({
@@ -43,22 +38,22 @@ export class ExpenseDetailBaseComponent implements OnDestroy {
       amount: new FormControl('', Validators.required),
       description: new FormControl(''),
       recurrent: new FormControl(false),
-      dueDate: new FormControl(''),
+      dueDate: new FormControl('', Validators.required),
       category: new FormControl(null),
       tags: new FormControl([]),
     });
   }
 
-  get name(): AbstractControl {
-    return this.expenseForm.get('name');
+  get name(): FormControl {
+    return this.expenseForm.get('name') as FormControl;
   }
 
-  get amount(): AbstractControl {
-    return this.expenseForm.get('amount');
+  get amount(): FormControl {
+    return this.expenseForm.get('amount') as FormControl;
   }
 
   get dueDate() {
-    return this.expenseForm.get('dueDate');
+    return this.expenseForm.get('dueDate') as FormControl;
   }
 
   ngOnDestroy(): void {
@@ -69,5 +64,9 @@ export class ExpenseDetailBaseComponent implements OnDestroy {
   goBack(event: any) {
     event.preventDefault();
     this.location.back();
+  }
+
+  isErrorVisible(ctrl: FormControl) {
+    return ctrl.invalid && (ctrl.touched || this.isFormSubmitted);
   }
 }

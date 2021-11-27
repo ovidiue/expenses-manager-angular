@@ -20,7 +20,7 @@
         "TAGS": "Tags"
       },
       "ERRORS": {
-        "TITLE": "Title is required",
+        "NAME": "Name is required",
         "AMOUNT": "Amount is required"
       }
     }

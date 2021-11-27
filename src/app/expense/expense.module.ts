@@ -17,6 +17,7 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
 import { FormGroupModule } from '@shared/components/form-group';
 import { NoDataModule } from '@shared/components/noData/no-data.module';
 import { MaterialModule } from '@shared/material.module';
+import { AppNumberOnlyModule } from '@shared/pipes/app-number-only.module';
 import { SharedModule } from '@shared/shared.module';
 
 const expensesRoutes: Route[] = [
@@ -26,6 +27,7 @@ const expensesRoutes: Route[] = [
 ];
 
 const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
+const pipeImports = [AppNumberOnlyModule];
 
 @NgModule({
   imports: [
@@ -38,6 +40,7 @@ const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
     ReactiveFormsModule,
     CommonModule,
     FormGroupModule,
+    ...pipeImports,
   ],
   declarations: [
     ExpenseListComponent,
