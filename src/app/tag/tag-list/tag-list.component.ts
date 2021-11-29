@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Tag } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn, scaleAndFade } from '@utils/animations';
 
 import { TagFacade } from '../tag.facade';
 
@@ -32,7 +32,7 @@ export class TagDataSource extends DataSource<Tag> {
   selector: 'app-tags',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
-  animations: [fadeIn],
+  animations: [fadeIn, scaleAndFade],
 })
 export class TagListComponent implements OnInit {
   loading$ = this._tagFacade.loading$;
@@ -45,6 +45,10 @@ export class TagListComponent implements OnInit {
     private readonly _overlayService: OverlayService,
     private readonly _translocoService: TranslocoService
   ) {}
+
+  trackBy(index: number, el: Tag) {
+    return el.id;
+  }
 
   ngOnInit() {
     this._tagFacade.getTags(null);

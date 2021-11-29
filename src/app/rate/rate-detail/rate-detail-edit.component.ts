@@ -8,9 +8,9 @@ import { map, switchMap } from 'rxjs/operators';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Rate } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
-import { ExpenseFacade } from '../../expense/expense.facade';
+import { ExpenseFacade } from '../../expense';
 import { RatesFacade } from '../rates.facade';
 import { RateDetailBaseComponent } from './rate-detail-base.component';
 

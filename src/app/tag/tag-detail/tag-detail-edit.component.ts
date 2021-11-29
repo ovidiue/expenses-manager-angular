@@ -8,7 +8,7 @@ import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Tag } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
 import { TagFacade } from '../tag.facade';
 import { TagDetailBaseComponent } from './tag-detail-base.component';

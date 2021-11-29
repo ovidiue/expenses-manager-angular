@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Rate } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
 import { RatesFacade } from '../rates.facade';
 

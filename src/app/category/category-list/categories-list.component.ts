@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Category } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 import { TABLE_DEFAULTS } from '@utils/table-options';
 
 import { CategoryFacade } from '../category.facade';

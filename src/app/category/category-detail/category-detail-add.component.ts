@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { RoutePaths } from '@models/enums/route-paths.enum';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
 import { CategoryFacade } from '../category.facade';
 import { CategoryDetailBaseComponent } from './category-detail-base.component';

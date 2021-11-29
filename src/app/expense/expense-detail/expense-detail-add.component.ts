@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { RoutePaths } from '@models/enums/route-paths.enum';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
 import { CategoryFacade } from '../../category';
-import { TagFacade } from '../../tag/tag.facade';
+import { TagFacade } from '../../tag';
 import { ExpenseFacade } from '../expense.facade';
 import { ExpenseDetailBaseComponent } from './expense-detail-base.component';
 

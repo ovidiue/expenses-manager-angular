@@ -8,10 +8,10 @@ import { map, pluck, switchMap, takeUntil } from 'rxjs/operators';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Expense } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
-import { CategoryFacade } from '../../category/category.facade';
-import { TagFacade } from '../../tag/tag.facade';
+import { CategoryFacade } from '../../category';
+import { TagFacade } from '../../tag';
 import { ExpenseFacade } from '../expense.facade';
 import { ExpenseDetailBaseComponent } from './expense-detail-base.component';
 

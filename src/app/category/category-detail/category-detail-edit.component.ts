@@ -8,7 +8,7 @@ import { pluck, switchMap, takeUntil } from 'rxjs/operators';
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Category } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
 import { CategoryFacade } from '../category.facade';
 import { CategoryDetailBaseComponent } from './category-detail-base.component';

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { Expense } from '@models/interfaces';
 
-import { fadeIn } from '@utils/animations/fadeIn';
+import { fadeIn } from '@utils/animations';
 
 import { ExpenseFacade } from '../expense.facade';
 
