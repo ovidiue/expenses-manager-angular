@@ -1,0 +1,24 @@
+<div class="selector" (click)="expanded = !expanded">
+  <ng-container *ngIf="!multiple">
+    <div class="selected" *ngIf="selectedOptionValue; else selectTemplate">
+      {{ selectedOptionValue.label }}
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="multiple">
+    <div class="selected" *ngIf="selectedOptions.length; else selectTemplate">
+      <span *ngFor="let item of selectedOptions" class="selected-value">
+        <svg-icon key="delete" (click)="addRemoveToSelected(item)"></svg-icon>
+        {{ item.label }}
+      </span>
+    </div>
+  </ng-container>
+
+  <ng-template #selectTemplate>
+    <div>Please select option</div>
+  </ng-template>
+</div>
+
+<div class="options" *ngIf="expanded && options.length">
+  <ng-content></ng-content>
+</div>

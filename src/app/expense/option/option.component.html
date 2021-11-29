@@ -1,0 +1,9 @@
+<div (click)="handleClick()" #contentWrapper [@slide]>
+  <div>
+    <ng-container *ngIf="multipleMode">
+      <input type="checkbox" [checked]="selected" />
+    </ng-container>
+
+    <ng-content></ng-content>
+  </div>
+</div>
