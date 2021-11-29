@@ -1,0 +1,15 @@
+@import 'custom';
+
+.app-dropdown {
+  width: 100%;
+  display: block;
+  background: $gray;
+  padding: $spacer-sm;
+  cursor: pointer;
+
+  .app-option {
+    border: 1px solid $gray;
+    background: white;
+    padding: $spacer-sm;
+  }
+}

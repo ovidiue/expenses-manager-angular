@@ -1,0 +1,13 @@
+<div class="selector" (click)="expanded = !expanded">
+  <div class="selected" *ngIf="selectedOptionValue; else selectTemplate">
+    {{ selectedOptionValue.label }}
+  </div>
+
+  <ng-template #selectTemplate>
+    <div>Please select option</div>
+  </ng-template>
+</div>
+
+<div class="options" *ngIf="expanded">
+  <ng-content></ng-content>
+</div>
