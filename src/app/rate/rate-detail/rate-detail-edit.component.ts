@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { map, switchMap } from 'rxjs/operators';
@@ -42,7 +42,7 @@ export class RateDetailEditComponent
   }
 
   ngOnInit(): void {
-    this.rateFormControls.addControl('id', new FormControl(null));
+    this.rateFormControls.addControl('id', new UntypedFormControl(null));
 
     this.route.params
       .pipe(

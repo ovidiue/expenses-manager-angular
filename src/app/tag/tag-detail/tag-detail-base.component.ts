@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { Subject } from 'rxjs';
 import {
@@ -22,17 +22,17 @@ import { TagFacade } from '../tag.facade';
 export class TagDetailBaseComponent implements OnDestroy {
   pageTitle = '';
   nameExists = false;
-  tagFormControls: FormGroup;
+  tagFormControls: UntypedFormGroup;
   initialName = '';
   isSubmitted = false;
   loading$ = this.tagFacade.loading$;
   protected _destroy$ = new Subject();
 
   constructor(protected location: Location, protected tagFacade: TagFacade) {
-    this.tagFormControls = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      color: new FormControl('lightgray'),
+    this.tagFormControls = new UntypedFormGroup({
+      name: new UntypedFormControl('', Validators.required),
+      description: new UntypedFormControl(''),
+      color: new UntypedFormControl('lightgray'),
     });
 
     this.name.valueChanges

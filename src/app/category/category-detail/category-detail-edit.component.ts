@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { pluck, switchMap, takeUntil } from 'rxjs/operators';
@@ -41,7 +41,7 @@ export class CategoryDetailEditComponent
   }
 
   ngOnInit() {
-    this.categoryForm.addControl('id', new FormControl(null));
+    this.categoryForm.addControl('id', new UntypedFormControl(null));
 
     this.route.params
       .pipe(

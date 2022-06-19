@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
   spinnerMessage$ = this.categoryFacade.loadingMsg$;
   pageTitle: string;
   nameExists = false;
-  categoryForm: FormGroup;
+  categoryForm: UntypedFormGroup;
   isSubmitted: boolean;
   protected initialName: string;
   protected _destroy$ = new Subject();
@@ -25,10 +25,10 @@ export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
     protected location: Location,
     protected categoryFacade: CategoryFacade
   ) {
-    this.categoryForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      color: new FormControl('#B0AEB0'),
+    this.categoryForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', Validators.required),
+      description: new UntypedFormControl(''),
+      color: new UntypedFormControl('#B0AEB0'),
     });
   }
 

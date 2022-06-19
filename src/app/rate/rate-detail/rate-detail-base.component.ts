@@ -2,8 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,7 +37,7 @@ export class RateDetailBaseComponent implements OnDestroy {
   nameExists = false;
   maxDate = new Date();
   expenses: any[];
-  rateFormControls: FormGroup;
+  rateFormControls: UntypedFormGroup;
 
   constructor(
     protected location: Location,
@@ -46,14 +46,14 @@ export class RateDetailBaseComponent implements OnDestroy {
     protected expenseFacade: ExpenseFacade,
     protected route: ActivatedRoute
   ) {
-    this.rateFormControls = new FormGroup({
-      amount: new FormControl(null, Validators.required),
-      payedOn: new FormControl(
+    this.rateFormControls = new UntypedFormGroup({
+      amount: new UntypedFormControl(null, Validators.required),
+      payedOn: new UntypedFormControl(
         { value: null, disabled: true },
         Validators.required
       ),
-      expense: new FormControl(''),
-      description: new FormControl(''),
+      expense: new UntypedFormControl(''),
+      description: new UntypedFormControl(''),
     });
   }
 

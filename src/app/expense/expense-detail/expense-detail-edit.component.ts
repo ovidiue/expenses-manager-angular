@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { map, pluck, switchMap, takeUntil } from 'rxjs/operators';
@@ -42,7 +42,7 @@ export class ExpenseDetailEditComponent
   }
 
   ngOnInit() {
-    this.expenseForm.addControl('id', new FormControl(null));
+    this.expenseForm.addControl('id', new UntypedFormControl(null));
 
     this.route.params
       .pipe(
