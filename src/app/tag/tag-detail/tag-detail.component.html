@@ -51,12 +51,7 @@
 
             <app-form-group>
               <app-label>Color</app-label>
-              <p-colorPicker
-                [inline]="true"
-                class="test"
-                formControlName="color"
-                value="selectedColor"
-              ></p-colorPicker>
+              <input type="color" formControlName="color">
               <div
                 [ngStyle]="{
                   background: tagFormControls.controls['color'].value

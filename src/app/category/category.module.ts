@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
 
-import { ColorPickerModule } from 'primeng/colorpicker';
-
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { CategoryDetailBaseComponent } from './category-detail/category-detail-base.component';
 import {
@@ -28,7 +26,6 @@ const categoryRoutes: Route[] = [
 const vendorImports = [
   SvgIconsModule,
   MaterialModule,
-  ColorPickerModule,
   CdkTableModule,
 ];
 

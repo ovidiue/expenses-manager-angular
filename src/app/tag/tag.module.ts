@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
 
-import { ColorPickerModule } from 'primeng/colorpicker';
-
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { TagDetailAddComponent } from './tag-detail/tag-detail-add.component';
 import { TagDetailBaseComponent } from './tag-detail/tag-detail-base.component';
@@ -24,12 +22,7 @@ const tagRoutes: Route[] = [
   { path: 'edit/:id', component: TagDetailEditComponent },
 ];
 
-const vendorImports = [
-  SvgIconsModule,
-  MaterialModule,
-  ColorPickerModule,
-  CdkTableModule,
-];
+const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
 
 @NgModule({
   imports: [

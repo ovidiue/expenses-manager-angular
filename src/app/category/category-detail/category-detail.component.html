@@ -51,11 +51,7 @@
 
             <app-form-group>
               <app-label>Color</app-label>
-              <p-colorPicker
-                [inline]="true"
-                class="test"
-                formControlName="color"
-              ></p-colorPicker>
+              <input type="color" formControlName="color" />
               <div
                 [ngStyle]="{ background: categoryForm.get('color').value }"
                 class="preview-block"

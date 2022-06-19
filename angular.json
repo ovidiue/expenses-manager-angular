@@ -27,10 +27,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles/main.scss",
-              "node_modules/primeng/resources/themes/nova/theme.css",
-              "node_modules/primeng/resources/components/colorpicker/colorpicker.css",
-              "node_modules/primeng/resources/components/colorpicker/colorpicker-images.css"
+              "src/styles/main.scss"
             ],
             "scripts": [],
             "aot": false,
