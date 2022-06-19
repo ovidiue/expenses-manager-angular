@@ -2,7 +2,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TranslocoRootModule } from '../../transloco/transloco-root.module';
@@ -24,7 +24,7 @@ describe('ExpenseListComponent', () => {
           TranslocoRootModule,
           CdkTableModule,
           ToastrModule.forRoot(),
-          BrowserAnimationsModule,
+          NoopAnimationsModule
         ],
         declarations: [ExpenseListComponent],
         providers: [{ provide: OverlayService, useValue: {} }],
