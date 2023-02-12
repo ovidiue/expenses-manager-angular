@@ -11,7 +11,7 @@ import { TagDetailEditComponent } from './tag-detail/tag-detail-edit.component';
 import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFacade } from './tag.facade';
 
-import { SvgIconsModule } from '@ngneat/svg-icon';
+import { SvgIconComponent } from '@ngneat/svg-icon';
 import { FormGroupModule } from '@shared/components/form-group';
 import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
@@ -22,7 +22,7 @@ const tagRoutes: Route[] = [
   { path: 'edit/:id', component: TagDetailEditComponent },
 ];
 
-const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
+const vendorImports = [SvgIconComponent, MaterialModule, CdkTableModule];
 
 @NgModule({
   imports: [

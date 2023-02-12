@@ -16,9 +16,9 @@ import { TagModule } from './tag/tag.module';
 import { TranslocoRootModule } from './transloco/transloco-root.module';
 
 import { CoreModule } from '@core/core.module';
-import { SvgIconsModule } from '@ngneat/svg-icon';
 import player from 'lottie-web';
 import { LottieModule } from 'ngx-lottie';
+import { provideSvgIcons } from '@ngneat/svg-icon';
 
 export function playerFactory() {
   return player;
@@ -35,9 +35,6 @@ export function playerFactory() {
     ExpenseModule,
     DashboardModule,
     LoginModule,
-    SvgIconsModule.forRoot({
-      icons: [appCloseIcon, appDeleteIcon, appEditIcon],
-    }),
     HttpClientModule,
     TranslocoRootModule,
   ],
@@ -45,6 +42,7 @@ export function playerFactory() {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideSvgIcons([appCloseIcon, appDeleteIcon, appEditIcon]),
   ],
   exports: [],
   bootstrap: [AppComponent],

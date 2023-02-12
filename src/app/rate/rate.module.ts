@@ -12,7 +12,7 @@ import {
 } from './index';
 import { RateDetailBaseComponent } from './rate-detail/rate-detail-base.component';
 
-import { SvgIconsModule } from '@ngneat/svg-icon';
+import { SvgIconComponent } from '@ngneat/svg-icon';
 import { FormGroupModule } from '@shared/components/form-group';
 import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
@@ -23,7 +23,7 @@ const ratesRoutes: Route[] = [
   { path: 'edit/:id', component: RateDetailEditComponent },
 ];
 
-const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
+const vendorImports = [SvgIconComponent, MaterialModule, CdkTableModule];
 
 @NgModule({
   imports: [

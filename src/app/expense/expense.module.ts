@@ -7,13 +7,9 @@ import { Route, RouterModule } from '@angular/router';
 import { TranslocoRootModule } from '../transloco/transloco-root.module';
 import { ExpenseCardComponent } from './expense-card/expense-card.component';
 import { ExpenseDetailBaseComponent } from './expense-detail/expense-detail-base.component';
-import {
-  ExpenseDetailAddComponent,
-  ExpenseDetailEditComponent,
-  ExpenseListComponent,
-} from './index';
+import { ExpenseDetailAddComponent, ExpenseDetailEditComponent, ExpenseListComponent } from './index';
 
-import { SvgIconsModule } from '@ngneat/svg-icon';
+import { SvgIconComponent } from '@ngneat/svg-icon';
 import { FormGroupModule } from '@shared/components/form-group';
 import { NoDataModule } from '@shared/components/noData/no-data.module';
 import { MaterialModule } from '@shared/material.module';
@@ -26,7 +22,7 @@ const expensesRoutes: Route[] = [
   { path: 'edit/:id', component: ExpenseDetailEditComponent },
 ];
 
-const vendorImports = [SvgIconsModule, MaterialModule, CdkTableModule];
+const vendorImports = [SvgIconComponent, MaterialModule, CdkTableModule];
 const pipeImports = [AppNumberOnlyModule];
 
 @NgModule({
