@@ -3,9 +3,6 @@
     "tslint-plugin-prettier",
     "tslint-config-prettier"
   ],
-  "rulesDirectory": [
-    "codelyzer"
-  ],
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,
