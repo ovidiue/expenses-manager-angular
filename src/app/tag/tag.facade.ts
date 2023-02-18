@@ -47,7 +47,7 @@ export class TagFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error(err.message, 'Failed fetching tag');
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       finalize(() => {
         this.setLoading(false);
@@ -60,7 +60,7 @@ export class TagFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error(err.message, 'Failed fetching tag');
 
-        return throwError(err);
+        return throwError(() => err);
       })
     );
   }
@@ -72,7 +72,7 @@ export class TagFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error(err.message, 'Failed saving tag');
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => {
         this._toastrService.success('', 'Saved tag');
@@ -90,7 +90,7 @@ export class TagFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error(err.message, 'Failed updating tag');
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => {
         this._toastrService.success('', 'Updated tag');
@@ -109,7 +109,7 @@ export class TagFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error('Failed deleting', 'Delete');
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => {
         this._toastrService.success(`Successfully deleted ${stringForm}`);
@@ -129,7 +129,7 @@ export class TagFacade {
         catchError((err: HttpErrorResponse) => {
           this._toastrService.error('Error getting tags', 'Error');
 
-          return throwError(err);
+          return throwError(() => err);
         }),
         finalize(() => {
           this.setLoading(false);

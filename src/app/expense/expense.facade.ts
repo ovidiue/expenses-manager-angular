@@ -1,19 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { ExpenseService, RateService } from '@core/services';
 
-import { Expense, ExpenseFilter, Rate, ServerResp } from '@models/interfaces';
+import { Expense } from '@models/interfaces';
 
 import { MESSAGES } from '@utils/messages';
-
-import { CategoryFacade } from '../category/category.facade';
-import { TagFacade } from '../tag/tag.facade';
-
-import { ExpenseService, RateService } from '@core/services';
-import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
+
+import { BehaviorSubject, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
+
+import { CategoryFacade } from '../category';
+import { TagFacade } from '../tag';
 
 @Injectable({
   providedIn: 'root',
@@ -36,9 +35,6 @@ export class ExpenseFacade {
     return this._apiErr$.asObservable();
   }
 
-  categories$ = this.categoryFacade.categories$;
-  tags$ = this.tagFacade.tags$;
-
   constructor(
     private readonly expenseService: ExpenseService,
     private readonly rateService: RateService,
@@ -59,28 +55,10 @@ export class ExpenseFacade {
         this._apiErr$.next(true);
         this._expenses$.next([]);
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       finalize(() => this._loading$.next(false))
     );
-  }
-
-  setCategoryApi(expIds: number[], catId: number) {
-    this._loading$.next(true);
-
-    this.expenseService
-      .setCategory(expIds, catId)
-      .pipe(
-        catchError((err: HttpErrorResponse) => {
-          this.toastr.error(err.message, MESSAGES.ERROR);
-
-          return throwError(err);
-        }),
-        finalize(() => this._loading$.next(false))
-      )
-      .subscribe(() => {
-        this.getExpenses();
-      });
   }
 
   deleteExpensesApi(ids: number[], withRates: boolean) {
@@ -92,7 +70,7 @@ export class ExpenseFacade {
         catchError((err: HttpErrorResponse) => {
           this.toastr.error(err.message, MESSAGES.ERROR);
 
-          return throwError(err);
+          return throwError(() => err);
         }),
         tap(() => {
           const msg = ids.length
@@ -107,69 +85,6 @@ export class ExpenseFacade {
       .subscribe();
   }
 
-  getRatesByExpenseIdApi(id: number): Observable<ServerResp<Rate[]>> {
-    return this.rateService.getRatesByExpenseId(id).pipe(
-      catchError((err: HttpErrorResponse) => {
-        this.toastr.error(err.message, MESSAGES.ERROR);
-
-        return throwError(err);
-      })
-    );
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mapToExpenseFilter(obj: any): ExpenseFilter {
-    const expenseFilter: ExpenseFilter = {};
-
-    if (obj.amount) {
-      obj.amountFrom = obj.amount[0];
-      obj.amountTo = obj.amount[1];
-      delete obj.amount;
-    }
-
-    if (obj.createdBetween) {
-      obj.createdFrom = DateTime.fromJSDate(obj.createdBetween[0]).toFormat(
-        'DD-MM-YYYY'
-      );
-      obj.createdTo = DateTime.fromJSDate(obj.createdBetween[1]).toFormat(
-        'DD-MM-YYYY'
-      );
-      delete obj.createdBetween;
-    }
-
-    if (obj.dueBetween) {
-      obj.dueDateFrom = DateTime.fromJSDate(obj.dueBetween[0]).toFormat(
-        'DD-MM-YYYY'
-      );
-      obj.dueDateTo = DateTime.fromJSDate(obj.dueBetween[1]).toFormat(
-        'DD-MM-YYYY'
-      );
-      delete obj.dueBetween;
-    }
-
-    if (obj.category) {
-      obj.categoryId = obj.category.id;
-      delete obj.category;
-    }
-
-    if (obj.tags) {
-      obj.tagIds = obj.tags.map((tag) => tag.id);
-      delete obj.tags;
-    }
-
-    for (const key in obj) {
-      if (
-        obj[key] !== null &&
-        typeof obj[key] !== 'undefined' &&
-        obj[key] !== ''
-      ) {
-        expenseFilter[key] = obj[key];
-      }
-    }
-
-    return expenseFilter;
-  }
-
   saveExpense(expense: Expense) {
     this._loading$.next(true);
 
@@ -177,7 +92,7 @@ export class ExpenseFacade {
       catchError((err: HttpErrorResponse) => {
         this.toastr.error(err.message, MESSAGES.ERROR);
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => {
         this.toastr.success(MESSAGES.EXPENSE.ADD, 'Expense');
@@ -193,7 +108,7 @@ export class ExpenseFacade {
       catchError((err: HttpErrorResponse) => {
         this.toastr.error(err.message, MESSAGES.ERROR);
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       finalize(() => this._loading$.next(false))
     );
@@ -206,7 +121,7 @@ export class ExpenseFacade {
       catchError((err: HttpErrorResponse) => {
         this.toastr.error(err.message, MESSAGES.ERROR);
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => {
         this.toastr.success(MESSAGES.EXPENSE.UPDATE, 'Expense');

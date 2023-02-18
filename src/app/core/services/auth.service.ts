@@ -46,7 +46,7 @@ export class AuthService {
         catchError((err: HttpErrorResponse) => {
           this._toastrService.error(err.message, 'Register Failed');
 
-          return throwError(err);
+          return throwError(() => err);
         }),
         finalize(() => {
           this.setLoading(false);
@@ -68,7 +68,7 @@ export class AuthService {
         catchError((err: HttpErrorResponse) => {
           this._toastrService.error(err.message, 'Login Failed');
 
-          return throwError(err);
+          return throwError(() => err);
         }),
         tap((resp: { [token: string]: string }) =>
           localStorage.setItem('token', resp.token)

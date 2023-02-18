@@ -3,19 +3,19 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { map, pluck, switchMap, takeUntil } from 'rxjs/operators';
-
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Expense } from '@models/interfaces';
 
+import { TranslocoService } from '@ngneat/transloco';
+
 import { fadeIn } from '@utils/animations';
+
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 
 import { CategoryFacade } from '../../category';
 import { TagFacade } from '../../tag';
 import { ExpenseFacade } from '../expense.facade';
 import { ExpenseDetailBaseComponent } from './expense-detail-base.component';
-
-import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-expense-detail',
@@ -47,8 +47,7 @@ export class ExpenseDetailEditComponent
     this.route.params
       .pipe(
         takeUntil(this._destroy$),
-        pluck('id'),
-        switchMap((id: number) => this.expenseFacade.getExpense(id)),
+        switchMap(({ id }) => this.expenseFacade.getExpense(id)),
         map((exp: Expense) => ({
           name: exp.name,
           amount: exp.amount,

@@ -164,7 +164,7 @@ export class CategoryFacade {
         catchError((err: HttpErrorResponse) => {
           this._toastrService.error(err.message, MESSAGES.ERROR);
 
-          return throwError(err);
+          return throwError(() => err);
         }),
         finalize(() => {
           this._loading$.next(false);

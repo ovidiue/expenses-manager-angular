@@ -3,17 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { pluck, switchMap, takeUntil } from 'rxjs/operators';
-
 import { RoutePaths } from '@models/enums/route-paths.enum';
 import { Category } from '@models/interfaces';
 
+import { TranslocoService } from '@ngneat/transloco';
+
 import { fadeIn } from '@utils/animations';
+
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { CategoryFacade } from '../category.facade';
 import { CategoryDetailBaseComponent } from './category-detail-base.component';
-
-import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-category-detail',
@@ -46,8 +46,7 @@ export class CategoryDetailEditComponent
     this.route.params
       .pipe(
         takeUntil(this._destroy$),
-        pluck('id'),
-        switchMap((id: number) => this.categoryFacade.getCategory(id))
+        switchMap(({ id }) => this.categoryFacade.getCategory(id))
       )
       .subscribe((category: Category) => {
         this.initialName = category.name;

@@ -57,7 +57,7 @@ export class RatesFacade {
         catchError((err: HttpErrorResponse) => {
           this._toastrService.error(err.message, 'Failed deleting rates');
 
-          return throwError(err);
+          return throwError(() => err);
         }),
         finalize(() => this.setLoadingState(false))
       )
@@ -77,7 +77,7 @@ export class RatesFacade {
         catchError((err: HttpErrorResponse) => {
           this._toastrService.error(err.message, 'Load rates failed');
 
-          return throwError(err);
+          return throwError(() => err);
         }),
         finalize(() => this.setLoadingState(false))
       )
@@ -95,7 +95,7 @@ export class RatesFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error(err.message, `Get rate ${name} failed`);
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       finalize(() => this.setLoadingState(false))
     );
@@ -111,7 +111,7 @@ export class RatesFacade {
           `Save rate ${rate.amount} failed`
         );
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => this._toastrService.success('', 'Added rate')),
       finalize(() => this.setLoadingState(false))
@@ -125,7 +125,7 @@ export class RatesFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error(err.message, `Get rate ${id} failed`);
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       finalize(() => this.setLoadingState(false))
     );
@@ -141,7 +141,7 @@ export class RatesFacade {
           `Update rate ${rate.amount} failed`
         );
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => this._toastrService.success('', 'Updated rate')),
       finalize(() => this.setLoadingState(false))
