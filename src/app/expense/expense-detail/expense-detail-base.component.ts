@@ -23,7 +23,7 @@ export class ExpenseDetailBaseComponent implements OnDestroy {
   tags$: Observable<Tag[]> = this.tagFacade.tags$;
   categories$: Observable<Category[]> = this.categoryFacade.categories$;
 
-  protected _destroy$ = new Subject();
+  protected _destroy$ = new Subject<void>();
 
   constructor(
     protected location: Location,

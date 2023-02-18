@@ -26,7 +26,7 @@ export class TagDetailBaseComponent implements OnDestroy {
   initialName = '';
   isSubmitted = false;
   loading$ = this.tagFacade.loading$;
-  protected _destroy$ = new Subject();
+  protected _destroy$ = new Subject<void>();
 
   constructor(protected location: Location, protected tagFacade: TagFacade) {
     this.tagFormControls = new UntypedFormGroup({

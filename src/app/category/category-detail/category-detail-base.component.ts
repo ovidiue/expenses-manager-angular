@@ -19,7 +19,7 @@ export class CategoryDetailBaseComponent implements OnInit, OnDestroy {
   categoryForm: UntypedFormGroup;
   isSubmitted: boolean;
   protected initialName: string;
-  protected _destroy$ = new Subject();
+  protected _destroy$ = new Subject<void>();
 
   constructor(
     protected location: Location,

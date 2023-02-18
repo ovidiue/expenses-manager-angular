@@ -30,7 +30,7 @@ export class RateDetailBaseComponent implements OnDestroy {
   get payedOn(): AbstractControl {
     return this.rateFormControls.get('payedOn');
   }
-  private _destroy$ = new Subject();
+  private _destroy$ = new Subject<void>();
   expenses$: Observable<Expense[]> = this.expenseFacade.expenses$;
   isSubmitted = false;
   pageTitle: string;
