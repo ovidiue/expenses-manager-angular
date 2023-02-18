@@ -61,6 +61,7 @@ export class ExpenseDetailBaseComponent implements OnDestroy {
     this._destroy$.complete();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   goBack(event: any) {
     event.preventDefault();
     this.location.back();

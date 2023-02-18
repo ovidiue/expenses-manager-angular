@@ -2,14 +2,14 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { getTranslocoTestingModule } from '../../transloco/transloco-spec.module';
-import { TagListComponent } from './tag-list.component';
 
 import { OverlayService } from '@shared/modal/overlay.service';
 import { ToastrModule } from 'ngx-toastr';
+
+import { getTranslocoTestingModule } from '../../transloco/transloco-spec.module';
+import { TagListComponent } from './tag-list.component';
 
 describe('TagListComponent', () => {
   let component: TagListComponent;

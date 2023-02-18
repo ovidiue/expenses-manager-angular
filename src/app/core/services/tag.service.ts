@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { mapRestParams } from '@utils/map-rest-params';
 
 import { Observable } from 'rxjs';
 
 import { Card, ServerResp, Tag } from '@models/interfaces';
 
 import { ApiPath } from '@utils/constants/api-paths';
-import mapEventToRestParams from '@utils/map-rest-params';
 import { PathBuilder } from '@utils/path-builder';
 
 const httpOptions = {
@@ -21,9 +21,9 @@ export class TagService {
 
   constructor(private readonly _httpClient: HttpClient) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getAll(event: any): Observable<ServerResp<Tag>> {
-    let params: HttpParams;
-    params = mapEventToRestParams(event);
+    const params: HttpParams = mapRestParams(event);
 
     return this._httpClient.get<ServerResp<Tag>>(this._TAGS_BASE_URL, {
       params,
@@ -41,6 +41,7 @@ export class TagService {
     const url = this._TAGS_BASE_URL + '/delete';
     const options = { body: tags };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this._httpClient.delete(url, options as any);
   }
 

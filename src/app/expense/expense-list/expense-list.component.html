@@ -4,7 +4,7 @@
   </div>
 
   <app-no-data
-    *ngIf="!(expenses$ | async).length && !(expensesApiErr$ | async)"
+    *ngIf="!(expenses$ | async).length && (expensesApiErr$ | async) === false"
     [message]="'nu sunt date momentan. vrei sa adaugam?'"
   >
     <button appButton routerLink="add" class="expenses-actions--button">

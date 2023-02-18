@@ -8,11 +8,13 @@ export interface OverlayCloseEvent<R> {
   data: R;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class MyOverlayRef<R = any, T = any> {
   afterClosed$ = new Subject<OverlayCloseEvent<R>>();
 
   constructor(
     public overlay: OverlayRef,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public content: string | TemplateRef<any> | Type<any>,
     public data: T
   ) {

@@ -18,6 +18,7 @@ export class TagFacade {
   private _loadingMessage = new BehaviorSubject<string>('');
   private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
   private _total: BehaviorSubject<number> = new BehaviorSubject(0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private event: any;
 
   constructor(
@@ -73,7 +74,7 @@ export class TagFacade {
 
         return throwError(err);
       }),
-      tap((resp) => {
+      tap(() => {
         this._toastrService.success('', 'Saved tag');
       }),
       finalize(() => {
@@ -91,7 +92,7 @@ export class TagFacade {
 
         return throwError(err);
       }),
-      tap((resp) => {
+      tap(() => {
         this._toastrService.success('', 'Updated tag');
       }),
       finalize(() => {
@@ -119,6 +120,7 @@ export class TagFacade {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getTags(event: any) {
     this.setLoading(true);
     this._tagService

@@ -33,7 +33,7 @@ export class RatesFacade {
 
   private _expenses$: BehaviorSubject<Expense[]> = new BehaviorSubject([]);
 
-  private _total$: BehaviorSubject<Number> = new BehaviorSubject(0);
+  private _total$: BehaviorSubject<number> = new BehaviorSubject(0);
 
   private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
@@ -43,7 +43,7 @@ export class RatesFacade {
     private readonly _expenseService: ExpenseService,
     private readonly _toastrService: ToastrService
   ) {}
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getRatesByExpenseIds(ids: number[], event: any) {
     return this._rateService.getRatesByExpenseIds(ids, event);
   }
@@ -68,6 +68,7 @@ export class RatesFacade {
       });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getRates(event: any): void {
     this.setLoadingState(true);
     this._rateService

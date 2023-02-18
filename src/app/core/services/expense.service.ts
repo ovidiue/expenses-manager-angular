@@ -24,12 +24,14 @@ export class ExpenseService {
     return this._httpClient.get<ServerResp<Expense>>(this._EXPENSES_BASE_URL);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   save(expense: Expense): Observable<any> {
     const url = this._EXPENSES_BASE_URL + '/save';
 
     return this._httpClient.post(url, expense, httpOptions);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   delete(expenseIds: number[], withRates: boolean): Observable<any> {
     let params: HttpParams = new HttpParams();
     params = params.append('ratesToo', withRates.toString());
@@ -44,24 +46,14 @@ export class ExpenseService {
     return this._httpClient.get<Expense>(url);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setCategory(expenseIds: number[], categoryId: number): Observable<any> {
     const url = `${this._EXPENSES_BASE_URL}/set-category/${categoryId}`;
 
     return this._httpClient.post(url, expenseIds);
   }
 
-  getStats(): Observable<any> {
-    const url = this._EXPENSES_BASE_URL + '/expense-stats';
-
-    return this._httpClient.get(url);
-  }
-
-  getSimpleExpenses(): Observable<any[]> {
-    const url = this._EXPENSES_BASE_URL + '/simple-expenses$';
-
-    return this._httpClient.get<any[]>(url);
-  }
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   update(expense: Expense): Observable<any> {
     const url = this._EXPENSES_BASE_URL + '/update';
 

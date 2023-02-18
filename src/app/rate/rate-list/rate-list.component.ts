@@ -25,6 +25,7 @@ export class RateDataSource extends DataSource<Rate> {
     return this.data;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   disconnect() {}
 }
 

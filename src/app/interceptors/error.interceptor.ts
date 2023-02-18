@@ -21,9 +21,9 @@ export class ErrorInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(
-    req: HttpRequest<any>,
+    req: HttpRequest<unknown>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
         console.log('intercep', err);
@@ -35,7 +35,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               progressBar: false,
               disableTimeOut: true,
             })
-            .onTap.subscribe((a) => {
+            .onTap.subscribe(() => {
               // TODO fix session ended notification keep showing up
               this._authService.logout();
               this._toastrService.clear();

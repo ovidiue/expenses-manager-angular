@@ -4,7 +4,8 @@ const getSort = (param: number): string => {
   return param > 0 ? 'asc' : 'desc';
 };
 
-export default (param: any): HttpParams => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mapRestParams = (param: any): HttpParams => {
   let params: HttpParams = new HttpParams();
   if (param) {
     if (param.rows) {

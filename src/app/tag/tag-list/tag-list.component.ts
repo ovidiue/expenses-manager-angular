@@ -25,6 +25,7 @@ export class TagDataSource extends DataSource<Tag> {
     return this.data;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   disconnect() {}
 }
 

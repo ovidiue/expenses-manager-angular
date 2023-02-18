@@ -56,6 +56,7 @@ export class RateDetailEditComponent
           expense: rate.expense || {},
         }))
       )
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .subscribe((rate: any) => {
         this.rateFormControls.setValue(rate);
         if (rate.expense) {

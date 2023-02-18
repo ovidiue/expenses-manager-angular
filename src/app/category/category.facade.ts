@@ -17,10 +17,6 @@ export class CategoryFacade {
     return this._categories$.asObservable();
   }
 
-  get total$() {
-    return this._total$.asObservable();
-  }
-
   get loading$() {
     return this._loading$.asObservable();
   }
@@ -57,7 +53,7 @@ export class CategoryFacade {
           'Error'
         );
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       finalize(() => {
         this._loading$.next(false);
@@ -70,6 +66,7 @@ export class CategoryFacade {
     return this._categoryService.getByName(name);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateCategory(category: Category): Observable<any> {
     this._loading$.next(true);
     this.setMessage(`Updating category ${category.name}`);
@@ -81,7 +78,7 @@ export class CategoryFacade {
           'Update'
         );
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => {
         this._toastrService.success('Success updating category', 'Success');
@@ -93,6 +90,7 @@ export class CategoryFacade {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   saveCategory(category: Category): Observable<any> {
     this._loading$.next(true);
     this.setMessage(`Saving category ${category.name}`);
@@ -104,7 +102,7 @@ export class CategoryFacade {
           'Fail'
         );
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap(() => {
         this._toastrService.success(
@@ -121,6 +119,7 @@ export class CategoryFacade {
   public deleteCategory(
     ids: number[],
     withExpense: boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Observable<any[]> {
     this._loading$.next(true);
 
@@ -128,7 +127,7 @@ export class CategoryFacade {
       catchError((err: HttpErrorResponse) => {
         this._toastrService.error(err.message, MESSAGES.ERROR);
 
-        return throwError(err);
+        return throwError(() => err);
       }),
       tap((deletedCategories: Category[]) => {
         const categories = this._categories$.getValue();
@@ -156,6 +155,7 @@ export class CategoryFacade {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getCategories(event: any): void {
     this._loading$.next(true);
     this._categoryService

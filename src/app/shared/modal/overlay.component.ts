@@ -26,6 +26,7 @@ import { MyOverlayRef } from '@shared/modal/myoverlay-ref';
 })
 export class OverlayComponent implements OnInit {
   contentType: 'template' | 'string' | 'component';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: string | TemplateRef<any> | Type<any>;
   context;
 

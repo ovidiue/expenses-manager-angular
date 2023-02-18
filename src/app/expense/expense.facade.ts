@@ -117,6 +117,7 @@ export class ExpenseFacade {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mapToExpenseFilter(obj: any): ExpenseFilter {
     const expenseFilter: ExpenseFilter = {};
 

@@ -14,6 +14,4 @@ export class PageSpinnerComponent {
   options: AnimationOptions = {
     path: 'assets/animations/loading.json',
   };
-
-  constructor() {}
 }

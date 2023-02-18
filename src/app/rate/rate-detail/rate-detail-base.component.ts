@@ -36,6 +36,7 @@ export class RateDetailBaseComponent implements OnDestroy {
   pageTitle: string;
   nameExists = false;
   maxDate = new Date();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expenses: any[];
   rateFormControls: UntypedFormGroup;
 
@@ -72,6 +73,7 @@ export class RateDetailBaseComponent implements OnDestroy {
       });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   goBack(event: any) {
     event.preventDefault();
     this.location.back();

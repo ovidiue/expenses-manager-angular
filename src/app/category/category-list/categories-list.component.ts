@@ -25,6 +25,7 @@ export class TagDataSource extends DataSource<Category> {
     return this.data;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   disconnect() {}
 }
 
@@ -52,6 +53,7 @@ export class CategoriesListComponent implements OnInit {
     this.getCategories(TABLE_DEFAULTS.query);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getCategories(event: any): void {
     this._categoryFacade.getCategories(event);
   }
