@@ -7,7 +7,6 @@ import { catchError, finalize, tap } from 'rxjs/operators';
 import { Tag } from '@models/interfaces';
 
 import { TagService } from '@core/services';
-import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
@@ -98,10 +97,6 @@ export class TagFacade {
         this.setLoading(false);
       })
     );
-  }
-
-  isSameEvent(event: any): boolean {
-    return _.isEqual(event, this.event);
   }
 
   deleteTags(tags: Tag[]) {
