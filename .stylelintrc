@@ -1,8 +1,0 @@
-{
-  "plugins": [
-    "stylelint-prettier/recommended"
-  ],
-  "rules": {
-    "prettier/prettier": true
-  }
-}

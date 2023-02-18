@@ -7,6 +7,7 @@ import { catchError, finalize, tap } from 'rxjs/operators';
 import { Tag } from '@models/interfaces';
 
 import { TagService } from '@core/services';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +17,7 @@ export class TagFacade {
   );
   private _loadingMessage = new BehaviorSubject<string>('');
   private _tags: BehaviorSubject<Tag[]> = new BehaviorSubject([]);
-  private _total: BehaviorSubject<Number> = new BehaviorSubject(0);
+  private _total: BehaviorSubject<number> = new BehaviorSubject(0);
   private event: any;
 
   constructor(
