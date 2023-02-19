@@ -45,3 +45,4 @@ Thumbs.db
 /.angular/
 /cypress/screenshots/
 /cypress/videos/
+/src/app/svg/*
