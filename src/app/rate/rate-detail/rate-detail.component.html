@@ -1,0 +1,101 @@
+<div class="container" [@fadeIn]>
+  <div class="page-title mb-5">
+    <h3>{{ pageTitle }}</h3>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col">
+      <div class="form-wrapper">
+        <form (ngSubmit)="onSubmit()" [formGroup]="rateFormControls">
+          <app-form-group>
+            <app-label>{{ 'GENERAL.AMOUNT' | transloco }}</app-label>
+            <input
+              [ngClass]="{ 'is-invalid': amount.errors && isSubmitted }"
+              class="form-control"
+              formControlName="amount"
+              appFormField
+              [placeholder]="'GENERAL.PLACEHOLDERS.AMOUNT' | transloco"
+              required
+              type="text"
+            />
+            <app-error
+              *ngIf="isSubmitted && amount.errors && amount.errors.required"
+            >
+              {{ 'GENERAL.ERRORS.AMOUNT' | transloco }}
+            </app-error>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'GENERAL.PAYED_ON' | transloco }}</app-label>
+            <!--TODO add datepicker clear button-->
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [placeholder]="'GENERAL.PLACEHOLDERS.DATE' | transloco"
+                [max]="maxDate"
+                formControlName="payedOn"
+              />
+
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+
+              <mat-datepicker
+                #picker
+                startView="month"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+            <app-error *ngIf="isSubmitted && payedOn.invalid">
+              {{ 'GENERAL.ERRORS.DATE' | transloco }}
+            </app-error>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'GENERAL.EXPENSE' | transloco }}</app-label>
+
+            <mat-form-field appearance="fill">
+              <mat-select
+                [compareWith]="compareExpenses"
+                [placeholder]="'RATE.DETAIL.PLACEHOLDERS.EXPENSE' | transloco"
+                formControlName="expense"
+              >
+                <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
+
+                <mat-option
+                  *ngFor="let expense of expenses$ | async"
+                  [value]="expense"
+                >
+                  {{ expense.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'GENERAL.DESCRIPTION' | transloco }}</app-label>
+            <textarea
+              class="form-control"
+              formControlName="description"
+              appFormField
+              [placeholder]="'GENERAL.DESCRIPTION' | transloco"
+              rows="7"
+            ></textarea>
+          </app-form-group>
+
+          <hr />
+
+          <div class="actions">
+            <button (click)="goBack($event)" appButton bType="secondary">
+              {{ 'GENERAL.CANCEL' | transloco }}
+            </button>
+
+            <button appButton>{{ 'GENERAL.SAVE' | transloco }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

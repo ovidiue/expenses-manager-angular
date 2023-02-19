@@ -1,61 +1,50 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CardViewListComponent } from '@components/card-view-list/card-view-list.component';
-import { CardViewComponent } from '@components/card-view/card-view.component';
-import { ChartComponent } from '@components/chart/chart.component';
-import { DialogRatesComponent } from '@components/dialog-rates/dialog-rates.component';
-import { ExpenseCardListComponent } from '@components/expense-card-list/expense-card-list.component';
-import { ExpenseChartComponent } from '@components/expense-chart/expense-chart.component';
-import { HeaderComponent } from '@components/header/header.component';
 
-import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
+import { CategoryModule } from './category/category.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { ExpenseModule } from './expense/expense.module';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { SharedModule } from './modules/shared.module';
-import { CategoryModule } from './views/category/category.module';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { ExpenseModule } from './views/expense/expense.module';
-import { LoginComponent } from './views/login/login.component';
-import { RateModule } from './views/rate/rate.module';
-import { TagModule } from './views/tag/tag.module';
+import { LoginModule } from './login/login.module';
+import { RateModule } from './rate/rate.module';
+import { appCloseIcon } from './svg/close';
+import { appDeleteIcon } from './svg/delete';
+import { appEditIcon } from './svg/edit';
+import { TagModule } from './tag/tag.module';
+import { TranslocoRootModule } from './transloco/transloco-root.module';
+
+import { CoreModule } from '@core/core.module';
+import player from 'lottie-web';
+import { LottieModule } from 'ngx-lottie';
+import { provideSvgIcons } from '@ngneat/svg-icon';
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DialogRatesComponent,
-    DashboardComponent,
-    ExpenseCardListComponent,
-    CardViewComponent,
-    CardViewListComponent,
-    ExpenseChartComponent,
-    ChartComponent,
-    LoginComponent,
-    HeaderComponent
-  ],
+  declarations: [AppComponent],
   imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
+    CoreModule,
     CategoryModule,
     RateModule,
+    LottieModule.forRoot({ player: playerFactory }),
     TagModule,
     ExpenseModule,
-    SharedModule
+    DashboardModule,
+    LoginModule,
+    HttpClientModule,
+    TranslocoRootModule,
   ],
-  entryComponents: [DialogRatesComponent],
+
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideSvgIcons([appCloseIcon, appDeleteIcon, appEditIcon]),
   ],
   exports: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

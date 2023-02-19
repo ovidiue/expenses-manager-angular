@@ -1,0 +1,141 @@
+<div class="container" [@fadeIn]>
+  <div class="page-title mb-5">
+    <h3>{{ pageTitle }}</h3>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col">
+      <div class="form-wrapper">
+        <form (ngSubmit)="onSubmit()" [formGroup]="expenseForm">
+          <app-form-group>
+            <app-label>{{ 'GENERAL.NAME' | transloco }}</app-label>
+
+            <input
+              formControlName="name"
+              appFormField
+              [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.NAME' | transloco"
+              required
+            />
+
+            <app-error *ngIf="isErrorVisible(name)">
+              {{ 'EXPENSES.DETAIL.ERRORS.NAME' | transloco }}
+            </app-error>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'GENERAL.AMOUNT' | transloco }}</app-label>
+
+            <input
+              formControlName="amount"
+              appFormField
+              [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.AMOUNT' | transloco"
+              required
+              type="text"
+              appNumberOnly
+            />
+
+            <app-error *ngIf="isErrorVisible(amount)">
+              {{ 'EXPENSES.DETAIL.ERRORS.AMOUNT' | transloco }}
+            </app-error>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'GENERAL.DESCRIPTION' | transloco }}</app-label>
+
+            <textarea
+              class="form-control"
+              formControlName="description"
+              appFormField
+              [placeholder]="'GENERAL.DESCRIPTION' | transloco"
+              rows="7"
+            ></textarea>
+          </app-form-group>
+
+          <app-form-group>
+            <mat-checkbox color="primary" formControlName="recurrent">
+              {{ 'GENERAL.RECURRENT' | transloco }}
+            </mat-checkbox>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'EXPENSES.LIST.DUE_DATE' | transloco }}</app-label>
+
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.DATE' | transloco"
+                [min]="minDate"
+                (click)="picker.open()"
+                formControlName="dueDate"
+              />
+
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+
+              <mat-datepicker
+                #picker
+                startView="month"
+                disabled="false"
+              ></mat-datepicker>
+            </mat-form-field>
+
+            <app-error *ngIf="isErrorVisible(dueDate)">Required</app-error>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'EXPENSES.LIST.CATEGORY' | transloco }}</app-label>
+
+            <mat-form-field appearance="fill">
+              <mat-select
+                [placeholder]="
+                  'EXPENSES.DETAIL.PLACEHOLDERS.CATEGORY' | transloco
+                "
+                formControlName="category"
+              >
+                <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
+
+                <mat-option
+                  *ngFor="let cat of categories$ | async"
+                  [value]="cat"
+                >
+                  {{ cat.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </app-form-group>
+
+          <app-form-group>
+            <app-label>{{ 'EXPENSES.LIST.TAGS' | transloco }}</app-label>
+
+            <mat-form-field appearance="fill">
+              <mat-select
+                [placeholder]="'EXPENSES.DETAIL.PLACEHOLDERS.TAGS' | transloco"
+                formControlName="tags"
+                multiple
+              >
+                <mat-option>{{ 'GENERAL.NONE' | transloco }}</mat-option>
+
+                <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+                  {{ tag.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </app-form-group>
+
+          <hr />
+
+          <div class="actions">
+            <button (click)="goBack($event)" appButton bType="secondary">
+              {{ 'GENERAL.CANCEL' | transloco }}
+            </button>
+
+            <button appButton>{{ 'GENERAL.SAVE' | transloco }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

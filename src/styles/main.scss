@@ -1,6 +1,4 @@
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import '~ngx-toastr/toastr';
-@import 'helper/helper';
-@import 'layout/navbar';
+@import 'custom';
+@import 'node_modules/ngx-toastr/toastr.css';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import 'components/components';
-@import 'general';

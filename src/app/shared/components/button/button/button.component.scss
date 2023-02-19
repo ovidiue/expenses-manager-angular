@@ -1,0 +1,70 @@
+@import 'custom';
+
+$dark-translucent: rgba(0, 0, 0, 0.2);
+
+.app-button {
+  position: relative;
+  display: block;
+  border: none;
+  color: white;
+  box-shadow: 2px 3px 5px gray;
+  font-weight: bold;
+
+  &[disabled] {
+    opacity: 0.5;
+
+    &:after,
+    &:before {
+      content: none;
+    }
+  }
+
+  // TODO check refactor without !important
+  &:active,
+  &:focus {
+    border: none !important;
+    outline: none !important;
+  }
+
+  &:active {
+    background: $black;
+    transition: $transition-base;
+    box-shadow: 0 0 5px $green;
+  }
+
+  &--regular {
+    width: 100%;
+    @include fill($dark-translucent, 100%);
+
+    .content {
+      padding: 0.5rem 1rem;
+      display: block;
+    }
+  }
+
+  &--fab {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    line-height: 3 !important;
+    border-radius: 50% !important;
+
+    @include fill($dark-translucent, 100%, 50%);
+
+    .icon {
+      line-height: 0;
+      display: block;
+    }
+  }
+
+  &--main {
+    background: $green-light;
+  }
+
+  &--secondary {
+    background: $gray-600;
+  }
+
+  &--warning {
+    background: $red;
+  }
+}

@@ -4,5 +4,5 @@ export enum ApiPath {
   CATEGORIES = 'categories',
   RATES = 'rates',
   AUTHENTICATE = 'authenticate',
-  REGISTER = 'register'
+  REGISTER = 'register',
 }

@@ -1,0 +1,37 @@
+<div class="login">
+  <div class="login-background"></div>
+
+  <div class="login-form">
+    <h2>Login</h2>
+
+    <form [formGroup]="loginForm">
+      <app-form-group>
+        <app-label>Username</app-label>
+        <input type="text" appFormField formControlName="username" />
+        <app-error
+          *ngIf="usernameCtrl.touched && usernameCtrl.errors?.required"
+        >
+          Username is required
+        </app-error>
+      </app-form-group>
+
+      <app-form-group>
+        <app-label>Password</app-label>
+        <input type="password" appFormField formControlName="password" />
+        <app-error
+          *ngIf="passwordCtrl.touched && passwordCtrl.errors?.required"
+        >
+          Password is required
+        </app-error>
+      </app-form-group>
+
+      <div class="actions">
+        <a (click)="register()" class="btn btn-link">Register</a>
+
+        <button appButton [disabled]="loginForm.invalid" (click)="submit()">
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

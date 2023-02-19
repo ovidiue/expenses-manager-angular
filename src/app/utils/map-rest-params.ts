@@ -1,11 +1,11 @@
 import { HttpParams } from '@angular/common/http';
-import { LazyLoadEvent } from 'primeng/api';
 
 const getSort = (param: number): string => {
-  return (param > 0) ? 'asc' : 'desc';
+  return param > 0 ? 'asc' : 'desc';
 };
 
-export default (param: LazyLoadEvent): HttpParams => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mapRestParams = (param: any): HttpParams => {
   let params: HttpParams = new HttpParams();
   if (param) {
     if (param.rows) {
@@ -15,11 +15,12 @@ export default (param: LazyLoadEvent): HttpParams => {
       params = params.append('page', (param.first / 10).toString());
     }
     if (param.sortField && param.sortOrder) {
-      params = params.append('sort', param.sortField + ',' + getSort(param.sortOrder));
+      params = params.append(
+        'sort',
+        param.sortField + ',' + getSort(param.sortOrder)
+      );
     }
   }
 
   return params;
 };
-
-

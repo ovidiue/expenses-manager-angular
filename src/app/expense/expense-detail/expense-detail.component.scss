@@ -1,0 +1,58 @@
+p-calendar,
+p-multiSelect,
+p-dropdown {
+  display: block;
+}
+
+.ui-multiselect {
+  width: 100%;
+}
+
+.full {
+  width: 100% !important;
+}
+
+button {
+  min-width: 150px;
+}
+
+.form-wrapper {
+  margin: 0 20%;
+}
+
+.select-tag {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.selected-cat {
+  width: 50%;
+  height: 20px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.small-select-tag {
+  width: 50%;
+  position: relative;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.inlineb {
+  display: inline-block;
+  min-width: 100px;
+}
+
+.actions {
+  display: flex;
+}

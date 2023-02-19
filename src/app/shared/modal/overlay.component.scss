@@ -1,0 +1,17 @@
+.modal-content {
+  background: white;
+  min-width: 30rem;
+  min-height: 20rem;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 20px 20px 60px #525252, -20px -20px 60px #6e6e6e;
+  border-radius: 5px;
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+  }
+}

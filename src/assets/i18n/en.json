@@ -1,0 +1,100 @@
+{
+  "EXPENSES": {
+    "LIST": {
+      "TITLE": "Expenses",
+      "ADD": "Add expense",
+      "DUE_DATE": "Due date",
+      "CATEGORY": "Category",
+      "TAGS": "Tags",
+      "PAYED": "Payed",
+      "DELETE": "<h2>Delete</h2><p>Are you sure you want to delete expense <b>{{expenseName}}</b>?</p>"
+    },
+    "DETAIL": {
+      "ADD": "Add expense",
+      "EDIT": "Edit expense",
+      "PLACEHOLDERS": {
+        "NAME": "Enter name",
+        "AMOUNT": "Enter amount",
+        "DATE": "Choose a date",
+        "CATEGORY": "Select category",
+        "TAGS": "Tags"
+      },
+      "ERRORS": {
+        "NAME": "Name is required",
+        "AMOUNT": "Amount is required"
+      }
+    }
+  },
+  "RATE": {
+    "LIST": {
+      "TITLE": "Rates",
+      "ADD": "Add rate",
+      "CREATED": "Creation date",
+      "PAYED_ON": "Payed on",
+      "DELETE": "<h2>Delete</h2><p>Are you sure you want to delete rate <b>{{rateAmount}}</b>?</p>"
+    },
+    "DETAIL": {
+      "PLACEHOLDERS": {
+        "EXPENSE": "Select expense"
+      },
+      "ADD": "Add rate",
+      "EDIT": "Edit rate"
+    }
+  },
+  "CATEGORY": {
+    "LIST": {
+      "TITLE": "Categories",
+      "ADD": "Add category",
+      "DELETE": "<h2>Delete</h2><p>Are you sure you want to delete category <b>{{categoryName}}</b>?</p>"
+    },
+    "DETAIL": {
+      "CREATE": "Create category",
+      "EDIT": "Edit category"
+    }
+  },
+  "TAG": {
+    "LIST": {
+      "TITLE": "Tags",
+      "ADD": "Add tag",
+      "DELETE": "<h2>Delete</h2><p>Are you sure you want to delete tag <b>{{tagName}}</b>?</p>"
+    },
+    "DETAIL": {
+      "ADD": "Add tag",
+      "EDIT": "Edit tag"
+    }
+  },
+  "MENUS": {
+    "EXPENSES": "Expenses",
+    "CATEGORIES": "Categories",
+    "TAGS": "Tags",
+    "DASHBOARD": "Dashboard",
+    "RATES": "Rates"
+  },
+  "GENERAL": {
+    "NAME": "Name",
+    "AMOUNT": "Amount",
+    "DESCRIPTION": "Description",
+    "RECURRENT": "Recurrent",
+    "PAYED_ON": "Payed on",
+    "CREATED_ON": "Created on",
+    "ACTIONS": "Actions",
+    "NONE": "None",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "OK": "Ok",
+    "EXPENSE": "Expense",
+    "COLOR": "Color",
+    "PLACEHOLDERS": {
+      "AMOUNT": "Enter amount",
+      "DATE": "Choose a date",
+      "NAME": "Enter name",
+      "NAME_EXISTS": "Name already exists. Please choose another name!",
+      "DESCRIPTION": "Enter description"
+    },
+    "ERRORS": {
+      "AMOUNT": "Amount is required",
+      "DATE": "Date is required",
+      "NAME": "Name is required"
+    }
+  }
+}

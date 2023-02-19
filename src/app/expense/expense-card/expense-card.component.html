@@ -1,0 +1,61 @@
+<div class="expense-container">
+  <div class="header">
+    <div class="top">
+      <span class="date">{{ expense.createdOn | date: 'dd-MM-yyyy' }}</span>
+
+      <div class="actions">
+        <span class="edit">Edit</span>
+
+        <span class="delete">Delete</span>
+      </div>
+    </div>
+
+    <div class="title">
+      <span class="main">{{ expense.name }}</span>
+
+      <span class="amount">{{ expense.amount }}</span>
+    </div>
+  </div>
+  <hr />
+  <div
+    class="overlay"
+    *ngIf="expandedDescription"
+    (click)="expandedDescription = false"
+  ></div>
+  <div class="info">
+    <div>
+      <label>Due</label>
+
+      <span>{{ expense.dueDate | date: 'dd-MM-yyyy' }}</span>
+    </div>
+
+    <div>
+      <label>Recurrent</label>
+
+      <span>{{ expense.recurrent }}</span>
+    </div>
+
+    <div>
+      <label>Category</label>
+
+      <span>{{ expense.category }}</span>
+    </div>
+
+    <div>
+      <label>Tags</label>
+
+      <span>{{ expense.tags }}</span>
+    </div>
+
+    <hr />
+  </div>
+
+  <div
+    class="content"
+    title="Click to expand"
+    (click)="expandedDescription = !expandedDescription"
+    [ngClass]="expandedDescription ? 'content-show' : 'content-wrap'"
+  >
+    {{ expense.description }}
+  </div>
+</div>

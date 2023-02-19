@@ -1,16 +1,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es5",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -19,10 +20,19 @@
       "dom"
     ],
     "paths": {
-      "@utils/*": ["./src/app/utils/*"],
-      "@services/*": ["./src/app/services/*"],
-      "@models/*": ["./src/app/models/*"],
-      "@components/*": ["./src/app/components/*"]
-    }
+      "@utils/*": [
+        "./src/app/utils/*"
+      ],
+      "@models/*": [
+        "./src/app/models/*"
+      ],
+      "@core/*": [
+        "./src/app/core/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ]
+    },
+    "useDefineForClassFields": false
   }
 }

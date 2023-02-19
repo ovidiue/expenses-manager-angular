@@ -1,0 +1,27 @@
+<div class="modal-content" [@enlarge]>
+  <ng-container [ngSwitch]="contentType">
+    <ng-container *ngSwitchCase="'string'">
+      <div class="modal-body">
+        <div [innerHTML]="content"></div>
+        <div class="footer">
+          <button appButton bType="secondary" (click)="close(false)">
+            {{ 'GENERAL.CANCEL' | transloco }}
+          </button>
+          <button appButton (click)="close(true)">
+            {{ 'GENERAL.OK' | transloco }}
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'template'">
+      <ng-container
+        *ngTemplateOutlet="content; context: context"
+      ></ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'component'">
+      <ng-container *ngComponentOutlet="content"></ng-container>
+    </ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,17 @@
+.app-form-field {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-bottom: 1px solid lightgrey;
+  border-radius: 4px;
+  transition: 0.4s;
+  background: whitesmoke;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-bottom-color: green;
+    border-bottom-width: 2px;
+    outline: none;
+  }
+}

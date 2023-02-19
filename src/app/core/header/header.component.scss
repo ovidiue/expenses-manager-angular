@@ -1,0 +1,29 @@
+@use 'sass:math';
+@import 'custom';
+
+ul {
+  display: flex;
+  list-style: none;
+  background: $gray-100;
+  padding: $spacer;
+  justify-content: space-between;
+  font-weight: bold;
+
+  li {
+    padding: math.div($spacer, 2);
+    color: $primary;
+    justify-content: space-between;
+    font-size: $font-size-lg;
+
+    &:hover {
+      background: $primary;
+      border-radius: $border-radius;
+      transition: 0.3s;
+
+      a {
+        color: $white;
+        text-decoration: none;
+      }
+    }
+  }
+}

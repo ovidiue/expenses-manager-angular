@@ -1,0 +1,10 @@
+{
+  "printWidth": 80,
+  "singleQuote": true,
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "ignore",
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "tabWidth": 2,
+  "useTabs": false
+}

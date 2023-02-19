@@ -1,0 +1,23 @@
+@import 'custom';
+@import 'components/table';
+
+.expenses {
+  &-title {
+    font-size: 6rem;
+    color: $gray-200;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+  }
+
+  &-actions {
+    display: flex;
+    margin-bottom: $spacer-lg;
+    justify-content: flex-end;
+
+    &--button {
+      width: 10rem;
+    }
+  }
+}
